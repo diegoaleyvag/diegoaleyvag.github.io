@@ -1,20 +1,25 @@
 ---
-description: Tournament safety invariants — read-only CV, clean-room, secrets, static-first, scope limits
+description: Global safety invariants — read-only CV, clean-room, synthetic data, secrets, static-first
 alwaysApply: true
 ---
 
-# Tournament Safety Invariants
+# Global Safety Invariants
 
-Full detail lives in `AGENTS.md`, `docs/hard-constraints.md`, and
-`docs/project-context.md`. This rule is the minimal always-on summary — read
-those files before any non-trivial change.
+Full detail lives in `AGENTS.md`, `docs/hard-constraints.md`,
+`docs/architecture.md`, and accepted ADRs. This rule is the minimal always-on
+summary—read the scoped rule and canonical docs relevant to your files before a
+non-trivial change.
 
 - **`content/source/cv.yaml` is read-only fact.** Never edit it, "correct" it,
   embellish it, or invent/infer facts beyond what it states.
 - **Clean-room only.** Never reuse, paraphrase, or infer proprietary Infosys
   code/architecture/docs. Only reimplement public concepts (W3C DIDs/VCs,
   OPA/Rego, Merkle audit, OpenTelemetry) from public specs.
-- **Synthetic data only.** No real PII or patient data anywhere, ever.
+- **Synthetic demo/test data only.** No real PII, patient data, proprietary
+  data, or arbitrary visitor input in scenarios, fixtures, tools, traces,
+  telemetry, or tests. Existing canonical CV fields may render only on
+  portfolio/résumé routes; public contact/location deployment requires owner
+  confirmation, and those values are never copied elsewhere.
 - **Secrets never reach the client.** No API key in browser code, client
   bundles, or `NEXT_PUBLIC_*`-style vars. Server/local env only;
   `.env.example` gets placeholders, never real values.
@@ -25,11 +30,15 @@ those files before any non-trivial change.
   Fake/Replay/Live provider seams; Live is Groq (OpenAI-compatible); never
   hardcode rate limits — read them from response headers.
 - **No AI co-author trailers in commits.** Diego is the sole author of record.
-- **Scope discipline during bootstrap/tournament phases:** do not choose a
-  framework, language, package manager, database, product name, visual
-  design, or final architecture unless you are an architect proposal
-  explicitly tasked with doing so in `docs/proposals/`.
-- **Record notable stack/tooling decisions as ADRs** in `docs/adr/`.
+- **Architecture is decided.** Follow `docs/architecture.md`,
+  `docs/task-graph.md`, and accepted ADRs. Do not reopen stack, language,
+  package-manager, runtime, visual, or module choices without a superseding ADR.
+- **Accepted stack:** Astro static output, TypeScript, isolated Preact Replay
+  island, pnpm, and an optional TypeScript/Fastify runtime. No Python/uv,
+  database, or public Live endpoint initially.
+- **Tests are network-free.** CI and normal tests never call Groq.
+- **Respect folder ownership** in `docs/task-graph.md`; only the integration
+  owner edits package manifests and the lockfile.
 
 If a requested change conflicts with any invariant above, stop and flag the
 conflict instead of proceeding.

@@ -1,0 +1,28 @@
+---
+description: Static Astro and Replay UI conventions
+globs: ["apps/site/astro.config.*", "apps/site/**/*.astro", "apps/site/**/*.ts", "apps/site/**/*.tsx", "apps/site/**/*.css", "packages/replay/**/*.ts"]
+alwaysApply: false
+---
+
+# Frontend conventions
+
+- Keep Astro in static-output mode. Every route must emit a physical file and
+  work at domain root `/` without rewrites or a runtime.
+- Home, résumé, and ordinary content routes ship no client framework
+  JavaScript. Preact is allowed only under `apps/site/src/features/replay/`.
+- Never import `apps/runtime`, Live-Groq, server config, Node-only modules, or
+  secret names into browser-reachable code.
+- Treat Replay bundles as untrusted public input: schema-validate before use,
+  render strings as text, and never inject raw HTML.
+- Accept no arbitrary prompt, context, URL, upload, key, or visitor data.
+- Factual portfolio text comes from `packages/resume` via typed CV source paths;
+  do not copy or paraphrase CV strings in components.
+- Implement only the Editorial Evidence Ledger in
+  `docs/design-direction.md`. No alternate themes or prohibited AI-slop
+  patterns.
+- Use semantic HTML, native controls, skip links, visible focus, text-plus-shape
+  state, keyboard-complete Replay, and reduced-motion behavior.
+- The integrity result may claim only a match to the root included in the same
+  bundle. Keep the same-origin limitation adjacent to the result.
+- Use root-correct links and same-origin static asset URLs. Replay must remain
+  useful before hydration and make no external request.

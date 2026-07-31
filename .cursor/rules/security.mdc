@@ -1,0 +1,34 @@
+---
+description: Secret boundaries, artifact security, and Live enablement controls
+globs: [".env.example", ".gitignore", ".github/**/*", "apps/runtime/**/*", "packages/providers/**/*", "tools/check-static-output/**/*", "tools/opa/**/*"]
+alwaysApply: false
+---
+
+# Security conventions
+
+- Secrets exist only in ignored local or server process environment variables.
+  `.env.example` contains empty placeholders, never credentials.
+- Never expose a key through `PUBLIC_*`, `NEXT_PUBLIC_*`, browser storage,
+  source maps, request payloads, runtime capability responses, errors, events,
+  traces, or logs.
+- The static build must succeed without `.env` and the uploaded artifact must
+  contain no server code, secret name/value, or credential-shaped config.
+- Live accepts only the closed finite scenario request. Reject free text, open
+  objects, URLs, files, extra keys, oversized bodies, and unsupported content
+  types before provider use.
+- Treat browser requests, model output, provider responses, replay JSON, and
+  upstream headers as untrusted input.
+- CORS is defense in depth, not authentication or rate limiting.
+- Redact authorization, prompt, output, tool payload, credential, CV, and
+  upstream-body content from logs and telemetry.
+- Public Live is default-off. Do not enable it without the accepted enablement
+  ADR, kill switch, strict bounds, source throttling, request/concurrency
+  budgets, provider spend cap, alerts, and rollback.
+- Read provider quota/retry observations from Groq response headers; do not
+  guess or hardcode limits and do not forward raw headers.
+- Pin CI actions and tools, use frozen dependencies, grant Pages write/OIDC only
+  in the deployment job, and never deploy pull requests.
+- Scan source and final output for secrets; rebuild and compare generated
+  artifacts before upload.
+- A same-origin Merkle check proves only a match to the included root. Keep that
+  limitation adjacent to every result.

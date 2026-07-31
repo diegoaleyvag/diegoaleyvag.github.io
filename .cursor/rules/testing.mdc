@@ -1,0 +1,28 @@
+---
+description: Deterministic, network-free test conventions
+globs: ["tests/**/*", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx", "**/vitest.config.*", "**/playwright.config.*"]
+alwaysApply: false
+---
+
+# Testing conventions
+
+- Normal tests and CI are deterministic, secret-free, and network-free. They
+  never call Groq or any live service.
+- Use only Fake, Replay, finite synthetic fixtures, or an injected fake HTTP
+  transport around Live-Groq.
+- Do not create a fourth provider for tests and do not place real-provider calls
+  in a `test` directory or test command.
+- Use fixed logical time, seeded/deterministic IDs, and exact structural
+  assertions. Avoid wall-clock timing and model-graded expectations.
+- Derive CV expectations by reading `content/source/cv.yaml` at test time.
+  Never commit a copied snapshot containing résumé/contact text.
+- Cover strict schema rejection, exact résumé leaf coverage, Rego allow/deny,
+  deny-without-tool, event order, generated drift, and secret boundaries.
+- Mutate event body, sequence, proof sibling, and root; each integrity check
+  must fail.
+- Serve E2E from the final static directory with only the local origin allowed.
+  Direct-load every required physical route.
+- Test keyboard operation, text-plus-shape states, no-JavaScript content,
+  reduced motion, zoom/reflow, and automated WCAG 2.2 AA checks.
+- A manual Live diagnostic is operational tooling only: it is never a merge
+  gate, evaluation, golden updater, or substitute for transport fixtures.

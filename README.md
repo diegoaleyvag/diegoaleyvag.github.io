@@ -1,39 +1,46 @@
 # diegoaleyvag
 
-This repository is being bootstrapped through an **internal architecture tournament**
-before any production code is written. It will eventually host Diego Alejandro Leyva
-García's personal portfolio, an HTML resume generated from `content/source/cv.yaml`,
-a clean-room "agent governance & reliability" project, a static-first interactive
-demo (Replay mode), and an optional, provider-neutral live-inference runtime
-(Groq first).
+This repository will host a personal portfolio, an HTML résumé generated from
+`content/source/cv.yaml`, a clean-room agent-governance and reliability project,
+a static-first Replay demo, and an optional provider-neutral runtime with Groq
+as the first Live provider.
 
 ## Tournament status
 
-**Phase 1 — Bootstrap: complete (this commit).** Only invariants, constraints, and a
-scoring rubric exist. No framework, language, package manager, database, product
-name, visual design, or repository architecture has been chosen yet.
+**Synthesis is complete.** Candidate A was selected as the base after blind
+judging, with a reduced first-night scope and specific compatible decisions from
+the other proposals. The accepted architecture is Astro static output,
+TypeScript, an isolated Preact Replay island, pnpm, and an optional stateless
+Fastify runtime. No application source has been written yet.
 
-| Phase | What happens | Where it lands |
-| --- | --- | --- |
-| 1. Bootstrap | Invariants, hard constraints, rubric — no code | this commit |
-| 2. Proposals | Independent architects submit competing designs | `docs/proposals/` |
-| 3. Judgements | Judges blind-score each proposal against the rubric | `docs/judgements/` |
-| 4. Synthesis | A synthesizer picks/merges the winning approach | `docs/adr/` |
-| 5. Build | Implementation begins, following the chosen architecture | (future) |
+Completed phases:
+
+1. Bootstrap — invariants, constraints, and evaluation rubric.
+2. Proposals — three independent designs in `docs/proposals/`.
+3. Judgements — two blind scoring records in `docs/judgements/`.
+4. Synthesis — canonical plan and accepted decisions in `docs/` and
+   `docs/adr/`.
+
+Next is the build phase, starting with the vertical slice in
+`docs/acceptance-criteria.md`.
 
 ## How to navigate
 
-| Path | Purpose |
-| --- | --- |
-| `AGENTS.md` | Global invariants every agent/architect must follow |
-| `docs/project-context.md` | Mission, audience, goals, non-goals |
-| `docs/hard-constraints.md` | Non-negotiable checklist for architects |
-| `docs/evaluation-rubric.md` | 0–100 scoring rubric used by judges |
-| `docs/proposals/` | Competing architecture proposals (empty until Phase 2) |
-| `docs/judgements/` | Judge scoring notes (empty until Phase 3) |
-| `docs/adr/` | Architecture Decision Records (empty until Phase 4) |
-| `content/source/cv.yaml` | Canonical, read-only CV facts |
-| `.env.example` | Placeholder environment variables (no real secrets) |
+- `AGENTS.md` — global invariants and implementation conventions.
+- `docs/architecture.md` — binding stack, boundaries, data flow, and hard
+  question resolutions.
+- `docs/product-brief.md` and `docs/portfolio-narrative.md` — product and
+  source-grounded content direction.
+- `docs/design-direction.md` — the one accepted visual direction.
+- `docs/threat-model.md` — assets, boundaries, threats, and controls.
+- `docs/acceptance-criteria.md` — testable first-slice and later gates.
+- `docs/task-graph.md` — parallel ownership and dependency DAG.
+- `docs/adr/` — accepted architecture decisions.
+- `docs/proposals/` and `docs/judgements/` — historical tournament inputs.
+- `docs/hard-constraints.md` — non-negotiable implementation checklist.
+- `content/source/cv.yaml` — canonical, read-only CV facts.
+- `.cursor/rules/` — always-on safety plus file-scoped implementation rules.
+- `.env.example` — placeholder environment variables only.
 
-Diego is the sole author of this repository and will publish it manually after
-reviewing the bootstrap commit.
+Changes follow short-lived branches, Conventional Commits, and review before
+integration.

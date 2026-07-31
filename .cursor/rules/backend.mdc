@@ -1,0 +1,32 @@
+---
+description: Governance, policy, provider, and optional runtime conventions
+globs: ["apps/runtime/**/*.ts", "packages/governance-core/**/*.ts", "packages/policy-runtime/**/*.ts", "packages/providers/**/*.ts", "policies/**/*.rego", "policies/**/*.json"]
+alwaysApply: false
+---
+
+# Backend and governance conventions
+
+- Keep `packages/governance-core` pure: no HTTP framework, environment access,
+  filesystem, provider branching, telemetry exporter, or browser dependency.
+- There are exactly three provider implementations: deterministic Fake,
+  network-free Replay, and server-only Live-Groq. Selection occurs once at the
+  runtime composition root.
+- Do not create a fourth “mock provider.” Test Live through an injected fake
+  HTTP transport.
+- Rego is authoritative. Evaluate identity/capability and policy immediately
+  before every tool action; missing or malformed output denies.
+- Public tools are bounded in-memory operations over synthetic fixtures. No
+  shell, arbitrary code, filesystem path, URL fetch, email, database, remote
+  DID resolution, or real side effect.
+- Live requests use a closed schema containing only `schema_version`, a known
+  `scenario_id`, and a finite `variant`. Reject unknown fields.
+- Keep Groq credentials in server process environment only. Never serialize,
+  log, trace, return, or accept a key from a request.
+- Read Groq rate-limit and retry observations from response headers. Treat
+  missing/malformed values as unknown; never hardcode provider limits.
+- Model output is untrusted data. Validate tool names, arguments, result bounds,
+  and state transitions; policy allow/approval is authority.
+- Telemetry uses an explicit bounded allowlist and excludes prompts, outputs,
+  credentials, tool payloads, CV content, headers, and secrets.
+- Public Live remains off until a separate enablement ADR accepts residual cost
+  risk and verifies kill switch, budgets, throttling, spend cap, and rollback.

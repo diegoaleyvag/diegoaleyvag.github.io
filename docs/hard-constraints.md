@@ -63,8 +63,15 @@ This checklist restates (and makes checkable) the invariants in `AGENTS.md`.
 ## Synthetic data only
 
 - [ ] All example, demo, seed, and test data is synthetic.
-- [ ] No real PII, no real patient data, no real third-party data appears
-      anywhere in the repo, demos, fixtures, or tests.
+- [ ] No real PII, real patient data, or real third-party data appears in
+      examples, demos, scenarios, fixtures, tools, traces, telemetry, analytics,
+      or tests.
+- [ ] The existing canonical CV is the sole personal-content source. Its fields
+      may be rendered directly on portfolio/résumé routes, but must never be
+      copied into demo/test data, snapshots, logs, telemetry, or analytics.
+- [ ] Public deployment of canonical contact and location fields requires the
+      repository owner's explicit confirmation; local validation/building does
+      not.
 
 ## Tooling preference
 

@@ -1,0 +1,31 @@
+---
+description: Canonical CV, provenance, and synthetic content conventions
+globs: ["content/**/*", "packages/resume/**/*", "apps/site/src/pages/index.astro", "apps/site/src/pages/resume/**/*", "apps/site/src/pages/lab/replay/**/*", "apps/site/src/features/replay/**/*", "docs/product-brief.md", "docs/portfolio-narrative.md"]
+alwaysApply: false
+---
+
+# Content conventions
+
+- `content/source/cv.yaml` is read-only fact. Never edit, normalize, correct,
+  reorder, enrich, or write to it.
+- Factual production text must be loaded through a typed source path and equal
+  the source value exactly. Selection and sequencing are allowed; shortening,
+  paraphrase, combination, and inferred case-study prose are not.
+- `/resume/` covers every publishable source leaf. Unknown/missing fields,
+  dropped values, or changed rendered digests fail the build.
+- Neutral UI labels live in a reviewed allowlist and must not imply seniority,
+  scale, impact, ownership, verification, or technology absent from the source.
+- Do not use an LLM to author production factual copy.
+- Do not extract CV numbers into decorative metrics. Keep them inside the exact
+  source statement.
+- Existing canonical contact/location values may render only on
+  portfolio/résumé routes. Public deployment requires owner confirmation; local
+  builds do not. Never copy those values into fixtures, snapshots, logs,
+  telemetry, analytics, or demo content.
+- All scenario, policy example, identity, tool, trace, approval, and test values
+  are visibly synthetic. Use reserved example/invalid domains where needed.
+- Maintain public-source entries for clean-room governance concepts. Do not use
+  employer artifacts, inferred workflows, names, or identifiers; omit anything
+  with uncertain provenance.
+- The lab is a new synthetic clean-room portfolio demonstration, not an
+  employer deliverable and not proof of a résumé claim.

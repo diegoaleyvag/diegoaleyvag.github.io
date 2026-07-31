@@ -7,6 +7,7 @@ export default [
   {
     ignores: [
       ".cache/**",
+      "**/.astro/",
       "apps/site/dist/**",
       "apps/site/public/replays/**",
       "coverage/**",

@@ -35,8 +35,9 @@ for consistency and accessibility, not to support alternate visual themes.
   --signal: #7d302a;
   --signal-soft: #f0ded8;
 
-  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 

@@ -11,26 +11,26 @@ over-ambitious first-night scope, not an architectural or compliance failure.
 
 ## Scoring matrix
 
-| Criterion | Max | A | B | C |
-| --- | ---: | ---: | ---: | ---: |
-| Portfolio distinctiveness & narrative | 15 | 15 | 13 | 8 |
-| Technical credibility & depth | 15 | 15 | 11 | 6 |
-| Static/live architecture quality | 15 | 15 | 13 | 10 |
-| MVP feasibility tonight | 10 | 7 | 7 | 9 |
-| Agent-governance & evaluation design | 15 | 15 | 12 | 5 |
-| Maintainability & testing | 10 | 9 | 8 | 5 |
-| Security & clean-room compliance | 15 | 15 | 7 | 7 |
-| Deployment simplicity | 5 | 5 | 5 | 3 |
-| **Pre-penalty subtotal** | **100** | **96** | **76** | **53** |
-| Generic AI aesthetics | −10 | 0 | 0 | 0 |
-| Resume-as-decoration | −10 | 0 | 0 | 0 |
-| Needless microservices | −10 | 0 | 0 | 0 |
-| Vendor lock-in | −10 | 0 | 0 | 0 |
-| Tests that depend on live inference | −10 | 0 | **−10** | 0 |
-| Exposed secrets | −25 | 0 | 0 | 0 |
-| Blocks GitHub Pages static export | −20 | 0 | 0 | 0 |
-| Fabricated facts | −25 | 0 | **−25** | **−25** |
-| **Final score** |  | **96** | **41** | **28** |
+| Criterion                             |     Max |      A |       B |       C |
+| ------------------------------------- | ------: | -----: | ------: | ------: |
+| Portfolio distinctiveness & narrative |      15 |     15 |      13 |       8 |
+| Technical credibility & depth         |      15 |     15 |      11 |       6 |
+| Static/live architecture quality      |      15 |     15 |      13 |      10 |
+| MVP feasibility tonight               |      10 |      7 |       7 |       9 |
+| Agent-governance & evaluation design  |      15 |     15 |      12 |       5 |
+| Maintainability & testing             |      10 |      9 |       8 |       5 |
+| Security & clean-room compliance      |      15 |     15 |       7 |       7 |
+| Deployment simplicity                 |       5 |      5 |       5 |       3 |
+| **Pre-penalty subtotal**              | **100** | **96** |  **76** |  **53** |
+| Generic AI aesthetics                 |     −10 |      0 |       0 |       0 |
+| Resume-as-decoration                  |     −10 |      0 |       0 |       0 |
+| Needless microservices                |     −10 |      0 |       0 |       0 |
+| Vendor lock-in                        |     −10 |      0 |       0 |       0 |
+| Tests that depend on live inference   |     −10 |      0 | **−10** |       0 |
+| Exposed secrets                       |     −25 |      0 |       0 |       0 |
+| Blocks GitHub Pages static export     |     −20 |      0 |       0 |       0 |
+| Fabricated facts                      |     −25 |      0 | **−25** | **−25** |
+| **Final score**                       |         | **96** |  **41** |  **28** |
 
 ### Candidate A — 96
 

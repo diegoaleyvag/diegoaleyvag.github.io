@@ -1,0 +1,30 @@
+{
+  "portfolio": {
+    "capability": {
+      "actions": {
+        "fixture:read": {
+          "required_capability": "fixture:read",
+          "allow_rule_id": "capability.fixture_read.allow",
+          "allow_reason": "Active agent has the required synthetic fixture capability.",
+          "deny_rule_id": "capability.fixture_read.missing",
+          "deny_reason": "Active agent lacks the required synthetic fixture capability."
+        },
+        "fixture:adjust": {
+          "required_capability": "fixture:adjust",
+          "allow_rule_id": "capability.fixture_adjust.allow",
+          "allow_reason": "Active agent has the required synthetic fixture capability.",
+          "deny_rule_id": "capability.fixture_adjust.missing",
+          "deny_reason": "Active agent lacks the required synthetic fixture capability."
+        }
+      },
+      "fallback": {
+        "action": "fixture:read",
+        "required_capability": "fixture:read",
+        "invalid_rule_id": "capability.input.invalid",
+        "invalid_reason": "Input is malformed or requests an unknown synthetic fixture action.",
+        "inactive_rule_id": "capability.agent.inactive",
+        "inactive_reason": "Agent status does not permit synthetic fixture actions."
+      }
+    }
+  }
+}

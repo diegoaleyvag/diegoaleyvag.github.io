@@ -2,5 +2,6 @@
 apps/site/dist/
 apps/site/public/replays/
 coverage/
+docs/redesign/
 node_modules/
 pnpm-lock.yaml

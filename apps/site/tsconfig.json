@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": ["astro/client"]
+  },
+  "include": ["src/**/*"]
+}

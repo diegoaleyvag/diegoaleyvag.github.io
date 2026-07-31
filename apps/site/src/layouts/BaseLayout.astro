@@ -1,0 +1,38 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/ledger.css";
+import "../styles/shell.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { SITE_SHELL_COPY } from "../components/copy";
+
+interface Props {
+  title: string;
+  description?: string;
+  activePath: "/" | "/resume/" | "/lab/replay/" | null;
+}
+
+const { title, description, activePath } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>{title}</title>
+    {description ? <meta name="description" content={description} /> : null}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      {SITE_SHELL_COPY.skipToContent}
+    </a>
+    <SiteHeader activePath={activePath} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,29 @@
+/*
+ * Editorial Evidence Ledger — foundation tokens.
+ *
+ * This block is copied verbatim (exact names and values) from the FROZEN
+ * token block in docs/design-direction.md. Do not add, rename, or restyle
+ * tokens here; this file exists for consistency and accessibility, not for
+ * alternate visual themes. Layout and component primitives that are not part
+ * of the frozen block live in base.css and ledger.css instead.
+ */
+
+:root {
+  --paper: #f4f0e7;
+  --paper-raised: #faf8f2;
+  --ink: #181714;
+  --ink-muted: #625e56;
+  --rule: #c9c1b6;
+  --signal: #7d302a;
+  --signal-soft: #f0ded8;
+
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --measure: 68ch;
+  --radius: 2px;
+  --rule-width: 1px;
+}

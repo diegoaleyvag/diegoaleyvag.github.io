@@ -1,0 +1,278 @@
+/*
+ * Styles for the hydrated Replay explorer island. Loaded only when the
+ * feature's script runs, so this never affects the JS-free home/résumé
+ * routes. Built entirely on the frozen tokens; no gradients, glow, or
+ * decorative panels.
+ */
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+
+.mark__glyph {
+  font-size: 0.8em;
+  line-height: 1;
+}
+
+.mark--allow .mark__glyph,
+.mark--pass .mark__glyph {
+  color: var(--ink);
+}
+
+.mark--deny .mark__glyph,
+.mark--fail .mark__glyph {
+  color: var(--signal);
+}
+
+.mark--needs_approval .mark__glyph,
+.mark--checking .mark__glyph {
+  color: var(--ink-muted);
+}
+
+.status-message {
+  color: var(--ink-muted);
+}
+
+.status-message[data-tone="error"] {
+  color: var(--signal);
+  font-weight: 600;
+}
+
+.variant-picker-fieldset {
+  border: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.variant-picker-fieldset > legend {
+  font-weight: 600;
+  padding: 0 0 0.75rem;
+}
+
+.variant-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.variant-picker li {
+  flex: 1 1 16rem;
+}
+
+.variant-picker__button {
+  width: 100%;
+  height: 100%;
+  text-align: start;
+  background: var(--paper-raised);
+  border: var(--rule-width) solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.variant-picker__button[aria-pressed="true"] {
+  border-width: 2px;
+  border-color: var(--ink);
+  padding: calc(1rem - 1px) calc(1.25rem - 1px);
+}
+
+.variant-picker__button[aria-pressed="true"] .variant-picker__id::after {
+  content: " \2014 selected";
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  text-transform: none;
+}
+
+.variant-picker__id {
+  display: block;
+  margin-block-end: 0.5rem;
+}
+
+.variant-picker__summary {
+  margin: 0 0 0.6rem;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+.event-ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.event-row {
+  border-block-start: var(--rule-width) solid var(--rule);
+}
+
+.event-row:last-child {
+  border-block-end: var(--rule-width) solid var(--rule);
+}
+
+.event-row__button {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 1rem;
+  width: 100%;
+  padding-block: 0.9rem;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.event-row__button[aria-expanded="true"] {
+  background: var(--signal-soft);
+}
+
+.event-row__sequence {
+  color: var(--ink-muted);
+  padding-block-start: 0.15em;
+}
+
+.event-row__label strong {
+  display: block;
+}
+
+.event-row__summary {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  margin-block-start: 0.15rem;
+}
+
+.ledger-note {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  margin-block-start: 0.75rem;
+}
+
+.policy-summary,
+.event-details {
+  background: var(--paper-raised);
+  border: var(--rule-width) solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-block: 1.5rem;
+}
+
+.policy-summary dl,
+.evidence-block dl {
+  display: grid;
+  grid-template-columns: minmax(9rem, auto) minmax(0, 1fr);
+  gap: 0.4rem 1rem;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.policy-summary dt,
+.evidence-block dt {
+  font-weight: 600;
+}
+
+.policy-summary dd,
+.evidence-block dd {
+  margin: 0;
+}
+
+.event-details__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+}
+
+.event-details__head h3 {
+  margin: 0;
+}
+
+.event-details__head button,
+.tamper-section button {
+  font: inherit;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.integrity-result {
+  margin-block-start: 1rem;
+  padding-block-start: 1rem;
+  border-block-start: var(--rule-width) solid var(--rule);
+}
+
+.integrity-result__qualifier {
+  margin-block-start: 0.5rem;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+.tamper-section {
+  margin-block-start: 1.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: var(--rule-width) solid var(--rule);
+}
+
+.tamper-result {
+  margin-block-start: 0.75rem;
+}
+
+.tamper-result [role="alert"] {
+  font-weight: 600;
+}
+
+pre.raw-json {
+  background: var(--paper);
+  border: var(--rule-width) solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  margin-block-start: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .event-row__button {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    grid-template-areas:
+      "sequence label"
+      ".        decision";
+  }
+
+  .event-row__sequence {
+    grid-area: sequence;
+  }
+
+  .event-row__label {
+    grid-area: label;
+  }
+
+  .event-row__decision {
+    grid-area: decision;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variant-picker__button,
+  .event-details__head button,
+  .tamper-section button {
+    transition: none;
+  }
+}

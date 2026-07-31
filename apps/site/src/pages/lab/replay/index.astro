@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  LAB_COPY,
+  PUBLIC_SOURCES,
+  VARIANT_SUMMARY,
+} from "../../../features/replay/copy";
+---
+
+<BaseLayout
+  title={LAB_COPY.documentTitle}
+  description={LAB_COPY.metaDescription}
+  activePath="/lab/replay/"
+>
+  <article class="content-frame lab-replay">
+    <header class="lab-intro">
+      <h1>{LAB_COPY.pageHeading}</h1>
+      <p>{LAB_COPY.introA}</p>
+      <p>{LAB_COPY.introB}</p>
+    </header>
+
+    <section aria-labelledby="clean-room-heading" class="rule-top">
+      <h2 id="clean-room-heading">{LAB_COPY.cleanRoomHeading}</h2>
+      <p>{LAB_COPY.cleanRoomDeclaration}</p>
+      <h3>{LAB_COPY.publicSourcesHeading}</h3>
+      <ul class="public-sources">
+        {
+          PUBLIC_SOURCES.map((source) => (
+            <li>
+              <a href={source.url}>{source.title}</a> — {source.role}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="scenario-heading" class="rule-top">
+      <h2 id="scenario-heading">{LAB_COPY.scenarioHeading}</h2>
+      <p>{LAB_COPY.scenarioIntro}</p>
+      <dl class="variant-summary">
+        <dt><code>{VARIANT_SUMMARY["read-allowed"].label}</code></dt>
+        <dd>{VARIANT_SUMMARY["read-allowed"].summary}</dd>
+        <dt><code>{VARIANT_SUMMARY["adjust-denied"].label}</code></dt>
+        <dd>{VARIANT_SUMMARY["adjust-denied"].summary}</dd>
+      </dl>
+      <h3>{LAB_COPY.evidenceLimitHeading}</h3>
+      <p>{LAB_COPY.evidenceLimitOrientation}</p>
+    </section>
+
+    <section aria-labelledby="explorer-heading" class="rule-top">
+      <h2 id="explorer-heading">{LAB_COPY.explorerHeading}</h2>
+      <noscript>
+        <p class="replay-noscript">{LAB_COPY.noscriptMessage}</p>
+      </noscript>
+      <div id="replay-app" data-replay-root></div>
+    </section>
+  </article>
+</BaseLayout>
+
+<script>
+  import { mountReplayExplorer } from "../../../features/replay/mount";
+
+  const root = document.getElementById("replay-app");
+  if (root) {
+    mountReplayExplorer(root);
+  }
+</script>
+
+<style>
+  .lab-replay {
+    padding-block: 2.5rem 4rem;
+  }
+
+  .lab-intro {
+    padding-block-end: 2rem;
+    border-block-end: var(--rule-width) solid var(--rule);
+  }
+
+  .lab-intro p {
+    max-width: var(--measure);
+  }
+
+  section.rule-top {
+    padding-block: 2rem;
+  }
+
+  .public-sources {
+    padding-inline-start: 1.25rem;
+  }
+
+  .public-sources li + li {
+    margin-block-start: 0.5rem;
+  }
+
+  .variant-summary {
+    display: grid;
+    grid-template-columns: minmax(9rem, auto) minmax(0, 1fr);
+    gap: 0.5rem 1.5rem;
+    margin: 1rem 0;
+    max-width: none;
+  }
+
+  .variant-summary dt {
+    font-weight: 600;
+    padding-block-start: 0.15em;
+  }
+
+  .variant-summary dd {
+    margin: 0;
+    max-width: var(--measure);
+  }
+
+  .replay-noscript {
+    color: var(--ink-muted);
+    border: var(--rule-width) dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+
+  #replay-app {
+    margin-block-start: 1.5rem;
+  }
+</style>

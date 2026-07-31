@@ -1,0 +1,19 @@
+/*
+ * Self-hosted display face for the Editorial Evidence Ledger.
+ *
+ * Fraunces (SIL Open Font License 1.1) is a high-contrast "old style" variable
+ * serif used ONLY for display headings, giving the masthead and section titles
+ * a distinct editorial voice while the body stays on the system humanist sans.
+ * Self-hosted (no font CDN, no third-party request) per docs/design-direction.md;
+ * this file is a deliberate amendment to the "no web font tonight" note, kept to
+ * a single latin, weight-axis WOFF2 subset (~36 KB) with system-serif fallback.
+ */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-vf.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+}

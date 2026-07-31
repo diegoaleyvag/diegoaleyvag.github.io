@@ -28,8 +28,26 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  line-height: 1.2;
   font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 2.8vw, 2rem);
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
 }
 
 p,

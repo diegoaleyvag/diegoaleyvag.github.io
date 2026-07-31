@@ -39,45 +39,49 @@ const selectedEducation = [0, 1].map((index) =>
 >
   <article class="content-frame home">
     <header class="identity">
-      <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
-      <p class="identity__headline" data-source-path={identity.headline.path}>
-        {identity.headline.value}
-      </p>
-      <p class="identity__meta">
-        <span data-source-path={identity.location.path}
-          >{identity.location.value}</span
-        >
-        <span aria-hidden="true"> · </span>
-        <span data-source-path={identity.availability.path}
-          >{identity.availability.value}</span
-        >
-      </p>
-      <address aria-label={RESUME_UI_COPY.contactLabel}>
-        <a
-          href={`mailto:${identity.email.value}`}
-          data-source-path={identity.email.path}
-        >
-          {identity.email.value}
-        </a>
-        <a
-          href={identity.linkedin.url.value}
-          data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
-        >
-          {identity.linkedin.label.value}
-        </a>
-        <a
-          href={identity.github.url.value}
-          data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
-        >
-          {identity.github.label.value}
-        </a>
-      </address>
-      <p class="identity__summary" data-source-path={identity.summary.path}>
-        {identity.summary.value}
-      </p>
-      <p class="identity__cta">
-        <a href="/resume/">{HOME_COPY.resumeCta}</a>
-      </p>
+      <div class="identity__lead">
+        <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
+        <p class="identity__headline" data-source-path={identity.headline.path}>
+          {identity.headline.value}
+        </p>
+        <p class="identity__summary" data-source-path={identity.summary.path}>
+          {identity.summary.value}
+        </p>
+        <p class="identity__cta">
+          <a href="/resume/">{HOME_COPY.resumeCta}</a>
+        </p>
+      </div>
+      <aside class="identity__aside">
+        <p class="identity__meta">
+          <span data-source-path={identity.location.path}
+            >{identity.location.value}</span
+          >
+          <span aria-hidden="true"> · </span>
+          <span data-source-path={identity.availability.path}
+            >{identity.availability.value}</span
+          >
+        </p>
+        <address aria-label={RESUME_UI_COPY.contactLabel}>
+          <a
+            href={`mailto:${identity.email.value}`}
+            data-source-path={identity.email.path}
+          >
+            {identity.email.value}
+          </a>
+          <a
+            href={identity.linkedin.url.value}
+            data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
+          >
+            {identity.linkedin.label.value}
+          </a>
+          <a
+            href={identity.github.url.value}
+            data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
+          >
+            {identity.github.label.value}
+          </a>
+        </address>
+      </aside>
     </header>
 
     <section aria-labelledby="evidence-heading">
@@ -226,44 +230,85 @@ const selectedEducation = [0, 1].map((index) =>
 
 <style>
   .home {
-    padding-block: 2.5rem 4rem;
+    padding-block: 3.5rem 4rem;
   }
 
   .identity {
-    padding-block-end: 2rem;
+    display: grid;
+    gap: 2rem;
+    padding-block-end: 3rem;
     border-block-end: var(--rule-width) solid var(--rule);
+  }
+
+  .identity h1 {
+    font-size: clamp(2.75rem, 8vw, 5rem);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin: 0;
   }
 
   .identity__headline {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    margin-block: 0.35rem 0.75rem;
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    font-weight: 400;
+    color: var(--ink-muted);
+    margin-block: 0.65rem 1.4rem;
+    max-width: 30ch;
+  }
+
+  .identity__summary {
+    max-width: 48ch;
+    font-size: 1.0625rem;
+  }
+
+  .identity__cta {
+    margin-block-start: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+  }
+
+  .identity__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.9375rem;
   }
 
   .identity__meta {
+    margin: 0;
     color: var(--ink-muted);
-    margin-block-end: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.8125rem;
   }
 
   address {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.25rem;
+    flex-direction: column;
+    gap: 0.45rem;
     font-style: normal;
-    margin-block-end: 1rem;
+    margin: 0;
   }
 
-  .identity__summary {
-    max-width: var(--measure);
-  }
+  @media (min-width: 60rem) {
+    .identity {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+      align-items: end;
+      column-gap: 3rem;
+    }
 
-  .identity__cta {
-    margin-block-start: 1rem;
+    .identity__aside {
+      align-self: stretch;
+      justify-content: flex-end;
+      padding-inline-start: 1.5rem;
+      border-inline-start: var(--rule-width) solid var(--rule);
+    }
   }
 
   section[aria-labelledby="evidence-heading"],
   .lab-transition {
-    padding-block: 2rem;
+    padding-block: 2.5rem;
   }
 
   .skills-index {

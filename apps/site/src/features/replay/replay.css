@@ -74,19 +74,26 @@
   width: 100%;
   height: 100%;
   text-align: start;
-  background: var(--paper-raised);
+  background: none;
   border: var(--rule-width) solid var(--rule);
   border-radius: var(--radius);
-  padding: 1rem 1.25rem;
+  padding: 1.1rem 1.25rem;
   font: inherit;
   color: inherit;
   cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.variant-picker__button:hover {
+  border-color: var(--ink-muted);
 }
 
 .variant-picker__button[aria-pressed="true"] {
-  border-width: 2px;
   border-color: var(--ink);
-  padding: calc(1rem - 1px) calc(1.25rem - 1px);
+  background: var(--signal-soft);
+  box-shadow: inset 0 0 0 1px var(--ink);
 }
 
 .variant-picker__button[aria-pressed="true"] .variant-picker__id::after {

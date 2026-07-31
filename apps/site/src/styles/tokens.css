@@ -6,6 +6,10 @@
  * tokens here; this file exists for consistency and accessibility, not for
  * alternate visual themes. Layout and component primitives that are not part
  * of the frozen block live in base.css and ledger.css instead.
+ *
+ * Amendment (owner-approved): --font-display now leads with the self-hosted
+ * "Fraunces" display face defined in fonts.css; the system-serif fallback stack
+ * is preserved. All other token values remain verbatim from the frozen block.
  */
 
 :root {
@@ -20,7 +24,8 @@
   --font-body:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-display:
+    "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
   --measure: 68ch;

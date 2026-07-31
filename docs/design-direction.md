@@ -54,6 +54,13 @@ No web font is required tonight. Layout and hierarchy must carry the identity.
 A later self-hosted font change requires a measured performance and licensing
 review, keeps system fallbacks, and may not add a third-party request.
 
+**Amendment (owner-approved, post-slice polish):** the display role now leads
+with the self-hosted **Fraunces** variable serif (SIL OFL 1.1), applied only to
+`--font-display` headings. It satisfies this paragraph's conditions: a single
+latin weight-axis WOFF2 subset (~36 KB, preloaded), the system-serif fallback
+stack is preserved, and it adds no third-party request (served from
+`/fonts/`). Body text remains on the system humanist sans.
+
 ## Typography
 
 - Body and interface text use the system humanist sans stack.

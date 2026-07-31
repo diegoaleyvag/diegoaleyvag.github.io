@@ -1,0 +1,35 @@
+---
+description: Tournament safety invariants — read-only CV, clean-room, secrets, static-first, scope limits
+alwaysApply: true
+---
+
+# Tournament Safety Invariants
+
+Full detail lives in `AGENTS.md`, `docs/hard-constraints.md`, and
+`docs/project-context.md`. This rule is the minimal always-on summary — read
+those files before any non-trivial change.
+
+- **`content/source/cv.yaml` is read-only fact.** Never edit it, "correct" it,
+  embellish it, or invent/infer facts beyond what it states.
+- **Clean-room only.** Never reuse, paraphrase, or infer proprietary Infosys
+  code/architecture/docs. Only reimplement public concepts (W3C DIDs/VCs,
+  OPA/Rego, Merkle audit, OpenTelemetry) from public specs.
+- **Synthetic data only.** No real PII or patient data anywhere, ever.
+- **Secrets never reach the client.** No API key in browser code, client
+  bundles, or `NEXT_PUBLIC_*`-style vars. Server/local env only;
+  `.env.example` gets placeholders, never real values.
+- **Static-first.** The public site must remain a fully static bundle
+  deployable to GitHub Pages at the domain root (`diegoaleyvag.github.io`, no
+  basePath). Replay mode must keep working with zero backend.
+- **Provider-neutral.** Any live-inference code must work behind
+  Fake/Replay/Live provider seams; Live is Groq (OpenAI-compatible); never
+  hardcode rate limits — read them from response headers.
+- **No AI co-author trailers in commits.** Diego is the sole author of record.
+- **Scope discipline during bootstrap/tournament phases:** do not choose a
+  framework, language, package manager, database, product name, visual
+  design, or final architecture unless you are an architect proposal
+  explicitly tasked with doing so in `docs/proposals/`.
+- **Record notable stack/tooling decisions as ADRs** in `docs/adr/`.
+
+If a requested change conflicts with any invariant above, stop and flag the
+conflict instead of proceeding.

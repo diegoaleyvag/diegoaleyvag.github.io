@@ -1,0 +1,75 @@
+name: "Diego Leyva"
+headline: "AI Engineering · Data Science"
+location: "Mexico City, MX"
+availability: "Open to remote & relocation"
+email: "leyva.garcia.diego.alejandro@gmail.com"
+linkedin:
+  label: "linkedin.com/in/diegoaleyvag"
+  url: "https://linkedin.com/in/diegoaleyvag"
+github:
+  label: "github.com/diegoaleyvag"
+  url: "https://github.com/diegoaleyvag"
+
+summary: "Final-year BSc Data Science student with AI engineering experience building enterprise agent governance, RAG and agentic systems. Seeking junior AI/ML engineering roles."
+
+experience:
+  - organisation: "Infosys Limited"
+    role: "AI Engineering Intern"
+    programme: "InStep Global Internship"
+    dates: "Feb 2026 – Present"
+    location: "Bangalore, India"
+    bullets:
+      - "Engineered the Identity Module and DID/Credential service for an Agent Governance Framework, implementing W3C did:web and did:key identities, Ed25519 signing and credential issuance and validation"
+      - "Architected Pydantic v2 models and async PostgreSQL persistence with SQLAlchemy and Alembic for multi-tenant agent registration, identity resolution and lifecycle controls"
+      - "Co-developed the trust layer with 3 engineers, integrating OPA/Rego policy gates, Merkle-tree audit evidence and OpenTelemetry observability across the agent execution flow"
+      - "Placed 3rd among 6 finalists at Infosys InStep Project Fest 2026; presented the framework in 3 technical reviews, including a session with Infosys founder N. R. Narayana Murthy"
+      - "Built a Multimodal RAG Research Assistant using document and image embeddings with vector search during certified AI-First Engineering training"
+      - "Developed a Data Analyst Agent that executed sandboxed pandas code from natural-language queries and generated automated visualisations"
+
+projects:
+  - name: "FridgeGuard"
+    descriptor: "Sensor Analytics & AI Explain"
+    dates: "Aug 2025"
+    bullets:
+      - "Led the data and product stream in a cross-disciplinary team of 8, defining pipelines and mould-risk logic for temperature, humidity and VOC sensor data"
+      - "Prototyped a 6-screen web app with AI-generated anomaly explanations and presented the concept in the programme's final pitch"
+  - name: "Nutritional Assistant"
+    descriptor: "RAG on Azure OpenAI"
+    dates: "Dec 2024 – Jan 2025"
+    bullets:
+      - "Fine-tuned a GPT-4 deployment and configured 3 Azure AI Search indexes for grounded, personalised nutrition guidance across articles, nutrient data and recipes"
+      - "Orchestrated JSONL, PDF and CSV ingestion to Azure Blob Storage, added text-to-speech and achieved 4.58/5 average satisfaction in pilot testing"
+  - name: "Urban Threads"
+    descriptor: "Retail Analytics Dashboard"
+    dates: "Oct 2024 – Jan 2025"
+    bullets:
+      - "Modelled a star schema and delivered a 3-page Qlik dashboard with 5 filters and YoY KPIs; earned 9/10 in a course led by KPMG Mexico's Head of Tax Technology"
+
+education:
+  - institution: "ESCOM – Instituto Politécnico Nacional"
+    credential: "BSc Data Science"
+    dates: "Aug 2022 – Expected 2027"
+    location: "Mexico City, MX"
+    detail: "GPA: 9.29/10"
+  - institution: "Queen Mary University of London"
+    credential: "Academic Exchange"
+    dates: "Sep 2025 – Jan 2026"
+    location: "London, UK"
+    detail: "Introduction to AI (A), Multi-Platform Game Development (B)"
+
+skills:
+  - label: "Programming"
+    value: "Python, SQL, JavaScript/TypeScript, C#, Java"
+  - label: "AI/ML"
+    value: "LangChain, LangGraph, RAG, LLM fine-tuning, agentic AI, scikit-learn, pandas, NumPy"
+  - label: "Governance & Backend"
+    value: "W3C DIDs/VCs, OPA/Rego, Pydantic, FastAPI, SQLAlchemy/Alembic, PostgreSQL"
+  - label: "Cloud & Tools"
+    value: "Azure OpenAI, AI Search, Blob Storage, GCP foundations, Docker, Git, Linux, OpenTelemetry"
+  - label: "Languages"
+    value: "Spanish (native), English (C1 – PTE Academic 83/90)"
+
+certifications:
+  - "Koenig/Infosys: AI-First Engineering; Python API & Microservices; Web Programming (2026)"
+  - "Google AI Essentials (2024)"
+  - "Google Cloud Computing Foundations (2024)"

@@ -1,0 +1,47 @@
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build output
+dist/
+out/
+build/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.vercel/
+
+# Caches & logs
+.cache/
+.parcel-cache/
+.eslintcache
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/

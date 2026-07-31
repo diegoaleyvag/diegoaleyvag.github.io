@@ -1,4 +1,4 @@
-# Architecture Proposal: Opus
+# Architecture Proposal (Candidate B)
 
 > **Thesis:** Diego's portfolio is itself a governed system — every claim is
 > traceable to `cv.yaml`, every agent action is auditable, and the visitor can

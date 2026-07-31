@@ -1,4 +1,4 @@
-# Architecture Proposal: Gemini
+# Architecture Proposal (Candidate C)
 
 ## 1. Product Thesis, Target Audience, and Differentiation
 

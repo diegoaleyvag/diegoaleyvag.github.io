@@ -1,0 +1,15 @@
+export const RESUME_UI_COPY = {
+  documentTitle: "Résumé",
+  skipToContent: "Skip to résumé",
+  navigationLabel: "Primary",
+  portfolioLink: "Portfolio",
+  contactLabel: "Contact",
+  experienceHeading: "Experience",
+  projectsHeading: "Projects",
+  educationHeading: "Education",
+  skillsHeading: "Skills",
+  certificationsHeading: "Certifications",
+  sourceHeading: "Source provenance",
+  sourceFileLabel: "Source file",
+  sourceDigestLabel: "Source SHA-256",
+} as const;

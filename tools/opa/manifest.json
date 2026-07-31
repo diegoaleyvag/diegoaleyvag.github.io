@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "version": "v1.19.0",
+  "releaseUrl": "https://github.com/open-policy-agent/opa/releases/tag/v1.19.0",
+  "baseDownloadUrl": "https://github.com/open-policy-agent/opa/releases/download/v1.19.0",
+  "binaries": {
+    "darwin-arm64": {
+      "asset": "opa_darwin_arm64",
+      "sha256": "6de003137cc54b65cb4a6a9c7cf6b29a248f10c1c16fc34f793a8a83b5f9d004"
+    },
+    "darwin-x64": {
+      "asset": "opa_darwin_amd64",
+      "sha256": "a6bb096502d176a23b721e023f3ca615a0e4773fec69511143093a2281118f5c"
+    },
+    "linux-arm64": {
+      "asset": "opa_linux_arm64_static",
+      "sha256": "06680087ed236c8c6aaa021660d83178db829a2ad30bdb3482481fada6791b2a"
+    },
+    "linux-x64": {
+      "asset": "opa_linux_amd64_static",
+      "sha256": "1dd5c5591ff856f5e20a1d66bafae9511ddf3c5552ed3b5070c70b2b6580ee3f"
+    },
+    "win32-x64": {
+      "asset": "opa_windows_amd64.exe",
+      "sha256": "ed4ee673b2182352af3a9d5f0de4a74d23a063cbbb447723fb21ac5ead8cd599"
+    }
+  }
+}

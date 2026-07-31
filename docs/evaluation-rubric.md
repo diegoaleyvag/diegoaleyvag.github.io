@@ -103,16 +103,16 @@ Pages at the domain root?
 
 ## Penalties (subtracted from the total; total is floored at 0)
 
-| Penalty | Deduction | Notes |
-| --- | --- | --- |
-| Generic AI aesthetics (stock gradients, default component-library look, cliché "AI" iconography) | −10 | Directly undermines distinctiveness. |
-| Resume-as-decoration (resume is a static PDF/image instead of generated HTML from `cv.yaml`, or its content drifts from it) | −10 | Violates the single-source-of-truth requirement. |
-| Needless microservices (splitting into multiple deployable services without a concrete reason tied to the goals) | −10 | Complexity must be justified. |
-| Vendor lock-in (static site or Replay mode requires a specific paid host/vendor SDK to function) | −10 | Violates static-first/portability intent. |
-| Tests that depend on live inference (unit/integration tests call the real Groq API) | −10 | Violates provider-neutral testing; breaks CI without secrets. |
-| Exposed secrets (any API key path to browser/client bundle/`NEXT_PUBLIC_*`-style var, or a real secret committed) | −25 | Severe: security-critical. |
-| Blocks GitHub Pages static export (server-only rendering required, dynamic routing that breaks at the domain root, hardcoded non-root basePath) | −20 | Severe: violates the core deployment constraint. |
-| Fabricated facts (any claim, metric, or integration not present in `content/source/cv.yaml` or clearly marked as synthetic demo content) | −25 | Severe: violates factual-integrity invariant. |
+| Penalty                                                                                                                                         | Deduction | Notes                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------- |
+| Generic AI aesthetics (stock gradients, default component-library look, cliché "AI" iconography)                                                | −10       | Directly undermines distinctiveness.                          |
+| Resume-as-decoration (resume is a static PDF/image instead of generated HTML from `cv.yaml`, or its content drifts from it)                     | −10       | Violates the single-source-of-truth requirement.              |
+| Needless microservices (splitting into multiple deployable services without a concrete reason tied to the goals)                                | −10       | Complexity must be justified.                                 |
+| Vendor lock-in (static site or Replay mode requires a specific paid host/vendor SDK to function)                                                | −10       | Violates static-first/portability intent.                     |
+| Tests that depend on live inference (unit/integration tests call the real Groq API)                                                             | −10       | Violates provider-neutral testing; breaks CI without secrets. |
+| Exposed secrets (any API key path to browser/client bundle/`NEXT_PUBLIC_*`-style var, or a real secret committed)                               | −25       | Severe: security-critical.                                    |
+| Blocks GitHub Pages static export (server-only rendering required, dynamic routing that breaks at the domain root, hardcoded non-root basePath) | −20       | Severe: violates the core deployment constraint.              |
+| Fabricated facts (any claim, metric, or integration not present in `content/source/cv.yaml` or clearly marked as synthetic demo content)        | −25       | Severe: violates factual-integrity invariant.                 |
 
 ## Process notes
 

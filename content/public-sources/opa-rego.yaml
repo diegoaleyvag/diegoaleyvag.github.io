@@ -1,0 +1,9 @@
+id: opa-rego
+title: Open Policy Agent policy language
+publisher: Open Policy Agent
+url: https://www.openpolicyagent.org/docs/policy-language
+retrieved: "2026-08-01"
+implementation_use:
+  - capability policy syntax
+  - table-driven policy tests
+  - fail-closed decision evaluation

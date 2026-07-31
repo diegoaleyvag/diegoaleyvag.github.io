@@ -1,0 +1,9 @@
+id: rfc-6962
+title: Certificate Transparency
+publisher: RFC Editor
+url: https://www.rfc-editor.org/rfc/rfc6962
+retrieved: "2026-08-01"
+implementation_use:
+  - Merkle leaf and node domain separation
+  - largest-power-of-two tree splitting
+  - inclusion proof construction

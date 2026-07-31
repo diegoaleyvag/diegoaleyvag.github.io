@@ -2,8 +2,8 @@
 
 > **Thesis:** Diego's portfolio is itself a governed system — every claim is
 > traceable to `cv.yaml`, every agent action is auditable, and the visitor can
-> verify both without a backend. The portfolio doesn't just *describe*
-> governance; it *demonstrates* it.
+> verify both without a backend. The portfolio doesn't just _describe_
+> governance; it _demonstrates_ it.
 
 ---
 
@@ -38,10 +38,10 @@
 
 ### Target audience
 
-| Persona | Need | Time budget |
-|---------|------|-------------|
-| Recruiter / hiring manager | "Can this person do the job?" — quick signal | 30–90 seconds |
-| Senior engineer / tech lead | Depth, real architecture, testable claims | 5–15 minutes |
+| Persona                     | Need                                         | Time budget   |
+| --------------------------- | -------------------------------------------- | ------------- |
+| Recruiter / hiring manager  | "Can this person do the job?" — quick signal | 30–90 seconds |
+| Senior engineer / tech lead | Depth, real architecture, testable claims    | 5–15 minutes  |
 
 ### Thesis
 
@@ -54,20 +54,20 @@ portfolio should embody those same values:
   in `cv.yaml`. The site generates a provenance map at build time; visitors can
   inspect source attribution.
 - **Verifiability:** The governance demo produces cryptographically-rooted
-  evidence (Merkle audit, Ed25519 signatures) that the *browser re-verifies
-  client-side* — no trust in the server required.
+  evidence (Merkle audit, Ed25519 signatures) that the _browser re-verifies
+  client-side_ — no trust in the server required.
 - **Policy transparency:** The governance rules are public Rego, readable and
   re-evaluable.
 
 ### Differentiation from generic portfolios
 
-| Generic pattern (banned) | This proposal instead |
-|---|---|
-| Purple/blue gradient hero | Restrained, print-influenced palettes (see §4) |
-| Floating glass cards with blur | Dense, information-first layouts |
-| Fake terminal with typed text | Real trace timelines from actual run data |
-| Decorative metrics ("99.9% uptime") | Only real numbers from cv.yaml (GPA, pilot scores, placement) |
-| PDF-in-iframe resume | Semantic, generated HTML from cv.yaml; Typst PDF as downloadable |
+| Generic pattern (banned)            | This proposal instead                                            |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| Purple/blue gradient hero           | Restrained, print-influenced palettes (see §4)                   |
+| Floating glass cards with blur      | Dense, information-first layouts                                 |
+| Fake terminal with typed text       | Real trace timelines from actual run data                        |
+| Decorative metrics ("99.9% uptime") | Only real numbers from cv.yaml (GPA, pilot scores, placement)    |
+| PDF-in-iframe resume                | Semantic, generated HTML from cv.yaml; Typst PDF as downloadable |
 
 ---
 
@@ -221,28 +221,28 @@ The critical architectural insight:
 
 ### What is precomputed static JSON (checked into repo / built at build-time)
 
-| Artifact | Source | Lives at |
-|----------|--------|----------|
-| HTML resume | cv.yaml → Astro template | `/resume/index.html` |
-| Portfolio content | cv.yaml → typed loader | All `/work/` pages |
-| Provenance map | cv.yaml key-paths → UI text | Build artifact (JSON) |
-| Replay Run fixtures | governance-core + Fake provider → Run JSON | `public/runs/*.json` |
-| Synthetic DID documents | Generated keypairs (synthetic) | Embedded in Run JSON |
-| Compiled Rego policies | `.rego` → WASM (OPA) | `public/policies/*.wasm` (roadmap) |
-| Trace data | Part of Run JSON | Inline in fixture |
-| Merkle roots + signatures | Part of Run JSON | Inline in fixture |
+| Artifact                  | Source                                     | Lives at                           |
+| ------------------------- | ------------------------------------------ | ---------------------------------- |
+| HTML resume               | cv.yaml → Astro template                   | `/resume/index.html`               |
+| Portfolio content         | cv.yaml → typed loader                     | All `/work/` pages                 |
+| Provenance map            | cv.yaml key-paths → UI text                | Build artifact (JSON)              |
+| Replay Run fixtures       | governance-core + Fake provider → Run JSON | `public/runs/*.json`               |
+| Synthetic DID documents   | Generated keypairs (synthetic)             | Embedded in Run JSON               |
+| Compiled Rego policies    | `.rego` → WASM (OPA)                       | `public/policies/*.wasm` (roadmap) |
+| Trace data                | Part of Run JSON                           | Inline in fixture                  |
+| Merkle roots + signatures | Part of Run JSON                           | Inline in fixture                  |
 
 ### What requires the optional runtime (Live mode only)
 
-| Capability | Why it can't be static |
-|------------|------------------------|
-| Generate a NEW agent plan/reasoning | Non-deterministic LLM output |
-| Stream a live run | Requires Groq API key (secret) |
-| Record a new Replay fixture | Wraps the above |
+| Capability                          | Why it can't be static         |
+| ----------------------------------- | ------------------------------ |
+| Generate a NEW agent plan/reasoning | Non-deterministic LLM output   |
+| Stream a live run                   | Requires Groq API key (secret) |
+| Record a new Replay fixture         | Wraps the above                |
 
 ### Browser-side verification (runs client-side, zero backend)
 
-The static site loads a Run JSON and the browser *re-verifies* governance
+The static site loads a Run JSON and the browser _re-verifies_ governance
 claims:
 
 1. **Ed25519 signature verification** — via Web Crypto API (native, no library).
@@ -251,8 +251,8 @@ claims:
    full in-browser re-eval via OPA-WASM is a roadmap item (MVP shows
    recorded decisions with their input context).
 
-This means the Replay demo is not just a "movie playback" — it *re-derives
-cryptographic proofs* in the visitor's browser, proving tamper-evidence without
+This means the Replay demo is not just a "movie playback" — it _re-derives
+cryptographic proofs_ in the visitor's browser, proving tamper-evidence without
 trusting any server.
 
 ---
@@ -292,6 +292,7 @@ classification (`low | medium | high | critical`). Invoking produces an Event.
 Tools in the demo are synthetic no-ops (no real code execution, no RCE surface).
 
 **Policy** — Declarative Rego rules. Given a request context `{ agent, credential_claims, tool, args, environment }`, returns a Decision:
+
 - `allow` — proceed
 - `deny { reason }` — block with explanation
 - `require_approval { reason, approver_role }` — pause for human gate
@@ -315,6 +316,7 @@ match. No live inference.
 ### Run JSON — the linchpin contract
 
 The Run JSON schema is the single cross-boundary interface between:
+
 - Python runtime (produces runs)
 - Static site (consumes + verifies runs)
 - Test harness (validates runs)
@@ -371,11 +373,11 @@ token usage, and rate-limit metadata (if available).
 
 ### Three implementations
 
-| Provider | Behavior | Needs secret? | Used in |
-|----------|----------|---------------|---------|
-| `FakeProvider` | Returns scripted responses from scenario fixture | No | Unit tests, eval harness, fixture generation |
-| `ReplayProvider` | Reads stored ProviderResponses from a Run JSON | No | Integration tests, local dev |
-| `GroqLiveProvider` | Calls Groq `/openai/v1/chat/completions`; parses `x-ratelimit-*` headers | Yes (`GROQ_API_KEY`) | Optional live runtime only |
+| Provider           | Behavior                                                                 | Needs secret?        | Used in                                      |
+| ------------------ | ------------------------------------------------------------------------ | -------------------- | -------------------------------------------- |
+| `FakeProvider`     | Returns scripted responses from scenario fixture                         | No                   | Unit tests, eval harness, fixture generation |
+| `ReplayProvider`   | Reads stored ProviderResponses from a Run JSON                           | No                   | Integration tests, local dev                 |
+| `GroqLiveProvider` | Calls Groq `/openai/v1/chat/completions`; parses `x-ratelimit-*` headers | Yes (`GROQ_API_KEY`) | Optional live runtime only                   |
 
 ### Selection
 
@@ -431,15 +433,15 @@ GET /api/health
 
 ### Threat model
 
-| Asset | Threat | Mitigation |
-|-------|--------|------------|
-| Groq API key | Leak to browser/bundle/client | Key only in runtime server env; never in static build; CI lint |
-| Site integrity | XSS injecting false claims | CSP via `<meta>` (Pages limitation); no inline scripts; sanitized cv.yaml output |
-| Run integrity | Tampered JSON to fake governance | Merkle root + Ed25519 signature; browser re-verifies |
-| Diego's reputation | Fabricated facts in UI | Provenance map + build-time lint; cv.yaml is read-only |
-| Runtime availability | DoS | Rate-limit per IP; backpressure from Groq headers; runtime is optional (site works without it) |
-| Supply chain | Malicious dependency | Lockfiles pinned; `pnpm audit` / `uv pip audit` in CI; minimal dependency tree |
-| Live prompt injection | Adversarial input causing bad agent behavior | Tools are synthetic no-ops (no real effects); policy still gates; traces are observable |
+| Asset                 | Threat                                       | Mitigation                                                                                     |
+| --------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Groq API key          | Leak to browser/bundle/client                | Key only in runtime server env; never in static build; CI lint                                 |
+| Site integrity        | XSS injecting false claims                   | CSP via `<meta>` (Pages limitation); no inline scripts; sanitized cv.yaml output               |
+| Run integrity         | Tampered JSON to fake governance             | Merkle root + Ed25519 signature; browser re-verifies                                           |
+| Diego's reputation    | Fabricated facts in UI                       | Provenance map + build-time lint; cv.yaml is read-only                                         |
+| Runtime availability  | DoS                                          | Rate-limit per IP; backpressure from Groq headers; runtime is optional (site works without it) |
+| Supply chain          | Malicious dependency                         | Lockfiles pinned; `pnpm audit` / `uv pip audit` in CI; minimal dependency tree                 |
+| Live prompt injection | Adversarial input causing bad agent behavior | Tools are synthetic no-ops (no real effects); policy still gates; traces are observable        |
 
 ---
 
@@ -460,14 +462,14 @@ Don't reinvent this.
 
 ### Justification
 
-| Concern | HTML (Astro) | PDF (Typst) |
-|---------|---|---|
-| Web accessibility / SEO | ✓ semantic headings, landmarks, meta | ✗ opaque to crawlers |
-| Responsive / mobile | ✓ | ✗ fixed page size |
-| Linkable sections | ✓ anchors | ✗ |
-| Print / ATS fidelity | Acceptable | ✓ superior |
-| Typographic control | Limited | ✓ precise |
-| Interactive (provenance links) | ✓ | ✗ |
+| Concern                        | HTML (Astro)                         | PDF (Typst)          |
+| ------------------------------ | ------------------------------------ | -------------------- |
+| Web accessibility / SEO        | ✓ semantic headings, landmarks, meta | ✗ opaque to crawlers |
+| Responsive / mobile            | ✓                                    | ✗ fixed page size    |
+| Linkable sections              | ✓ anchors                            | ✗                    |
+| Print / ATS fidelity           | Acceptable                           | ✓ superior           |
+| Typographic control            | Limited                              | ✓ precise            |
+| Interactive (provenance links) | ✓                                    | ✗                    |
 
 **Single source guarantee:** Both renderers consume the SAME `cv.yaml`. A CI
 step hashes `cv.yaml` and verifies the committed PDF was built from that hash
@@ -576,12 +578,12 @@ diegoaleyvag.github.io/                    # Repo name fixed by user-site requir
 
 ### Module justification
 
-| Package | Reason it exists separately |
-|---------|--------------------------|
-| `run-schema` | The contract; consumed by both TS and Py; changes are breaking and must be versioned |
-| `governance-engine` | Python library: matches CV stack (Pydantic/FastAPI); used by runtime + fixture generation |
-| `verifier` | TS library: runs in browser (Web Crypto); small, no server dependency |
-| `policies` | Shared Rego source: used by governance-engine (eval) and potentially browser (WASM roadmap) |
+| Package             | Reason it exists separately                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `run-schema`        | The contract; consumed by both TS and Py; changes are breaking and must be versioned        |
+| `governance-engine` | Python library: matches CV stack (Pydantic/FastAPI); used by runtime + fixture generation   |
+| `verifier`          | TS library: runs in browser (Web Crypto); small, no server dependency                       |
+| `policies`          | Shared Rego source: used by governance-engine (eval) and potentially browser (WASM roadmap) |
 
 This is NOT microservices. There is exactly **one deployable static site** and
 **one optional deployable runtime**. The packages are build-time modules within
@@ -643,6 +645,7 @@ just deploy-local     # Serve dist/ with a static server (verify Pages behavior)
 ### Deterministic evaluation strategy
 
 **Scenario fixtures** define:
+
 - Agent identity + credentials
 - Available tools + risk classifications
 - A scripted task (messages the Fake provider will return)
@@ -650,6 +653,7 @@ just deploy-local     # Serve dist/ with a static server (verify Pages behavior)
   root, trace structure)
 
 **Evaluation runner:**
+
 1. Load scenario.
 2. Instantiate governance-engine with `FakeProvider`.
 3. Execute the run.
@@ -669,6 +673,7 @@ just deploy-local     # Serve dist/ with a static server (verify Pages behavior)
 `verified: false`.
 
 **Live tests are quarantined:**
+
 - Directory: `tests/live/`
 - Requires env var `RUN_LIVE_TESTS=1` + `GROQ_API_KEY`
 - Excluded from `just test` and CI
@@ -707,15 +712,15 @@ jobs:
 
 ### Gotchas addressed
 
-| Gotcha | Mitigation |
-|--------|------------|
-| `_astro/` folder ignored by Jekyll | `.nojekyll` file in `public/` → deployed root |
-| Trailing-slash 404s | Astro `build.format: 'directory'` → `route/index.html` |
-| SPA deep-link 404 | All routes pre-rendered; `404.html` as fallback; no SPA hash routing |
-| `basePath` mismatch | Astro `base: '/'` (or omit); site config: `'https://diegoaleyvag.github.io'` |
-| CNAME redirection | No CNAME file (target IS the github.io domain) |
-| Asset caching | Astro hashes static assets; long-cache safe |
-| Large fixture files | Keep runs ≤ 50KB each; total `public/runs/` ≤ 500KB |
+| Gotcha                             | Mitigation                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------------- |
+| `_astro/` folder ignored by Jekyll | `.nojekyll` file in `public/` → deployed root                                |
+| Trailing-slash 404s                | Astro `build.format: 'directory'` → `route/index.html`                       |
+| SPA deep-link 404                  | All routes pre-rendered; `404.html` as fallback; no SPA hash routing         |
+| `basePath` mismatch                | Astro `base: '/'` (or omit); site config: `'https://diegoaleyvag.github.io'` |
+| CNAME redirection                  | No CNAME file (target IS the github.io domain)                               |
+| Asset caching                      | Astro hashes static assets; long-cache safe                                  |
+| Large fixture files                | Keep runs ≤ 50KB each; total `public/runs/` ≤ 500KB                          |
 
 ### Custom headers / CSP
 
@@ -747,12 +752,14 @@ CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 Candidate hosts (no lock-in — any Docker host works):
+
 - Fly.io (free tier, global edge)
 - Render (free tier, auto-deploy from branch)
 - Railway
 - Google Cloud Run
 
 Environment:
+
 - `GROQ_API_KEY` — set in host's secret store
 - `LLM_PROVIDER=groq`
 - `GROQ_MODEL=llama-3.1-70b-versatile` (or current best on Groq)
@@ -782,14 +789,14 @@ only (graceful degradation, not an error).
 
 ### Performance targets
 
-| Metric | Target | How |
-|--------|--------|-----|
-| LCP | < 1.5s | Static HTML, no blocking JS, optimized fonts |
-| CLS | 0 | No dynamic layout; font `size-adjust` or system stack |
-| FID/INP | < 100ms | Islands load async; governance verification off main thread (Worker) |
-| Total JS (content pages) | 0 KB | Astro zero-JS default; no islands on portfolio/resume |
-| Total JS (demo page) | < 80 KB gzipped | Verifier + timeline island; Web Crypto is native |
-| Lighthouse score | ≥ 95 all categories | CI check via `lighthouse-ci` |
+| Metric                   | Target              | How                                                                  |
+| ------------------------ | ------------------- | -------------------------------------------------------------------- |
+| LCP                      | < 1.5s              | Static HTML, no blocking JS, optimized fonts                         |
+| CLS                      | 0                   | No dynamic layout; font `size-adjust` or system stack                |
+| FID/INP                  | < 100ms             | Islands load async; governance verification off main thread (Worker) |
+| Total JS (content pages) | 0 KB                | Astro zero-JS default; no islands on portfolio/resume                |
+| Total JS (demo page)     | < 80 KB gzipped     | Verifier + timeline island; Web Crypto is native                     |
+| Lighthouse score         | ≥ 95 all categories | CI check via `lighthouse-ci`                                         |
 
 ### Font strategy
 
@@ -911,17 +918,17 @@ not on the schema/verifier).
 
 ### Ownership boundaries
 
-| Agent/workstream | Owns | Depends on |
-|------------------|------|------------|
-| Schema | `packages/run-schema/` | Nothing (root dependency) |
-| Verifier | `packages/verifier/` | run-schema |
-| Fixture seed | `fixtures/` | run-schema (+ crypto primitives) |
-| Site framework | `apps/site/` (layout, routes, styles, content loaders) | cv.yaml |
-| Demo islands | `apps/site/src/islands/` | verifier + fixture |
-| Resume | `apps/site/src/pages/resume/` | cv.yaml content loader |
-| Tests | `tests/` | All of the above |
-| Runtime (future) | `apps/runtime/` | run-schema + governance-engine |
-| Governance engine (future) | `packages/governance-engine/` | run-schema + policies |
+| Agent/workstream           | Owns                                                   | Depends on                       |
+| -------------------------- | ------------------------------------------------------ | -------------------------------- |
+| Schema                     | `packages/run-schema/`                                 | Nothing (root dependency)        |
+| Verifier                   | `packages/verifier/`                                   | run-schema                       |
+| Fixture seed               | `fixtures/`                                            | run-schema (+ crypto primitives) |
+| Site framework             | `apps/site/` (layout, routes, styles, content loaders) | cv.yaml                          |
+| Demo islands               | `apps/site/src/islands/`                               | verifier + fixture               |
+| Resume                     | `apps/site/src/pages/resume/`                          | cv.yaml content loader           |
+| Tests                      | `tests/`                                               | All of the above                 |
+| Runtime (future)           | `apps/runtime/`                                        | run-schema + governance-engine   |
+| Governance engine (future) | `packages/governance-engine/`                          | run-schema + policies            |
 
 ---
 
@@ -929,37 +936,37 @@ not on the schema/verifier).
 
 ### Risks
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| OPA-WASM too complex for browser | Medium | Demo can't re-eval policies | MVP shows recorded decisions; defer WASM; still verifies crypto |
-| Two languages (TS + Py) increases maintenance | Medium | Higher onboarding cost | Clean contract boundary (Run JSON); each lang used where justified |
-| Astro islands hydration edge cases | Low | Broken interactivity | Islands are small/simple; fallback to static table |
-| Fixture runs become stale | Medium | Demo shows outdated schema | Schema version in Run; CI validates fixtures against current schema |
-| Groq rate limits change | Low | Live mode errors | Read limits from headers (never hardcode); graceful degradation |
-| Content drift (fabrication creep) | Medium | Severe penalty | Provenance map + lint; cv.yaml read-only; PR review |
+| Risk                                          | Likelihood | Impact                      | Mitigation                                                          |
+| --------------------------------------------- | ---------- | --------------------------- | ------------------------------------------------------------------- |
+| OPA-WASM too complex for browser              | Medium     | Demo can't re-eval policies | MVP shows recorded decisions; defer WASM; still verifies crypto     |
+| Two languages (TS + Py) increases maintenance | Medium     | Higher onboarding cost      | Clean contract boundary (Run JSON); each lang used where justified  |
+| Astro islands hydration edge cases            | Low        | Broken interactivity        | Islands are small/simple; fallback to static table                  |
+| Fixture runs become stale                     | Medium     | Demo shows outdated schema  | Schema version in Run; CI validates fixtures against current schema |
+| Groq rate limits change                       | Low        | Live mode errors            | Read limits from headers (never hardcode); graceful degradation     |
+| Content drift (fabrication creep)             | Medium     | Severe penalty              | Provenance map + lint; cv.yaml read-only; PR review                 |
 
 ### Trade-offs accepted
 
-| Trade-off | Chosen | Alternative | Reason |
-|-----------|--------|-------------|--------|
-| Two languages | TS (site/verifier) + Py (engine/runtime) | All-TS | Py matches CV (Pydantic/FastAPI); credibility > convenience |
-| Monorepo | Single repo, packages + apps | Polyrepo | Atomic changes; single source of truth; simpler CI |
-| Astro over Next.js | Astro | Next.js static export | Zero-JS default; content-first; no `_next/` confusion; not generic |
-| No database | File-based runs | SQLite/Postgres | Runs are files (simplicity); DB is optional future extension |
-| Synthetic tools (no real exec) | No-op tools | Sandboxed execution | No RCE surface; clean-room safer; demo is about governance not execution |
+| Trade-off                      | Chosen                                   | Alternative           | Reason                                                                   |
+| ------------------------------ | ---------------------------------------- | --------------------- | ------------------------------------------------------------------------ |
+| Two languages                  | TS (site/verifier) + Py (engine/runtime) | All-TS                | Py matches CV (Pydantic/FastAPI); credibility > convenience              |
+| Monorepo                       | Single repo, packages + apps             | Polyrepo              | Atomic changes; single source of truth; simpler CI                       |
+| Astro over Next.js             | Astro                                    | Next.js static export | Zero-JS default; content-first; no `_next/` confusion; not generic       |
+| No database                    | File-based runs                          | SQLite/Postgres       | Runs are files (simplicity); DB is optional future extension             |
+| Synthetic tools (no real exec) | No-op tools                              | Sandboxed execution   | No RCE surface; clean-room safer; demo is about governance not execution |
 
 ### Rejected alternatives
 
-| Rejected | Why |
-|----------|-----|
-| Next.js | Heavier; `_next/` asset folder; SSR/ISR assumptions leak in; feels generic for portfolios; React tax on content pages |
-| SvelteKit | Good but less content-focused than Astro; smaller ecosystem for content |
-| All-in-browser governance (no Python) | Loses CV credibility (Diego's work is Python); harder to test; WASM-only policy is fragile |
-| Hugo / Eleventy | Excellent for pure content but poor developer experience for interactive islands |
-| A separate demo app (different repo/deploy) | Violates "single place on the web"; complicates navigation; needless separation |
-| Real code execution in tools | RCE risk; clean-room concern; unnecessary for governance showcase |
-| PDF-only resume (Typst in iframe) | Rubric penalty (−10); not accessible/SEO/responsive |
-| Purple/gradient AI aesthetic | Rubric penalty (−10); indistinguishable from thousands of AI landing pages |
+| Rejected                                    | Why                                                                                                                   |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Next.js                                     | Heavier; `_next/` asset folder; SSR/ISR assumptions leak in; feels generic for portfolios; React tax on content pages |
+| SvelteKit                                   | Good but less content-focused than Astro; smaller ecosystem for content                                               |
+| All-in-browser governance (no Python)       | Loses CV credibility (Diego's work is Python); harder to test; WASM-only policy is fragile                            |
+| Hugo / Eleventy                             | Excellent for pure content but poor developer experience for interactive islands                                      |
+| A separate demo app (different repo/deploy) | Violates "single place on the web"; complicates navigation; needless separation                                       |
+| Real code execution in tools                | RCE risk; clean-room concern; unnecessary for governance showcase                                                     |
+| PDF-only resume (Typst in iframe)           | Rubric penalty (−10); not accessible/SEO/responsive                                                                   |
+| Purple/gradient AI aesthetic                | Rubric penalty (−10); indistinguishable from thousands of AI landing pages                                            |
 
 ---
 
@@ -967,18 +974,18 @@ not on the schema/verifier).
 
 Each ADR follows the format: Status, Context, Decision, Consequences.
 
-| ADR | Decision |
-|-----|----------|
-| ADR-0001 | Static site generator: Astro (content-first, islands, zero-JS default, static export) |
-| ADR-0002 | Governance engine: Python (Pydantic v2 / FastAPI); browser verifier: TypeScript (Web Crypto) |
-| ADR-0003 | Cross-boundary contract: Run JSON (versioned, JSON-Schema'd, signed, Merkle-rooted) |
-| ADR-0004 | Provider abstraction: Fake / Replay / Live-Groq; secrets server-side only |
-| ADR-0005 | Policy engine: OPA/Rego; target WASM for shared eval; MVP uses recorded decisions |
+| ADR      | Decision                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------- |
+| ADR-0001 | Static site generator: Astro (content-first, islands, zero-JS default, static export)             |
+| ADR-0002 | Governance engine: Python (Pydantic v2 / FastAPI); browser verifier: TypeScript (Web Crypto)      |
+| ADR-0003 | Cross-boundary contract: Run JSON (versioned, JSON-Schema'd, signed, Merkle-rooted)               |
+| ADR-0004 | Provider abstraction: Fake / Replay / Live-Groq; secrets server-side only                         |
+| ADR-0005 | Policy engine: OPA/Rego; target WASM for shared eval; MVP uses recorded decisions                 |
 | ADR-0006 | Resume: HTML via Astro from cv.yaml (primary) + Typst PDF (secondary); single source, drift check |
-| ADR-0007 | Package management: pnpm (TS) + uv (Python); monorepo; justfile orchestration |
-| ADR-0008 | Deployment: GitHub Actions → Pages with `.nojekyll`; runtime via container (any host) |
-| ADR-0009 | Demo safety: synthetic data only; tools are no-ops; no code execution; clean-room boundary |
-| ADR-0010 | Visual direction: (deferred to post-judgement; token system supports all three) |
+| ADR-0007 | Package management: pnpm (TS) + uv (Python); monorepo; justfile orchestration                     |
+| ADR-0008 | Deployment: GitHub Actions → Pages with `.nojekyll`; runtime via container (any host)             |
+| ADR-0009 | Demo safety: synthetic data only; tools are no-ops; no code execution; clean-room boundary        |
+| ADR-0010 | Visual direction: (deferred to post-judgement; token system supports all three)                   |
 
 ---
 
@@ -995,18 +1002,18 @@ Each ADR follows the format: Status, Context, Decision, Consequences.
 
 ### Collision risks in the trust/audit namespace
 
-| Name direction | Known collisions | Risk |
-|---|---|---|
-| "Attest*" | Google Attestation, in-toto attestations | High |
-| "Ledger*" | Ledger (hardware wallet trademark) | High |
-| "Provenance" | SLSA Provenance, npm provenance | High |
-| "Sigstore/Rekor/Cosign" | Sigstore project (Linux Foundation) | Blocked |
-| "Keylime" | CNCF Keylime (TPM attestation) | Blocked |
-| "Witness" | witness.dev (TL transparency project) | Medium |
-| "Audit*" | Many; generic | Medium |
-| "Trace*" | OpenTelemetry Trace; generic | Medium |
-| "Gate/Gateway" | Many API gateways | Medium |
-| "Verify/Veritas" | Multiple projects | Medium |
+| Name direction          | Known collisions                         | Risk    |
+| ----------------------- | ---------------------------------------- | ------- |
+| "Attest*"               | Google Attestation, in-toto attestations | High    |
+| "Ledger*"               | Ledger (hardware wallet trademark)       | High    |
+| "Provenance"            | SLSA Provenance, npm provenance          | High    |
+| "Sigstore/Rekor/Cosign" | Sigstore project (Linux Foundation)      | Blocked |
+| "Keylime"               | CNCF Keylime (TPM attestation)           | Blocked |
+| "Witness"               | witness.dev (TL transparency project)    | Medium  |
+| "Audit*"                | Many; generic                            | Medium  |
+| "Trace*"                | OpenTelemetry Trace; generic             | Medium  |
+| "Gate/Gateway"          | Many API gateways                        | Medium  |
+| "Verify/Veritas"        | Multiple projects                        | Medium  |
 
 ### Safer directions to explore (not committed)
 
@@ -1022,50 +1029,50 @@ The site routes use `/lab/` as a neutral placeholder.**
 
 ## 22. Hard-Constraint Compliance Matrix
 
-| Hard Constraint | How This Proposal Satisfies It |
-|---|---|
+| Hard Constraint                                                     | How This Proposal Satisfies It                                                                       |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | Published from `diegoaleyvag/diegoaleyvag.github.io` at domain root | Astro `base: '/'`; `site: 'https://diegoaleyvag.github.io'`; Actions deploys to Pages from this repo |
-| No other GitHub owner assumed | Only `diegoaleyvag` referenced |
-| Fully static bundle | Astro static output; no SSR; HTML/CSS/JS + JSON fixtures only |
-| Client-side routing works with static hosting | Pre-rendered routes (`path/index.html`); no hash routing; `404.html` fallback |
-| Replay mode with zero backend | Loads `public/runs/*.json`; verifies with Web Crypto; no fetch to any server |
-| Replay data is pre-recorded static JSON | `fixtures/runs/` → `public/runs/`; checked into repo |
-| Live runtime independently deployable | Separate `apps/runtime/` with own Dockerfile; site works without it |
-| Three providers: Fake / Replay / Live | Defined in §7; `LLM_PROVIDER` env selects |
-| First live provider is Groq (OpenAI-compatible) | `GroqLiveProvider` calls `/openai/v1/chat/completions` |
-| Rate limits from response headers, never hardcoded | Reads `x-ratelimit-*` headers; applies backpressure dynamically |
-| Swapping providers = config only | `LLM_PROVIDER` env var; no caller code changes |
-| No API key in browser/bundle/client var | Key only in runtime server env; Astro never references it; CI lint enforces |
-| Secrets in local/server env only | `.env` (gitignored); host secret store for deploy |
-| `.env.example` = placeholders only | Already exists in repo with empty values |
-| `.gitignore` excludes env files | Already present in repo |
-| No proprietary Infosys reuse | Clean-room: only public specs (W3C, OPA, RFC 6962, OTel); explicitly stated |
-| Only public concepts reimplemented | DIDs/VCs, OPA/Rego, Merkle trees, OpenTelemetry — all from public docs |
-| Doubt resolved by omission | Tools are no-ops; no sandboxed execution; no proprietary pattern reuse |
-| All data is synthetic | Fixtures use synthetic agents/tools/scenarios; clearly labeled; no real PII |
-| No real PII or patient data | Synthetic scenario data only |
-| Modern tooling preferred (uv) | uv for Python; pnpm for TS; justified in ADR-0007 |
-| Notable choices recorded as ADRs | 10 ADRs identified (§20) |
-| Choices justified against goals | Each decision references rubric/constraints |
-| Trunk-based dev, Conventional Commits | Defined; short-lived branches; CI on PR |
-| No force-push to main | Standard branch protection |
-| Changes reviewed before integrating | PR-based workflow |
-| No AI co-author trailers | Commit template excludes them |
-| cv.yaml read-only, never altered | Build reads it; never writes; provenance lint validates |
-| No fabricated metrics/experience | Provenance map traces every claim to cv.yaml; lint enforces |
+| No other GitHub owner assumed                                       | Only `diegoaleyvag` referenced                                                                       |
+| Fully static bundle                                                 | Astro static output; no SSR; HTML/CSS/JS + JSON fixtures only                                        |
+| Client-side routing works with static hosting                       | Pre-rendered routes (`path/index.html`); no hash routing; `404.html` fallback                        |
+| Replay mode with zero backend                                       | Loads `public/runs/*.json`; verifies with Web Crypto; no fetch to any server                         |
+| Replay data is pre-recorded static JSON                             | `fixtures/runs/` → `public/runs/`; checked into repo                                                 |
+| Live runtime independently deployable                               | Separate `apps/runtime/` with own Dockerfile; site works without it                                  |
+| Three providers: Fake / Replay / Live                               | Defined in §7; `LLM_PROVIDER` env selects                                                            |
+| First live provider is Groq (OpenAI-compatible)                     | `GroqLiveProvider` calls `/openai/v1/chat/completions`                                               |
+| Rate limits from response headers, never hardcoded                  | Reads `x-ratelimit-*` headers; applies backpressure dynamically                                      |
+| Swapping providers = config only                                    | `LLM_PROVIDER` env var; no caller code changes                                                       |
+| No API key in browser/bundle/client var                             | Key only in runtime server env; Astro never references it; CI lint enforces                          |
+| Secrets in local/server env only                                    | `.env` (gitignored); host secret store for deploy                                                    |
+| `.env.example` = placeholders only                                  | Already exists in repo with empty values                                                             |
+| `.gitignore` excludes env files                                     | Already present in repo                                                                              |
+| No proprietary Infosys reuse                                        | Clean-room: only public specs (W3C, OPA, RFC 6962, OTel); explicitly stated                          |
+| Only public concepts reimplemented                                  | DIDs/VCs, OPA/Rego, Merkle trees, OpenTelemetry — all from public docs                               |
+| Doubt resolved by omission                                          | Tools are no-ops; no sandboxed execution; no proprietary pattern reuse                               |
+| All data is synthetic                                               | Fixtures use synthetic agents/tools/scenarios; clearly labeled; no real PII                          |
+| No real PII or patient data                                         | Synthetic scenario data only                                                                         |
+| Modern tooling preferred (uv)                                       | uv for Python; pnpm for TS; justified in ADR-0007                                                    |
+| Notable choices recorded as ADRs                                    | 10 ADRs identified (§20)                                                                             |
+| Choices justified against goals                                     | Each decision references rubric/constraints                                                          |
+| Trunk-based dev, Conventional Commits                               | Defined; short-lived branches; CI on PR                                                              |
+| No force-push to main                                               | Standard branch protection                                                                           |
+| Changes reviewed before integrating                                 | PR-based workflow                                                                                    |
+| No AI co-author trailers                                            | Commit template excludes them                                                                        |
+| cv.yaml read-only, never altered                                    | Build reads it; never writes; provenance lint validates                                              |
+| No fabricated metrics/experience                                    | Provenance map traces every claim to cv.yaml; lint enforces                                          |
 
 ### Penalty Avoidance
 
-| Penalty | How avoided |
-|---|---|
-| Generic AI aesthetics (−10) | Three distinctive directions defined; all ban gradients/glass/fake terminals; §4 |
-| Resume-as-decoration (−10) | HTML generated from cv.yaml via Astro; semantic, accessible; §9 |
-| Needless microservices (−10) | Exactly ONE static site + ONE optional runtime; packages are build-time modules |
-| Vendor lock-in (−10) | No paid vendor required; Pages is free; runtime is any Docker host; OPA is open-source |
-| Tests depend on live inference (−10) | Live tests quarantined in `tests/live/`; all CI uses Fake/Replay; §12 |
-| Exposed secrets (−25) | Key never in browser/bundle/PUBLIC_ var; CI lint; §7, §8 |
-| Blocks GitHub Pages export (−20) | `.nojekyll`; pre-rendered routes; `base: '/'`; no SPA assumption; §13 |
-| Fabricated facts (−25) | Provenance map; cv.yaml read-only; build lint; §3 |
+| Penalty                              | How avoided                                                                            |
+| ------------------------------------ | -------------------------------------------------------------------------------------- |
+| Generic AI aesthetics (−10)          | Three distinctive directions defined; all ban gradients/glass/fake terminals; §4       |
+| Resume-as-decoration (−10)           | HTML generated from cv.yaml via Astro; semantic, accessible; §9                        |
+| Needless microservices (−10)         | Exactly ONE static site + ONE optional runtime; packages are build-time modules        |
+| Vendor lock-in (−10)                 | No paid vendor required; Pages is free; runtime is any Docker host; OPA is open-source |
+| Tests depend on live inference (−10) | Live tests quarantined in `tests/live/`; all CI uses Fake/Replay; §12                  |
+| Exposed secrets (−25)                | Key never in browser/bundle/PUBLIC_ var; CI lint; §7, §8                               |
+| Blocks GitHub Pages export (−20)     | `.nojekyll`; pre-rendered routes; `base: '/'`; no SPA assumption; §13                  |
+| Fabricated facts (−25)               | Provenance map; cv.yaml read-only; build lint; §3                                      |
 
 ---
 
@@ -1090,4 +1097,4 @@ The site routes use `/lab/` as a neutral placeholder.**
 
 ---
 
-*Proposal submitted blind. No other proposals consulted.*
+_Proposal submitted blind. No other proposals consulted._

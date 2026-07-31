@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { NOT_FOUND_COPY, SITE_SHELL_COPY } from "../components/copy";
+---
+
+<BaseLayout title={NOT_FOUND_COPY.documentTitle} activePath={null}>
+  <div class="content-frame not-found">
+    <h1>{NOT_FOUND_COPY.heading}</h1>
+    <p>{NOT_FOUND_COPY.body}</p>
+    <p><a href="/">{SITE_SHELL_COPY.portfolioLink}</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: 3rem 5rem;
+  }
+</style>

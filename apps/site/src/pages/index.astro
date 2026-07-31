@@ -1,0 +1,341 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { HOME_COPY } from "../components/copy";
+import { RESUME_UI_COPY, loadResume } from "@portfolio/resume";
+
+function requireEntry<T>(
+  entries: readonly T[],
+  index: number,
+  label: string,
+): T {
+  const value = entries[index];
+  if (value === undefined) {
+    throw new Error(`Expected canonical résumé ${label} at index ${index}`);
+  }
+  return value;
+}
+
+const resume = await loadResume();
+const { identity } = resume.view;
+
+const experience = requireEntry(resume.view.experience, 0, "experience entry");
+const selectedExperienceBullets = [0, 2, 4, 5].map((index) =>
+  requireEntry(experience.bullets, index, "experience bullet"),
+);
+
+const selectedProjects = [0, 1, 2].map((index) =>
+  requireEntry(resume.view.projects, index, "project"),
+);
+
+const selectedEducation = [0, 1].map((index) =>
+  requireEntry(resume.view.education, index, "education entry"),
+);
+---
+
+<BaseLayout
+  title={identity.name.value}
+  description={identity.headline.value}
+  activePath="/"
+>
+  <article class="content-frame home">
+    <header class="identity">
+      <div class="identity__lead">
+        <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
+        <p class="identity__headline" data-source-path={identity.headline.path}>
+          {identity.headline.value}
+        </p>
+        <p class="identity__summary" data-source-path={identity.summary.path}>
+          {identity.summary.value}
+        </p>
+        <p class="identity__cta">
+          <a href="/resume/">{HOME_COPY.resumeCta}</a>
+        </p>
+      </div>
+      <aside class="identity__aside">
+        <p class="identity__meta">
+          <span data-source-path={identity.location.path}
+            >{identity.location.value}</span
+          >
+          <span aria-hidden="true"> · </span>
+          <span data-source-path={identity.availability.path}
+            >{identity.availability.value}</span
+          >
+        </p>
+        <address aria-label={RESUME_UI_COPY.contactLabel}>
+          <a
+            href={`mailto:${identity.email.value}`}
+            data-source-path={identity.email.path}
+          >
+            {identity.email.value}
+          </a>
+          <a
+            href={identity.linkedin.url.value}
+            data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
+          >
+            {identity.linkedin.label.value}
+          </a>
+          <a
+            href={identity.github.url.value}
+            data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
+          >
+            {identity.github.label.value}
+          </a>
+        </address>
+      </aside>
+    </header>
+
+    <section aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">{HOME_COPY.evidenceHeading}</h2>
+      <ol class="ledger">
+        <li class="ledger-row">
+          <span class="ledger-index" aria-hidden="true">01</span>
+          <div class="ledger-heading">
+            <p class="ledger-kicker">{HOME_COPY.categoryExperience}</p>
+            <h3 data-source-path={experience.role.path}>
+              {experience.role.value}
+            </h3>
+            <p
+              class="ledger-subheading"
+              data-source-path={experience.organisation.path}
+            >
+              {experience.organisation.value}
+            </p>
+          </div>
+          <div class="ledger-rail">
+            <p data-source-path={experience.programme.path}>
+              {experience.programme.value}
+            </p>
+            <p>
+              <span data-source-path={experience.dates.path}
+                >{experience.dates.value}</span
+              >
+              <span aria-hidden="true"> · </span>
+              <span data-source-path={experience.location.path}
+                >{experience.location.value}</span
+              >
+            </p>
+          </div>
+          <div class="ledger-body">
+            <ul>
+              {
+                selectedExperienceBullets.map((bullet) => (
+                  <li data-source-path={bullet.path}>{bullet.value}</li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
+
+        {
+          selectedProjects.map((project, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {String(index + 2).padStart(2, "0")}
+              </span>
+              <div class="ledger-heading">
+                <p class="ledger-kicker">{HOME_COPY.categoryProject}</p>
+                <h3 data-source-path={project.name.path}>
+                  {project.name.value}
+                </h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={project.descriptor.path}
+                >
+                  {project.descriptor.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p data-source-path={project.dates.path}>
+                  {project.dates.value}
+                </p>
+              </div>
+              <div class="ledger-body">
+                <ul>
+                  {project.bullets.map((bullet) => (
+                    <li data-source-path={bullet.path}>{bullet.value}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+
+        {
+          selectedEducation.map((entry, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {String(index + 5).padStart(2, "0")}
+              </span>
+              <div class="ledger-heading">
+                <p class="ledger-kicker">{HOME_COPY.categoryEducation}</p>
+                <h3 data-source-path={entry.institution.path}>
+                  {entry.institution.value}
+                </h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={entry.credential.path}
+                >
+                  {entry.credential.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p>
+                  <span data-source-path={entry.dates.path}>
+                    {entry.dates.value}
+                  </span>
+                  <span aria-hidden="true"> · </span>
+                  <span data-source-path={entry.location.path}>
+                    {entry.location.value}
+                  </span>
+                </p>
+              </div>
+              <div class="ledger-body">
+                <p data-source-path={entry.detail.path}>{entry.detail.value}</p>
+              </div>
+            </li>
+          ))
+        }
+
+        <li class="ledger-row">
+          <span class="ledger-index" aria-hidden="true">07</span>
+          <div class="ledger-heading">
+            <h3>{RESUME_UI_COPY.skillsHeading}</h3>
+          </div>
+          <div class="ledger-body">
+            <ul class="skills-index">
+              {
+                resume.view.skills.map((skill) => (
+                  <li data-source-path={skill.label.path}>
+                    {skill.label.value}
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="ledger-note">{HOME_COPY.skillsNote}</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="lab-heading" class="lab-transition">
+      <h2 id="lab-heading">{HOME_COPY.labHeading}</h2>
+      <p>{HOME_COPY.labIntroA}</p>
+      <p>{HOME_COPY.labIntroB}</p>
+      <p class="lab-transition__cta">
+        <a href="/lab/replay/">{HOME_COPY.labCta}</a>
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .home {
+    padding-block: 3.5rem 4rem;
+  }
+
+  .identity {
+    display: grid;
+    gap: 2rem;
+    padding-block-end: 3rem;
+    border-block-end: var(--rule-width) solid var(--rule);
+  }
+
+  .identity h1 {
+    font-size: clamp(2.75rem, 8vw, 5rem);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .identity__headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    font-weight: 400;
+    color: var(--ink-muted);
+    margin-block: 0.65rem 1.4rem;
+    max-width: 30ch;
+  }
+
+  .identity__summary {
+    max-width: 48ch;
+    font-size: 1.0625rem;
+  }
+
+  .identity__cta {
+    margin-block-start: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+  }
+
+  .identity__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.9375rem;
+  }
+
+  .identity__meta {
+    margin: 0;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.8125rem;
+  }
+
+  address {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-style: normal;
+    margin: 0;
+  }
+
+  @media (min-width: 60rem) {
+    .identity {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+      align-items: end;
+      column-gap: 3rem;
+    }
+
+    .identity__aside {
+      align-self: stretch;
+      justify-content: flex-end;
+      padding-inline-start: 1.5rem;
+      border-inline-start: var(--rule-width) solid var(--rule);
+    }
+  }
+
+  section[aria-labelledby="evidence-heading"],
+  .lab-transition {
+    padding-block: 2.5rem;
+  }
+
+  .skills-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .skills-index li {
+    padding-block-end: 0.15rem;
+    border-block-end: var(--rule-width) solid var(--rule);
+  }
+
+  .ledger-note {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    margin-block-start: 0.75rem;
+  }
+
+  .lab-transition {
+    border-block-start: var(--rule-width) solid var(--rule);
+  }
+
+  .lab-transition__cta {
+    margin-block-start: 1.25rem;
+  }
+</style>

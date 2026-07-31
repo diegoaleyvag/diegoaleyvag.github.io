@@ -35,8 +35,9 @@ for consistency and accessibility, not to support alternate visual themes.
   --signal: #7d302a;
   --signal-soft: #f0ded8;
 
-  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
@@ -53,6 +54,13 @@ type, and visible rules.
 No web font is required tonight. Layout and hierarchy must carry the identity.
 A later self-hosted font change requires a measured performance and licensing
 review, keeps system fallbacks, and may not add a third-party request.
+
+**Amendment (owner-approved, post-slice polish):** the display role now leads
+with the self-hosted **Fraunces** variable serif (SIL OFL 1.1), applied only to
+`--font-display` headings. It satisfies this paragraph's conditions: a single
+latin weight-axis WOFF2 subset (~36 KB, preloaded), the system-serif fallback
+stack is preserved, and it adds no third-party request (served from
+`/fonts/`). Body text remains on the system humanist sans.
 
 ## Typography
 

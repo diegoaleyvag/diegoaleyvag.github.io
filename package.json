@@ -1,0 +1,51 @@
+{
+  "name": "portfolio-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": "24.18.1",
+    "pnpm": "11.18.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm content:check && pnpm test && pnpm generated:check",
+    "ci:gate": "pnpm check && pnpm build && pnpm static:check && pnpm test:e2e",
+    "content:check": "tsx tools/check-content-provenance/src/index.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generated:build": "pnpm replays:build",
+    "generated:check": "tsx tools/check-generated/src/index.ts",
+    "lint": "eslint .",
+    "opa:bootstrap": "tsx tools/opa/bootstrap.ts",
+    "policy:test": "tsx tools/opa/exec.ts test policies/source policies/test",
+    "publication:check": "tsx tools/check-content-provenance/src/check-publication-consent.ts",
+    "replays:build": "tsx tools/build-replays/src/cli.ts",
+    "static:check": "tsx tools/check-static-output/src/index.ts",
+    "test": "pnpm policy:test && vitest run --config vitest.config.ts",
+    "test:e2e": "playwright test",
+    "typecheck": "pnpm -r --if-present typecheck && tsc --noEmit -p tools/opa/tsconfig.json && tsc --noEmit -p tools/build-replays/tsconfig.json && tsc --noEmit -p tests/tsconfig.json"
+  },
+  "dependencies": {
+    "@portfolio/contracts": "workspace:*",
+    "@portfolio/replay": "workspace:*",
+    "@portfolio/resume": "workspace:*",
+    "@portfolio/testkit": "workspace:*"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.13.3",
+    "eslint": "10.8.0",
+    "eslint-plugin-astro": "3.0.1",
+    "globals": "17.8.0",
+    "prettier": "3.9.6",
+    "prettier-plugin-astro": "0.14.1",
+    "tsx": "4.23.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.1.10"
+  }
+}

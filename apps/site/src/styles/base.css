@@ -1,0 +1,138 @@
+/*
+ * Base reset and typography built on the frozen tokens in tokens.css.
+ * Editorial Evidence Ledger: warm paper, near-black ink, restrained rules.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 2.8vw, 2rem);
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+}
+
+p,
+li,
+dd {
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--signal);
+}
+
+a:not(:hover) {
+  text-underline-offset: 0.15em;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+hr {
+  border: none;
+  border-block-start: var(--rule-width) solid var(--rule);
+  margin: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+::selection {
+  background: var(--signal-soft);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  :root {
+    /*
+     * Overrides the frozen --rule token for print only, so every border
+     * that already reads `var(--rule)` becomes a visible black rule on
+     * white paper instead of the screen's low-contrast tan hairline.
+     * docs/design-direction.md: "Print mode becomes white paper, black
+     * type, and visible rules."
+     */
+    --rule: #000;
+  }
+
+  html {
+    background: #fff;
+    color: #000;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: none;
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "schema_version": "1.0.0",
+  "route": "/resume/",
+  "source_file": "content/source/cv.yaml",
+  "source_file_sha256": "24a1971180db9e90695f53c9c3ca371dc8ba2f2cfc1fa8a7c97a3e597f374d68",
+  "entries": [
+    {
+      "route": "/resume/",
+      "source_path": "name",
+      "source_value_sha256": "cd9f6b37e60db54c7b36d9a6f489740cafbf30eeaec36a506d430cc1915cd12f",
+      "rendered_value_sha256": "cd9f6b37e60db54c7b36d9a6f489740cafbf30eeaec36a506d430cc1915cd12f"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "headline",
+      "source_value_sha256": "e6b6b08dcab4df61d76e3ee48f41e1f83d9f0ac9b6382b7aa70dee567d3aa307",
+      "rendered_value_sha256": "e6b6b08dcab4df61d76e3ee48f41e1f83d9f0ac9b6382b7aa70dee567d3aa307"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "location",
+      "source_value_sha256": "02c00fc04eb7bde0c568aabf2f9a7dc467fb838defd940463189c63a1dcf256a",
+      "rendered_value_sha256": "02c00fc04eb7bde0c568aabf2f9a7dc467fb838defd940463189c63a1dcf256a"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "availability",
+      "source_value_sha256": "a2e5cd8b28dfeaa65341b767bfe4b35c610bc3638057f709ab1edd64add8d3ba",
+      "rendered_value_sha256": "a2e5cd8b28dfeaa65341b767bfe4b35c610bc3638057f709ab1edd64add8d3ba"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "email",
+      "source_value_sha256": "d1b6fc9937f7638b251248c05fa8010955dff293a7057dfdb50e0d9d51a2c835",
+      "rendered_value_sha256": "d1b6fc9937f7638b251248c05fa8010955dff293a7057dfdb50e0d9d51a2c835"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "linkedin.label",
+      "source_value_sha256": "e194ececf2182e1884a9486b16ba2061ea95a40de71a4caaca81679d62425f23",
+      "rendered_value_sha256": "e194ececf2182e1884a9486b16ba2061ea95a40de71a4caaca81679d62425f23"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "linkedin.url",
+      "source_value_sha256": "5a56166f422e874d4f69bfefdae31b754395aed49efcf575a0d292d51a9bebba",
+      "rendered_value_sha256": "5a56166f422e874d4f69bfefdae31b754395aed49efcf575a0d292d51a9bebba"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "github.label",
+      "source_value_sha256": "0ba926bf4e4ce497372bc1efeb8e98a3b940339d9fb23c253fd4ec6f57a95682",
+      "rendered_value_sha256": "0ba926bf4e4ce497372bc1efeb8e98a3b940339d9fb23c253fd4ec6f57a95682"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "github.url",
+      "source_value_sha256": "d7fe9befd9f4c6e863f38ea9fdd6ee9cd9605d062154131391179428a5a42e25",
+      "rendered_value_sha256": "d7fe9befd9f4c6e863f38ea9fdd6ee9cd9605d062154131391179428a5a42e25"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "summary",
+      "source_value_sha256": "97b516f1839c4ae60fcdc2d12b9831777c3c2a77ec1899343780859ee773f7dc",
+      "rendered_value_sha256": "97b516f1839c4ae60fcdc2d12b9831777c3c2a77ec1899343780859ee773f7dc"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].organisation",
+      "source_value_sha256": "03c4ad574b4a77e1da9e49bce4f9f5e9f4a65840694b27fef54b3b5f7b1d5474",
+      "rendered_value_sha256": "03c4ad574b4a77e1da9e49bce4f9f5e9f4a65840694b27fef54b3b5f7b1d5474"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].role",
+      "source_value_sha256": "b5b8cbbf6ff9e360b8726102e64f869672d41c1e2f36fb5b7e38051a01fba6b4",
+      "rendered_value_sha256": "b5b8cbbf6ff9e360b8726102e64f869672d41c1e2f36fb5b7e38051a01fba6b4"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].programme",
+      "source_value_sha256": "f93f1b716543e5a30af52fa93bec415e1d930fe186c64194df453d3e50e3f8c3",
+      "rendered_value_sha256": "f93f1b716543e5a30af52fa93bec415e1d930fe186c64194df453d3e50e3f8c3"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].dates",
+      "source_value_sha256": "a1923c235aa102351431888b39e40fd5c093f6b4a5295f38ee157f35ad8efc19",
+      "rendered_value_sha256": "a1923c235aa102351431888b39e40fd5c093f6b4a5295f38ee157f35ad8efc19"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].location",
+      "source_value_sha256": "35b2668c85c5c626d020cfda975e4dabc85f422d42ee51d8cdb240306d523915",
+      "rendered_value_sha256": "35b2668c85c5c626d020cfda975e4dabc85f422d42ee51d8cdb240306d523915"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[0]",
+      "source_value_sha256": "6bc14d0cc2f975a80896c155aea02c001df3f213eefdc6adc0263c48dd6f8e0d",
+      "rendered_value_sha256": "6bc14d0cc2f975a80896c155aea02c001df3f213eefdc6adc0263c48dd6f8e0d"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[1]",
+      "source_value_sha256": "ead65844d9ae8ccec0944965a271a12c177674acb6189733e03196f8bfeb09ee",
+      "rendered_value_sha256": "ead65844d9ae8ccec0944965a271a12c177674acb6189733e03196f8bfeb09ee"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[2]",
+      "source_value_sha256": "22d0b9cb4e4cde082e875f5966496c087019f9300ce3b4d1738150d186287220",
+      "rendered_value_sha256": "22d0b9cb4e4cde082e875f5966496c087019f9300ce3b4d1738150d186287220"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[3]",
+      "source_value_sha256": "7a345c51576f3d520ab46933b01e2c17913d00a46d67b4a60e5699e475b5a425",
+      "rendered_value_sha256": "7a345c51576f3d520ab46933b01e2c17913d00a46d67b4a60e5699e475b5a425"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[4]",
+      "source_value_sha256": "7b37baade3fad727bff78d070720c52132c6cb77334e46db6b1ddda169bde35c",
+      "rendered_value_sha256": "7b37baade3fad727bff78d070720c52132c6cb77334e46db6b1ddda169bde35c"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "experience[0].bullets[5]",
+      "source_value_sha256": "3533a78cfe1a3b735d7cddec833a9da1a70c385cabcc40dcd973be0f71db873d",
+      "rendered_value_sha256": "3533a78cfe1a3b735d7cddec833a9da1a70c385cabcc40dcd973be0f71db873d"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[0].name",
+      "source_value_sha256": "4c1993c2355508d0d04742cfad7b15d340e63995e6b34bcc3e6d416605338636",
+      "rendered_value_sha256": "4c1993c2355508d0d04742cfad7b15d340e63995e6b34bcc3e6d416605338636"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[0].descriptor",
+      "source_value_sha256": "8ac0ad965a751ec312e0e3230ab975f8562816e0ed3d2b05509e57cad92f3ede",
+      "rendered_value_sha256": "8ac0ad965a751ec312e0e3230ab975f8562816e0ed3d2b05509e57cad92f3ede"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[0].dates",
+      "source_value_sha256": "f20d9534189a710397bff1d1600f150ddef22f4d1b706c997c0fad7c1de27c5d",
+      "rendered_value_sha256": "f20d9534189a710397bff1d1600f150ddef22f4d1b706c997c0fad7c1de27c5d"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[0].bullets[0]",
+      "source_value_sha256": "c4d1b493168113e6485300c7b07727b08fa66a8195667a4bf831c89a027480a0",
+      "rendered_value_sha256": "c4d1b493168113e6485300c7b07727b08fa66a8195667a4bf831c89a027480a0"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[0].bullets[1]",
+      "source_value_sha256": "5faca606d35a030bdb1a6ea2cb94b49ade0b2154cfdd50fe38f865c14c24da31",
+      "rendered_value_sha256": "5faca606d35a030bdb1a6ea2cb94b49ade0b2154cfdd50fe38f865c14c24da31"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[1].name",
+      "source_value_sha256": "6cdc22c02beff7b782fe00e12ea7229d5a2da47ea95f26645fa1035174b6176f",
+      "rendered_value_sha256": "6cdc22c02beff7b782fe00e12ea7229d5a2da47ea95f26645fa1035174b6176f"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[1].descriptor",
+      "source_value_sha256": "2e3dcc2107819a639b80d4e2fc10411dff67e2ace632233a4d7afaae41909e27",
+      "rendered_value_sha256": "2e3dcc2107819a639b80d4e2fc10411dff67e2ace632233a4d7afaae41909e27"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[1].dates",
+      "source_value_sha256": "6af6fd5dadf8214474bc1efa127b439c18542fedd84ee83aa264344bcf0c9791",
+      "rendered_value_sha256": "6af6fd5dadf8214474bc1efa127b439c18542fedd84ee83aa264344bcf0c9791"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[1].bullets[0]",
+      "source_value_sha256": "128315e1e5f39821dc02201add65ce2c4faf8190f94af9cedf0bb40be64ab73d",
+      "rendered_value_sha256": "128315e1e5f39821dc02201add65ce2c4faf8190f94af9cedf0bb40be64ab73d"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[1].bullets[1]",
+      "source_value_sha256": "9b7c7bb690c0bb8c633b990ce34c8e3c7adcd06da0c56d4f764f487307a751ad",
+      "rendered_value_sha256": "9b7c7bb690c0bb8c633b990ce34c8e3c7adcd06da0c56d4f764f487307a751ad"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[2].name",
+      "source_value_sha256": "0528da86010fce3324f95dc040ec1e92b1b8056b106cc4cb45d84f7c348908f1",
+      "rendered_value_sha256": "0528da86010fce3324f95dc040ec1e92b1b8056b106cc4cb45d84f7c348908f1"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[2].descriptor",
+      "source_value_sha256": "7ee89899e7ec04d3b9a3f0ff581daa6a249e35846398d68da3e2bb486d7d07d4",
+      "rendered_value_sha256": "7ee89899e7ec04d3b9a3f0ff581daa6a249e35846398d68da3e2bb486d7d07d4"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[2].dates",
+      "source_value_sha256": "eb633d0876784a5479ce0f53e025ba19f733337e1680d88733f2e51aecadf8c0",
+      "rendered_value_sha256": "eb633d0876784a5479ce0f53e025ba19f733337e1680d88733f2e51aecadf8c0"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "projects[2].bullets[0]",
+      "source_value_sha256": "d15138967b83ee502616728ecedea0bbe1ae93bc556326cf0d45b6432fa99067",
+      "rendered_value_sha256": "d15138967b83ee502616728ecedea0bbe1ae93bc556326cf0d45b6432fa99067"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[0].institution",
+      "source_value_sha256": "c4ffc0dc8d2e3d2b76e10b326e6aad07dcb977ca83c434b074adf5f85060809e",
+      "rendered_value_sha256": "c4ffc0dc8d2e3d2b76e10b326e6aad07dcb977ca83c434b074adf5f85060809e"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[0].credential",
+      "source_value_sha256": "6fbae9d6840dc5b366b04bcefae3ed04c36d8dd62f1a5d90d4fff121b1f0437f",
+      "rendered_value_sha256": "6fbae9d6840dc5b366b04bcefae3ed04c36d8dd62f1a5d90d4fff121b1f0437f"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[0].dates",
+      "source_value_sha256": "3e46eaed87f303183b69622ff5981efdb44535fc317d357199810cb37bdb1e66",
+      "rendered_value_sha256": "3e46eaed87f303183b69622ff5981efdb44535fc317d357199810cb37bdb1e66"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[0].location",
+      "source_value_sha256": "02c00fc04eb7bde0c568aabf2f9a7dc467fb838defd940463189c63a1dcf256a",
+      "rendered_value_sha256": "02c00fc04eb7bde0c568aabf2f9a7dc467fb838defd940463189c63a1dcf256a"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[0].detail",
+      "source_value_sha256": "01edfcf7ad6afebd82554477f50711840dfb176f63e335caefbf651eaa86bbfc",
+      "rendered_value_sha256": "01edfcf7ad6afebd82554477f50711840dfb176f63e335caefbf651eaa86bbfc"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[1].institution",
+      "source_value_sha256": "c45bae770df8fbc59dce61580623eef1830a9b703a6b6aaa036d362457f58ac9",
+      "rendered_value_sha256": "c45bae770df8fbc59dce61580623eef1830a9b703a6b6aaa036d362457f58ac9"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[1].credential",
+      "source_value_sha256": "4b759466bc0fea547622a5809c9d8eeebca05d1534ea9012bd9bc3d8160e8e36",
+      "rendered_value_sha256": "4b759466bc0fea547622a5809c9d8eeebca05d1534ea9012bd9bc3d8160e8e36"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[1].dates",
+      "source_value_sha256": "30edd69034a722cab98973ac6338a5d37652e20e774faaa449a6ab5cfa960b6d",
+      "rendered_value_sha256": "30edd69034a722cab98973ac6338a5d37652e20e774faaa449a6ab5cfa960b6d"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[1].location",
+      "source_value_sha256": "b29460df18ded124b84f4d41f7b8c75ceac3561a406c885f93a4632a8b3287d3",
+      "rendered_value_sha256": "b29460df18ded124b84f4d41f7b8c75ceac3561a406c885f93a4632a8b3287d3"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "education[1].detail",
+      "source_value_sha256": "96b8bb560e1cf516d9b56e593b0d2fed13a0f5233391a4453f3ff15442a82559",
+      "rendered_value_sha256": "96b8bb560e1cf516d9b56e593b0d2fed13a0f5233391a4453f3ff15442a82559"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[0].label",
+      "source_value_sha256": "e6aba2bd5a6b0b7ea8564a58f5ae3767067b97e83360ad28f625853dccec2725",
+      "rendered_value_sha256": "e6aba2bd5a6b0b7ea8564a58f5ae3767067b97e83360ad28f625853dccec2725"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[0].value",
+      "source_value_sha256": "12d1a2ddc9f501733962fee6e281ed9aeaf9f70c5bf0374ae2bd335b22c593d2",
+      "rendered_value_sha256": "12d1a2ddc9f501733962fee6e281ed9aeaf9f70c5bf0374ae2bd335b22c593d2"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[1].label",
+      "source_value_sha256": "e80d89da40038dc9fd3af249c9a9589f3af599aeb2ebcaf7f2b0e207065116b4",
+      "rendered_value_sha256": "e80d89da40038dc9fd3af249c9a9589f3af599aeb2ebcaf7f2b0e207065116b4"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[1].value",
+      "source_value_sha256": "998543f1b8bd2a29150bf3f024c1c68a54388da5f2996fa99f07f4069db32c26",
+      "rendered_value_sha256": "998543f1b8bd2a29150bf3f024c1c68a54388da5f2996fa99f07f4069db32c26"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[2].label",
+      "source_value_sha256": "21dfefcbb5981d8bd16224a70792169e72e3135b1e562c2d5adee5331573c78a",
+      "rendered_value_sha256": "21dfefcbb5981d8bd16224a70792169e72e3135b1e562c2d5adee5331573c78a"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[2].value",
+      "source_value_sha256": "df178c778d016d4ac7dcbe15d83ca5bd279a1073681c6fc0c319b71de8075413",
+      "rendered_value_sha256": "df178c778d016d4ac7dcbe15d83ca5bd279a1073681c6fc0c319b71de8075413"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[3].label",
+      "source_value_sha256": "06a30c66e022c802d5bcb4f738fdeed2edd0b00cc4274a3a97dd78930b3b6d3a",
+      "rendered_value_sha256": "06a30c66e022c802d5bcb4f738fdeed2edd0b00cc4274a3a97dd78930b3b6d3a"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[3].value",
+      "source_value_sha256": "cdbba49c859a86e306d5f9481cc7e1a07cc85d1708d89ae3c0352bff07d869dc",
+      "rendered_value_sha256": "cdbba49c859a86e306d5f9481cc7e1a07cc85d1708d89ae3c0352bff07d869dc"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[4].label",
+      "source_value_sha256": "318655cea4bd2096fbfad433d7c019bac40750d1a456fc34d366df41fcc77197",
+      "rendered_value_sha256": "318655cea4bd2096fbfad433d7c019bac40750d1a456fc34d366df41fcc77197"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "skills[4].value",
+      "source_value_sha256": "315e7dc0e955d7e164da2798e1a97ee8e36cc33a41fce4173001ffc8006e2772",
+      "rendered_value_sha256": "315e7dc0e955d7e164da2798e1a97ee8e36cc33a41fce4173001ffc8006e2772"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "certifications[0]",
+      "source_value_sha256": "df38db73e0c26418ff1b64c3cd085975632f6ba999e6765bdc846b67bd0f111b",
+      "rendered_value_sha256": "df38db73e0c26418ff1b64c3cd085975632f6ba999e6765bdc846b67bd0f111b"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "certifications[1]",
+      "source_value_sha256": "2fa53c85bb44600e311697133d7ba4dddda95abae6bc6fffc825abdc90d15582",
+      "rendered_value_sha256": "2fa53c85bb44600e311697133d7ba4dddda95abae6bc6fffc825abdc90d15582"
+    },
+    {
+      "route": "/resume/",
+      "source_path": "certifications[2]",
+      "source_value_sha256": "2645a0cefff72bb71335050f66b8f8ebb2fca11d1e2c2ab6925fb8cdc2b21ead",
+      "rendered_value_sha256": "2645a0cefff72bb71335050f66b8f8ebb2fca11d1e2c2ab6925fb8cdc2b21ead"
+    }
+  ]
+}

@@ -10,39 +10,39 @@ or filenames outside the three anonymized candidate files were consulted.
 
 ### Per-criterion scores
 
-| # | Criterion (weight) | A | B | C |
-|---|---|---|---|---|
-| 1 | Portfolio distinctiveness & narrative (15) | 14 | 12 | 7 |
-| 2 | Technical credibility & depth (15) | 15 | 14 | 5 |
-| 3 | Static/live architecture quality (15) | 15 | 14 | 7 |
-| 4 | MVP feasibility tonight (10) | 7 | 9 | 7 |
-| 5 | Agent-governance & evaluation design (15) | 15 | 12 | 4 |
-| 6 | Maintainability & testing (10) | 10 | 9 | 4 |
-| 7 | Security & clean-room compliance (15) | 15 | 13 | 7 |
-| 8 | Deployment simplicity (5) | 5 | 5 | 3 |
-| | **Raw total** | **96** | **88** | **44** |
+| #   | Criterion (weight)                         | A      | B      | C      |
+| --- | ------------------------------------------ | ------ | ------ | ------ |
+| 1   | Portfolio distinctiveness & narrative (15) | 14     | 12     | 7      |
+| 2   | Technical credibility & depth (15)         | 15     | 14     | 5      |
+| 3   | Static/live architecture quality (15)      | 15     | 14     | 7      |
+| 4   | MVP feasibility tonight (10)               | 7      | 9      | 7      |
+| 5   | Agent-governance & evaluation design (15)  | 15     | 12     | 4      |
+| 6   | Maintainability & testing (10)             | 10     | 9      | 4      |
+| 7   | Security & clean-room compliance (15)      | 15     | 13     | 7      |
+| 8   | Deployment simplicity (5)                  | 5      | 5      | 3      |
+|     | **Raw total**                              | **96** | **88** | **44** |
 
 ### Penalties applied
 
-| Penalty | A | B | C |
-|---|---|---|---|
-| Generic AI aesthetics (−10) | 0 | 0 | 0 |
-| Resume-as-decoration (−10) | 0 | 0 | 0 |
-| Needless microservices (−10) | 0 | 0 | 0 |
-| Vendor lock-in (−10) | 0 | 0 | 0 |
-| Tests depend on live inference (−10) | 0 | 0 | 0 |
-| Exposed secrets (−25) | 0 | 0 | 0 |
-| Blocks GitHub Pages static export (−20) | 0 | 0 | 0 |
-| Fabricated facts (−25) | 0 | 0 | 0 |
-| **Total penalties** | **0** | **0** | **0** |
+| Penalty                                 | A     | B     | C     |
+| --------------------------------------- | ----- | ----- | ----- |
+| Generic AI aesthetics (−10)             | 0     | 0     | 0     |
+| Resume-as-decoration (−10)              | 0     | 0     | 0     |
+| Needless microservices (−10)            | 0     | 0     | 0     |
+| Vendor lock-in (−10)                    | 0     | 0     | 0     |
+| Tests depend on live inference (−10)    | 0     | 0     | 0     |
+| Exposed secrets (−25)                   | 0     | 0     | 0     |
+| Blocks GitHub Pages static export (−20) | 0     | 0     | 0     |
+| Fabricated facts (−25)                  | 0     | 0     | 0     |
+| **Total penalties**                     | **0** | **0** | **0** |
 
 ### Final scores
 
-| Candidate | Raw | Penalties | Final |
-|---|---|---|---|
-| **A** | 96 | 0 | **96** |
-| **B** | 88 | 0 | **88** |
-| **C** | 44 | 0 | **44** |
+| Candidate | Raw | Penalties | Final  |
+| --------- | --- | --------- | ------ |
+| **A**     | 96  | 0         | **96** |
+| **B**     | 88  | 0         | **88** |
+| **C**     | 44  | 0         | **44** |
 
 ---
 
@@ -381,7 +381,7 @@ All other hard constraints satisfied. Notable compliance measures:
 Concerns:
 
 1. **Open API surface.** `POST /api/execute` with `{ "intent": string,
-   "context": object }` allows arbitrary user input. This conflicts with the
+"context": object }` allows arbitrary user input. This conflicts with the
    synthetic-data-only constraint (real PII could be submitted as `intent`) and
    the prompt-injection mitigation that the hard constraints implicitly require.
    This is a design-level concern, not a committed violation, since the API is
@@ -702,5 +702,5 @@ makes the portfolio distinctive.
 
 ---
 
-*Judgement recorded blind. No other proposals' scores, judges' notes, git
-history, branch names, worktree contents, or model identifiers were consulted.*
+_Judgement recorded blind. No other proposals' scores, judges' notes, git
+history, branch names, worktree contents, or model identifiers were consulted._

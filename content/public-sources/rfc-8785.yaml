@@ -1,0 +1,7 @@
+id: rfc-8785
+title: JSON Canonicalization Scheme (JCS)
+publisher: RFC Editor
+url: https://www.rfc-editor.org/rfc/rfc8785
+retrieved: "2026-08-01"
+implementation_use:
+  - deterministic event canonicalization before hashing

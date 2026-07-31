@@ -1,0 +1,363 @@
+---
+import {
+  RESUME_UI_COPY,
+  loadResume,
+} from "../../../../../packages/resume/src/index";
+
+const resume = await loadResume();
+const { identity } = resume.view;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{RESUME_UI_COPY.documentTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#resume-document">
+      {RESUME_UI_COPY.skipToContent}
+    </a>
+
+    <nav class="resume-navigation" aria-label={RESUME_UI_COPY.navigationLabel}>
+      <a href="/">{RESUME_UI_COPY.portfolioLink}</a>
+    </nav>
+
+    <main id="resume-document">
+      <article
+        class="resume-document"
+        data-source-file={resume.sourceFile}
+        data-source-sha256={resume.sourceSha256}
+      >
+        <header class="resume-header">
+          <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
+          <p data-source-path={identity.headline.path}>
+            {identity.headline.value}
+          </p>
+          <p>
+            <span data-source-path={identity.location.path}>
+              {identity.location.value}
+            </span>
+            <span aria-hidden="true"> · </span>
+            <span data-source-path={identity.availability.path}>
+              {identity.availability.value}
+            </span>
+          </p>
+          <address aria-label={RESUME_UI_COPY.contactLabel}>
+            <a
+              href={`mailto:${identity.email.value}`}
+              data-source-path={identity.email.path}
+            >
+              {identity.email.value}
+            </a>
+            <a
+              href={identity.linkedin.url.value}
+              data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
+              data-source-sha256s={`${identity.linkedin.label.sha256} ${identity.linkedin.url.sha256}`}
+            >
+              {identity.linkedin.label.value}
+            </a>
+            <a
+              href={identity.github.url.value}
+              data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
+              data-source-sha256s={`${identity.github.label.sha256} ${identity.github.url.sha256}`}
+            >
+              {identity.github.label.value}
+            </a>
+          </address>
+          <p data-source-path={identity.summary.path}>
+            {identity.summary.value}
+          </p>
+        </header>
+
+        <section aria-labelledby="experience-heading">
+          <h2 id="experience-heading">{RESUME_UI_COPY.experienceHeading}</h2>
+          <ol class="resume-entries">
+            {
+              resume.view.experience.map((entry) => (
+                <li>
+                  <article>
+                    <h3 data-source-path={entry.role.path}>
+                      {entry.role.value}
+                    </h3>
+                    <p data-source-path={entry.organisation.path}>
+                      {entry.organisation.value}
+                    </p>
+                    <p data-source-path={entry.programme.path}>
+                      {entry.programme.value}
+                    </p>
+                    <p>
+                      <span data-source-path={entry.dates.path}>
+                        {entry.dates.value}
+                      </span>
+                      <span aria-hidden="true"> · </span>
+                      <span data-source-path={entry.location.path}>
+                        {entry.location.value}
+                      </span>
+                    </p>
+                    <ul>
+                      {entry.bullets.map((bullet) => (
+                        <li data-source-path={bullet.path}>{bullet.value}</li>
+                      ))}
+                    </ul>
+                  </article>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="projects-heading">
+          <h2 id="projects-heading">{RESUME_UI_COPY.projectsHeading}</h2>
+          <ol class="resume-entries">
+            {
+              resume.view.projects.map((entry) => (
+                <li>
+                  <article>
+                    <h3 data-source-path={entry.name.path}>
+                      {entry.name.value}
+                    </h3>
+                    <p data-source-path={entry.descriptor.path}>
+                      {entry.descriptor.value}
+                    </p>
+                    <p data-source-path={entry.dates.path}>
+                      {entry.dates.value}
+                    </p>
+                    <ul>
+                      {entry.bullets.map((bullet) => (
+                        <li data-source-path={bullet.path}>{bullet.value}</li>
+                      ))}
+                    </ul>
+                  </article>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="education-heading">
+          <h2 id="education-heading">{RESUME_UI_COPY.educationHeading}</h2>
+          <ol class="resume-entries">
+            {
+              resume.view.education.map((entry) => (
+                <li>
+                  <article>
+                    <h3 data-source-path={entry.institution.path}>
+                      {entry.institution.value}
+                    </h3>
+                    <p data-source-path={entry.credential.path}>
+                      {entry.credential.value}
+                    </p>
+                    <p>
+                      <span data-source-path={entry.dates.path}>
+                        {entry.dates.value}
+                      </span>
+                      <span aria-hidden="true"> · </span>
+                      <span data-source-path={entry.location.path}>
+                        {entry.location.value}
+                      </span>
+                    </p>
+                    <p data-source-path={entry.detail.path}>
+                      {entry.detail.value}
+                    </p>
+                  </article>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="skills-heading">
+          <h2 id="skills-heading">{RESUME_UI_COPY.skillsHeading}</h2>
+          <dl>
+            {
+              resume.view.skills.map((entry) => (
+                <>
+                  <dt data-source-path={entry.label.path}>
+                    {entry.label.value}
+                  </dt>
+                  <dd data-source-path={entry.value.path}>
+                    {entry.value.value}
+                  </dd>
+                </>
+              ))
+            }
+          </dl>
+        </section>
+
+        <section aria-labelledby="certifications-heading">
+          <h2 id="certifications-heading">
+            {RESUME_UI_COPY.certificationsHeading}
+          </h2>
+          <ul>
+            {
+              resume.view.certifications.map((entry) => (
+                <li data-source-path={entry.path}>{entry.value}</li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <footer class="resume-provenance" aria-labelledby="source-heading">
+          <h2 id="source-heading">{RESUME_UI_COPY.sourceHeading}</h2>
+          <p>
+            {RESUME_UI_COPY.sourceFileLabel}: <code>{resume.sourceFile}</code>
+          </p>
+          <p>
+            {RESUME_UI_COPY.sourceDigestLabel}: <code
+              >{resume.sourceSha256}</code
+            >
+          </p>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    color: #181714;
+    background: #f4f0e7;
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    line-height: 1.5;
+  }
+
+  :global(body) {
+    margin: 0;
+  }
+
+  :global(a) {
+    color: #7d302a;
+  }
+
+  :global(a:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .resume-navigation,
+  .resume-document {
+    width: min(100% - 2rem, 70rem);
+    margin-inline: auto;
+  }
+
+  .resume-navigation {
+    padding-block: 1rem;
+    border-block-end: 1px solid #c9c1b6;
+  }
+
+  .resume-document {
+    padding-block: 2rem 4rem;
+  }
+
+  .resume-header,
+  section,
+  .resume-provenance {
+    max-width: 68rem;
+    padding-block: 1.5rem;
+    border-block-end: 1px solid #c9c1b6;
+  }
+
+  h1,
+  h2 {
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  }
+
+  address {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-style: normal;
+  }
+
+  .resume-entries {
+    padding-inline-start: 1.25rem;
+  }
+
+  .resume-entries > li + li {
+    margin-block-start: 1.5rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: minmax(8rem, auto) 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+  dt {
+    font-weight: 700;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  code {
+    overflow-wrap: anywhere;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+
+  @media (max-width: 35rem) {
+    dl {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link {
+      transition: none;
+    }
+  }
+
+  @media print {
+    :global(html) {
+      color: #000;
+      background: #fff;
+      font-size: 10pt;
+    }
+
+    .skip-link,
+    .resume-navigation {
+      display: none;
+    }
+
+    .resume-document {
+      width: 100%;
+      padding: 0;
+    }
+
+    .resume-header,
+    section,
+    .resume-provenance {
+      border-color: #000;
+      break-inside: avoid;
+    }
+
+    :global(a) {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+</style>

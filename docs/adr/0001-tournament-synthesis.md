@@ -6,8 +6,7 @@
 ## Context
 
 Three independent proposals were judged blind against the repository rubric and
-hard constraints. Both judges ranked Candidate A first with a final score of
-96. They agreed that A had the strongest static/live separation, governance
+hard constraints. Both judges ranked Candidate A first with a final score of 96. They agreed that A had the strongest static/live separation, governance
 domain, factual safeguards, security posture, deterministic testing, and root
 GitHub Pages plan. Both identified first-night scope as its material weakness.
 

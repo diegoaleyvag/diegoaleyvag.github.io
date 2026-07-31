@@ -1,0 +1,6 @@
+.cache/
+apps/site/dist/
+apps/site/public/replays/
+coverage/
+node_modules/
+pnpm-lock.yaml

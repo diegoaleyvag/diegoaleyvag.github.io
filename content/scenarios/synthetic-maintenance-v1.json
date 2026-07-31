@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "scenario_version": "1.0.0",
+  "synthetic": true,
+  "id": "synthetic-maintenance-v1",
+  "label": "Synthetic scenario",
+  "fixture": {
+    "id": "synthetic-fixture:filter-unit-7",
+    "state": "available"
+  },
+  "agent_manifest": {
+    "id": "synthetic:maintenance-agent",
+    "version": "1.0.0",
+    "synthetic": true,
+    "capabilities": ["fixture:read"],
+    "credential_refs": ["synthetic:maintenance-credential"],
+    "tool_refs": ["synthetic:fixture-catalog"],
+    "status": "active"
+  },
+  "tool_manifest": {
+    "id": "synthetic:fixture-catalog",
+    "name": "Synthetic fixture catalog",
+    "version": "1.0.0",
+    "synthetic": true,
+    "argument_schema_id": "synthetic-schema:fixture-operation-input",
+    "result_schema_id": "synthetic-schema:fixture-operation-result",
+    "actions": [
+      {
+        "action": "fixture:read",
+        "required_capability": "fixture:read",
+        "side_effect_class": "read_only"
+      },
+      {
+        "action": "fixture:adjust",
+        "required_capability": "fixture:adjust",
+        "side_effect_class": "synthetic_state_change"
+      }
+    ],
+    "limits": {
+      "max_calls_per_run": 1,
+      "max_result_bytes": 2048
+    }
+  },
+  "variants": [
+    {
+      "id": "read-allowed",
+      "action": "fixture:read",
+      "expected_effect": "allow"
+    },
+    {
+      "id": "adjust-denied",
+      "action": "fixture:adjust",
+      "expected_effect": "deny"
+    }
+  ]
+}

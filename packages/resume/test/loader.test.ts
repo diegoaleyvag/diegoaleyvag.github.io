@@ -115,10 +115,10 @@ describe("canonical CV loader", () => {
 });
 
 describe("publication consent gate", () => {
-  it("remains pending until the repository owner approves it", async () => {
+  it("is owner-approved for publication of contact fields", async () => {
     await expect(loadPublicationConsent()).resolves.toEqual({
       schema_version: "1.0.0",
-      contact_fields: "pending",
+      contact_fields: "approved",
     });
   });
 

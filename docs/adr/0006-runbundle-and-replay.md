@@ -29,6 +29,8 @@ Each bundle includes an explicit synthetic marker, schema/scenario versions,
 finite IDs, manifests, policy input/output and digest, ordered logical events,
 normalized provider data when applicable, optional trace data, Merkle evidence,
 deterministic assertions, generator version, and public-source references.
+The replay manifest records each exact bundle's byte length and SHA-256 digest;
+consumers verify both before parsing.
 
 For tonight, author one declarative synthetic scenario with allow and deny
 variants. A retained deterministic builder evaluates real Rego, validates the

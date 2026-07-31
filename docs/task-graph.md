@@ -17,6 +17,7 @@ T0 -> T2 Résumé/loader
 T0 -> T3 Rego policy
 T0 -> T5 Site shell
 
+T1            -> T3 Policy contract binding
 T1 + T3       -> T4 Replay bundle
 T2 + T5 shell -> T5 Home binding
 T1 + T4 + T5  -> T6 Replay UI
@@ -29,9 +30,10 @@ T8                       -> T9 Final slice gate
 Start T1, T2, T3, and T5's source-independent shell in parallel after T0. T5
 cannot complete home-page data binding until T2 freezes and hands off the typed
 résumé-loader interface. T4 begins after the contracts and policy input/output
-shapes freeze. T6 can build its static shell against the contract while T4
-finishes, but it cannot duplicate fixture data. T7 adds checks continuously and
-performs its final pass after all producing lanes.
+shapes freeze; T3 likewise cannot complete typed policy binding before T1's
+policy contract freezes. T6 can build its static shell against the contract
+while T4 finishes, but it cannot duplicate fixture data. T7 adds checks
+continuously and performs its final pass after all producing lanes.
 
 ## 2. Global ownership rules
 
@@ -131,6 +133,8 @@ performs its final pass after all producing lanes.
 
 - `packages/resume/**`
 - `apps/site/src/pages/resume/**`
+- `content/publication-consent.yaml` (create as `pending`; only the repository
+  owner may approve)
 
 **May read:** `content/source/cv.yaml`
 
@@ -143,6 +147,7 @@ performs its final pass after all producing lanes.
 - Coverage tests derive expectations from the source without snapshotting CV
   text.
 - Print CSS hooks exist, but no PDF or placeholder link is added.
+- The consent file has a closed schema; the lane cannot self-approve it.
 
 **Files not to touch:**
 
@@ -159,7 +164,7 @@ performs its final pass after all producing lanes.
 
 **Owner:** policy owner
 
-**Depends on:** T0
+**Depends on:** T0 and T1's frozen policy input/decision contract
 
 **Owns:**
 
@@ -200,6 +205,7 @@ performs its final pass after all producing lanes.
 
 - `content/scenarios/**`
 - `packages/replay/**`
+- `packages/testkit/**`
 - `tools/build-replays/**`
 - `apps/site/public/replays/**`
 
@@ -210,7 +216,11 @@ performs its final pass after all producing lanes.
 - The builder uses fixed logical time and deterministic identifiers.
 - It invokes pinned OPA evaluation and embeds the resulting input, decision,
   reason, source digest, and rule ID.
+- Missing, malformed, unknown, or schema-invalid policy output aborts generation
+  and writes no artifact.
 - It produces schema-valid `RunBundle` files and a manifest.
+- The manifest records each bundle's path, versions, variant, exact byte length,
+  and SHA-256 digest.
 - RFC 8785 canonicalization and RFC 6962-style domain-separated Merkle proofs
   are implemented with independent negative tests.
 - Denied output has no tool execution event.
@@ -283,6 +293,8 @@ interface
   evidence-limit copy needed for the first release.
 - The Preact island loads only a manifest and selected bundle from static
   same-origin paths.
+- It verifies the selected bundle's byte length and SHA-256 manifest digest
+  before JSON parsing or rendering and fails closed on mismatch.
 - Keyboard users can select a variant, step through events, inspect policy
   details and raw JSON, and run the in-memory tamper demonstration.
 - Browser verification reports only a match to the included root and displays
@@ -318,7 +330,16 @@ interface
 - `/vitest.config.ts`
 - `/playwright.config.ts`
 
-**Acceptance:**
+**Tonight preflight acceptance:**
+
+- Focused tests cover CV leaf coverage, Rego allow/deny,
+  denied-without-tool, event order, manifest digest mismatch, and Merkle
+  tampering.
+- One static-host Playwright flow directly loads the required routes, exercises
+  both variants and in-memory tampering, blocks non-local network, and reports
+  no serious/critical accessibility violation.
+
+**First-release continuation:**
 
 - Unit/contract tests cover schema rejection, exact CV coverage, event order,
   deterministic IDs, canonical hashing, proof mutations, and deny-without-tool.
@@ -348,7 +369,7 @@ than editing across ownership boundaries.
 
 **Owner:** integration/deployment owner
 
-**Depends on:** T0 and a green T7 preflight
+**Depends on:** T0 and a green T7 tonight preflight
 
 **Owns:**
 
@@ -364,6 +385,8 @@ than editing across ownership boundaries.
 - CI installs frozen dependencies, runs the full deterministic gate, builds,
   scans, and uploads exactly one static directory.
 - Pull requests never deploy.
+- The deployment job fails unless the reviewed publication-consent value is
+  `approved`, with no environment or workflow-input bypass.
 - Deployment permissions are granted only to the Pages deployment job.
 - The uploaded root contains `.nojekyll`, physical routes, and no CNAME.
 - Runtime URL/configuration is optional and contains no credential.
@@ -386,9 +409,9 @@ than editing across ownership boundaries.
 
 **Acceptance:**
 
-- Every checkbox under “Tonight's vertical slice” in
-  `docs/acceptance-criteria.md` is either demonstrated or explicitly recorded
-  as a release blocker.
+- Every checkbox under “Tonight's terminal state” in
+  `docs/acceptance-criteria.md` is demonstrated. Remaining first-release
+  hardening items are tracked separately and do not expand the night.
 - Git diff contains no CV modification, proprietary material, real demo/test
   data, secret, application-scope expansion, or ownership violation.
 - Build/test commands and manual accessibility checks are recorded.
@@ -410,8 +433,11 @@ than editing across ownership boundaries.
 
 **Owns:** `packages/governance-core/**`, including package-local unit tests
 
-**Acceptance:** state machine, approval binding, tool gate, trace mapping, and
-deterministic evaluation satisfy post-slice criteria.
+**Acceptance:** state machine, approval binding, tool gate, trace mapping,
+deterministic evaluation, and the narrow synthetic DID/VC verification profile
+satisfy post-slice criteria. Unsupported suites, remote resolution, bad
+signatures, and invalid validity windows fail closed. Malformed runtime policy
+output produces a terminal deny/error event and no tool starts.
 
 **Files not to touch:** CV source, site UI, runtime adapter, package manifests,
 policy source without policy-owner handoff.
@@ -456,7 +482,9 @@ source, runtime API.
 **Acceptance:** constrained API, configuration-only provider selection,
 server-only Groq secret, response-header quota parsing, redaction, bounded
 synthetic tools, OCI portability, and no persistence. Public enablement is still
-blocked on F5.
+blocked on F5. The deployment runs non-root with a read-only filesystem and
+verified egress restricted to Groq plus an explicitly approved telemetry
+endpoint.
 
 **Files not to touch:** site, CV source, shared contracts without contract-owner
 review, package manifests/lockfile.
@@ -474,12 +502,29 @@ integration/deployment owner after this gate passes.
 **Acceptance:** the separate ADR explicitly accepts residual cost risk and
 verifies kill switch, request/concurrency budgets, source throttling, spend cap,
 alerts, exact origins, and operator rollback. Live remains off if any control is
-unverified.
+unverified or F6 has not passed.
 
 **Files not to touch:** provider logic, site content, CV source, tests that
 would call Groq.
 
-### F6 — Optional Typst PDF
+### F6 — Optional browser Live integration
+
+**Owner:** frontend Live-integration owner
+
+**Depends on:** F4 and a handoff from the T6 replay-interface owner
+
+**Owns:** `apps/site/src/features/live/**`
+
+**Acceptance:** the browser discovers only finite capabilities, submits only
+the closed scenario request, contains runtime failure to the Live control, and
+keeps Replay fully functional when the runtime origin is absent. It exposes no
+key, prompt, open parameters, files, URLs, model selector, or provider selector.
+Public Live remains off until both F5 and F6 pass.
+
+**Files not to touch:** Replay implementation without T6 handoff, CV source,
+runtime code, provider logic, package manifests/lockfile.
+
+### F7 — Optional Typst PDF
 
 **Owner:** résumé-print owner
 

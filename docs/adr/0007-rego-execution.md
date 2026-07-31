@@ -21,7 +21,10 @@ service.
   cache; do not commit an executable.
 - Tonight's replay builder evaluates finite synthetic inputs with native OPA and
   embeds the actual typed decision, reason, rule ID, and source digest.
-- Missing, malformed, or unknown output fails closed as deny.
+- During replay generation, missing, malformed, unknown, or schema-invalid
+  output aborts the build and writes no artifact.
+- At runtime, the same condition becomes a terminal deny/error event and no
+  tool starts.
 - When the optional runtime is implemented, compile the same source
   reproducibly to OPA WebAssembly and load it in-process through the isolated
   `packages/policy-runtime` adapter.

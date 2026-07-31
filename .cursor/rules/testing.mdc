@@ -17,7 +17,8 @@ alwaysApply: false
 - Derive CV expectations by reading `content/source/cv.yaml` at test time.
   Never commit a copied snapshot containing résumé/contact text.
 - Cover strict schema rejection, exact résumé leaf coverage, Rego allow/deny,
-  deny-without-tool, event order, generated drift, and secret boundaries.
+  deny-without-tool, event order, manifest digest mismatch, generated drift,
+  and secret boundaries.
 - Mutate event body, sequence, proof sibling, and root; each integrity check
   must fail.
 - Serve E2E from the final static directory with only the local origin allowed.

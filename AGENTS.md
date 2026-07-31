@@ -9,8 +9,8 @@ relevant to your files before implementation.
 
 Build a distinctive personal portfolio, a generated HTML resume, a clean-room
 agent-governance & reliability project, and a static-first interactive demo for
-**Diego Alejandro Leyva García**, targeting **recruiters and engineers**
-evaluating him for junior AI/ML engineering roles.
+the person identified by `name` in `content/source/cv.yaml`, targeting
+**recruiters and engineers** evaluating him for junior AI/ML engineering roles.
 
 ## Canonical source of truth
 
@@ -44,7 +44,8 @@ The only personal-content boundary is the existing canonical CV. Its fields may
 render directly on portfolio/résumé routes for local validation and builds, but
 public deployment of contact and location fields requires owner confirmation.
 They must never be copied into demo data, snapshots, logs, telemetry, or
-analytics.
+analytics. Pages enforces the reviewed `content/publication-consent.yaml` gate;
+agents and CI inputs may not bypass or self-approve it.
 
 ## Secrets
 
@@ -82,11 +83,14 @@ branches on provider type. Live is absent from the first public release. If late
 enabled, it accepts only a known scenario ID and finite variant—never prompts,
 open objects, files, URLs, models, provider names, or user credentials. A
 real-provider diagnostic is operational tooling, never a test or merge gate.
+Runtime composition defaults to Fake; Live additionally requires the explicit
+enablement flag and server key.
 
 ## Accepted stack and tooling
 
 - Astro static output and TypeScript.
-- Preact only inside the Replay feature island.
+- Preact only inside the lab island: Replay initially, plus the deferred finite
+  Live control only after its runtime/security gates pass.
 - A pinned Node.js LTS and pnpm workspace through Corepack.
 - ESLint flat config, Prettier for supported web/docs formats, and `opa fmt`
   for Rego.
@@ -112,6 +116,8 @@ new notable stack/tooling decision needs an ADR under `docs/adr/`.
 - `packages/providers` contains the provider port plus network-free Fake/Replay.
 - `packages/replay` owns bundle loading, canonicalization, and proof checks.
 - `packages/resume` owns CV validation, view models, and provenance coverage.
+- `packages/testkit` owns fixed clocks, deterministic IDs, and synthetic
+  fixture helpers; the replay-data lane owns it for the first slice.
 - Generated artifacts are validated at creation and consumption and are never
   hand-edited.
 
@@ -166,8 +172,10 @@ inputs. Canonical implementation authority, in order, is:
 1. this file and `docs/hard-constraints.md`;
 2. accepted ADRs in `docs/adr/`;
 3. `docs/architecture.md`;
-4. `docs/acceptance-criteria.md` and `docs/task-graph.md`;
-5. scoped `.cursor/rules/*.mdc`.
+4. `docs/product-brief.md`, `docs/portfolio-narrative.md`,
+   `docs/design-direction.md`, and `docs/threat-model.md`;
+5. `docs/acceptance-criteria.md` and `docs/task-graph.md`;
+6. scoped `.cursor/rules/*.mdc`.
 
 Do not reopen an accepted decision during implementation. Propose a superseding
 ADR when evidence shows a material need. No product name has been selected.

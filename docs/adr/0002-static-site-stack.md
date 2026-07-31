@@ -26,8 +26,10 @@ Use:
 - progressive enhancement: initial lab explanation and run summary are static
   HTML, then Replay controls hydrate.
 
-Home, résumé, and work-content routes ship no client framework
-JavaScript. Preact is not a general component model for the rest of the site.
+Home, résumé, and work-content routes ship no client framework JavaScript.
+Preact is not a general component model for the rest of the site. The deferred
+finite Live control may use the same lab-island boundary after its runtime and
+security gates pass; it does not authorize hydration elsewhere.
 
 ## Consequences
 

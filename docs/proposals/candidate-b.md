@@ -46,9 +46,9 @@
 ### Thesis
 
 Most developer portfolios are either (a) decorated link-lists with fabricated
-metrics, or (b) raw GitHub repos with no narrative. Diego's differentiator is
-that he has *built agent-governance infrastructure at production scale* (identity,
-policy, audit, observability). The portfolio should embody those same values:
+metrics, or (b) raw GitHub repos with no narrative. The canonical CV describes
+AI engineering work spanning identity, policy, audit, and observability. The
+portfolio should embody those same values:
 
 - **Provenance:** Every factual claim on the site traces to a specific key-path
   in `cv.yaml`. The site generates a provenance map at build time; visitors can

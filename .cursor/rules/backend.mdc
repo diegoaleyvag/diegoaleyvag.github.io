@@ -22,6 +22,9 @@ alwaysApply: false
   `scenario_id`, and a finite `variant`. Reject unknown fields.
 - Keep Groq credentials in server process environment only. Never serialize,
   log, trace, return, or accept a key from a request.
+- Default composition to Fake. Live requires `LLM_PROVIDER=live`,
+  `LIVE_EXECUTION_ENABLED=true`, and the server key; missing any condition
+  fails closed.
 - Read Groq rate-limit and retry observations from response headers. Treat
   missing/malformed values as unknown; never hardcode provider limits.
 - Model output is untrusted data. Validate tool names, arguments, result bounds,

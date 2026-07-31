@@ -33,9 +33,9 @@ non-trivial change.
 - **Architecture is decided.** Follow `docs/architecture.md`,
   `docs/task-graph.md`, and accepted ADRs. Do not reopen stack, language,
   package-manager, runtime, visual, or module choices without a superseding ADR.
-- **Accepted stack:** Astro static output, TypeScript, isolated Preact Replay
-  island, pnpm, and an optional TypeScript/Fastify runtime. No Python/uv,
-  database, or public Live endpoint initially.
+- **Accepted stack:** Astro static output, TypeScript, an isolated Preact lab
+  island (Replay first), pnpm, and an optional TypeScript/Fastify runtime. No
+  Python/uv, database, or public Live endpoint initially.
 - **Tests are network-free.** CI and normal tests never call Groq.
 - **Respect folder ownership** in `docs/task-graph.md`; only the integration
   owner edits package manifests and the lockfile.

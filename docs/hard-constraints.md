@@ -71,7 +71,8 @@ This checklist restates (and makes checkable) the invariants in `AGENTS.md`.
       copied into demo/test data, snapshots, logs, telemetry, or analytics.
 - [ ] Public deployment of canonical contact and location fields requires the
       repository owner's explicit confirmation; local validation/building does
-      not.
+      not. The Pages job enforces the reviewed
+      `content/publication-consent.yaml` gate with no CI/environment bypass.
 
 ## Tooling preference
 

@@ -98,6 +98,7 @@ configured; it cannot affect static navigation or Replay.
 │   │       ├── layouts/
 │   │       ├── components/
 │   │       ├── features/replay/
+│   │       ├── features/live/    # deferred; optional runtime control only
 │   │       └── styles/
 │   └── runtime/                         # optional; not first-release critical
 │       └── src/
@@ -210,6 +211,12 @@ release-critical résumé. A later Typst PDF pipeline may be added from the same
 YAML source, with its own source-digest and completeness checks; no placeholder
 or stale PDF is linked tonight.
 
+`content/publication-consent.yaml` is a non-factual release gate with a closed
+schema and `contact_fields: pending | approved`. Local validation and static
+builds render the canonical source regardless of this flag. The Pages deployment
+job refuses to deploy unless the repository owner has changed the reviewed file
+to `approved`; no environment variable or CI input bypasses the gate.
+
 ## 6. Governance domain
 
 The full domain is intentionally richer than the first slice:
@@ -222,7 +229,8 @@ The full domain is intentionally richer than the first slice:
 - `ToolManifest`: name/version, argument/result schemas, required capabilities,
   side-effect class, limits, and policy action.
 - `PolicyDecision`: `allow`, `deny`, or `needs_approval`, with stable rule IDs
-  and authored reasons. Missing or malformed output is deny.
+  and authored reasons. At runtime, missing or malformed output becomes a
+  terminal deny/error event and no tool starts.
 - `ApprovalRequest`: binds agent, tool, canonical argument digest, policy
   digest, action, expiry, and one-time scope. Mismatch, expiry, and replay deny.
 - `Run`: scenario, provider-neutral request/result, ordered events, trace,
@@ -251,6 +259,12 @@ Each versioned generated replay bundle contains:
 - canonical event leaf digests, Merkle root, and inclusion proofs;
 - exact deterministic assertions and results;
 - generator version and public-source references.
+
+The replay manifest contains the path, schema/scenario version, variant, byte
+length, and SHA-256 digest of the exact bytes for each bundle. The browser
+verifies the length and digest before parsing or rendering the JSON and fails
+closed on mismatch. This whole-bundle check complements the event-level Merkle
+proof; both remain same-origin checks with the claim limits below.
 
 Events are canonicalized with RFC 8785 JSON Canonicalization Scheme. The Merkle
 construction uses RFC 6962-style domain separation:
@@ -328,6 +342,10 @@ sanitized `Retry-After`, and operator monitoring. CORS is defense in depth, not
 abuse prevention. A manual operator diagnostic may call Groq, but it is not a
 test, merge gate, evaluation, or golden-fixture updater.
 
+Runtime composition defaults to Fake. Live requires both
+`LLM_PROVIDER=live` and `LIVE_EXECUTION_ENABLED=true`; selecting Live without
+the explicit enablement flag or without `GROQ_API_KEY` fails closed.
+
 The only browser-visible runtime configuration is an optional public origin.
 It is absent by default and may never contain credentials, query tokens, or
 secret-shaped values. The site build itself reads no secret and succeeds with
@@ -340,7 +358,8 @@ inputs, outputs, and reasons are versioned and digest-addressed.
 
 - Tonight: the replay builder invokes a pinned OPA CLI against checked-in Rego
   and finite synthetic inputs. Embedded decisions are therefore real policy
-  outputs, not mocked UI text.
+  outputs, not mocked UI text. Missing, malformed, or schema-invalid output
+  aborts generation and writes no replay artifact.
 - Runtime phase: CI compiles the same policy to WebAssembly, records the digest,
   and the Fastify process loads it in-process. Native and WASM decisions must
   agree for all policy fixtures before Live can be enabled.
@@ -352,6 +371,9 @@ This keeps one runtime deployable without making WASM part of tonight's critical
 path.
 
 ## 11. Tonight's vertical architecture slice
+
+The stop condition is only section 1 of `docs/acceptance-criteria.md`; its
+first-release hardening gates do not expand tonight's critical path.
 
 The first slice uses one scenario, `synthetic-maintenance-v1`, with two finite
 variants:

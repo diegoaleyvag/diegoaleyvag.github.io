@@ -161,6 +161,6 @@ source and only on portfolio/résumé routes. No additional personal data source
 is allowed.
 
 Before the first public deployment, the repository owner must explicitly
-confirm publication of the existing email, location, and profile-link fields.
-That gate does not permit copying them into logs, fixtures, telemetry, or demo
-data.
+confirm publication of the existing email, location, and profile-link fields by
+reviewing `content/publication-consent.yaml` as `approved`. That gate does not
+permit copying them into logs, fixtures, telemetry, or demo data.

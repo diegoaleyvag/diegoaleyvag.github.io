@@ -221,7 +221,8 @@ same-origin attacker may replace all of them consistently.
 
 Controls:
 
-- schema validation and bundle digest checks;
+- manifest byte-length and SHA-256 verification before JSON parsing, followed
+  by schema validation;
 - RFC 8785 canonicalization and RFC 6962-style domain-separated hashing;
 - inclusion-proof recomputation in the browser;
 - negative tests mutate an event, sibling, and sequence;
@@ -310,4 +311,5 @@ Release is blocked unless:
 - denied runs contain no tool-start or tool-result event;
 - tampering causes integrity failure and the UI displays the trust limitation;
 - direct root-hosted routes, keyboard use, and output escaping pass;
-- the repository owner confirms publication of canonical contact fields.
+- the reviewed publication-consent file is owner-approved and the Pages job has
+  no CI/environment bypass.

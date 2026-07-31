@@ -37,6 +37,10 @@ rate-limit and retry observations from response headers at runtime; absent or
 malformed values remain unknown. No provider limit is hardcoded and raw headers
 are not returned.
 
+The runtime defaults to Fake. Live requires `LLM_PROVIDER=live`,
+`LIVE_EXECUTION_ENABLED=true`, and a server-only `GROQ_API_KEY`; any missing
+condition fails closed.
+
 Public Live is not part of the first release. Enabling it requires a separate
 ADR after security review of kill switch, body/output/time/concurrency limits,
 source throttling, request budget, spend cap, alerts, exact origins, and

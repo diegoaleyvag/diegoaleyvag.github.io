@@ -6,7 +6,44 @@ These criteria distinguish tonight's vertical slice from later architecture
 completion. A task is not complete because files exist; the observable behavior
 and checks below must pass.
 
-## 1. Tonight's vertical slice
+## 1. Tonight's terminal state
+
+Tonight stops when this end-to-end path works. First-release hardening in
+section 2 may continue afterward and does not expand tonight's critical path.
+
+- [ ] A fresh clone installs with pinned Node/pnpm/OPA tooling and builds with
+      no `.env`, backend, database, browser credential, or Groq key.
+- [ ] A plain static server directly loads physical `/`, `/resume/`,
+      `/lab/replay/`, and `/404.html` routes at root paths.
+- [ ] Home facts come through typed `cv.yaml` paths, and `/resume/` renders every
+      publishable source leaf exactly without modifying the source.
+- [ ] One visibly synthetic scenario has only `read-allowed` and
+      `adjust-denied` variants.
+- [ ] Pinned OPA evaluates the checked-in Rego: the read is allowed and reaches
+      one in-memory synthetic tool; the adjustment is denied and has no
+      tool-execution event.
+- [ ] Both deterministic bundles validate against `RunBundle`; the manifest
+      records and the browser verifies each exact bundle's byte length and
+      SHA-256 digest before parsing.
+- [ ] `/lab/replay/` works with static files only, lists ordered events, and
+      exposes the recorded policy input/decision without implying Live
+      execution.
+- [ ] The browser verifies one Merkle inclusion proof, shows the same-origin
+      limitation beside it, and a labelled in-memory mutation makes it fail.
+- [ ] Focused tests cover CV leaf coverage, Rego allow/deny, denied-without-tool,
+      event order, and Merkle tampering without network access.
+- [ ] One Playwright smoke flow loads the built static routes, exercises both
+      variants and tamper failure, and permits only the local static origin.
+- [ ] The shell has semantic landmarks, visible focus, keyboard-operable Replay,
+      text-plus-shape states, and no serious/critical automated accessibility
+      violation on the three product routes.
+- [ ] The Pages artifact contains `.nojekyll`, no repository-name base path, no
+      server code or secret-shaped value, and the workflow never deploys a pull
+      request.
+
+Anything not listed above is not required to call the night successful.
+
+## 2. First-release hardening gates
 
 ### Toolchain and reproducibility
 
@@ -54,7 +91,9 @@ and checks below must pass.
       synthetic test-fixture directories.
 - [ ] The source file is byte-identical before and after every build/test task.
 - [ ] Public deployment remains gated on the repository owner's explicit
-      confirmation of the canonical email, location, and profile links.
+      confirmation of the canonical email, location, and profile links through
+      reviewed `content/publication-consent.yaml`; the Pages job accepts no
+      environment or workflow-input bypass.
 
 ### Synthetic scenario
 
@@ -92,6 +131,9 @@ and checks below must pass.
 - [ ] Every bundle includes `synthetic: true`, schema/scenario versions,
       deterministic IDs, logical timestamps, ordered sequence numbers, policy
       input/output/digest, events, evidence, and generator metadata.
+- [ ] The manifest records each bundle's path, versions, variant, exact byte
+      length, and SHA-256 digest; the browser verifies both before parsing and
+      fails closed on mismatch.
 - [ ] Refreshing or directly loading `/lab/replay/` from a plain static host
       works with no backend/runtime and performs no external or Groq request.
 - [ ] A keyboard user can select each variant, move through events, open policy
@@ -151,7 +193,7 @@ and checks below must pass.
 - [ ] Pull requests do not deploy; reviewed merges to `main` may deploy with
       least-privilege Pages permissions.
 
-## 2. Explicitly not required tonight
+## 3. Explicitly not required tonight
 
 - Public or local Fastify runtime implementation.
 - Any Groq request, key, model selection, or manual Live diagnostic.
@@ -167,7 +209,7 @@ and checks below must pass.
 
 Deferring these items is acceptance, not an incomplete slice.
 
-## 3. Post-slice architecture acceptance
+## 4. Post-slice architecture acceptance
 
 ### Domain and contracts
 
@@ -175,6 +217,10 @@ Deferring these items is acceptance, not an incomplete slice.
       policy gates.
 - [ ] Approval binds exact agent, tool, argument digest, policy digest, action,
       expiry, and nonce; mismatch, expiry, and replay deny.
+- [ ] A narrow synthetic DID/VC profile verifies supported `did:key` or
+      bundle-embedded `did:web` material and Ed25519 credentials with a fixed
+      clock; unsupported suites, remote resolution, invalid signatures, and
+      validity failures deny.
 - [ ] Fake and Replay pass one provider conformance suite without network.
 - [ ] Normalized provider failures cover invalid request, timeout,
       cancellation, rate limit, unavailable, malformed response, and internal
@@ -189,6 +235,8 @@ Deferring these items is acceptance, not an incomplete slice.
 - [ ] Native OPA and in-process WASM produce equivalent decisions for every
       policy fixture.
 - [ ] The runtime has no OPA sidecar and no user-supplied policy.
+- [ ] Malformed policy output aborts replay generation at build time; at runtime
+      it becomes a terminal deny/error event and no tool starts.
 
 ### Optional runtime
 
@@ -196,6 +244,9 @@ Deferring these items is acceptance, not an incomplete slice.
       changing the site build.
 - [ ] Provider selection at the composition root is configuration-only and
       supports exactly Fake, Replay, and Live-Groq.
+- [ ] Runtime composition defaults to Fake; Live fails closed unless
+      `LLM_PROVIDER=live`, `LIVE_EXECUTION_ENABLED=true`, and the server key are
+      all present.
 - [ ] Live accepts only `schema_version`, known `scenario_id`, and finite
       `variant`; additional fields fail.
 - [ ] The Groq key is server-environment-only and never appears in a response,
@@ -207,9 +258,24 @@ Deferring these items is acceptance, not an incomplete slice.
 - [ ] Live stays disabled until a separate threat review and enablement ADR
       approve kill switch, budgets, concurrency, throttling, spend cap, alerts,
       and operator procedure.
+- [ ] Deployment verification proves runtime egress is restricted to the
+      configured Groq endpoint and an explicitly approved telemetry endpoint.
+- [ ] The container runs as a non-root user with a read-only filesystem except
+      for an explicitly bounded temporary directory and persists no run data.
 - [ ] Any real-provider diagnostic is manually invoked, labelled operational,
       and excluded from all tests, evaluations, merge gates, and fixture-update
       commands.
+
+### Optional browser Live integration
+
+- [ ] With no runtime origin, the site renders Replay only and makes no Live
+      request.
+- [ ] With a runtime origin, a separate Live control discovers finite
+      capabilities and submits only the closed scenario request.
+- [ ] Runtime unavailability or a rejected request is contained to that control;
+      Replay, résumé, and navigation remain fully functional.
+- [ ] No key, arbitrary input, model selector, provider selector, file, URL, or
+      open parameter object exists in the browser UI.
 
 ### Optional PDF
 
@@ -219,7 +285,7 @@ Deferring these items is acceptance, not an incomplete slice.
 - [ ] A failed or stale PDF build removes the PDF link rather than serving an
       old or placeholder artifact.
 
-## 4. Definition of done
+## 5. Definition of done
 
 A lane is done only when its acceptance checks pass, its generated artifacts are
 current, its owned files alone were changed, and no live network or secret was

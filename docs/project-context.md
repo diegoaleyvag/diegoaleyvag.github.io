@@ -6,11 +6,10 @@ facts, no architecture, and no product name.
 
 ## Who this is for
 
-**Diego Alejandro Leyva García** — final-year BSc Data Science student (ESCOM,
-Instituto Politécnico Nacional, expected 2027), currently an AI Engineering
-Intern at Infosys Limited (InStep Global Internship), seeking junior AI/ML
-engineering roles. Full factual detail lives in `content/source/cv.yaml`; this
-document does not restate or interpret it further.
+This project is for the person identified by `name` in
+`content/source/cv.yaml`. Full identity, education, experience, and role-target
+facts live only in that canonical source; this document does not rename,
+paraphrase, or interpret them.
 
 ## Mission
 

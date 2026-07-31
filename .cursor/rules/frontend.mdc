@@ -9,11 +9,14 @@ alwaysApply: false
 - Keep Astro in static-output mode. Every route must emit a physical file and
   work at domain root `/` without rewrites or a runtime.
 - Home, résumé, and ordinary content routes ship no client framework
-  JavaScript. Preact is allowed only under `apps/site/src/features/replay/`.
+  JavaScript. Preact is allowed only under `apps/site/src/features/replay/` and,
+  after its gates pass, `apps/site/src/features/live/`.
 - Never import `apps/runtime`, Live-Groq, server config, Node-only modules, or
   secret names into browser-reachable code.
 - Treat Replay bundles as untrusted public input: schema-validate before use,
   render strings as text, and never inject raw HTML.
+- Fetch bundle bytes, verify manifest byte length and SHA-256 digest, then parse
+  and schema-validate; fail closed on any mismatch.
 - Accept no arbitrary prompt, context, URL, upload, key, or visitor data.
 - Factual portfolio text comes from `packages/resume` via typed CV source paths;
   do not copy or paraphrase CV strings in components.

@@ -37,6 +37,9 @@ field coverage, and is omitted when stale or failed. No placeholder PDF ships.
 Canonical contact/location fields may appear only on portfolio/résumé routes.
 Local builds may render them; public deployment requires owner confirmation.
 They may not be copied into fixtures, telemetry, logs, analytics, or snapshots.
+The reviewed, non-factual `content/publication-consent.yaml` file records
+`contact_fields: pending | approved`; the Pages job has no bypass and deploys
+only `approved`.
 
 ## Consequences
 
@@ -46,5 +49,7 @@ They may not be copied into fixtures, telemetry, logs, analytics, or snapshots.
   is required.
 - Date strings remain source strings. Machine-readable dates are added only
   when the source is unambiguous without invention.
-- Adding richer case studies requires a new owner-approved canonical content
-  source and its own provenance contract.
+- Richer factual case studies remain out of scope while `cv.yaml` is the sole
+  canonical source. Adding another factual source would require the repository
+  owner to amend `AGENTS.md` explicitly; an implementation ADR alone is not
+  sufficient.

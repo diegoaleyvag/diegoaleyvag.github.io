@@ -1,6 +1,6 @@
 ---
 description: Canonical CV, provenance, and synthetic content conventions
-globs: ["content/**/*", "packages/resume/**/*", "apps/site/src/pages/index.astro", "apps/site/src/pages/resume/**/*", "apps/site/src/pages/lab/replay/**/*", "apps/site/src/features/replay/**/*", "docs/product-brief.md", "docs/portfolio-narrative.md"]
+globs: ["content/**/*", "packages/resume/**/*", "apps/site/src/pages/index.astro", "apps/site/src/pages/resume/**/*", "apps/site/src/pages/lab/replay/**/*", "apps/site/src/features/replay/**/*", "apps/site/public/replays/**/*", "tools/build-replays/**/*", "tools/check-content-provenance/**/*", "tools/check-generated/**/*", "docs/product-brief.md", "docs/portfolio-narrative.md"]
 alwaysApply: false
 ---
 
@@ -22,6 +22,8 @@ alwaysApply: false
   portfolio/résumé routes. Public deployment requires owner confirmation; local
   builds do not. Never copy those values into fixtures, snapshots, logs,
   telemetry, analytics, or demo content.
+- `content/publication-consent.yaml` is a non-factual owner gate. Agents may
+  create it as `pending` but never self-set `approved` or add a bypass.
 - All scenario, policy example, identity, tool, trace, approval, and test values
   are visibly synthetic. Use reserved example/invalid domains where needed.
 - Maintain public-source entries for clean-room governance concepts. Do not use

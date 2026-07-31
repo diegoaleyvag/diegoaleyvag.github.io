@@ -13,17 +13,25 @@ alwaysApply: false
   traces, or logs.
 - The static build must succeed without `.env` and the uploaded artifact must
   contain no server code, secret name/value, or credential-shaped config.
+- Pages deploys canonical contact fields only when the reviewed
+  `content/publication-consent.yaml` value is `approved`; do not add an
+  environment, workflow-input, or agent bypass.
 - Live accepts only the closed finite scenario request. Reject free text, open
   objects, URLs, files, extra keys, oversized bodies, and unsupported content
   types before provider use.
 - Treat browser requests, model output, provider responses, replay JSON, and
   upstream headers as untrusted input.
+- Verify replay byte length and SHA-256 against the manifest before parsing,
+  then schema-validate and verify event proofs.
 - CORS is defense in depth, not authentication or rate limiting.
 - Redact authorization, prompt, output, tool payload, credential, CV, and
   upstream-body content from logs and telemetry.
 - Public Live is default-off. Do not enable it without the accepted enablement
   ADR, kill switch, strict bounds, source throttling, request/concurrency
   budgets, provider spend cap, alerts, and rollback.
+- Runtime defaults to Fake. Live requires `LLM_PROVIDER=live`,
+  `LIVE_EXECUTION_ENABLED=true`, and a server-only key; missing any condition
+  fails closed.
 - Read provider quota/retry observations from Groq response headers; do not
   guess or hardcode limits and do not forward raw headers.
 - Pin CI actions and tools, use frozen dependencies, grant Pages write/OIDC only

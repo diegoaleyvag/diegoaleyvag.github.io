@@ -16,6 +16,24 @@ export interface BuiltMerkleEvidence {
   readonly events: readonly EventEvidence[];
 }
 
+/**
+ * One node of a fully reconstructed Merkle tree, exposed (unlike
+ * {@link BuiltMerkleEvidence}) for diagram rendering rather than proof
+ * checking. `start`/`end` are the half-open range of event indices (0-based)
+ * the node covers; leaves have `end - start === 1`. `id` is a stable
+ * `start:end` key a caller can use to key diagram elements or diff two trees
+ * built from different event copies.
+ */
+export interface MerkleTreeNode {
+  readonly id: string;
+  readonly sha256: string;
+  readonly start: number;
+  readonly end: number;
+  readonly depth: number;
+  readonly sequence: number | null;
+  readonly children: readonly [MerkleTreeNode, MerkleTreeNode] | null;
+}
+
 async function hashLeaf(event: RunEvent): Promise<Uint8Array> {
   return sha256Bytes(concatenateBytes(LEAF_PREFIX, canonicalJsonBytes(event)));
 }
@@ -110,6 +128,70 @@ export async function buildMerkleEvidence(
     rootSha256: bytesToHex(root),
     events: eventEvidence,
   };
+}
+
+/**
+ * Reconstructs the same RFC 6962-style tree as {@link buildMerkleEvidence},
+ * but returns its full shape (every internal node's hash, not just each
+ * leaf's flattened proof) for rendering a Merkle tree diagram. Two trees
+ * built from event lists that differ only in one event's content still share
+ * every other node's `id`, so a caller can diff two `MerkleTreeNode` trees by
+ * `id` to find exactly which ancestors changed.
+ */
+export async function buildMerkleTreeView(
+  events: readonly RunEvent[],
+): Promise<MerkleTreeNode> {
+  if (events.length === 0) {
+    throw new Error("A Merkle tree requires at least one event");
+  }
+
+  const leaves = await Promise.all(events.map((event) => hashLeaf(event)));
+
+  const build = async (
+    start: number,
+    end: number,
+    depth: number,
+  ): Promise<MerkleTreeNode> => {
+    const id = `${start}:${end}`;
+    const size = end - start;
+    if (size === 1) {
+      const leaf = leaves[start];
+      const event = events[start];
+      if (leaf === undefined || event === undefined) {
+        throw new Error(`Missing Merkle leaf at index ${start}`);
+      }
+      return {
+        id,
+        sha256: bytesToHex(leaf),
+        start,
+        end,
+        depth,
+        sequence: event.sequence,
+        children: null,
+      };
+    }
+
+    const split = largestPowerOfTwoLessThan(size);
+    const [left, right] = await Promise.all([
+      build(start, start + split, depth + 1),
+      build(start + split, end, depth + 1),
+    ]);
+    const hash = await hashNode(
+      hexToBytes(left.sha256),
+      hexToBytes(right.sha256),
+    );
+    return {
+      id,
+      sha256: bytesToHex(hash),
+      start,
+      end,
+      depth,
+      sequence: null,
+      children: [left, right],
+    };
+  };
+
+  return build(0, events.length, 0);
 }
 
 export async function verifyEventProof(

@@ -133,6 +133,15 @@ test("exercises both finite replay variants and in-memory tampering", async ({
     ),
   ).toBeVisible();
 
+  // The visual Merkle tree highlights event 1's inclusion path: the leaf and
+  // its three ancestors up to the root, plus the three sibling hashes a real
+  // proof recombines with; the other four leaves stay unmarked.
+  const tree = details.locator(".merkle-tree");
+  await expect(tree).toBeVisible();
+  await expect(tree.locator(".merkle-tree__node--path")).toHaveCount(4);
+  await expect(tree.locator(".merkle-tree__node--sibling")).toHaveCount(3);
+  await expect(tree.locator(".merkle-tree__node--tamper")).toHaveCount(0);
+
   const tamper = details.getByRole("button", {
     name: "Tamper with an in-memory copy",
   });
@@ -143,6 +152,13 @@ test("exercises both finite replay variants and in-memory tampering", async ({
       /Tamper check result: the modified copy no longer matches/,
     ),
   ).toBeVisible();
+
+  // Tampering recomputes the same four-node path with different hashes: the
+  // diagram marks exactly those nodes (and the root) broken.
+  await expect(tree.locator(".merkle-tree__node--tamper")).toHaveCount(4);
+  await expect(tree.locator(".merkle-tree__root-compare")).toContainText(
+    "Root mismatch",
+  );
 
   const closeDetails = details.getByRole("button", { name: "Close detail" });
   await closeDetails.focus();
@@ -171,6 +187,36 @@ test("exercises both finite replay variants and in-memory tampering", async ({
       "/replays/v1/synthetic-maintenance-v1/adjust-denied.json",
     ]),
   );
+});
+
+test("plays a run back automatically and can be paused", async ({ page }) => {
+  await page.goto("/lab/replay/");
+  await page.getByRole("button", { name: /read-allowed/i }).click();
+
+  const playButton = page.getByRole("button", { name: "Play run" });
+  await playButton.click();
+  await expect(page.getByRole("button", { name: "Pause" })).toBeVisible();
+  await expect(page.locator(".playback-status")).toContainText("Step 1 of 6");
+
+  // Autoplay does not steal focus from the page on each step.
+  await expect(page.locator("#event-details-panel")).not.toBeFocused();
+
+  await page.getByRole("button", { name: "Pause" }).click();
+  await expect(page.getByRole("button", { name: "Play run" })).toBeVisible();
+  const pausedStep = await page
+    .locator("#event-details-panel h3")
+    .textContent();
+
+  await page.waitForTimeout(1600);
+  await expect(page.locator("#event-details-panel h3")).toHaveText(
+    pausedStep ?? "",
+  );
+
+  await playButton.click();
+  await expect(page.getByRole("button", { name: "Play run" })).toBeVisible({
+    timeout: 15_000,
+  });
+  await expect(page.locator("#event-details-panel h3")).toContainText("06");
 });
 
 test("keeps portfolio and resume meaningful without JavaScript", async ({

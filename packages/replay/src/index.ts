@@ -24,7 +24,9 @@ export {
 } from "./loader.ts";
 export {
   buildMerkleEvidence,
+  buildMerkleTreeView,
   verifyEventProof,
   verifyRunBundleEvent,
   type BuiltMerkleEvidence,
+  type MerkleTreeNode,
 } from "./merkle.ts";

@@ -84,6 +84,26 @@ export const LAB_COPY = {
     "Tamper check result: the modified copy no longer matches the Merkle root included in this replay bundle. Tampering is detected.",
   tamperUnexpectedlyPassedMessage:
     "Unexpected: the tampered copy still matched the included root. This indicates a bug in the demonstration, not a real integrity problem.",
+  merkleTreeBuildingMessage: "Reconstructing the Merkle tree…",
+  merkleTreeFigureLabel: "Fig. 1",
+  merkleTreeCaptionDefault:
+    "This run's recorded events combine bottom-up into one Merkle root.",
+  merkleTreeCaptionSelected:
+    "The highlighted path shows this event's inclusion proof up to the root.",
+  merkleTreeCaptionTampered:
+    "Recomputed with the tampered copy: every node on the highlighted path now differs, and the root no longer matches the recorded one.",
+  merkleTreeRootLabel: "Root",
+  merkleTreeLegendPath: "On the selected event's path",
+  merkleTreeLegendSibling: "Sibling hash the proof recombines with",
+  merkleTreeLegendTamper: "Changed by the in-memory tamper",
+  merkleTreeRecordedRootLabel: "Recorded root",
+  merkleTreeRecomputedRootLabel: "Recomputed root (tampered copy)",
+  merkleTreeRootMismatchLabel: "Root mismatch",
+  playRunLabel: "Play run",
+  pauseRunLabel: "Pause",
+  playingStatusLabel: "Playing",
+  playbackStepLabel: "Step",
+  playbackOfLabel: "of",
 } as const;
 
 export const PUBLIC_SOURCES = [

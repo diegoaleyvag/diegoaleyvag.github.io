@@ -115,6 +115,38 @@
   font-size: 0.9375rem;
 }
 
+.playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-block-end: 1rem;
+}
+
+.playback-controls button {
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: var(--ink);
+  color: var(--paper);
+  border: var(--rule-width) solid var(--ink);
+  border-radius: var(--radius);
+  padding: 0.55rem 1.25rem;
+  cursor: pointer;
+}
+
+.playback-controls button:hover {
+  background: var(--signal-text);
+  border-color: var(--signal-text);
+}
+
+.playback-status {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
 .event-ledger {
   list-style: none;
   margin: 0;
@@ -276,10 +308,187 @@ pre.raw-json {
   }
 }
 
+.merkle-tree {
+  margin: 1.75rem 0 0.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: var(--rule-width) solid var(--rule);
+}
+
+.merkle-tree figcaption {
+  max-width: var(--measure);
+  margin-block-end: 0.9rem;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+.merkle-tree__number {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.merkle-tree__scroll {
+  overflow-x: auto;
+  border: var(--rule-hair) solid var(--rule-soft);
+  background: var(--paper-raised);
+}
+
+.merkle-tree__svg {
+  display: block;
+  max-width: none;
+}
+
+.merkle-tree__edge {
+  stroke: var(--rule-soft);
+  stroke-width: 2;
+}
+
+.merkle-tree__edge--path {
+  stroke: var(--signal);
+  stroke-width: 3;
+}
+
+.merkle-tree__edge--tamper {
+  stroke: var(--signal-text);
+  stroke-width: 3;
+  stroke-dasharray: 6 4;
+  animation: merkle-tamper-flash 0.5s ease-out;
+}
+
+.merkle-tree__box {
+  fill: var(--paper-raised);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.merkle-tree__node--path .merkle-tree__box {
+  fill: var(--signal);
+  stroke: var(--ink);
+}
+
+.merkle-tree__node--sibling .merkle-tree__box {
+  fill: var(--paper-raised);
+  stroke: var(--ink);
+  stroke-dasharray: 4 3;
+}
+
+.merkle-tree__node--tamper .merkle-tree__box {
+  fill: var(--ink);
+  stroke: var(--signal-text);
+  stroke-width: 3;
+  animation: merkle-tamper-flash 0.5s ease-out;
+}
+
+.merkle-tree__node--tamper .merkle-tree__hash {
+  fill: var(--signal);
+  font-weight: 700;
+}
+
+@keyframes merkle-tamper-flash {
+  0% {
+    fill: var(--signal-text);
+  }
+  40% {
+    fill: var(--signal-text);
+  }
+  100% {
+    fill: var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merkle-tree__node--tamper .merkle-tree__box,
+  .merkle-tree__edge--tamper {
+    animation: none;
+  }
+}
+
+.merkle-tree__label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+.merkle-tree__node--path .merkle-tree__label,
+.merkle-tree__node--tamper .merkle-tree__label {
+  fill: var(--signal-ink);
+}
+
+.merkle-tree__hash {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+.merkle-tree__node--path .merkle-tree__hash,
+.merkle-tree__node--tamper .merkle-tree__hash {
+  fill: var(--signal-ink);
+  font-weight: 700;
+}
+
+.merkle-tree__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.merkle-tree__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.merkle-tree__swatch {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid var(--ink);
+  flex: none;
+}
+
+.merkle-tree__swatch--path {
+  background: var(--signal);
+}
+
+.merkle-tree__swatch--sibling {
+  background: var(--paper-raised);
+  border-style: dashed;
+}
+
+.merkle-tree__swatch--tamper {
+  background: var(--signal-text);
+  border-color: var(--signal-text);
+}
+
+.merkle-tree__root-compare {
+  margin-block-start: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--paper);
+  border: var(--rule-width) solid var(--signal-text);
+}
+
+.merkle-tree__root-compare p {
+  margin: 0 0 0.35rem;
+}
+
+.merkle-tree__root-label {
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .variant-picker__button,
   .event-details__head button,
-  .tamper-section button {
+  .tamper-section button,
+  .playback-controls button {
     transition: none;
   }
 }

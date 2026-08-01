@@ -1,4 +1,4 @@
-import { verifyRunBundleEvent } from "@portfolio/replay";
+import { verifyRunBundleEvent, type MerkleTreeNode } from "@portfolio/replay";
 import type { RunBundle } from "@portfolio/contracts";
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
@@ -7,38 +7,54 @@ import { formatLogicalTime, shortenDigest } from "../format";
 import { tamperEventCopy } from "../tamper";
 import type { IntegrityResultState, TamperResultState } from "../types";
 import { Mark } from "./Mark";
+import { MerkleTree, type TamperOverlay } from "./MerkleTree";
 
 interface EventDetailsProps {
   readonly bundle: RunBundle;
   readonly sequence: number;
   readonly onClose: () => void;
+  readonly shouldFocusOnMount: boolean;
+  readonly tree: MerkleTreeNode | null;
+  readonly tamper: TamperResultState;
+  readonly tamperOverlay: TamperOverlay | null;
+  readonly onTamper: (sequence: number, tamperedCopy: RunBundle) => void;
 }
 
-export function EventDetails({ bundle, sequence, onClose }: EventDetailsProps) {
+export function EventDetails({
+  bundle,
+  sequence,
+  onClose,
+  shouldFocusOnMount,
+  tree,
+  tamper,
+  tamperOverlay,
+  onTamper,
+}: EventDetailsProps) {
   const event = bundle.events[sequence - 1];
   const evidence = bundle.evidence.events[sequence - 1];
 
   const [integrity, setIntegrity] = useState<IntegrityResultState>({
     status: "checking",
   });
-  const [tamper, setTamper] = useState<TamperResultState>({
-    status: "not-run",
-  });
   const panelRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // This panel renders after the full event ledger (a "following details
-    // region" per docs/design-direction.md). Moving focus here on selection
-    // keeps it reachable without tabbing past every remaining ledger row;
-    // the design explicitly allows "movement of focus ... [as] disclosure
-    // content" appears.
-    panelRef.current?.focus();
+    // region" per docs/design-direction.md). Moving focus here on a manual
+    // selection keeps it reachable without tabbing past every remaining
+    // ledger row. The dependency is `sequence` alone (not
+    // `shouldFocusOnMount`) so pausing playback — which flips that flag
+    // without changing `sequence` — never re-triggers this and yanks focus
+    // around; each `sequence` change still reads the flag's current value,
+    // so an autoplay-driven step correctly skips focusing.
+    if (shouldFocusOnMount) {
+      panelRef.current?.focus();
+    }
   }, [sequence]);
 
   useEffect(() => {
     let cancelled = false;
     setIntegrity({ status: "checking" });
-    setTamper({ status: "not-run" });
 
     verifyRunBundleEvent(bundle, sequence)
       .then((matches) => {
@@ -58,18 +74,9 @@ export function EventDetails({ bundle, sequence, onClose }: EventDetailsProps) {
   }, [bundle, sequence]);
 
   const runTamperDemo = useCallback(() => {
-    setTamper({ status: "checking" });
     const tamperedCopy = tamperEventCopy(bundle, sequence);
-    verifyRunBundleEvent(tamperedCopy, sequence)
-      .then((matches) => {
-        setTamper({
-          status: matches ? "unexpectedly-passed" : "failed-as-expected",
-        });
-      })
-      .catch(() => {
-        setTamper({ status: "failed-as-expected" });
-      });
-  }, [bundle, sequence]);
+    onTamper(sequence, tamperedCopy);
+  }, [bundle, sequence, onTamper]);
 
   if (event === undefined || evidence === undefined) {
     return null;
@@ -181,6 +188,16 @@ export function EventDetails({ bundle, sequence, onClose }: EventDetailsProps) {
           ) : null}
         </div>
       </div>
+
+      {tree !== null ? (
+        <MerkleTree
+          tree={tree}
+          selectedSequence={sequence}
+          tamper={tamperOverlay}
+        />
+      ) : (
+        <p class="status-message">{LAB_COPY.merkleTreeBuildingMessage}</p>
+      )}
     </section>
   );
 }

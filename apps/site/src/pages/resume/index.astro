@@ -1,363 +1,383 @@
 ---
-import {
-  RESUME_UI_COPY,
-  loadResume,
-} from "../../../../../packages/resume/src/index";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { RESUME_UI_COPY, loadResume } from "@portfolio/resume";
 
 const resume = await loadResume();
 const { identity } = resume.view;
+
+function pad(value: number): string {
+  return String(value).padStart(2, "0");
+}
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{RESUME_UI_COPY.documentTitle}</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#resume-document">
-      {RESUME_UI_COPY.skipToContent}
-    </a>
-
-    <nav class="resume-navigation" aria-label={RESUME_UI_COPY.navigationLabel}>
-      <a href="/">{RESUME_UI_COPY.portfolioLink}</a>
-    </nav>
-
-    <main id="resume-document">
-      <article
-        class="resume-document"
-        data-source-file={resume.sourceFile}
-        data-source-sha256={resume.sourceSha256}
+<BaseLayout
+  title={RESUME_UI_COPY.documentTitle}
+  description={identity.headline.value}
+  activePath="/resume/"
+>
+  <article
+    class="content-frame resume-document"
+    data-source-file={resume.sourceFile}
+    data-source-sha256={resume.sourceSha256}
+  >
+    <header class="resume-header">
+      <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
+      <p
+        class="resume-header__headline"
+        data-source-path={identity.headline.path}
       >
-        <header class="resume-header">
-          <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
-          <p data-source-path={identity.headline.path}>
-            {identity.headline.value}
-          </p>
-          <p>
-            <span data-source-path={identity.location.path}>
-              {identity.location.value}
-            </span>
-            <span aria-hidden="true"> · </span>
-            <span data-source-path={identity.availability.path}>
-              {identity.availability.value}
-            </span>
-          </p>
-          <address aria-label={RESUME_UI_COPY.contactLabel}>
-            <a
-              href={`mailto:${identity.email.value}`}
-              data-source-path={identity.email.path}
-            >
-              {identity.email.value}
-            </a>
-            <a
-              href={identity.linkedin.url.value}
-              data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
-              data-source-sha256s={`${identity.linkedin.label.sha256} ${identity.linkedin.url.sha256}`}
-            >
-              {identity.linkedin.label.value}
-            </a>
-            <a
-              href={identity.github.url.value}
-              data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
-              data-source-sha256s={`${identity.github.label.sha256} ${identity.github.url.sha256}`}
-            >
-              {identity.github.label.value}
-            </a>
-          </address>
-          <p data-source-path={identity.summary.path}>
-            {identity.summary.value}
-          </p>
-        </header>
+        {identity.headline.value}
+      </p>
 
-        <section aria-labelledby="experience-heading">
-          <h2 id="experience-heading">{RESUME_UI_COPY.experienceHeading}</h2>
-          <ol class="resume-entries">
-            {
-              resume.view.experience.map((entry) => (
-                <li>
-                  <article>
-                    <h3 data-source-path={entry.role.path}>
-                      {entry.role.value}
-                    </h3>
-                    <p data-source-path={entry.organisation.path}>
-                      {entry.organisation.value}
-                    </p>
-                    <p data-source-path={entry.programme.path}>
-                      {entry.programme.value}
-                    </p>
-                    <p>
-                      <span data-source-path={entry.dates.path}>
-                        {entry.dates.value}
-                      </span>
-                      <span aria-hidden="true"> · </span>
-                      <span data-source-path={entry.location.path}>
-                        {entry.location.value}
-                      </span>
-                    </p>
-                    <ul>
-                      {entry.bullets.map((bullet) => (
-                        <li data-source-path={bullet.path}>{bullet.value}</li>
-                      ))}
-                    </ul>
-                  </article>
-                </li>
-              ))
-            }
-          </ol>
-        </section>
+      <div class="resume-header__meta">
+        <p class="resume-header__dateline">
+          <span data-source-path={identity.location.path}>
+            {identity.location.value}
+          </span>
+          <span aria-hidden="true"> · </span>
+          <span data-source-path={identity.availability.path}>
+            {identity.availability.value}
+          </span>
+        </p>
+        <address aria-label={RESUME_UI_COPY.contactLabel}>
+          <a
+            href={`mailto:${identity.email.value}`}
+            data-source-path={identity.email.path}
+          >
+            {identity.email.value}
+          </a>
+          <a
+            href={identity.linkedin.url.value}
+            data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
+            data-source-sha256s={`${identity.linkedin.label.sha256} ${identity.linkedin.url.sha256}`}
+          >
+            {identity.linkedin.label.value}
+          </a>
+          <a
+            href={identity.github.url.value}
+            data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
+            data-source-sha256s={`${identity.github.label.sha256} ${identity.github.url.sha256}`}
+          >
+            {identity.github.label.value}
+          </a>
+        </address>
+      </div>
 
-        <section aria-labelledby="projects-heading">
-          <h2 id="projects-heading">{RESUME_UI_COPY.projectsHeading}</h2>
-          <ol class="resume-entries">
-            {
-              resume.view.projects.map((entry) => (
-                <li>
-                  <article>
-                    <h3 data-source-path={entry.name.path}>
-                      {entry.name.value}
-                    </h3>
-                    <p data-source-path={entry.descriptor.path}>
-                      {entry.descriptor.value}
-                    </p>
-                    <p data-source-path={entry.dates.path}>
-                      {entry.dates.value}
-                    </p>
-                    <ul>
-                      {entry.bullets.map((bullet) => (
-                        <li data-source-path={bullet.path}>{bullet.value}</li>
-                      ))}
-                    </ul>
-                  </article>
-                </li>
-              ))
-            }
-          </ol>
-        </section>
+      <p
+        class="resume-header__summary"
+        data-source-path={identity.summary.path}
+      >
+        {identity.summary.value}
+      </p>
+    </header>
 
-        <section aria-labelledby="education-heading">
-          <h2 id="education-heading">{RESUME_UI_COPY.educationHeading}</h2>
-          <ol class="resume-entries">
-            {
-              resume.view.education.map((entry) => (
-                <li>
-                  <article>
-                    <h3 data-source-path={entry.institution.path}>
-                      {entry.institution.value}
-                    </h3>
-                    <p data-source-path={entry.credential.path}>
-                      {entry.credential.value}
-                    </p>
-                    <p>
-                      <span data-source-path={entry.dates.path}>
-                        {entry.dates.value}
-                      </span>
-                      <span aria-hidden="true"> · </span>
-                      <span data-source-path={entry.location.path}>
-                        {entry.location.value}
-                      </span>
-                    </p>
-                    <p data-source-path={entry.detail.path}>
-                      {entry.detail.value}
-                    </p>
-                  </article>
-                </li>
-              ))
-            }
-          </ol>
-        </section>
+    <section
+      aria-labelledby="experience-heading"
+      class="resume-section rule-top"
+    >
+      <h2 id="experience-heading">{RESUME_UI_COPY.experienceHeading}</h2>
+      <ol class="ledger">
+        {
+          resume.view.experience.map((entry, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {pad(index + 1)}
+              </span>
+              <div class="ledger-heading">
+                <h3 data-source-path={entry.role.path}>{entry.role.value}</h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={entry.organisation.path}
+                >
+                  {entry.organisation.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p data-source-path={entry.programme.path}>
+                  {entry.programme.value}
+                </p>
+                <p>
+                  <span data-source-path={entry.dates.path}>
+                    {entry.dates.value}
+                  </span>
+                  <span aria-hidden="true"> · </span>
+                  <span data-source-path={entry.location.path}>
+                    {entry.location.value}
+                  </span>
+                </p>
+              </div>
+              <div class="ledger-body">
+                <ul>
+                  {entry.bullets.map((bullet) => (
+                    <li data-source-path={bullet.path}>{bullet.value}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
 
-        <section aria-labelledby="skills-heading">
-          <h2 id="skills-heading">{RESUME_UI_COPY.skillsHeading}</h2>
-          <dl>
-            {
-              resume.view.skills.map((entry) => (
-                <>
-                  <dt data-source-path={entry.label.path}>
-                    {entry.label.value}
-                  </dt>
-                  <dd data-source-path={entry.value.path}>
-                    {entry.value.value}
-                  </dd>
-                </>
-              ))
-            }
-          </dl>
-        </section>
+    <section aria-labelledby="projects-heading" class="resume-section rule-top">
+      <h2 id="projects-heading">{RESUME_UI_COPY.projectsHeading}</h2>
+      <ol class="ledger">
+        {
+          resume.view.projects.map((entry, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {pad(index + 1)}
+              </span>
+              <div class="ledger-heading">
+                <h3 data-source-path={entry.name.path}>{entry.name.value}</h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={entry.descriptor.path}
+                >
+                  {entry.descriptor.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p data-source-path={entry.dates.path}>{entry.dates.value}</p>
+              </div>
+              <div class="ledger-body">
+                <ul>
+                  {entry.bullets.map((bullet) => (
+                    <li data-source-path={bullet.path}>{bullet.value}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
 
-        <section aria-labelledby="certifications-heading">
-          <h2 id="certifications-heading">
-            {RESUME_UI_COPY.certificationsHeading}
-          </h2>
-          <ul>
-            {
-              resume.view.certifications.map((entry) => (
-                <li data-source-path={entry.path}>{entry.value}</li>
-              ))
-            }
-          </ul>
-        </section>
+    <section
+      aria-labelledby="education-heading"
+      class="resume-section rule-top"
+    >
+      <h2 id="education-heading">{RESUME_UI_COPY.educationHeading}</h2>
+      <ol class="ledger">
+        {
+          resume.view.education.map((entry, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {pad(index + 1)}
+              </span>
+              <div class="ledger-heading">
+                <h3 data-source-path={entry.institution.path}>
+                  {entry.institution.value}
+                </h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={entry.credential.path}
+                >
+                  {entry.credential.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p>
+                  <span data-source-path={entry.dates.path}>
+                    {entry.dates.value}
+                  </span>
+                  <span aria-hidden="true"> · </span>
+                  <span data-source-path={entry.location.path}>
+                    {entry.location.value}
+                  </span>
+                </p>
+              </div>
+              <div class="ledger-body">
+                <p data-source-path={entry.detail.path}>{entry.detail.value}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
 
-        <footer class="resume-provenance" aria-labelledby="source-heading">
-          <h2 id="source-heading">{RESUME_UI_COPY.sourceHeading}</h2>
-          <p>
-            {RESUME_UI_COPY.sourceFileLabel}: <code>{resume.sourceFile}</code>
-          </p>
-          <p>
-            {RESUME_UI_COPY.sourceDigestLabel}: <code
-              >{resume.sourceSha256}</code
-            >
-          </p>
-        </footer>
-      </article>
-    </main>
-  </body>
-</html>
+    <section aria-labelledby="skills-heading" class="resume-section rule-top">
+      <h2 id="skills-heading">{RESUME_UI_COPY.skillsHeading}</h2>
+      <dl class="resume-skills">
+        {
+          resume.view.skills.map((entry) => (
+            <>
+              <dt data-source-path={entry.label.path}>{entry.label.value}</dt>
+              <dd data-source-path={entry.value.path}>{entry.value.value}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section
+      aria-labelledby="certifications-heading"
+      class="resume-section rule-top"
+    >
+      <h2 id="certifications-heading">
+        {RESUME_UI_COPY.certificationsHeading}
+      </h2>
+      <ul class="resume-certifications">
+        {
+          resume.view.certifications.map((entry) => (
+            <li data-source-path={entry.path}>{entry.value}</li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <footer class="resume-provenance rule-top" aria-labelledby="source-heading">
+      <h2 id="source-heading">{RESUME_UI_COPY.sourceHeading}</h2>
+      <p>
+        {RESUME_UI_COPY.sourceFileLabel}: <code>{resume.sourceFile}</code>
+      </p>
+      <p>
+        {RESUME_UI_COPY.sourceDigestLabel}: <code>{resume.sourceSha256}</code>
+      </p>
+    </footer>
+  </article>
+</BaseLayout>
 
 <style>
-  :global(*) {
-    box-sizing: border-box;
+  .resume-document {
+    padding-block: 2rem 5rem;
   }
 
-  :global(html) {
-    color: #181714;
-    background: #f4f0e7;
-    font-family:
-      ui-sans-serif,
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-    line-height: 1.5;
+  .resume-header {
+    padding-block-end: 2rem;
+    border-block-end: var(--rule-width) solid var(--ink);
   }
 
-  :global(body) {
+  .resume-header h1 {
     margin: 0;
   }
 
-  :global(a) {
-    color: #7d302a;
+  .resume-header__headline {
+    margin: 0.4rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
   }
 
-  :global(a:focus-visible) {
-    outline: 2px solid currentColor;
-    outline-offset: 3px;
-  }
-
-  .skip-link {
-    position: absolute;
-    inset-block-start: 0.5rem;
-    inset-inline-start: 0.5rem;
-    transform: translateY(-200%);
-  }
-
-  .skip-link:focus {
-    transform: translateY(0);
-  }
-
-  .resume-navigation,
-  .resume-document {
-    width: min(100% - 2rem, 70rem);
-    margin-inline: auto;
-  }
-
-  .resume-navigation {
+  .resume-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-block: 1.25rem;
     padding-block: 1rem;
-    border-block-end: 1px solid #c9c1b6;
+    border-block: var(--rule-hair) solid var(--rule-soft);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
-  .resume-document {
-    padding-block: 2rem 4rem;
-  }
-
-  .resume-header,
-  section,
-  .resume-provenance {
-    max-width: 68rem;
-    padding-block: 1.5rem;
-    border-block-end: 1px solid #c9c1b6;
-  }
-
-  h1,
-  h2 {
-    font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  .resume-header__dateline {
+    margin: 0;
+    color: var(--ink-muted);
   }
 
   address {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1rem;
+    gap: 0.4rem 1.25rem;
     font-style: normal;
-  }
-
-  .resume-entries {
-    padding-inline-start: 1.25rem;
-  }
-
-  .resume-entries > li + li {
-    margin-block-start: 1.5rem;
-  }
-
-  dl {
-    display: grid;
-    grid-template-columns: minmax(8rem, auto) 1fr;
-    gap: 0.5rem 1rem;
-  }
-
-  dt {
-    font-weight: 700;
-  }
-
-  dd {
     margin: 0;
   }
 
-  code {
+  address a {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  address a:hover {
+    color: var(--signal-text);
+    text-decoration: underline;
+  }
+
+  .resume-header__summary {
+    max-width: 60ch;
+    font-size: 1.0625rem;
+  }
+
+  .resume-section,
+  .resume-provenance {
+    padding-block: 2.25rem;
+  }
+
+  .resume-skills {
+    display: grid;
+    grid-template-columns: minmax(10rem, auto) minmax(0, 1fr);
+    gap: 0;
+    margin: 0;
+  }
+
+  .resume-skills dt,
+  .resume-skills dd {
+    padding-block: 0.85rem;
+    border-block-end: var(--rule-hair) solid var(--rule-soft);
+  }
+
+  .resume-skills dt {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.875rem;
+    padding-inline-end: 1.5rem;
+  }
+
+  .resume-skills dd {
+    margin: 0;
+  }
+
+  .resume-certifications {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resume-certifications li {
+    padding-block: 0.85rem;
+    border-block-end: var(--rule-hair) solid var(--rule-soft);
+    max-width: none;
+  }
+
+  .resume-provenance {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+
+  .resume-provenance h2 {
+    color: var(--ink);
+  }
+
+  .resume-provenance code {
     overflow-wrap: anywhere;
-    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   }
 
-  @media (max-width: 35rem) {
-    dl {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .skip-link {
-      transition: none;
+  @media (min-width: 40rem) {
+    .resume-header__meta {
+      flex-direction: row;
     }
   }
 
   @media print {
-    :global(html) {
-      color: #000;
-      background: #fff;
-      font-size: 10pt;
+    .resume-header {
+      border-block-end-color: #000;
     }
 
-    .skip-link,
-    .resume-navigation {
-      display: none;
-    }
-
-    .resume-document {
-      width: 100%;
-      padding: 0;
-    }
-
-    .resume-header,
-    section,
-    .resume-provenance {
+    .resume-header__meta {
       border-color: #000;
-      break-inside: avoid;
     }
 
-    :global(a) {
-      color: inherit;
-      text-decoration: underline;
+    .resume-skills dt,
+    .resume-skills dd,
+    .resume-certifications li {
+      border-block-end-color: #000;
     }
   }
 </style>

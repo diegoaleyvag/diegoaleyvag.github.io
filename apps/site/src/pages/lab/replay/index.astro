@@ -14,45 +14,55 @@ import {
 >
   <article class="content-frame lab-replay">
     <header class="lab-intro">
+      <p class="lab-intro__eyebrow">{LAB_COPY.pageHeading}</p>
       <h1>{LAB_COPY.pageHeading}</h1>
-      <p>{LAB_COPY.introA}</p>
+      <p class="lab-intro__lede">{LAB_COPY.introA}</p>
       <p>{LAB_COPY.introB}</p>
     </header>
 
-    <section aria-labelledby="clean-room-heading" class="rule-top">
-      <h2 id="clean-room-heading">{LAB_COPY.cleanRoomHeading}</h2>
-      <p>{LAB_COPY.cleanRoomDeclaration}</p>
-      <h3>{LAB_COPY.publicSourcesHeading}</h3>
-      <ul class="public-sources">
-        {
-          PUBLIC_SOURCES.map((source) => (
-            <li>
-              <a href={source.url}>{source.title}</a> — {source.role}
-            </li>
-          ))
-        }
-      </ul>
+    <section aria-labelledby="clean-room-heading" class="lab-section rule-top">
+      <p class="lab-section__index" aria-hidden="true">01</p>
+      <div class="lab-section__content">
+        <h2 id="clean-room-heading">{LAB_COPY.cleanRoomHeading}</h2>
+        <p>{LAB_COPY.cleanRoomDeclaration}</p>
+        <h3>{LAB_COPY.publicSourcesHeading}</h3>
+        <ul class="public-sources">
+          {
+            PUBLIC_SOURCES.map((source) => (
+              <li>
+                <a href={source.url}>{source.title}</a> — {source.role}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </section>
 
-    <section aria-labelledby="scenario-heading" class="rule-top">
-      <h2 id="scenario-heading">{LAB_COPY.scenarioHeading}</h2>
-      <p>{LAB_COPY.scenarioIntro}</p>
-      <dl class="variant-summary">
-        <dt><code>{VARIANT_SUMMARY["read-allowed"].label}</code></dt>
-        <dd>{VARIANT_SUMMARY["read-allowed"].summary}</dd>
-        <dt><code>{VARIANT_SUMMARY["adjust-denied"].label}</code></dt>
-        <dd>{VARIANT_SUMMARY["adjust-denied"].summary}</dd>
-      </dl>
-      <h3>{LAB_COPY.evidenceLimitHeading}</h3>
-      <p>{LAB_COPY.evidenceLimitOrientation}</p>
+    <section aria-labelledby="scenario-heading" class="lab-section rule-top">
+      <p class="lab-section__index" aria-hidden="true">02</p>
+      <div class="lab-section__content">
+        <h2 id="scenario-heading">{LAB_COPY.scenarioHeading}</h2>
+        <p>{LAB_COPY.scenarioIntro}</p>
+        <dl class="variant-summary">
+          <dt><code>{VARIANT_SUMMARY["read-allowed"].label}</code></dt>
+          <dd>{VARIANT_SUMMARY["read-allowed"].summary}</dd>
+          <dt><code>{VARIANT_SUMMARY["adjust-denied"].label}</code></dt>
+          <dd>{VARIANT_SUMMARY["adjust-denied"].summary}</dd>
+        </dl>
+        <h3>{LAB_COPY.evidenceLimitHeading}</h3>
+        <p>{LAB_COPY.evidenceLimitOrientation}</p>
+      </div>
     </section>
 
-    <section aria-labelledby="explorer-heading" class="rule-top">
-      <h2 id="explorer-heading">{LAB_COPY.explorerHeading}</h2>
-      <noscript>
-        <p class="replay-noscript">{LAB_COPY.noscriptMessage}</p>
-      </noscript>
-      <div id="replay-app" data-replay-root></div>
+    <section aria-labelledby="explorer-heading" class="lab-section rule-top">
+      <p class="lab-section__index" aria-hidden="true">03</p>
+      <div class="lab-section__content">
+        <h2 id="explorer-heading">{LAB_COPY.explorerHeading}</h2>
+        <noscript>
+          <p class="replay-noscript">{LAB_COPY.noscriptMessage}</p>
+        </noscript>
+        <div id="replay-app" data-replay-root></div>
+      </div>
     </section>
   </article>
 </BaseLayout>
@@ -68,20 +78,60 @@ import {
 
 <style>
   .lab-replay {
-    padding-block: 2.5rem 4rem;
+    padding-block: 2rem 4rem;
   }
 
   .lab-intro {
     padding-block-end: 2rem;
-    border-block-end: var(--rule-width) solid var(--rule);
+    border-block-end: var(--rule-width) solid var(--ink);
+  }
+
+  .lab-intro__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--signal-text);
+  }
+
+  .lab-intro h1 {
+    margin: 0 0 1.25rem;
+  }
+
+  .lab-intro__lede {
+    max-width: var(--measure);
+    font-size: 1.0625rem;
   }
 
   .lab-intro p {
     max-width: var(--measure);
   }
 
-  section.rule-top {
-    padding-block: 2rem;
+  .lab-section {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    column-gap: 1rem;
+    padding-block: 2.25rem;
+  }
+
+  .lab-section__index {
+    grid-column: 1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding-block-start: 0.15em;
+  }
+
+  .lab-section__content {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  .lab-section__content > h2:first-child {
+    margin-block-start: 0;
   }
 
   .public-sources {
@@ -95,14 +145,22 @@ import {
   .variant-summary {
     display: grid;
     grid-template-columns: minmax(9rem, auto) minmax(0, 1fr);
-    gap: 0.5rem 1.5rem;
-    margin: 1rem 0;
+    gap: 0.75rem 1.5rem;
+    margin: 1.25rem 0;
+    padding-block-start: 1.25rem;
+    border-block-start: var(--rule-hair) solid var(--rule-soft);
     max-width: none;
   }
 
   .variant-summary dt {
-    font-weight: 600;
+    font-weight: 700;
     padding-block-start: 0.15em;
+  }
+
+  .variant-summary dt code {
+    background: var(--paper-raised);
+    border: var(--rule-hair) solid var(--rule-soft);
+    padding: 0.1rem 0.4rem;
   }
 
   .variant-summary dd {
@@ -119,5 +177,20 @@ import {
 
   #replay-app {
     margin-block-start: 1.5rem;
+  }
+
+  @media (max-width: 30rem) {
+    .lab-section {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .lab-section__index {
+      grid-column: 1;
+    }
+
+    .lab-section__content {
+      grid-column: 1;
+      margin-block-start: 0.5rem;
+    }
   }
 </style>

@@ -5,14 +5,64 @@ import { NOT_FOUND_COPY, SITE_SHELL_COPY } from "../components/copy";
 
 <BaseLayout title={NOT_FOUND_COPY.documentTitle} activePath={null}>
   <div class="content-frame not-found">
+    <p class="not-found__code" aria-hidden="true">404</p>
     <h1>{NOT_FOUND_COPY.heading}</h1>
-    <p>{NOT_FOUND_COPY.body}</p>
-    <p><a href="/">{SITE_SHELL_COPY.portfolioLink}</a></p>
+    <p class="not-found__body">{NOT_FOUND_COPY.body}</p>
+    <ul class="not-found__links">
+      <li><a href="/">{SITE_SHELL_COPY.portfolioLink}</a></li>
+      <li><a href="/resume/">{SITE_SHELL_COPY.resumeLink}</a></li>
+      <li><a href="/lab/replay/">{SITE_SHELL_COPY.labLink}</a></li>
+    </ul>
   </div>
 </BaseLayout>
 
 <style>
   .not-found {
-    padding-block: 3rem 5rem;
+    padding-block: 2.5rem 6rem;
+  }
+
+  .not-found__code {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 22vw, 14rem);
+    line-height: 0.85;
+    color: var(--signal-text);
+  }
+
+  .not-found h1 {
+    margin-block-start: 0;
+    padding-block-start: 1.5rem;
+    border-block-start: var(--rule-width) solid var(--ink);
+  }
+
+  .not-found__body {
+    max-width: var(--measure);
+    font-size: 1.0625rem;
+  }
+
+  .not-found__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+  }
+
+  .not-found__links a {
+    display: inline-block;
+    color: var(--ink);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    border: var(--rule-width) solid var(--ink);
+    padding: 0.65rem 1.15rem;
+  }
+
+  .not-found__links a:hover {
+    background: var(--ink);
+    color: var(--paper);
   }
 </style>

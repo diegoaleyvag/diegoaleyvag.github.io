@@ -9,6 +9,7 @@ export const SITE_SHELL_COPY = {
   skipToContent: "Skip to main content",
   primaryNavigationLabel: "Primary",
   footerNavigationLabel: "Footer",
+  homeLinkLabel: "Home",
   portfolioLink: "Portfolio",
   resumeLink: "Résumé",
   labLink: "Synthetic lab",

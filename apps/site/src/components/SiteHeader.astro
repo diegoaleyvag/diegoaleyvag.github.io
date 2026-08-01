@@ -3,9 +3,10 @@ import { SITE_SHELL_COPY } from "./copy";
 
 interface Props {
   activePath: "/" | "/resume/" | "/lab/replay/" | null;
+  brandName: string;
 }
 
-const { activePath } = Astro.props;
+const { activePath, brandName } = Astro.props;
 
 const links = [
   { href: "/", label: SITE_SHELL_COPY.portfolioLink },
@@ -16,6 +17,9 @@ const links = [
 
 <header class="site-header">
   <div class="site-header__inner content-frame">
+    <a class="site-brand" href="/" aria-label={SITE_SHELL_COPY.homeLinkLabel}>
+      {brandName}
+    </a>
     <nav class="site-nav" aria-label={SITE_SHELL_COPY.primaryNavigationLabel}>
       <ul>
         {

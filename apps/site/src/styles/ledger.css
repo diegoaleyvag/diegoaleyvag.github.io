@@ -3,7 +3,7 @@
  * home page and (with feature-local additions) the Replay event ledger.
  * Ledger rows read top-to-bottom as index, heading, evidence rail, body on
  * narrow screens, and as a 12-column index/reading/rail split on wide
- * screens, per docs/design-direction.md.
+ * screens. Brutalist Editorial: thick rules, square corners, bold numerals.
  */
 
 .content-frame {
@@ -43,7 +43,7 @@
   font-family: var(--font-display);
   font-variant-numeric: tabular-nums;
   color: var(--ink);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: 1;
   padding-block-start: 0.1em;
 }

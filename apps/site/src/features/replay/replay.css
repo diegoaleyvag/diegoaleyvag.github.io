@@ -29,7 +29,7 @@
 
 .mark--deny .mark__glyph,
 .mark--fail .mark__glyph {
-  color: var(--signal);
+  color: var(--signal-text);
 }
 
 .mark--needs_approval .mark__glyph,
@@ -42,7 +42,7 @@
 }
 
 .status-message[data-tone="error"] {
-  color: var(--signal);
+  color: var(--signal-text);
   font-weight: 600;
 }
 

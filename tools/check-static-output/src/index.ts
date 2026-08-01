@@ -12,7 +12,13 @@ const requiredFiles = [
   "lab/replay/index.html",
   "resume/index.html",
   "replays/v1/manifest.json",
-  "fonts/fraunces-vf.woff2",
+  "fonts/archivo-variable.woff2",
+  "fonts/archivo-black.woff2",
+] as const;
+
+const selfHostedFonts = [
+  "fonts/archivo-variable.woff2",
+  "fonts/archivo-black.woff2",
 ] as const;
 
 const allowedExtensions = new Set([
@@ -225,46 +231,58 @@ for (const route of ["index.html", "resume/index.html"]) {
   }
 }
 
-const sourceFont = await readFile(
-  path.join(workspaceRoot, "apps/site/public/fonts/fraunces-vf.woff2"),
-);
-const builtFont = await readFile(
-  path.join(outputRoot, "fonts/fraunces-vf.woff2"),
-);
-if (builtFont.byteLength === 0 || !builtFont.equals(sourceFont)) {
-  throw new Error(
-    "Built Fraunces font is absent, empty, or differs from its self-hosted source",
+for (const fontPath of selfHostedFonts) {
+  const sourceFont = await readFile(
+    path.join(workspaceRoot, "apps/site/public", fontPath),
   );
+  const builtFont = await readFile(path.join(outputRoot, fontPath));
+  if (builtFont.byteLength === 0 || !builtFont.equals(sourceFont)) {
+    throw new Error(
+      `Built font ${fontPath} is absent, empty, or differs from its self-hosted source`,
+    );
+  }
 }
 
 const combinedStyles = styleSources.join("\n");
-if (
-  !/@font-face/i.test(combinedStyles) ||
-  !/url\(["']?\/fonts\/fraunces-vf\.woff2["']?\)/i.test(combinedStyles)
-) {
-  throw new Error("Built CSS does not self-host Fraunces from /fonts/");
+if (!/@font-face/i.test(combinedStyles)) {
+  throw new Error("Built CSS does not declare any self-hosted @font-face");
+}
+for (const fontPath of selfHostedFonts) {
+  const escapedPath = fontPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const urlPattern = new RegExp(`url\\(["']?/${escapedPath}["']?\\)`, "i");
+  if (!urlPattern.test(combinedStyles)) {
+    throw new Error(`Built CSS does not self-host ${fontPath} from /fonts/`);
+  }
 }
 if (
-  !/--font-display\s*:[^;}]*Fraunces[^;}]*ui-serif[^;}]*serif/i.test(
+  !/--font-display\s*:[^;}]*Archivo Black[^;}]*Archivo[^;}]*sans-serif/i.test(
     combinedStyles,
-  )
+  ) ||
+  !/--font-body\s*:[^;}]*Archivo[^;}]*sans-serif/i.test(combinedStyles)
 ) {
   throw new Error(
-    "Built --font-display does not preserve the system-serif fallback stack",
+    "Built --font-display/--font-body do not preserve the self-hosted Archivo stack with a sans-serif fallback",
   );
 }
 
 const homeHtml = await readFile(path.join(outputRoot, "index.html"), "utf8");
-const hasFontPreload = [...homeHtml.matchAll(/<link\b[^>]*>/gi)].some(
-  ([tag]) =>
-    readAttribute(tag, "rel")?.toLowerCase() === "preload" &&
-    readAttribute(tag, "as")?.toLowerCase() === "font" &&
-    readAttribute(tag, "href") === "/fonts/fraunces-vf.woff2",
+const preloadedFontHrefs = new Set(
+  [...homeHtml.matchAll(/<link\b[^>]*>/gi)]
+    .filter(
+      ([tag]) =>
+        readAttribute(tag, "rel")?.toLowerCase() === "preload" &&
+        readAttribute(tag, "as")?.toLowerCase() === "font",
+    )
+    .map(([tag]) => readAttribute(tag, "href")),
 );
-if (!hasFontPreload) {
-  throw new Error("Home output does not preload the self-hosted Fraunces font");
+for (const fontPath of selfHostedFonts) {
+  if (!preloadedFontHrefs.has(`/${fontPath}`)) {
+    throw new Error(
+      `Home output does not preload the self-hosted /${fontPath}`,
+    );
+  }
 }
 
 console.log(
-  `Static output is valid (${files.length} files; self-hosted Fraunces present; no external subresources)`,
+  `Static output is valid (${files.length} files; self-hosted Archivo fonts present; no external subresources)`,
 );

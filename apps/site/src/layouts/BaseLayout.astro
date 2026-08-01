@@ -7,6 +7,7 @@ import "../styles/shell.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { SITE_SHELL_COPY } from "../components/copy";
+import { loadResume } from "@portfolio/resume";
 
 interface Props {
   title: string;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 const { title, description, activePath } = Astro.props;
+const resume = await loadResume();
+const brandName = resume.view.identity.name.value;
 ---
 
 <!doctype html>
@@ -25,7 +28,14 @@ const { title, description, activePath } = Astro.props;
     <link rel="icon" href="data:," />
     <link
       rel="preload"
-      href="/fonts/fraunces-vf.woff2"
+      href="/fonts/archivo-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/archivo-black.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -37,7 +47,7 @@ const { title, description, activePath } = Astro.props;
     <a class="skip-link" href="#main-content">
       {SITE_SHELL_COPY.skipToContent}
     </a>
-    <SiteHeader activePath={activePath} />
+    <SiteHeader activePath={activePath} brandName={brandName} />
     <main id="main-content">
       <slot />
     </main>

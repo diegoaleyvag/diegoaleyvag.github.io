@@ -38,21 +38,9 @@ const selectedEducation = [0, 1].map((index) =>
   activePath="/"
 >
   <article class="content-frame home">
-    <header class="identity">
-      <div class="identity__lead">
-        <h1 data-source-path={identity.name.path}>{identity.name.value}</h1>
-        <p class="identity__headline" data-source-path={identity.headline.path}>
-          {identity.headline.value}
-        </p>
-        <p class="identity__summary" data-source-path={identity.summary.path}>
-          {identity.summary.value}
-        </p>
-        <p class="identity__cta">
-          <a href="/resume/">{HOME_COPY.resumeCta}</a>
-        </p>
-      </div>
-      <aside class="identity__aside">
-        <p class="identity__meta">
+    <header class="masthead">
+      <div class="masthead__meta">
+        <p class="masthead__dateline">
           <span data-source-path={identity.location.path}
             >{identity.location.value}</span
           >
@@ -61,7 +49,10 @@ const selectedEducation = [0, 1].map((index) =>
             >{identity.availability.value}</span
           >
         </p>
-        <address aria-label={RESUME_UI_COPY.contactLabel}>
+        <address
+          class="masthead__contact"
+          aria-label={RESUME_UI_COPY.contactLabel}
+        >
           <a
             href={`mailto:${identity.email.value}`}
             data-source-path={identity.email.path}
@@ -81,7 +72,25 @@ const selectedEducation = [0, 1].map((index) =>
             {identity.github.label.value}
           </a>
         </address>
-      </aside>
+      </div>
+
+      <p class="masthead__tag" data-source-path={identity.headline.path}>
+        {identity.headline.value}
+      </p>
+
+      <h1 class="masthead__name">
+        <span data-source-path={identity.name.path}>{identity.name.value}</span
+        ><span class="masthead__period" aria-hidden="true">.</span>
+      </h1>
+
+      <div class="masthead__foot">
+        <p class="masthead__summary" data-source-path={identity.summary.path}>
+          {identity.summary.value}
+        </p>
+        <p class="masthead__cta">
+          <a href="/resume/">{HOME_COPY.resumeCta}</a>
+        </p>
+      </div>
     </header>
 
     <section aria-labelledby="evidence-heading">
@@ -230,79 +239,123 @@ const selectedEducation = [0, 1].map((index) =>
 
 <style>
   .home {
-    padding-block: 3.5rem 4rem;
+    padding-block: 0 4rem;
   }
 
-  .identity {
-    display: grid;
-    gap: 2rem;
-    padding-block-end: 3rem;
-    border-block-end: var(--rule-width) solid var(--rule);
+  .masthead {
+    position: relative;
+    padding-block: 1.5rem 2.5rem;
+    border-block-end: var(--rule-width) solid var(--ink);
   }
 
-  .identity h1 {
-    font-size: clamp(2.75rem, 8vw, 5rem);
-    line-height: 0.98;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    margin: 0;
-  }
-
-  .identity__headline {
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
-    font-weight: 400;
-    color: var(--ink-muted);
-    margin-block: 0.65rem 1.4rem;
-    max-width: 30ch;
-  }
-
-  .identity__summary {
-    max-width: 48ch;
-    font-size: 1.0625rem;
-  }
-
-  .identity__cta {
-    margin-block-start: 1.5rem;
-    font-family: var(--font-display);
-    font-size: 1.0625rem;
-  }
-
-  .identity__aside {
+  .masthead__meta {
     display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    font-size: 0.9375rem;
-  }
-
-  .identity__meta {
-    margin: 0;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    padding-block-end: 1.25rem;
+    margin-block-end: 1.75rem;
+    border-block-end: var(--rule-hair) solid var(--rule-soft);
     font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
-  address {
+  .masthead__dateline {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .masthead__contact {
     display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
     font-style: normal;
     margin: 0;
   }
 
-  @media (min-width: 60rem) {
-    .identity {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
-      align-items: end;
-      column-gap: 3rem;
-    }
+  .masthead__contact a {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+  }
 
-    .identity__aside {
-      align-self: stretch;
-      justify-content: flex-end;
-      padding-inline-start: 1.5rem;
-      border-inline-start: var(--rule-width) solid var(--rule);
+  .masthead__contact a:hover {
+    color: var(--signal-text);
+    text-decoration: underline;
+  }
+
+  .masthead__tag {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 4.75rem;
+    margin: 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ink-muted);
+  }
+
+  .masthead__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 13.5vw, 12rem);
+    line-height: 0.82;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    max-width: 90%;
+  }
+
+  .masthead__period {
+    color: var(--signal);
+  }
+
+  .masthead__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.25rem 2rem;
+    margin-block-start: 1.75rem;
+    padding-block-start: 1.25rem;
+    border-block-start: var(--rule-hair) solid var(--rule-soft);
+  }
+
+  .masthead__summary {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 1.0625rem;
+  }
+
+  .masthead__cta {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .masthead__cta a {
+    display: inline-block;
+    background: var(--signal);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .masthead__cta a:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  @media (max-width: 30rem) {
+    .masthead__tag {
+      display: none;
     }
   }
 
@@ -337,5 +390,22 @@ const selectedEducation = [0, 1].map((index) =>
 
   .lab-transition__cta {
     margin-block-start: 1.25rem;
+  }
+
+  .lab-transition__cta a {
+    display: inline-block;
+    color: var(--ink);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    border: var(--rule-width) solid var(--ink);
+    padding: 0.65rem 1.15rem;
+  }
+
+  .lab-transition__cta a:hover {
+    background: var(--ink);
+    color: var(--paper);
   }
 </style>

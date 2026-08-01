@@ -78,14 +78,19 @@ for (const route of ["/", "/resume/", "/lab/replay/"]) {
   });
 }
 
-test("loads Fraunces only from the local static origin", async ({
+test("loads the self-hosted Archivo fonts only from the local static origin", async ({
   page,
   networkGuard,
 }) => {
   await page.goto("/");
   await expect
     .poll(() => networkGuard.localPaths)
-    .toContain("/fonts/fraunces-vf.woff2");
+    .toEqual(
+      expect.arrayContaining([
+        "/fonts/archivo-variable.woff2",
+        "/fonts/archivo-black.woff2",
+      ]),
+    );
 });
 
 test("exercises both finite replay variants and in-memory tampering", async ({

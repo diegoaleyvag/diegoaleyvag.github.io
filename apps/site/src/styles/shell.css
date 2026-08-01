@@ -1,6 +1,7 @@
 /*
  * Global shell: skip link, primary navigation, and footer.
  * Shared by every route rendered through BaseLayout.astro.
+ * Brutalist Editorial: thick 2px rules, square corners, uppercase nav.
  */
 
 .skip-link {
@@ -8,11 +9,14 @@
   z-index: 10;
   inset-block-start: 0.75rem;
   inset-inline-start: 0.75rem;
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
   background: var(--ink);
   color: var(--paper);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   border-radius: var(--radius);
-  transform: translateY(-150%);
+  transform: translateY(-200%);
   transition: transform 0.15s ease;
 }
 
@@ -21,48 +25,68 @@
 }
 
 .site-header {
-  background: var(--paper-raised);
-  border-block-end: var(--rule-width) solid var(--rule);
+  background: var(--paper);
+  border-block-end: var(--rule-width) solid var(--ink);
 }
 
 .site-header__inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem 1.5rem;
-  padding-block: 1.25rem;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block: 1.15rem;
+}
+
+.site-brand {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-brand:hover {
+  color: var(--signal-text);
 }
 
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 0.5rem 1.75rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .site-nav a {
+  display: inline-block;
   color: var(--ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   text-decoration: none;
-  padding-block: 0.15rem;
-  border-block-end: var(--rule-width) solid transparent;
+  padding-block: 0.2rem;
+  border-block-end: 3px solid transparent;
 }
 
 .site-nav a:hover {
-  border-block-end-color: var(--ink-muted);
+  border-block-end-color: var(--rule-soft);
 }
 
 .site-nav a[aria-current="page"] {
-  font-weight: 600;
+  color: var(--signal-text);
   border-block-end-color: var(--signal);
 }
 
 .site-footer {
-  background: var(--paper-raised);
-  border-block-start: var(--rule-width) solid var(--rule);
-  margin-block-start: 3rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-block-start: var(--rule-width) solid var(--ink);
+  margin-block-start: 4rem;
 }
 
 .site-footer__inner {
@@ -71,22 +95,35 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  padding-block: 1.5rem 2.5rem;
-  color: var(--ink-muted);
-  font-size: 0.9375rem;
+  padding-block: 1.75rem 2.75rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.site-footer p {
+  margin: 0;
+  color: #c8c4b8;
+  max-width: none;
 }
 
 .site-footer nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
+  gap: 0.5rem 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .site-footer a {
-  color: inherit;
+  color: var(--paper);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--signal);
 }
 
 @media (prefers-reduced-motion: reduce) {

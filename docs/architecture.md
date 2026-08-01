@@ -35,8 +35,8 @@ stack choices or unsafe API shapes.
   generation, the static UI, local integrity checks, and deterministic tests.
 - The first public release is Replay-only. Live is a removable, separately
   deployed enhancement and is off unless explicitly configured and approved.
-- The visual system is the single **Editorial Evidence Ledger** direction
-  specified in `docs/design-direction.md`.
+- The visual system is the single **Brutalist Editorial** direction specified
+  in `docs/design-direction.md` ([ADR 0013](adr/0013-brutalist-editorial.md)).
 - No product name is selected. Neutral labels such as “portfolio,” “lab,”
   “runtime,” and `RunBundle` remain architecture-independent.
 
@@ -445,6 +445,7 @@ distinct question.
 7. **Public Live:** absent from the first release. Later enablement requires the
    finite request schema and operational controls in section 9, plus a separate
    approved ADR. Manual Live diagnostics remain outside testing.
-8. **Visual direction:** Editorial Evidence Ledger only. Tonight implements
-   tokens, shell, typography, responsive evidence rail, accessible states, and
-   the replay ledger; no alternate themes or decorative motion.
+8. **Visual direction:** Brutalist Editorial only ([ADR 0013](adr/0013-brutalist-editorial.md)).
+   Implements tokens, shell, typography, responsive evidence rail, accessible
+   states, the replay ledger, and a visual Merkle tree; no alternate themes
+   or decorative motion beyond the opt-in "Play run" step-through.

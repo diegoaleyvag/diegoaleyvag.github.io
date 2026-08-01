@@ -161,8 +161,8 @@ Anything not listed above is not required to call the night successful.
 
 ### Design and accessibility
 
-- [ ] The interface follows the Editorial Evidence Ledger tokens and layout;
-      no alternate theme or generic component-library skin ships.
+- [ ] The interface follows the Brutalist Editorial tokens and layout; no
+      alternate theme or generic component-library skin ships.
 - [ ] There is no gradient, glass/blur panel, glow, particle field, fake
       terminal, stock AI iconography, generated portrait, decorative metric, or
       autoplay animation.

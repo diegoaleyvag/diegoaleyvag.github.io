@@ -1,6 +1,6 @@
 # ADR 0012: Use the Editorial Evidence Ledger direction
 
-- Status: Accepted
+- Status: Superseded by [ADR 0013](0013-brutalist-editorial.md)
 - Date: 2026-08-01
 
 ## Context

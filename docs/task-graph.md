@@ -255,7 +255,7 @@ interface
 
 **Acceptance:**
 
-- Implements only the Editorial Evidence Ledger direction.
+- Implements only the Brutalist Editorial direction.
 - Home factual values come from the résumé loader via source paths; no copied
   CV prose exists in page files.
 - Shell includes skip link, semantic navigation, landmarks, responsive evidence

@@ -9,11 +9,12 @@
   },
   "dependencies": {
     "@astrojs/preact": "6.0.2",
+    "@astrojs/vercel": "10.0.8",
     "@portfolio/contracts": "workspace:*",
     "@portfolio/replay": "workspace:*",
     "@portfolio/resume": "workspace:*",
-    "astro": "6.0.2",
-    "preact": "10.29.7"
+    "astro": "6.4.8",
+    "preact": "10.29.8"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10"

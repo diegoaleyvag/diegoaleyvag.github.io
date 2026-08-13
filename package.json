@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@11.18.0",
   "engines": {
-    "node": "24.18.1",
+    "node": ">=24.18.1 <25.0.0",
     "pnpm": "11.18.0"
   },
   "scripts": {
@@ -22,7 +22,7 @@
     "policy:test": "tsx tools/opa/exec.ts test policies/source policies/test",
     "publication:check": "tsx tools/check-content-provenance/src/check-publication-consent.ts",
     "replays:build": "tsx tools/build-replays/src/cli.ts",
-    "static:check": "tsx tools/check-static-output/src/index.ts",
+    "static:check": "tsx tools/check-vercel-output/src/index.ts",
     "test": "pnpm policy:test && vitest run --config vitest.config.ts",
     "test:e2e": "playwright test",
     "typecheck": "pnpm -r --if-present typecheck && tsc --noEmit -p tools/opa/tsconfig.json && tsc --noEmit -p tools/build-replays/tsconfig.json && tsc --noEmit -p tests/tsconfig.json"
@@ -34,18 +34,18 @@
     "@portfolio/testkit": "workspace:*"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.12.1",
+    "@axe-core/playwright": "4.13.0",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.62.1",
     "@types/node": "24.13.3",
-    "eslint": "10.8.0",
-    "eslint-plugin-astro": "3.0.1",
-    "globals": "17.8.0",
+    "eslint": "10.8.1",
+    "eslint-plugin-astro": "3.1.0",
+    "globals": "17.11.0",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
-    "tsx": "4.23.1",
+    "tsx": "4.23.12",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.65.0",
+    "typescript-eslint": "8.67.0",
     "vitest": "4.1.10"
   }
 }

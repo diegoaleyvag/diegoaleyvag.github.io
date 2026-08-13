@@ -6,6 +6,19 @@ allowBuilds:
   esbuild: true
   sharp: true
 
+# Security-floor pins for transitive dependencies pulled in by astro, its
+# preact/vite chain, and ajv (see `pnpm audit`). Each range is capped at the
+# next major so an override can't silently jump a dependency we don't control
+# past a version its actual consumers (ajv, postcss, astro) declare support
+# for. Note: pnpm >=11 only reads this block from `pnpm-workspace.yaml` — the
+# legacy `pnpm.overrides` key in `package.json` is silently ignored.
+overrides:
+  fast-uri: ">=3.1.5 <4.0.0"
+  js-yaml: ">=4.3.1 <5.0.0"
+  nanoid: ">=3.3.17 <4.0.0"
+  path-to-regexp: ">=6.3.0 <7.0.0"
+  sharp: ">=0.35.0 <0.36.0"
+
 catalog:
   ajv: 8.20.0
   ajv-formats: 3.0.1

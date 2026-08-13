@@ -8,6 +8,7 @@ export default [
     ignores: [
       ".cache/**",
       "**/.astro/",
+      "apps/site/.vercel/**",
       "apps/site/dist/**",
       "apps/site/public/replays/**",
       "coverage/**",
@@ -18,13 +19,16 @@ export default [
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx"],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
     },
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",

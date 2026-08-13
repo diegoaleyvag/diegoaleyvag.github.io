@@ -24,8 +24,8 @@ Ask Diego corpus.
 
 Within that boundary, narrative framing, structure, sequencing, and Spanish
 translation may be **genuinely creative and editorial** — never a mechanical
-mirror of the YAML strings. Creative license changes *how* a fact is told,
-never *what* the fact is: reordering, editorial framing, and faithful
+mirror of the YAML strings. Creative license changes _how_ a fact is told,
+never _what_ the fact is: reordering, editorial framing, and faithful
 paraphrase are allowed; a number, date, name, employer, or outcome that does
 not trace to `cv.yaml` or an approved `content/public-sources/` entry is not.
 

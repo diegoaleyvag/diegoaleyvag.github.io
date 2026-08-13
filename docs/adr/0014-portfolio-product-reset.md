@@ -54,7 +54,7 @@ supersede the following prior decisions:
 - **[ADR 0006](0006-runbundle-and-replay.md) — the `RunBundle` replay
   contract**, **[ADR 0007](0007-rego-execution.md) — Rego/OPA execution**,
   and **[ADR 0010](0010-merkle-evidence-semantics.md) — Merkle evidence
-  semantics.** No longer serve the product as a *public flagship* surface:
+  semantics.** No longer serve the product as a _public flagship_ surface:
   the governed-run Replay lab is retired as the site's primary technical
   showcase because it no longer matches "Data Science student" as the
   primary identity. Retirement of the underlying code (`packages/contracts`,

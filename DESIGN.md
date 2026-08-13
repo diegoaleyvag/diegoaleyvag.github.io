@@ -41,4 +41,4 @@ resulting specifics below this line once it lands.
 
 ---
 
-*(Nothing appended yet — see ADR 0015 when it exists.)*
+_(Nothing appended yet — see ADR 0015 when it exists.)_

@@ -9,7 +9,7 @@
     "../vitest.config.ts",
     "../tools/check-content-provenance/src/**/*.ts",
     "../tools/check-generated/src/**/*.ts",
-    "../tools/check-static-output/src/**/*.ts",
+    "../tools/check-vercel-output/src/**/*.ts",
     "**/*.ts"
   ]
 }

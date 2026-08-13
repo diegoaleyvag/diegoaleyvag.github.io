@@ -7,8 +7,13 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { loadResume } from "../src/index.ts";
 
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
+// The Vercel adapter nests Astro's client output under `dist/client/` (see
+// tools/check-vercel-output); this reads that direct Astro rendering output
+// rather than the copy under `.vercel/output/static/`, keeping this test
+// scoped to "does Astro render the résumé correctly" rather than also
+// depending on the adapter's separate copy step.
 const builtResumeUrl = new URL(
-  "../../../apps/site/dist/resume/index.html",
+  "../../../apps/site/dist/client/resume/index.html",
   import.meta.url,
 );
 

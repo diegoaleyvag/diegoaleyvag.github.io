@@ -110,7 +110,7 @@ only the Ask Diego island; every other route keeps working.
 │   └── public-sources/    # public-spec provenance ledger
 ├── tools/
 │   ├── cv-sync/
-│   └── check-static-output/
+│   └── check-vercel-output/
 ├── tests/
 └── .github/workflows/
 ```
@@ -162,7 +162,7 @@ and Spanish:
 
 `packages/resume` keeps strict `cv.yaml` validation, a typed view model, and
 source-path provenance coverage. What changes under ADR 0014: it is no longer
-the *only* permitted rendering path. A new manual `pnpm cv:sync --source
+the _only_ permitted rendering path. A new manual `pnpm cv:sync --source
 "<path>"` operation reads the separate CV repository read-only, copies the
 PDF, produces a preview and public JSON, and writes a manifest recording the
 source commit and SHA-256 digest. `/resume/` becomes an **editorial résumé

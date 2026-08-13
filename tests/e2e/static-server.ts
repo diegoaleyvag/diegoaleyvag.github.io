@@ -4,8 +4,16 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
+// Astro's Vercel adapter writes the deployable static half of the build to
+// `.vercel/output/static/`, not directly under `dist/` (see
+// tools/check-vercel-output). This server only ever exercises prerendered
+// routes in e2e tests, so serving that directory — the same one Vercel
+// itself would serve as static files — keeps the test server matching the
+// real deployable artifact.
 const outputRoot = path.resolve(
-  fileURLToPath(new URL("../../apps/site/dist/", import.meta.url)),
+  fileURLToPath(
+    new URL("../../apps/site/.vercel/output/static/", import.meta.url),
+  ),
 );
 const host = "127.0.0.1";
 const port = 4173;

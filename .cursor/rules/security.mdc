@@ -1,6 +1,6 @@
 ---
 description: Secret boundaries, Ask-Diego server code, and artifact security
-globs: [".env.example", ".gitignore", ".github/**/*", "apps/site/src/pages/api/**/*", "tools/check-static-output/**/*"]
+globs: [".env.example", ".gitignore", ".github/**/*", "apps/site/src/pages/api/**/*", "tools/check-vercel-output/**/*"]
 alwaysApply: false
 ---
 

@@ -2,80 +2,96 @@
 
 Status: **Canonical**
 
+[ADR 0014](adr/0014-portfolio-product-reset.md) reset the product surface
+this model protects. Sections tied to the retired RunBundle/Replay/Merkle
+demo are removed here rather than adapted — see
+`docs/architecture.md` section 8 for what that surface was. Sections that
+still matter (secrets, cost exhaustion/DoS against `/api/ask`, prompt
+injection against the Ask Diego corpus, and arbitrary/real visitor data
+submission) are kept and adapted below.
+
 ## Scope
 
 This model covers:
 
-- repository source and generated artifacts;
-- GitHub Actions and the GitHub Pages static deployment;
-- the untrusted browser running Replay;
-- the optional stateless Fastify runtime;
-- the Groq OpenAI-compatible API boundary;
-- deterministic synthetic fixtures, policy, traces, and audit evidence.
+- repository source and generated artifacts (decision manifests, the
+  decisions-registry lock file, `cv:sync` output);
+- the Vercel deployment: prerendered static output plus its one serverless
+  function, `/api/ask`;
+- the untrusted browser running the map and Ask Diego Preact islands;
+- the optional Ask Diego provider boundary, selected through
+  `AI_GUIDE_MODEL`;
+- the closed, synthetic-or-approved-source Ask Diego corpus.
 
-The first public release has no Live runtime. Live threats remain documented
-because the architecture reserves that seam, but they are not accepted merely
-by merging runtime code.
+The first release may ship with no Ask Diego provider configured at all.
+Ask-Diego threats remain documented because the architecture reserves that
+seam, but they are not accepted merely by merging endpoint code.
 
 ## Security objectives
 
-1. No secret reaches source control, a static artifact, browser memory, client
-   configuration, response payload, or log.
+1. No secret reaches source control, the static artifact, browser memory,
+   client configuration, a response payload, or a log.
 2. `content/source/cv.yaml` remains the sole factual source and is never
-   modified by a build or agent.
-3. Demo, fixture, tool, approval, trace, and test data is synthetic and cannot
-   accept visitor-supplied personal data.
-4. Policy decisions and event ordering fail closed when input or output is
-   missing, malformed, mismatched, or out of sequence.
-5. The static portfolio and Replay remain available when the runtime is absent
-   or compromised.
-6. Evidence language never claims more than the mechanism establishes.
+   modified by a build, agent, or `cv:sync` run; the fact/narrative boundary
+   in `AGENTS.md` governs everything built on top of it.
+3. Demo, fixture, and corpus data is synthetic or drawn only from approved
+   sources; the site never stores or logs real visitor-submitted content.
+4. `/api/ask` fails closed on missing configuration, oversized input, or
+   malformed output rather than guessing.
+5. The static portfolio, Five Decisions collection, and résumé companion
+   remain available when `/api/ask` is absent, disabled, or failing.
+6. Evidence language never claims more than a project's recorded status
+   supports.
 7. Clean-room implementation is traceable to public sources and contains no
    employer-derived design, code, naming, or fixtures.
 
 ## Protected assets
 
-- Groq API key and any future server credential.
-- Runtime spend, quota, concurrency, and availability.
-- Integrity of the deployed static artifact and checked-in replay bundles.
-- Correctness of policy decisions, approval binding, event ordering, and
-  deterministic evaluation.
-- Factual integrity of résumé and portfolio content.
-- Diego's reputation and visitors' understanding of evidence limits.
+- The optional Ask Diego provider credential (if configured) and any future
+  server credential.
+- `/api/ask` spend, quota, and availability.
+- The closed Ask Diego corpus and its citation integrity — an answer must
+  not cite content the corpus doesn't contain.
+- Correctness of project/decision manifests and their validated status
+  field.
+- Factual integrity of the résumé companion and portfolio content.
+- Diego's reputation and visitors' understanding of what a
+  `planned`/`building` status means.
 - Public-source provenance and clean-room status.
-- CI credentials and GitHub Pages deployment permissions.
+- CI credentials and deployment permissions.
 
-CV contact and location values are public-content candidates, not demo data.
-They still must not be copied into telemetry, fixtures, logs, or test snapshots.
+CV contact and location values are public-content candidates, not demo
+data. They still must not be copied into telemetry, fixtures, logs, or test
+snapshots.
 
 ## Threat actors and assumptions
 
-- An anonymous visitor may alter browser state, requests, or loaded JSON.
-- A script may call any public runtime endpoint without using the site UI.
-- Model output is untrusted even when the prompt is server-authored.
-- A dependency, CI action, replay artifact, or pull request may be malicious or
-  compromised.
-- GitHub Pages and the browser origin are not independent trust anchors for
-  artifacts served together.
+- An anonymous visitor may alter browser state, requests, or submit any text
+  to `/api/ask`.
+- A script may call `/api/ask` directly without using the site UI.
+- Model output, when a provider is configured, is untrusted even though the
+  retrieved context is server-authored.
+- A dependency, CI action, or pull request may be malicious or compromised.
 - CORS does not authenticate a caller or prevent non-browser abuse.
-- Hashes detect changes relative to a root; they do not establish truth,
-  authorship, policy compliance, or origin integrity.
 
 ## Trust boundaries
 
 1. **Contributor to reviewed repository:** proposed files cross into trusted
    source only after review and deterministic checks.
-2. **Repository to CI:** lockfiles, actions, compilers, and generation tools
+2. **Repository to CI:** lockfiles, actions, and generation/validation tools
    execute with narrowly scoped permissions.
-3. **CI to Pages artifact:** only the checked static output directory is
-   uploaded; runtime source and environment files are excluded.
-4. **Pages origin to browser:** all content is public and potentially
-   attacker-controlled from the browser's perspective.
-5. **Browser to optional runtime:** requests are untrusted regardless of origin.
-6. **Runtime to Groq:** authorization and synthetic prompts leave the trusted
-   runtime; responses and headers return as untrusted input.
-7. **Model output to orchestrator/tool:** proposed tool calls are data, never
-   authority; schema and policy gates run immediately before any action.
+3. **CI to deployed artifact:** only the built site and its one function are
+   deployed; no other server code or environment file ships.
+4. **Deployed origin to browser:** all static content is public and
+   potentially attacker-controlled from the browser's perspective.
+5. **Browser to `/api/ask`:** every request is untrusted regardless of
+   origin.
+6. **`/api/ask` to the optional provider:** the question, bounded prior
+   messages, and retrieved fragments leave the trusted server; the response
+   returns as untrusted input.
+7. **Provider output to the visitor:** a model-proposed answer is data,
+   never authority; length, citation-membership, and content checks run
+   before it renders.
 8. **Public specification to clean-room implementation:** only documented
    public concepts cross this boundary, with a source-ledger entry.
 
@@ -83,206 +99,159 @@ They still must not be copied into telemetry, fixtures, logs, or test snapshots.
 
 ### Secret disclosure
 
-Threats include a committed `.env`, client-exposed environment variable,
-browser-direct Groq call, source map, stack trace, authorization-header log,
-upstream error body, or runtime configuration endpoint.
+Threats include a committed `.env`, a client-exposed environment variable, a
+browser-direct provider call, a source map, a stack trace, an
+authorization-header log, an upstream error body, or a runtime configuration
+endpoint.
 
 Controls:
 
-- Groq credentials exist only in local or server process environment variables.
-- `.gitignore` covers local environment variants; `.env.example` contains empty
-  placeholders only.
-- `apps/site` cannot import runtime configuration or the Live adapter.
-- Static build and tests run without secrets.
-- CI scans source, generated JavaScript, JSON, source maps, and the final
+- The Ask Diego provider credential, if configured, exists only in
+  server-side (Vercel) environment variables.
+- `.gitignore` covers local environment variants; `.env.example` contains
+  empty placeholders only.
+- Browser-reachable code cannot import server-only Ask-Diego modules or
+  runtime configuration.
+- The static build and normal tests run without secrets.
+- CI scans source, generated JavaScript/JSON, source maps, and the final
   artifact for secret names and credential patterns.
-- Logs redact authorization headers, upstream bodies, prompts, outputs, and
-  environment values.
-- Runtime errors return a generic message and correlation ID.
-- Startup fails closed if Live is selected without its key.
+- Logs redact authorization headers, upstream bodies, prompts, and outputs.
+- `/api/ask` returns a generic message and correlation ID on failure.
+- `/api/ask` fails closed if a provider is selected without its key.
 
-Residual risk: a compromised runtime host can read its process environment.
-Use the host secret store, least privilege, rotation, and a provider spend cap.
+Residual risk: a compromised deployment can read its process environment.
+Use the platform secret store, least privilege, rotation, and a provider
+spend cap.
 
-### Arbitrary or real data submission
+### Cost exhaustion and denial of service against `/api/ask`
 
-An open prompt, `params` object, URL, upload, or context field could carry PII,
-patient data, proprietary content, or prompt injection.
-
-Controls:
-
-- Replay accepts no visitor data.
-- Live accepts only an exact schema with `schema_version`, a known
-  `scenario_id`, and a finite `variant`.
-- Unknown keys, oversized bodies, wrong content types, and unsupported enum
-  values are rejected before orchestration.
-- The server constructs prompts, credentials, tool inputs, and fixture state
-  from versioned synthetic assets.
-- Reserved domains and unmistakably fictional identifiers are used where
-  domain-shaped data is needed.
-- No request body or model content is retained.
-
-Residual risk: even finite identifiers can be abused at volume; operational
-controls are still required.
-
-### Prompt injection, policy bypass, and tool abuse
-
-Threats include hostile model output, unknown tool names, extra arguments,
-malformed policy output, stale decisions, and attempting a tool before
-authorization.
+An anonymous endpoint cannot be made safe by hiding a browser token or by
+CORS alone.
 
 Controls:
 
-- No public free-text prompt.
-- Tool names and argument/result schemas are allowlisted and versioned.
-- Model-proposed calls are parsed as untrusted data; unknown fields fail.
-- Identity/capability checks and Rego evaluation occur immediately before each
-  action.
-- Missing or malformed policy output is deny.
-- Event state-machine rules prevent tool start before an allow or correctly
-  bound approval.
-- Public tools operate only on bounded in-memory synthetic fixtures and have no
-  external side effect.
-- Time, output, and call-count limits apply to every run.
+- default-off provider execution; the site is complete without it;
+- strict body size, output length, and timeout bounds on every request;
+- platform (Vercel Firewall) rate-limiting where a rule is configured, plus
+  an injectable limiter for tests;
+- any configured spend budget is documented as a soft cap with possible
+  small overshoot, never described as a hard guarantee;
+- fast rejection (oversized body, wrong content type, unknown field) before
+  any provider call;
+- no persistence or run-history amplification;
+- graceful `402`/`429`/`503`/timeout fallback to the static FAQ rather than
+  retrying against the provider.
 
-### Approval confusion and replay
+Residual cost-abuse risk remains against any public endpoint. Operational
+monitoring and the spend cap are still required.
 
-This is a future-runtime threat; approvals do not ship tonight.
+### Prompt injection against the Ask Diego corpus
 
-Controls when implemented:
-
-- Approval binds the agent, tool, canonical argument digest, policy digest,
-  action, expiry, and one-time nonce.
-- Mismatch, expiry, duplicate use, changed arguments, or changed policy denies.
-- Public demo approvals are synthetic scenario variants, not claims of real
-  human identity.
-
-### Arbitrary code execution, SSRF, and exfiltration
+Unlike the retired Live seam, `/api/ask` intentionally accepts a free-text
+question — the injection surface is the question field and the retrieved
+context, not an open `params` object.
 
 Controls:
 
-- No shell, `eval`, generated code, plugin loading, user Rego, arbitrary
-  filesystem path, URL fetch, email, database, or browser-provided DID URL.
-- Runtime egress is restricted operationally to the configured Groq endpoint
-  and an optional approved telemetry endpoint.
-- Remote `did:web` resolution is absent from Replay and the first runtime.
-- Container runs as a non-root user with a read-only filesystem where the host
-  supports it.
+- retrieval is restricted to the closed, approved-source corpus; there is no
+  browsing, filesystem access, or private data source for a model to reach;
+- the model has no tool, function, or side-effecting action available to
+  it — it can only produce text;
+- the response is validated: bounded length, and every citation must
+  reference an ID actually present in the retrieved context;
+- a request with no sufficient corpus match returns an explicit "don't
+  know" `status` without calling a provider to guess;
+- at most four prior messages plus the current question are sent — no
+  unbounded conversation state a visitor could use to smuggle instructions
+  across turns.
 
-### Cost exhaustion and denial of service
+### Arbitrary or real visitor data submission
 
-An anonymous Live endpoint cannot be made safe by hiding a browser token or by
-CORS.
+A visitor can type anything into the question field, including PII or
+attempted abuse content. The system cannot prevent the keystrokes; it
+controls what happens to them.
 
-Controls before Live enablement:
+Controls:
 
-- default-off execution kill switch;
-- finite scenarios and variants;
-- strict body, output, duration, tool-call, and concurrency bounds;
-- host-level source throttling and configurable application request budgets;
-- provider account spend cap and alerts;
-- Groq rate-limit/retry observations read from response headers, never hardcoded;
-- sanitized `Retry-After` when known;
-- fast rejection before provider use;
-- no persistence or run-history amplification.
-
-Residual cost-abuse risk remains. A separate ADR must explicitly accept it
-before public Live is enabled. Disabling Live must not affect Replay or the
-portfolio.
+- the question is not persisted; it is used for one retrieval-and-provider
+  call and discarded;
+- logs and telemetry never record the full question or answer text — only
+  bounded, allowlisted identifiers (status, latency, error category);
+- the corpus itself contains no real visitor data, so even a successful
+  injection cannot exfiltrate anything beyond the approved public content
+  already on the site;
+- the static FAQ fallback never depends on visitor input at all.
 
 ### Cross-site request abuse
 
 Controls:
 
-- exact production and explicit local-development origin allowlists;
-- JSON-only POST, no cookies, no browser credentials, and no wildcard CORS;
-- origin checks as defense in depth;
-- no state-changing real-world tool;
-- all meaningful abuse controls enforced server-side independent of CORS.
+- exact production and explicit local-development origin allowlists for
+  `/api/ask`;
+- JSON-only POST, no cookies, no browser credentials, no wildcard CORS;
+- origin checks are defense in depth, not the primary abuse control — rate
+  limiting and input validation are enforced server-side regardless of
+  origin.
 
 ### Cross-site scripting and content injection
 
 Controls:
 
-- Astro escapes CV and fixture strings by default.
-- Model, policy reason, raw JSON, and trace values render as text nodes.
-- No raw HTML from YAML, fixtures, Markdown, or model output.
-- If Markdown is later introduced, raw HTML and unsafe URLs remain disabled and
-  a reviewed sanitizer is mandatory.
-- URLs are rendered only from typed, expected CV fields or fixed navigation.
-- No third-party scripts in the first release.
-- A restrictive CSP meta policy may be used within GitHub Pages' header
-  limitations, but escaping and safe DOM APIs remain primary.
-
-### Replay tampering and misleading verification
-
-Threats include an altered event, proof, manifest, root, or UI message; a
-same-origin attacker may replace all of them consistently.
-
-Controls:
-
-- manifest byte-length and SHA-256 verification before JSON parsing, followed
-  by schema validation;
-- RFC 8785 canonicalization and RFC 6962-style domain-separated hashing;
-- inclusion-proof recomputation in the browser;
-- negative tests mutate an event, sibling, and sequence;
-- generated artifacts are rebuilt and compared in CI;
-- release commit/digests provide an external comparison point;
-- exact qualified copy appears next to the result.
-
-The accepted claim is only that an event matches the root included in the loaded
-bundle. Same-origin verification is an integrity-mechanism demonstration, not
-independent authenticity.
+- Astro escapes CV, manifest, and corpus strings by default;
+- model output, citations, and raw JSON render as text nodes, never raw
+  HTML;
+- no raw HTML from YAML, manifests, or model output;
+- URLs render only from typed, expected content fields or fixed navigation;
+- no third-party scripts other than the explicitly configured provider
+  call, which runs server-side and never reaches the browser.
 
 ### Factual-content fabrication or omission
 
 Controls:
 
-- `cv.yaml` is read-only and schema-validated.
-- Factual UI components accept typed source paths rather than authored prose.
-- Rendered factual strings must exactly match source values.
-- `/resume/` has complete publishable-leaf coverage.
-- A route/source-path provenance manifest is generated.
-- Neutral interface copy is separately reviewed.
-- No production factual copy is LLM-generated.
-- Build checks reject CV values found in demo artifacts.
+- `cv.yaml` is read-only and schema-validated; `cv:sync` output records its
+  own source commit and digest;
+- the fact/narrative boundary in `AGENTS.md` governs every other page: facts
+  trace to `cv.yaml` or an approved `content/public-sources/` entry, and
+  narrative/translation creativity never introduces a new one;
+- project/decision status renders only from a validated manifest field,
+  never freehand copy, and `verified` requires recorded evidence;
+- build checks reject a CV value found in demo/fixture/corpus artifacts.
 
 ### Clean-room contamination
 
 Controls:
 
-- public-source ledger for every implemented public concept;
-- no employer names in package, policy, scenario, fixture, or architecture
+- a public-source ledger for every implemented public concept;
+- no employer names in package, manifest, fixture, or architecture
   identifiers;
 - no reuse, paraphrase, or inference from employer code, diagrams, APIs,
   schemas, workflows, naming, or documents;
 - reviewers ask for a public source; uncertainty is resolved by omission;
-- the lab is labelled as a new synthetic clean-room portfolio project.
+- the secondary Personal Governance Lab case is labelled as a new synthetic
+  clean-room project, not an employer deliverable.
 
 ### Telemetry leakage
 
 Controls:
 
-- no client analytics in the first release;
-- server telemetry uses an allowlist of bounded identifiers, state, timing, and
-  error categories;
-- prompts, output, credentials, tool arguments/results, contact fields, CV
-  content, headers, and secrets are prohibited attributes;
-- Replay traces are synthetic inspection artifacts, not evidence that an
-  external collector received them;
-- exporters are server-only and optional.
+- no client analytics beyond what is explicitly reviewed;
+- server telemetry (if any) uses an allowlist of bounded identifiers, state,
+  timing, and error categories;
+- prompts, answers, credentials, contact fields, and CV content are
+  prohibited telemetry attributes;
+- exporters, if used, are server-only and optional.
 
 ### Supply-chain and CI compromise
 
 Controls:
 
-- pinned Node, pnpm, OPA, and CI action revisions;
+- pinned Node, pnpm, and CI action revisions;
 - frozen lockfile and minimal direct dependencies;
 - dependency review and vulnerability reporting;
-- least-privilege workflow permissions, with Pages write/OIDC only in the
-  deployment job;
-- pull requests build but do not deploy;
-- deterministic regeneration checks;
+- least-privilege workflow permissions, with deployment credentials scoped
+  to the deployment job only;
+- pull requests build and test but do not deploy;
 - static artifact allowlist and secret scan before upload;
 - no unreviewed generated executable code.
 
@@ -293,23 +262,26 @@ changes require explicit review.
 
 Controls:
 
-- physical directory routes and a real `404.html`;
-- `base: "/"`, no repository-name prefix, no CNAME;
-- `.nojekyll` in the uploaded root;
-- internal-link crawl and direct-route E2E from a plain static server;
-- artifact check forbids server code and secret-shaped configuration.
+- physical directory routes for every page except `/api/ask`, and a real
+  `404.html`;
+- internal-link crawl and direct-route E2E from the built output;
+- an artifact check forbids a second dynamic route, a server-only import
+  outside `/api/ask`, and a secret-shaped value anywhere in the bundle.
 
 ## First-release security gate
 
 Release is blocked unless:
 
-- the final static artifact contains no secret or server-only module;
-- Replay makes no external network request;
-- all demo data is visibly synthetic;
-- exact CV source coverage passes without duplicate snapshots;
-- allow and deny Rego cases pass;
-- denied runs contain no tool-start or tool-result event;
-- tampering causes integrity failure and the UI displays the trust limitation;
-- direct root-hosted routes, keyboard use, and output escaping pass;
-- the reviewed publication-consent file is owner-approved and the Pages job has
-  no CI/environment bypass.
+- the final artifact contains no secret and no server-only module outside
+  `/api/ask`;
+- the site works, and Ask Diego degrades gracefully, with no provider
+  configured;
+- all demo/fixture/corpus data is synthetic or drawn from approved sources;
+- every project/decision status comes from a validated manifest, and none is
+  `verified` without recorded evidence;
+- `/api/ask` rejects oversized/malformed requests and falls back gracefully
+  on `402`/`429`/`503`/timeout;
+- direct-loaded routes, keyboard use, bilingual parity, and output escaping
+  pass;
+- no retired package is deleted without a fresh consumer search documented
+  in the retiring commit.

@@ -1,181 +1,117 @@
-# AGENTS.md — Global Invariants and Implementation Conventions
+# AGENTS.md — Global Invariants
 
-These rules apply to every agent and contributor. The architecture tournament
-is complete; accepted decisions are binding unless Diego approves a superseding
-ADR. Read `docs/architecture.md`, `docs/acceptance-criteria.md`, and the ADRs
-relevant to your files before implementation.
+This is a short, principle-based contract, not a rules-tournament narrative.
+Read `docs/architecture.md`, `PRODUCT.md`, and the ADRs relevant to your
+files before implementation. [ADR 0014](docs/adr/0014-portfolio-product-reset.md)
+reset the product; the tournament ADRs it supersedes stay in `docs/adr/` as
+historical record only.
 
 ## Mission & audience
 
-Build a distinctive personal portfolio, a generated HTML resume, a clean-room
-agent-governance & reliability project, and a static-first interactive demo for
-the person identified by `name` in `content/source/cv.yaml`, targeting
-**recruiters and engineers** evaluating him for junior AI/ML engineering roles.
+Build a bilingual (English/Spanish) portfolio for the person identified by
+`name` in `content/source/cv.yaml`: a Data Science student and AI systems
+builder, targeting **recruiters and engineers** evaluating him for junior
+AI/ML/Data roles. The site's design and narrative voice are themselves the
+product, not a wrapper around a résumé — see `PRODUCT.md`.
 
-## Canonical source of truth
+## Facts vs. narrative — the invariant that matters most
 
-`content/source/cv.yaml` is **read-only, canonical fact**. Never rewrite, correct,
-embellish, infer, or extrapolate from it. Never fabricate experience, metrics, or
-integrations that are not present in it.
+`content/source/cv.yaml` remains the sole authority for every underlying
+fact: employers, dates, degree, certifications, project names. **No new
+fact, metric, employer, user count, model result, or date may ever be
+invented anywhere on the site** — in copy, code, comments, fixtures, or the
+Ask Diego corpus.
 
-Production factual text must come through a typed source path and match the YAML
-value exactly. Selection and sequencing are allowed; shortening, paraphrase,
-normalization, and LLM-authored factual copy are not. `/resume/` must cover every
-publishable source leaf.
+Within that boundary, narrative framing, structure, sequencing, and Spanish
+translation may be **genuinely creative and editorial** — never a mechanical
+mirror of the YAML strings. Creative license changes *how* a fact is told,
+never *what* the fact is: reordering, editorial framing, and faithful
+paraphrase are allowed; a number, date, name, employer, or outcome that does
+not trace to `cv.yaml` or an approved `content/public-sources/` entry is not.
 
-## Clean-room requirement
+Every project/case (Five Decisions and elsewhere) carries a validated status
+(`planned`, `building`, `verified`, ...) from a manifest, never freehand
+copy. A `planned` or `building` item must look and read as unmistakably
+unfinished — never implied as shipped or verified. Publishing the canonical
+contact/location fields still requires the owner's reviewed confirmation via
+`content/publication-consent.yaml`; no agent or CI input bypasses that gate.
 
-No reuse, paraphrase, or inference of proprietary Infosys code, architecture,
-internal documentation, or IP. Reimplement only **public** concepts referenced in
-the CV — W3C DIDs/VCs, OPA/Rego, Merkle audit trees, OpenTelemetry — from public
-specifications and public documentation only.
+## Clean-room boundary
 
-Record each implementation source in `content/public-sources/`. Do not use
-employer names or CV values in demo package names, scenarios, policies, fixtures,
-identities, tools, traces, or tests. If provenance is uncertain, omit the feature.
+Never reuse, paraphrase, or infer proprietary Infosys "Agent Governance
+Framework" code, architecture, or internal documentation. Only public
+concepts referenced in the CV — W3C DIDs/VCs, OPA/Rego, Merkle audit trees,
+OpenTelemetry — may ever be reimplemented, only from public specifications,
+cited under `content/public-sources/`. If provenance is uncertain, omit the
+feature.
 
-## Synthetic data only
+## Synthetic data and secrets
 
-All new example, demo, scenario, fixture, tool, approval, trace, telemetry, and
-test data must be unmistakably synthetic. No real PII, patient data, proprietary
-data, or visitor-submitted free text is allowed.
+All demo, scenario, fixture, trace, telemetry, and test data is
+unmistakably synthetic, forever; no real visitor-submitted input is stored
+or logged anywhere. The canonical CV is the only personal-content exception —
+its fields render on portfolio/résumé routes only, never copied into
+fixtures, telemetry, logs, or analytics.
 
-The only personal-content boundary is the existing canonical CV. Its fields may
-render directly on portfolio/résumé routes for local validation and builds, but
-public deployment of contact and location fields requires owner confirmation.
-They must never be copied into demo data, snapshots, logs, telemetry, or
-analytics. Pages enforces the reviewed `content/publication-consent.yaml` gate;
-agents and CI inputs may not bypass or self-approve it.
+No API key or model-provider credential ever reaches the browser, a client
+bundle, or any `PUBLIC_*`/`NEXT_PUBLIC_*`-style variable. Keys live only in
+server-side environment variables; `.env.example` ships placeholders only. The
+static build reads no secret and succeeds with no `.env`.
 
-## Secrets
+## Architecture: static output, one dynamic endpoint
 
-No API key may ever reach the browser, a client bundle, or any `NEXT_PUBLIC_*`-style
-(or equivalent client-exposed) variable. Keys live only in local or server-side
-environment variables. `.env.example` ships with placeholders only; a real `.env`
-is never committed.
+Astro builds in `output: "static"` mode. Every route is a prerendered
+physical file except exactly one, `apps/site/src/pages/api/ask.ts`, which
+sets `prerender = false` and runs through a Vercel adapter. No other route
+becomes dynamic without a superseding ADR. Preact hydrates at most two
+islands — an interactive map and the Ask Diego guide; everything else ships
+no client framework JavaScript. No visual direction is chosen yet — follow
+`DESIGN.md`'s fixed constraints until a best-of-N exploration and ADR 0015
+finalize typography, color, and the hero/map composition.
 
-The static build reads no secret and succeeds without `.env`. Browser code must
-not import runtime configuration, server modules, or the Live-Groq adapter.
+## Ask Diego: provider-optional, closed, degradable
 
-## Static-first
+Ask Diego answers only from a closed, bilingual corpus built from approved
+content, with a citation on every answer. It is network-free and off by
+default in tests; a provider is chosen once at a single server-side
+composition root and caller code never branches on which one is configured.
+With no provider configured, or on any upstream failure, the site falls back
+to a static FAQ and stays fully useful — an enhancement, never a dependency.
+It never calls a tool, browser, filesystem, or private data source, and
+never logs a full prompt or response.
 
-The public web build MUST be a fully static bundle, deployable to GitHub Pages at
-the domain root (`diegoaleyvag.github.io`, no basePath). **Replay mode** must work
-with zero backend.
+## No fabricated photography
 
-Routes are physical directory output; there is no SSR, rewrite dependency, or SPA
-fallback. Required first-slice routes are `/`, `/resume/`, `/lab/replay/`, and
-`/404.html`. The artifact root contains `.nojekyll` and no CNAME.
+No photograph of Diego may ever be AI-generated. Ship a deliberate, honest
+placeholder until a real photo is supplied.
 
-## Provider-neutral runtime
+## Accessibility, motion, and testing
 
-The optional live-inference runtime supports exactly three interchangeable
-providers behind one interface:
-
-- **Fake** — deterministic, for tests.
-- **Replay** — reads stored JSON runs; powers the zero-backend demo.
-- **Live** — Groq, OpenAI-compatible API (first and currently only live provider).
-
-Read Groq rate limits from response headers at runtime; never hardcode them.
-
-Provider selection happens at the runtime composition root; caller code never
-branches on provider type. Live is absent from the first public release. If later
-enabled, it accepts only a known scenario ID and finite variant—never prompts,
-open objects, files, URLs, models, provider names, or user credentials. A
-real-provider diagnostic is operational tooling, never a test or merge gate.
-Runtime composition defaults to Fake; Live additionally requires the explicit
-enablement flag and server key.
-
-## Accepted stack and tooling
-
-- Astro static output and TypeScript.
-- Preact only inside the lab island: Replay initially, plus the deferred finite
-  Live control only after its runtime/security gates pass.
-- A pinned Node.js LTS and pnpm workspace through Corepack.
-- ESLint flat config, Prettier for supported web/docs formats, and `opa fmt`
-  for Rego.
-- TypeScript for governance code and the optional stateless Fastify runtime.
-- Rego source tested/evaluated with pinned OPA; in-process OPA WebAssembly is
-  deferred to the runtime phase.
-- Vitest for deterministic unit/contract/integration tests and Playwright with
-  axe-core for static-host E2E and automated accessibility checks.
-- No Python application, `uv`, database, queue, CMS, analytics, OPA sidecar,
-  general task runner, or build-graph tool initially.
-
-Only the integration owner edits any `package.json` or `pnpm-lock.yaml`. Every
-new notable stack/tooling decision needs an ADR under `docs/adr/`.
-
-## Module boundaries
-
-- `apps/site` is browser/static only.
-- `apps/runtime` is optional and server-only.
-- `packages/contracts` defines closed versioned schemas.
-- `packages/governance-core` contains pure domain state transitions, no HTTP,
-  environment, filesystem, or provider code.
-- `packages/policy-runtime` is the deferred in-process OPA-WASM adapter.
-- `packages/providers` contains the provider port plus network-free Fake/Replay.
-- `packages/replay` owns bundle loading, canonicalization, and proof checks.
-- `packages/resume` owns CV validation, view models, and provenance coverage.
-- `packages/testkit` owns fixed clocks, deterministic IDs, and synthetic
-  fixture helpers; the replay-data lane owns it for the first slice.
-- Generated artifacts are validated at creation and consumption and are never
-  hand-edited.
-
-Follow the exclusive folder ownership in `docs/task-graph.md`.
-
-## Evidence language
-
-Browser Merkle verification may claim only that an event matches the root
-included in the same replay bundle. It must state beside the result that this
-does not prove truth, policy compliance, independent witnessing, or protection
-from a compromised origin. Do not use “authentic,” “immutable,” “trustless,”
-“verified résumé,” or “compliance proved” for this mechanism.
-
-## Visual direction
-
-Implement only `docs/design-direction.md`: Editorial Evidence Ledger. No
-gradients, glass, glow, particles, generic AI imagery, generated portraits, fake
-terminals, decorative metrics, autoplay, stock dashboard card grids, or unearned
-trust badges. Visual marks must convey provenance, sequence, state,
-qualification, hierarchy, or navigation.
-
-## Testing
-
-Normal tests are deterministic, network-free, and secret-free. They use only
-Fake, Replay, finite fixtures, and fake HTTP transport around the Live adapter.
-CI never calls Groq. Build checks cover CV exactness/coverage, policy behavior,
-event ordering, Merkle tampering, generated drift, physical root routes, output
-secrets, and browser accessibility.
+Target WCAG 2.2 AA on every route, in both languages. Respect real
+`prefers-reduced-motion` behavior — no content or task depends on motion to
+be understood — and keep essential content usable with JavaScript disabled.
+Normal tests are deterministic, network-free, and secret-free; CI never
+calls a live model provider. `docs/acceptance-criteria.md` and
+`docs/threat-model.md` define the testable release gates and current threat
+surface.
 
 ## Git workflow
 
 Trunk-based development, short-lived branches, [Conventional
-Commits](https://www.conventionalcommits.org/). No force-push to `main`. Review
-before integrating. Commits must **not** include AI co-author trailers — Diego is
-the sole author of record.
+Commits](https://www.conventionalcommits.org/). No force-push to `main`.
+Review before integrating. Commits contain **no AI co-author trailers** —
+Diego is the sole author of record. Record every notable stack or tooling
+decision as an ADR under `docs/adr/`.
 
-## Definition of Done
+## Authority order
 
-- Tests pass locally before a task is marked complete.
-- Agents touch only the files/areas they own.
-- No invented metrics, experience, or integrations — ever.
-- No unexpected network, secret, real demo/test data, proprietary material, or
-  generated drift.
-- Acceptance criteria for the owned lane are demonstrated, not merely asserted.
-- Application changes are reviewed through a short-lived pull request.
-
-## Architecture authority
-
-The tournament records in `docs/proposals/` and `docs/judgements/` are historical
-inputs. Canonical implementation authority, in order, is:
-
-1. this file and `docs/hard-constraints.md`;
-2. accepted ADRs in `docs/adr/`;
+1. this file;
+2. accepted ADRs under `docs/adr/` (including
+   [ADR 0014](docs/adr/0014-portfolio-product-reset.md));
 3. `docs/architecture.md`;
-4. `docs/product-brief.md`, `docs/portfolio-narrative.md`,
-   `docs/design-direction.md`, and `docs/threat-model.md`;
-5. `docs/acceptance-criteria.md` and `docs/task-graph.md`;
-6. scoped `.cursor/rules/*.mdc`.
+4. `PRODUCT.md` and `DESIGN.md`;
+5. scoped `.cursor/rules/*.mdc`.
 
-Do not reopen an accepted decision during implementation. Propose a superseding
-ADR when evidence shows a material need. No product name has been selected.
+Do not reopen an accepted decision during implementation. Propose a
+superseding ADR when evidence shows a material need. No product name has
+been selected.

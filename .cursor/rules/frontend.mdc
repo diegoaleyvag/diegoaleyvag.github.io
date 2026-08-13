@@ -1,31 +1,29 @@
 ---
-description: Static Astro and Replay UI conventions
-globs: ["apps/site/astro.config.*", "apps/site/**/*.astro", "apps/site/**/*.ts", "apps/site/**/*.tsx", "apps/site/**/*.css", "packages/replay/**/*.ts"]
+description: Astro static-output, dynamic-endpoint boundary, and bilingual UI conventions
+globs: ["apps/site/astro.config.*", "apps/site/**/*.astro", "apps/site/**/*.ts", "apps/site/**/*.tsx", "apps/site/**/*.css"]
 alwaysApply: false
 ---
 
 # Frontend conventions
 
-- Keep Astro in static-output mode. Every route must emit a physical file and
-  work at domain root `/` without rewrites or a runtime.
-- Home, résumé, and ordinary content routes ship no client framework
-  JavaScript. Preact is allowed only under `apps/site/src/features/replay/` and,
-  after its gates pass, `apps/site/src/features/live/`.
-- Never import `apps/runtime`, Live-Groq, server config, Node-only modules, or
-  secret names into browser-reachable code.
-- Treat Replay bundles as untrusted public input: schema-validate before use,
-  render strings as text, and never inject raw HTML.
-- Fetch bundle bytes, verify manifest byte length and SHA-256 digest, then parse
-  and schema-validate; fail closed on any mismatch.
-- Accept no arbitrary prompt, context, URL, upload, key, or visitor data.
-- Factual portfolio text comes from `packages/resume` via typed CV source paths;
-  do not copy or paraphrase CV strings in components.
-- Implement only the Editorial Evidence Ledger in
-  `docs/design-direction.md`. No alternate themes or prohibited AI-slop
-  patterns.
-- Use semantic HTML, native controls, skip links, visible focus, text-plus-shape
-  state, keyboard-complete Replay, and reduced-motion behavior.
-- The integrity result may claim only a match to the root included in the same
-  bundle. Keep the same-origin limitation adjacent to the result.
-- Use root-correct links and same-origin static asset URLs. Replay must remain
-  useful before hydration and make no external request.
+- Astro stays in `output: "static"` mode. Every route is a prerendered
+  physical file except exactly one: `apps/site/src/pages/api/ask.ts`, which
+  sets `prerender = false` and runs through a Vercel adapter. No other route
+  becomes dynamic without a superseding ADR.
+- Preact hydrates at most two islands: an interactive map and the Ask Diego
+  guide. Every other route ships no client framework JavaScript.
+- Never import server-only Ask-Diego code, runtime configuration, or a
+  secret name into browser-reachable code.
+- Every route required in English has a Spanish counterpart at its `/es/`
+  path with essential-content parity; do not ship one language ahead of the
+  other for a required route.
+- Keep and measure a first-party JavaScript budget per route. Motion is
+  non-essential decoration and must fully respect `prefers-reduced-motion`.
+- Factual portfolio text renders from typed content/manifest sources, not
+  copied prose in component files; project status badges render only from a
+  validated manifest field, never a hardcoded label.
+- Use semantic HTML, native controls, skip links, visible focus, and
+  keyboard-complete interaction for both Preact islands.
+- No prohibited anti-slop pattern from `DESIGN.md` (or the eventual
+  visual-direction ADR) appears — no fake terminal, no fabricated dashboard
+  metrics, no AI-generated portrait.

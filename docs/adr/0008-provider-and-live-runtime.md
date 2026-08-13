@@ -1,6 +1,6 @@
 # ADR 0008: Keep Live optional, finite, and server-only
 
-- Status: Accepted
+- Status: Superseded by [ADR 0014](0014-portfolio-product-reset.md)
 - Date: 2026-08-01
 
 ## Context

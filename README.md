@@ -1,43 +1,35 @@
 # diegoaleyvag
 
-This repository will host a personal portfolio, an HTML résumé generated from
-`content/source/cv.yaml`, a clean-room agent-governance and reliability project,
-a static-first Replay demo, and an optional provider-neutral runtime with Groq
-as the first Live provider.
+This repository hosts a bilingual (English/Spanish) personal portfolio for a
+Data Science student and AI systems builder, an editorial résumé companion
+generated from `content/source/cv.yaml`, a five-item public collection of
+real questions turned into runnable evidence (Prism, Relay, Limen, Axiom,
+Vector), and an optional, provider-neutral "Ask Diego" endpoint.
 
-## Tournament status
+## Product status
 
-**Synthesis is complete.** Candidate A was selected as the base after blind
-judging, with a reduced first-night scope and specific compatible decisions from
-the other proposals. The accepted architecture is Astro static output,
-TypeScript, an isolated Preact Replay island, pnpm, and an optional stateless
-Fastify runtime. No application source has been written yet.
+**Reset.** [ADR 0014](docs/adr/0014-portfolio-product-reset.md) moved the
+product from a single agent-governance replay lab to the bilingual Five
+Decisions portfolio described above. The accepted architecture is Astro
+static output plus a Vercel adapter, TypeScript, pnpm, and at most two Preact
+islands (an interactive map and Ask Diego) — with exactly one dynamic route,
+`/api/ask`. The concrete visual system is still pending a best-of-N
+exploration; see `DESIGN.md`.
 
-Completed phases:
-
-1. Bootstrap — invariants, constraints, and evaluation rubric.
-2. Proposals — three independent designs in `docs/proposals/`.
-3. Judgements — two blind scoring records in `docs/judgements/`.
-4. Synthesis — canonical plan and accepted decisions in `docs/` and
-   `docs/adr/`.
-
-Next is the build phase, starting with the vertical slice in
-`docs/acceptance-criteria.md`.
+Earlier tournament records (the original proposals, blind judgements, and
+the ADRs ADR 0014 supersedes) remain in `docs/adr/` and git history as
+historical inputs; they are no longer active implementation instructions.
 
 ## How to navigate
 
 - `AGENTS.md` — global invariants and implementation conventions.
-- `docs/architecture.md` — binding stack, boundaries, data flow, and hard
-  question resolutions.
-- `docs/product-brief.md` and `docs/portfolio-narrative.md` — product and
-  source-grounded content direction.
-- `docs/design-direction.md` — the one accepted visual direction.
+- `PRODUCT.md` — brand register: audience, positioning, and voice.
+- `DESIGN.md` — fixed visual/accessibility constraints, pending direction.
+- `docs/architecture.md` — binding stack, boundaries, and route model.
 - `docs/threat-model.md` — assets, boundaries, threats, and controls.
-- `docs/acceptance-criteria.md` — testable first-slice and later gates.
-- `docs/task-graph.md` — parallel ownership and dependency DAG.
-- `docs/adr/` — accepted architecture decisions.
-- `docs/proposals/` and `docs/judgements/` — historical tournament inputs.
-- `docs/hard-constraints.md` — non-negotiable implementation checklist.
+- `docs/acceptance-criteria.md` — testable release gates for the reset.
+- `docs/adr/` — accepted architecture decisions, including
+  [ADR 0014](docs/adr/0014-portfolio-product-reset.md).
 - `content/source/cv.yaml` — canonical, read-only CV facts.
 - `.cursor/rules/` — always-on safety plus file-scoped implementation rules.
 - `.env.example` — placeholder environment variables only.

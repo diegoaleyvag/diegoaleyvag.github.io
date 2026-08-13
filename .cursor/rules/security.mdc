@@ -1,42 +1,29 @@
 ---
-description: Secret boundaries, artifact security, and Live enablement controls
-globs: [".env.example", ".gitignore", ".github/**/*", "apps/runtime/**/*", "packages/providers/**/*", "tools/check-static-output/**/*", "tools/opa/**/*"]
+description: Secret boundaries, Ask-Diego server code, and artifact security
+globs: [".env.example", ".gitignore", ".github/**/*", "apps/site/src/pages/api/**/*", "tools/check-static-output/**/*"]
 alwaysApply: false
 ---
 
 # Security conventions
 
-- Secrets exist only in ignored local or server process environment variables.
-  `.env.example` contains empty placeholders, never credentials.
+- Secrets exist only in ignored local or server-side (Vercel) environment
+  variables. `.env.example` contains empty placeholders, never credentials.
 - Never expose a key through `PUBLIC_*`, `NEXT_PUBLIC_*`, browser storage,
-  source maps, request payloads, runtime capability responses, errors, events,
-  traces, or logs.
-- The static build must succeed without `.env` and the uploaded artifact must
-  contain no server code, secret name/value, or credential-shaped config.
-- Pages deploys canonical contact fields only when the reviewed
-  `content/publication-consent.yaml` value is `approved`; do not add an
-  environment, workflow-input, or agent bypass.
-- Live accepts only the closed finite scenario request. Reject free text, open
-  objects, URLs, files, extra keys, oversized bodies, and unsupported content
-  types before provider use.
-- Treat browser requests, model output, provider responses, replay JSON, and
-  upstream headers as untrusted input.
-- Verify replay byte length and SHA-256 against the manifest before parsing,
-  then schema-validate and verify event proofs.
-- CORS is defense in depth, not authentication or rate limiting.
-- Redact authorization, prompt, output, tool payload, credential, CV, and
-  upstream-body content from logs and telemetry.
-- Public Live is default-off. Do not enable it without the accepted enablement
-  ADR, kill switch, strict bounds, source throttling, request/concurrency
-  budgets, provider spend cap, alerts, and rollback.
-- Runtime defaults to Fake. Live requires `LLM_PROVIDER=live`,
-  `LIVE_EXECUTION_ENABLED=true`, and a server-only key; missing any condition
-  fails closed.
-- Read provider quota/retry observations from Groq response headers; do not
-  guess or hardcode limits and do not forward raw headers.
-- Pin CI actions and tools, use frozen dependencies, grant Pages write/OIDC only
-  in the deployment job, and never deploy pull requests.
-- Scan source and final output for secrets; rebuild and compare generated
-  artifacts before upload.
-- A same-origin Merkle check proves only a match to the included root. Keep that
-  limitation adjacent to every result.
+  source maps, request payloads, response bodies, errors, or logs.
+- The static build succeeds without `.env`; only `/api/ask` may read a
+  provider key, and only on the server.
+- Rate-limit `/api/ask` before calling a provider — prefer a platform
+  firewall rule where one is configured, plus an injectable limiter for
+  tests. Treat any configured spend budget as a soft cap, not a hard
+  guarantee.
+- Reject oversized bodies, wrong content types, and unknown fields on
+  `/api/ask` before touching a provider.
+- Handle provider `402`/`429`/`503` and timeout with a generic fallback
+  response and a correlation ID; never forward a raw upstream error body.
+- Redact prompt, response, credential, and upstream-body content from logs
+  and any telemetry.
+- Pin CI actions and tools, use frozen dependencies, and scan source and
+  build output for secrets before any deployment.
+- The static-output checker verifies exactly one dynamic route exists and
+  that no other route or bundle contains a server-only import or a
+  secret-shaped value.

@@ -1,0 +1,29 @@
+---
+description: Ask Diego endpoint, corpus, and island conventions
+globs: ["apps/site/src/pages/api/ask.ts", "apps/site/src/features/ask-diego/**/*", "apps/site/src/pages/ask/**/*", "apps/site/src/pages/es/pregunta/**/*", "packages/ask-corpus/**/*"]
+alwaysApply: false
+---
+
+# Ask Diego conventions
+
+- The corpus is closed: bio, projects, credentials, education, and FAQ
+  content that already ships elsewhere on the site. No open retrieval, no
+  browsing, no filesystem access, no private data source, and no arbitrary
+  visitor document.
+- Every answer carries a citation into the corpus. When there is no
+  sufficient match, return an explicit "don't know" response and never call
+  a model provider to guess one.
+- Keep answers near a 280-character guideline before citations; citations
+  themselves do not count against that guideline.
+- Send at most four prior messages of conversation context plus the current
+  question and retrieved fragments — no unbounded history.
+- The provider is optional, selected via `AI_GUIDE_MODEL`, and off by
+  default. With no provider configured, or on a
+  `402`/`429`/`503`/timeout response, return `status: "fallback"` and point
+  to the static FAQ; the rest of the site stays fully usable.
+- No tool call, function call, or side-effecting action is available to the
+  model. It answers from retrieved text only.
+- Never log a full prompt or a full model response. Log only bounded,
+  allowlisted identifiers (status, latency, error category).
+- Provider selection happens once at the server-side composition root; the
+  endpoint code never branches on which provider is configured.

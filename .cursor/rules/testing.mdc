@@ -7,23 +7,19 @@ alwaysApply: false
 # Testing conventions
 
 - Normal tests and CI are deterministic, secret-free, and network-free. They
-  never call Groq or any live service.
-- Use only Fake, Replay, finite synthetic fixtures, or an injected fake HTTP
-  transport around Live-Groq.
-- Do not create a fourth provider for tests and do not place real-provider calls
-  in a `test` directory or test command.
-- Use fixed logical time, seeded/deterministic IDs, and exact structural
-  assertions. Avoid wall-clock timing and model-graded expectations.
-- Derive CV expectations by reading `content/source/cv.yaml` at test time.
-  Never commit a copied snapshot containing résumé/contact text.
-- Cover strict schema rejection, exact résumé leaf coverage, Rego allow/deny,
-  deny-without-tool, event order, manifest digest mismatch, generated drift,
-  and secret boundaries.
-- Mutate event body, sequence, proof sibling, and root; each integrity check
-  must fail.
-- Serve E2E from the final static directory with only the local origin allowed.
-  Direct-load every required physical route.
-- Test keyboard operation, text-plus-shape states, no-JavaScript content,
-  reduced motion, zoom/reflow, and automated WCAG 2.2 AA checks.
-- A manual Live diagnostic is operational tooling only: it is never a merge
-  gate, evaluation, golden updater, or substitute for transport fixtures.
+  never call a live model provider.
+- Test the Ask Diego endpoint through an injected fake HTTP transport and a
+  fixed, synthetic corpus — not a fourth "mock provider" and not a real
+  Groq/Gateway call.
+- Any real-provider smoke test is manual, local-only tooling: never a merge
+  gate, CI step, or fixture-update mechanism.
+- Derive CV expectations by reading `content/source/cv.yaml` at test time;
+  never commit a snapshot containing résumé/contact text.
+- Cover manifest/schema rejection, bilingual content parity, honest
+  project-state rendering, CV-sync provenance, corpus citation and
+  "don't-know" behavior, prompt-injection resistance, oversized-body
+  rejection, rate-limit and `402`/`429`/`503`/timeout fallback, and absence
+  of secrets in build output.
+- Serve E2E from the final build output with only the local origin allowed.
+  Test keyboard operation, no-JavaScript content, `prefers-reduced-motion`,
+  zoom/reflow, and automated WCAG 2.2 AA checks.

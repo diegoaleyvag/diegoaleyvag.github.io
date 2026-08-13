@@ -1,0 +1,40 @@
+---
+description: Global safety invariants — facts vs. narrative, clean-room, synthetic data, secrets, honest project states
+alwaysApply: true
+---
+
+# Global Safety Invariants
+
+Full detail lives in `AGENTS.md`, `PRODUCT.md`, `docs/architecture.md`, and
+accepted ADRs under `docs/adr/`, including [ADR 0014](../../docs/adr/0014-portfolio-product-reset.md).
+This rule is the minimal always-on summary — read the scoped rule and
+canonical docs relevant to your files before a non-trivial change.
+
+- **`content/source/cv.yaml` is read-only fact.** Never edit it, "correct"
+  it, or invent/infer a fact beyond what it states.
+- **Facts vs. narrative.** Narrative framing, structure, and Spanish
+  translation may be genuinely creative — never a mechanical mirror. But no
+  new fact, metric, employer, user count, model result, or date may ever be
+  invented anywhere on the site.
+- **Clean-room only.** Never reuse, paraphrase, or infer proprietary Infosys
+  "Agent Governance Framework" code/architecture/docs. Only reimplement
+  public concepts (W3C DIDs/VCs, OPA/Rego, Merkle audit, OpenTelemetry) from
+  public specs, cited under `content/public-sources/`.
+- **Synthetic data only, forever.** No real visitor-submitted input is
+  stored or logged anywhere. Canonical CV fields render only on
+  portfolio/résumé routes and are never copied elsewhere.
+- **Secrets never reach the client.** No API key in browser code, client
+  bundles, or `PUBLIC_*`/`NEXT_PUBLIC_*`-style vars. Server-only;
+  `.env.example` gets placeholders, never real values.
+- **No fabricated photography.** No AI-generated photo of Diego, ever — only
+  a deliberate, honest placeholder until a real one exists.
+- **Honest project states.** A `planned` or `building` project must look and
+  read as unfinished — never implied as shipped or verified.
+- **No AI co-author trailers in commits.** Diego is the sole author of
+  record.
+- **Architecture is decided.** Follow `docs/architecture.md` and accepted
+  ADRs. Do not reopen stack, deployment-target, provider-seam, or
+  visual-direction choices without a superseding ADR.
+
+If a requested change conflicts with any invariant above, stop and flag the
+conflict instead of proceeding.

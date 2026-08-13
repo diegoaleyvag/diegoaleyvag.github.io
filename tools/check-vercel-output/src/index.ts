@@ -25,24 +25,26 @@ const reservedAstroInternalRoutePattern = /^\^\/(_image|_server-islands)\b/;
 // enforcement point for that cap, and the only hand-maintained piece of an
 // otherwise directory-driven scan: which routes may ship any first-party JS
 // at all is a design decision, not something a directory walk can infer, so
-// a short explicit allow-list is safer here than trying to derive it.
-const knownIslandRoutes = new Set<string>(["lab/replay/index.html"]);
+// a short explicit allow-list is safer here than trying to derive it. No
+// island ships yet (the retired Replay lab's carve-out is gone with it,
+// ADR 0014); a later workstream adds an entry here when the map or Ask Diego
+// island actually lands.
+const knownIslandRoutes = new Set<string>([]);
 if (knownIslandRoutes.size > 2) {
   throw new Error(
     "frontend.mdc caps hydration at two Preact islands — update the rule before this list",
   );
 }
-// Generous headroom over the current Replay-island bundle (~195 KiB
-// minified) so this doesn't regress as that feature is retired separately,
-// while still catching an accidental multi-hundred-KB regression.
+// Headroom reserved for a future Preact island; no route ships one today, so
+// nothing currently exercises this budget.
 const maxIslandRouteScriptBytes = 320 * 1024;
 
 const requiredStaticFiles = [
   "404.html",
   "index.html",
-  "lab/replay/index.html",
   "resume/index.html",
-  "replays/v1/manifest.json",
+  "work/governance-lab/index.html",
+  "decisions/v1/manifest.json",
   "fonts/archivo-variable.woff2",
   "fonts/archivo-black.woff2",
 ] as const;

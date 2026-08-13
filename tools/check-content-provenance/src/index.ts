@@ -24,16 +24,11 @@ const textExtensions = new Set([
 ]);
 
 const syntheticBoundaries = [
-  "apps/site/public/replays",
-  "apps/site/src/features/replay",
-  "content/scenarios",
-  "packages/contracts/test",
-  "packages/replay/test",
+  "packages/decisions/test",
   "packages/resume/test",
-  "packages/testkit",
-  "policies",
   "tests",
-  "tools/build-replays",
+  "tools/build-decisions/test",
+  "tools/cv-sync/test",
 ] as const;
 
 async function listTextFiles(

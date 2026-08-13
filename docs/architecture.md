@@ -102,11 +102,12 @@ only the Ask Diego island; every other route keeps working.
 │           └── styles/
 ├── packages/
 │   ├── resume/            # cv.yaml validation, view model, cv:sync consumer
-│   ├── decisions-registry/ # forthcoming — see below
+│   ├── decisions/         # portfolio.project.json schema, loader, registry
 │   └── ask-corpus/         # forthcoming — see below
 ├── content/
 │   ├── source/cv.yaml     # read-only canonical fact
 │   ├── decisions/         # Five Decisions manifests (portfolio.project.json)
+│   ├── site/               # bilingual EN/ES content (hero, map, about, ...)
 │   └── public-sources/    # public-spec provenance ledger
 ├── tools/
 │   ├── cv-sync/
@@ -120,23 +121,28 @@ Import direction philosophy is unchanged from the original architecture:
 when produced and when consumed; only the integration owner edits package
 manifests and the lockfile.
 
-**Pending retirement, not yet deleted:** `packages/contracts`,
-`packages/replay`, `packages/testkit`, `policies/**`, and the Replay Preact
-island still exist in the tree today. ADR 0014 retires them as a public
-product surface; a separate, coordinated workstream re-verifies that they
-have no remaining live consumer (import, script, test, or CI reference)
-before any deletion. `apps/runtime`, `packages/governance-core`,
-`packages/policy-runtime`, and `packages/providers` were always
-documentation-only and never implemented, so their removal from this
-document requires no code cleanup.
+**Retired:** `packages/contracts`, `packages/replay`, `packages/testkit`,
+`policies/**`, the Replay Preact island, `tools/build-replays`, and
+`tools/opa` are deleted, and the `/lab/replay/` page is gone. As ADR 0014
+required, the coordinated retirement workstream re-ran the consumer search
+first and confirmed no remaining live consumer — import, script, test, or CI
+reference — before deleting any of it. `/lab/replay/` and `/lab/replay` still
+resolve, now only as a permanent redirect to `/work/governance-lab/`
+(section 4), and `packages/decisions` (above) exists in their place.
+`apps/runtime`, `packages/governance-core`, `packages/policy-runtime`, and
+`packages/providers` were always documentation-only and never implemented,
+so their removal from this document required no code cleanup.
 
-**Forthcoming, intended shape only:** a small `packages/decisions-registry`
-package will own the versioned `portfolio.project.json` JSON Schema, canonical
-JSON + SHA-256 lock file, and a loader consumed by the Five Decisions pages
-and the map. A small `packages/ask-corpus` package will own the closed
-bilingual corpus, citation IDs, and deterministic retrieval consumed by
-`/api/ask` and the Ask Diego island. Neither package's concrete API is fixed
-by this document — that is defined when the corresponding work lands.
+**Landed:** the small `packages/decisions` package owns the versioned
+`portfolio.project.json` JSON Schema, a strict loader/validator, and the
+canonical JSON + SHA-256 lock file `tools/build-decisions` writes under
+`apps/site/public/decisions/v1/`, consumed by the Five Decisions pages and
+the map once they land.
+
+**Forthcoming, intended shape only:** a small `packages/ask-corpus` package
+will own the closed bilingual corpus, citation IDs, and deterministic
+retrieval consumed by `/api/ask` and the Ask Diego island. Its concrete API
+is not fixed by this document — that is defined when the work lands.
 
 ## 4. Static site and route model
 

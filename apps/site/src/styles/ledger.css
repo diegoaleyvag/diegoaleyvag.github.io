@@ -1,9 +1,9 @@
 /*
  * Shared "ledger row" primitives: the evidence-sequence pattern used by the
- * home page and (with feature-local additions) the Replay event ledger.
- * Ledger rows read top-to-bottom as index, heading, evidence rail, body on
- * narrow screens, and as a 12-column index/reading/rail split on wide
- * screens. Brutalist Editorial: thick rules, square corners, bold numerals.
+ * home page. Ledger rows read top-to-bottom as index, heading, evidence
+ * rail, body on narrow screens, and as a 12-column index/reading/rail split
+ * on wide screens. Brutalist Editorial: thick rules, square corners, bold
+ * numerals.
  */
 
 .content-frame {

@@ -225,15 +225,6 @@ const selectedEducation = [0, 1].map((index) =>
         </li>
       </ol>
     </section>
-
-    <section aria-labelledby="lab-heading" class="lab-transition">
-      <h2 id="lab-heading">{HOME_COPY.labHeading}</h2>
-      <p>{HOME_COPY.labIntroA}</p>
-      <p>{HOME_COPY.labIntroB}</p>
-      <p class="lab-transition__cta">
-        <a href="/lab/replay/">{HOME_COPY.labCta}</a>
-      </p>
-    </section>
   </article>
 </BaseLayout>
 
@@ -359,8 +350,7 @@ const selectedEducation = [0, 1].map((index) =>
     }
   }
 
-  section[aria-labelledby="evidence-heading"],
-  .lab-transition {
+  section[aria-labelledby="evidence-heading"] {
     padding-block: 2.5rem;
   }
 
@@ -382,30 +372,5 @@ const selectedEducation = [0, 1].map((index) =>
     color: var(--ink-muted);
     font-size: 0.9375rem;
     margin-block-start: 0.75rem;
-  }
-
-  .lab-transition {
-    border-block-start: var(--rule-width) solid var(--rule);
-  }
-
-  .lab-transition__cta {
-    margin-block-start: 1.25rem;
-  }
-
-  .lab-transition__cta a {
-    display: inline-block;
-    color: var(--ink);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    border: var(--rule-width) solid var(--ink);
-    padding: 0.65rem 1.15rem;
-  }
-
-  .lab-transition__cta a:hover {
-    background: var(--ink);
-    color: var(--paper);
   }
 </style>

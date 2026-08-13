@@ -1,7 +1,6 @@
 /**
  * Reviewed allowlist of neutral interface copy for the site shell, home page,
- * and 404 page. These strings are navigation/UI labels and pre-approved
- * product copy (see docs/portfolio-narrative.md section 3) — never CV facts.
+ * and 404 page. These strings are navigation/UI labels only — never CV facts.
  * Factual values always come from `@portfolio/resume` via typed source paths.
  */
 
@@ -12,8 +11,7 @@ export const SITE_SHELL_COPY = {
   homeLinkLabel: "Home",
   portfolioLink: "Portfolio",
   resumeLink: "Résumé",
-  labLink: "Synthetic lab",
-  footerNote: "Static build. Replay runs entirely from checked-in files.",
+  footerNote: "Static build, prerendered end to end.",
 } as const;
 
 export const NOT_FOUND_COPY = {
@@ -30,11 +28,4 @@ export const HOME_COPY = {
   categoryEducation: "Education",
   skillsHeading: "Skills",
   skillsNote: "Every skill and certification is listed in full on the résumé.",
-  labHeading: "Synthetic lab",
-  // Verbatim product copy from docs/portfolio-narrative.md section 3.
-  labIntroA:
-    "A synthetic, clean-room portfolio demonstration built from public specifications.",
-  labIntroB:
-    "Replay uses checked-in synthetic runs and works without a backend. It shows recorded policy decisions and demonstrates event tamper detection relative to each bundle's included Merkle root.",
-  labCta: "Inspect the synthetic lab",
 } as const;

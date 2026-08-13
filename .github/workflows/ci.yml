@@ -33,9 +33,6 @@ jobs:
       - name: Install frozen dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install and verify pinned OPA
-        run: pnpm opa:bootstrap
-
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
 

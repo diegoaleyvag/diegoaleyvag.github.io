@@ -2,7 +2,7 @@
 import { SITE_SHELL_COPY } from "./copy";
 
 interface Props {
-  activePath: "/" | "/resume/" | "/lab/replay/" | null;
+  activePath: "/" | "/resume/" | null;
   brandName: string;
 }
 
@@ -11,7 +11,6 @@ const { activePath, brandName } = Astro.props;
 const links = [
   { href: "/", label: SITE_SHELL_COPY.portfolioLink },
   { href: "/resume/", label: SITE_SHELL_COPY.resumeLink },
-  { href: "/lab/replay/", label: SITE_SHELL_COPY.labLink },
 ] as const;
 ---
 

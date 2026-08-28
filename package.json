@@ -13,25 +13,23 @@
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm content:check && pnpm test && pnpm generated:check",
     "ci:gate": "pnpm check && pnpm build && pnpm static:check && pnpm test:e2e",
     "content:check": "tsx tools/check-content-provenance/src/index.ts",
+    "cv:sync": "tsx tools/cv-sync/src/cli.ts",
+    "decisions:build": "tsx tools/build-decisions/src/cli.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generated:build": "pnpm replays:build",
+    "generated:build": "pnpm decisions:build",
     "generated:check": "tsx tools/check-generated/src/index.ts",
     "lint": "eslint .",
-    "opa:bootstrap": "tsx tools/opa/bootstrap.ts",
-    "policy:test": "tsx tools/opa/exec.ts test policies/source policies/test",
     "publication:check": "tsx tools/check-content-provenance/src/check-publication-consent.ts",
-    "replays:build": "tsx tools/build-replays/src/cli.ts",
     "static:check": "tsx tools/check-vercel-output/src/index.ts",
-    "test": "pnpm policy:test && vitest run --config vitest.config.ts",
+    "test": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test",
-    "typecheck": "pnpm -r --if-present typecheck && tsc --noEmit -p tools/opa/tsconfig.json && tsc --noEmit -p tools/build-replays/tsconfig.json && tsc --noEmit -p tests/tsconfig.json"
+    "typecheck": "pnpm -r --if-present typecheck && tsc --noEmit -p tools/build-decisions/tsconfig.json && tsc --noEmit -p tools/cv-sync/tsconfig.json && tsc --noEmit -p tests/tsconfig.json"
   },
   "dependencies": {
-    "@portfolio/contracts": "workspace:*",
-    "@portfolio/replay": "workspace:*",
+    "@portfolio/decisions": "workspace:*",
     "@portfolio/resume": "workspace:*",
-    "@portfolio/testkit": "workspace:*"
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

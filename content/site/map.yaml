@@ -1,0 +1,54 @@
+# The interactive map's five domains and how each connects to the Five
+# Decisions collection (content/decisions/). Only Prism has a stated guiding
+# question today, so only Prism is named specifically below; the other four
+# are described honestly as connections still to be drawn once each moves
+# from planned to building (see content/decisions/*/portfolio.project.json
+# and PRODUCT.md's learning/build timeline split) — never a guessed pairing.
+en:
+  heading: "Where this comes from"
+  intro: "Five areas of practice, five open decisions. The map below is how one becomes the other."
+  domains:
+    - id: "data"
+      label: "Data"
+      description: "Structuring and questioning data first: star schemas, dashboards, pipelines — deciding what's actually true before a system gets to act on it."
+      connection: "Every one of the Five Decisions starts here, as a data question, before it becomes a system."
+    - id: "applied-ai"
+      label: "Applied AI"
+      description: "RAG, retrieval, fine-tuning, agentic workflows — building the model-facing half of a system, not just calling an API."
+      connection: "Prism — deciding when a model's output is actually good enough to ship — lives here most directly."
+    - id: "systems"
+      label: "Systems"
+      description: "The backend that makes a demo survive contact with a real request: typed data models, persistence, identity, and the plumbing recruiters never see."
+      connection: "Where a decision stops being an idea and becomes something that runs on its own."
+    - id: "product"
+      label: "Product"
+      description: "Shipping something a stranger can actually open and use, then standing in front of people and explaining why it works the way it does."
+      connection: "The test every Five Decisions build has to pass: not just built, but usable and checkable by someone else."
+    - id: "learning"
+      label: "Learning"
+      description: "Exam preparation, coursework, and certification — the study that happens before code exists, kept visibly separate from the build itself."
+      connection: "Feeds every decision below without ever being confused for one: study first, then build."
+es:
+  heading: "De dónde sale esto"
+  intro: "Cinco áreas de práctica, cinco decisiones abiertas. El mapa siguiente muestra cómo una se convierte en la otra."
+  domains:
+    - id: "data"
+      label: "Data"
+      description: "Estructurar y cuestionar los datos antes que nada: esquemas en estrella, dashboards, pipelines — decidir qué es realmente cierto antes de que un sistema actúe sobre ello."
+      connection: "Cada una de las Five Decisions empieza aquí, como pregunta de datos, antes de convertirse en sistema."
+    - id: "applied-ai"
+      label: "Applied AI"
+      description: "RAG, recuperación, ajuste fino, flujos agénticos — construir la mitad del sistema que conversa con el modelo, no solo llamar a una API."
+      connection: "Prism —decidir cuándo la salida de un modelo ya es lo bastante buena para publicarse— vive sobre todo aquí."
+    - id: "systems"
+      label: "Systems"
+      description: "El backend que hace que una demo sobreviva a una solicitud real: modelos de datos tipados, persistencia, identidad y la plomería que un reclutador nunca ve."
+      connection: "Donde una decisión deja de ser una idea y pasa a funcionar por sí sola."
+    - id: "product"
+      label: "Product"
+      description: "Entregar algo que una persona cualquiera pueda abrir y usar, y luego explicar frente a otros por qué funciona como funciona."
+      connection: "La prueba que toda construcción de Five Decisions tiene que pasar: no solo construida, sino usable y verificable por alguien más."
+    - id: "learning"
+      label: "Learning"
+      description: "Preparación de examen, cursos y certificaciones — el estudio que ocurre antes de que exista código, mantenido visiblemente aparte de la construcción."
+      connection: "Alimenta cada decisión de abajo sin confundirse nunca con una de ellas: primero se estudia, después se construye."

@@ -1,0 +1,10 @@
+# Section framing only — never a duplicated fact. The actual institutions,
+# dates, and grades render from content/source/cv.yaml via @portfolio/resume;
+# the certification records render from content/site/credentials.yaml. This
+# file holds only the heading and a one-line introduction for that section.
+en:
+  heading: "Education & credentials"
+  intro: "What was studied and what is already verified, side by side — full detail lives on the résumé."
+es:
+  heading: "Formación y credenciales"
+  intro: "Lo que se estudió y lo que ya está verificado, uno junto al otro; el detalle completo vive en el currículum."

@@ -1,0 +1,26 @@
+# About section: bio paragraph + work principles, text only.
+#
+# Photo placeholder: this section renders next to a deliberate, honest
+# placeholder where a portrait would go (AGENTS.md "No fabricated
+# photography"). No photo of Diego is generated or referenced anywhere in
+# this file, or anywhere else on the site — a real photo may replace the
+# placeholder later, but nothing here depends on one existing yet.
+#
+# Every fact in `bio` traces to content/source/cv.yaml (final-year BSc Data
+# Science student; AI Engineering Intern at Infosys Limited via the InStep
+# Global Internship; Mexico City). `principles` are stated working values,
+# not factual claims, and require no citation.
+en:
+  heading: "About"
+  bio: "Diego is a final-year Data Science student in Mexico City, currently interning in AI engineering at Infosys through the InStep Global Internship programme. What holds his attention is the point where a model or a pipeline has to stop being a demo and become something a stranger can run, check, and trust."
+  principles:
+    - "Evidence before assertion — a claim ships with what backs it, or it doesn't ship."
+    - "Say what's finished and what isn't, in the same sentence."
+    - "A system a stranger can run beats a story only he can tell."
+es:
+  heading: "Sobre mí"
+  bio: "Diego cursa el último año de Ciencia de Datos en Ciudad de México y hace prácticas de ingeniería de IA en Infosys, dentro del programa InStep Global Internship. Lo que le interesa de verdad es el momento en que un modelo o un pipeline deja de ser una demo y tiene que convertirse en algo que otra persona pueda ejecutar, revisar y creer."
+  principles:
+    - "La evidencia antes que la afirmación: una idea se publica con lo que la respalda, o no se publica."
+    - "Decir, en la misma frase, qué está terminado y qué no."
+    - "Un sistema que cualquiera pueda ejecutar vale más que una historia que solo él pueda contar."

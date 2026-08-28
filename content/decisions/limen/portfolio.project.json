@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "five-decisions",
+  "id": "limen",
+  "title": "Limen",
+  "decision": "Limen doesn't have a guiding question yet.",
+  "learningOrigin": "2026-05",
+  "buildStarted": null,
+  "status": "planned",
+  "summary": "Nothing is decided here yet — the real question and any supporting evidence go up the day this moves from planned to building.",
+  "capabilities": [],
+  "evidence": [],
+  "links": { "repository": null, "demo": null, "methodology": null }
+}

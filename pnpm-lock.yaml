@@ -12,9 +12,6 @@ catalogs:
     ajv-formats:
       specifier: 3.0.1
       version: 3.0.1
-    json-schema-to-ts:
-      specifier: 3.1.1
-      version: 3.1.1
     yaml:
       specifier: 2.9.0
       version: 2.9.0
@@ -30,18 +27,15 @@ importers:
 
   .:
     dependencies:
-      '@portfolio/contracts':
+      '@portfolio/decisions':
         specifier: workspace:*
-        version: link:packages/contracts
-      '@portfolio/replay':
-        specifier: workspace:*
-        version: link:packages/replay
+        version: link:packages/decisions
       '@portfolio/resume':
         specifier: workspace:*
         version: link:packages/resume
-      '@portfolio/testkit':
-        specifier: workspace:*
-        version: link:packages/testkit
+      yaml:
+        specifier: 'catalog:'
+        version: 2.9.0
     devDependencies:
       '@axe-core/playwright':
         specifier: 4.13.0
@@ -91,12 +85,6 @@ importers:
       '@astrojs/vercel':
         specifier: 10.0.8
         version: 10.0.8(astro@6.4.8(@types/node@24.13.3)(@vercel/functions@3.9.3)(lightningcss@1.33.0)(rollup@4.62.3)(tsx@4.23.12)(yaml@2.9.0))(rollup@4.62.3)
-      '@portfolio/contracts':
-        specifier: workspace:*
-        version: link:../../packages/contracts
-      '@portfolio/replay':
-        specifier: workspace:*
-        version: link:../../packages/replay
       '@portfolio/resume':
         specifier: workspace:*
         version: link:../../packages/resume
@@ -111,7 +99,7 @@ importers:
         specifier: 0.9.10
         version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@5.9.3)
 
-  packages/contracts:
+  packages/decisions:
     dependencies:
       ajv:
         specifier: 'catalog:'
@@ -119,15 +107,6 @@ importers:
       ajv-formats:
         specifier: 'catalog:'
         version: 3.0.1(ajv@8.20.0)
-      json-schema-to-ts:
-        specifier: 'catalog:'
-        version: 3.1.1
-
-  packages/replay:
-    dependencies:
-      '@portfolio/contracts':
-        specifier: workspace:*
-        version: link:../contracts
 
   packages/resume:
     dependencies:
@@ -140,12 +119,6 @@ importers:
       yaml:
         specifier: 'catalog:'
         version: 2.9.0
-
-  packages/testkit:
-    dependencies:
-      '@portfolio/contracts':
-        specifier: workspace:*
-        version: link:../contracts
 
 packages:
 
@@ -354,10 +327,6 @@ packages:
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
-
-  '@babel/runtime@7.29.7':
-    resolution: {integrity: sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/template@7.29.7':
     resolution: {integrity: sha512-puq+Gf35oI24FeN11LkoUQFqv9uwNeWpxXZi/Ji3rRIoKAzKnxRaZ+Gkj0vKS9ZCiTESfng1N9LyOyXvo+m+Gg==}
@@ -2169,10 +2138,6 @@ packages:
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
-  json-schema-to-ts@3.1.1:
-    resolution: {integrity: sha512-+DWg8jCJG2TEnpy7kOm/7/AxaYoaRbjVB4LFZLySZlWn8exGs3A4OLJR966cVvU26N7X9TWxl+Jsw7dzAqKT6g==}
-    engines: {node: '>=16'}
-
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
 
@@ -2891,9 +2856,6 @@ packages:
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
-
-  ts-algebra@2.0.0:
-    resolution: {integrity: sha512-FPAhNPFMrkwz76P7cdjdmiShwMynZYN6SgOujD1urY4oNm80Ou9oMdmbR45LotcKOXoy7wSmHkRFE6Mxbrhefw==}
 
   ts-api-utils@2.5.0:
     resolution: {integrity: sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA==}
@@ -3710,8 +3672,6 @@ snapshots:
       '@babel/types': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/runtime@7.29.7': {}
 
   '@babel/template@7.29.7':
     dependencies:
@@ -5432,11 +5392,6 @@ snapshots:
 
   json-buffer@3.0.1: {}
 
-  json-schema-to-ts@3.1.1:
-    dependencies:
-      '@babel/runtime': 7.29.7
-      ts-algebra: 2.0.0
-
   json-schema-traverse@0.4.1: {}
 
   json-schema-traverse@1.0.0: {}
@@ -6364,8 +6319,6 @@ snapshots:
   trim-lines@3.0.1: {}
 
   trough@2.2.0: {}
-
-  ts-algebra@2.0.0: {}
 
   ts-api-utils@2.5.0(typescript@5.9.3):
     dependencies:

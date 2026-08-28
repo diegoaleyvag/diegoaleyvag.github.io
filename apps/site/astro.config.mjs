@@ -15,4 +15,13 @@ export default defineConfig({
   build: {
     format: "directory",
   },
+  // The retired /lab/replay/ Replay lab (ADR 0014) becomes a permanent
+  // redirect to the honestly-labelled Personal Governance Lab placeholder,
+  // never a dead link. `trailingSlash` stays at its default "ignore", so
+  // Astro's router already treats "/lab/replay" and "/lab/replay/" as the
+  // same route — registering both here is a duplicate-route collision
+  // (Astro warns, and a future version hard-errors), so only one is listed.
+  redirects: {
+    "/lab/replay": "/work/governance-lab/",
+  },
 });

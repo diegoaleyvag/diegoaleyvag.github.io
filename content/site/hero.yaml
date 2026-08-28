@@ -1,0 +1,15 @@
+# Home hero / identity copy. `tagline` and `subtitle` under `en` are fixed
+# verbatim by the product brief (PRODUCT.md) — do not reword them. The `es`
+# block is a genuinely editorial rendering of the same two facts (final-year
+# Data Science student; turns hard questions into tested systems), not a
+# mechanical translation of the English sentence structure.
+en:
+  kicker: "Portfolio"
+  tagline: "Data Science student · AI systems builder"
+  subtitle: "I turn difficult questions into useful, testable systems."
+  collectionLabel: "Five Decisions"
+es:
+  kicker: "Portafolio"
+  tagline: "Ciencia de Datos por formación. Sistemas de IA por oficio."
+  subtitle: "Cada pregunta difícil se convierte aquí en un sistema que se puede usar — y poner a prueba."
+  collectionLabel: "Five Decisions"

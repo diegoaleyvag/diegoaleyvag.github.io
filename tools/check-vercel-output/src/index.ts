@@ -450,10 +450,32 @@ async function checkRoutingConfig(
   const config = JSON.parse(configRaw) as VercelBuildOutputConfig;
   const routes = config.routes ?? [];
 
-  if (routes[0]?.handle !== "filesystem") {
+  // The filesystem (prerendered files) must be checked before any dynamic
+  // route, so a static route can never be shadowed by the function. A
+  // permanent redirect — e.g. the retired /lab/replay/ page's redirect to
+  // /work/governance-lab/ — is allowed ahead of that check: it never
+  // competes with a static file for the same path, it only ever has a
+  // Location header and a 3xx status, and it never has `dest`.
+  const filesystemIndex = routes.findIndex(
+    (route) => route.handle === "filesystem",
+  );
+  if (filesystemIndex === -1) {
     throw new Error(
-      "config.json must check the filesystem (prerendered files) before any dynamic route, so a static route can never be shadowed by the function",
+      "config.json never checks the filesystem (prerendered files) before a dynamic route",
     );
+  }
+  for (const route of routes.slice(0, filesystemIndex)) {
+    const isPermanentRedirect =
+      route.dest === undefined &&
+      route.status !== undefined &&
+      route.status >= 300 &&
+      route.status < 400 &&
+      typeof route.headers?.["Location"] === "string";
+    if (!isPermanentRedirect) {
+      throw new Error(
+        `config.json runs a non-redirect route before the filesystem check, so a static route could be shadowed: ${JSON.stringify(route)}`,
+      );
+    }
   }
 
   // Only routes destined for an actual server function matter here — the

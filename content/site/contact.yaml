@@ -1,0 +1,9 @@
+# Section framing only. The actual email/LinkedIn/GitHub values render from
+# content/source/cv.yaml (via @portfolio/resume), gated by the owner's
+# approval in content/publication-consent.yaml — never duplicated here.
+en:
+  heading: "Get in touch"
+  intro: "Every contact route on this site is real and current: email, LinkedIn, GitHub."
+es:
+  heading: "Contacto"
+  intro: "Cada vía de contacto en este sitio funciona y está al día: correo, LinkedIn, GitHub."

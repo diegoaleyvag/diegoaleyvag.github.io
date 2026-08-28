@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+// Minimal, honest placeholder — no approved Governance Lab assets exist yet
+// (AGENTS.md "Honest project states"). A later visual workstream restyles
+// this page; it does not rewrite its substance. Titles/URLs below are
+// copied from content/public-sources/{opa-rego,rfc-6962,rfc-8785}.yaml,
+// which remain the citation record of authority for these three entries.
+const publicSources = [
+  {
+    title: "Open Policy Agent policy language",
+    publisher: "Open Policy Agent",
+    url: "https://www.openpolicyagent.org/docs/policy-language",
+  },
+  {
+    title: "Certificate Transparency",
+    publisher: "RFC Editor",
+    url: "https://www.rfc-editor.org/rfc/rfc6962",
+  },
+  {
+    title: "JSON Canonicalization Scheme (JCS)",
+    publisher: "RFC Editor",
+    url: "https://www.rfc-editor.org/rfc/rfc8785",
+  },
+] as const;
+---
+
+<BaseLayout
+  title="Personal Governance Lab — not yet published"
+  description="This case is not published yet: an honest placeholder, not a demo."
+  activePath={null}
+>
+  <article class="content-frame governance-lab">
+    <h1>Personal Governance Lab</h1>
+    <p>
+      This case is not published yet. No approved assets exist for it, so there
+      is nothing to demo here — only this honest placeholder until that changes.
+    </p>
+    <p>
+      If you followed an old link to a "Replay" lab, this is what now lives at
+      that address: the earlier governed-run demo was retired as the site's
+      flagship surface, and this smaller, secondary case takes its place once
+      real assets exist for it.
+    </p>
+    <p>
+      When it does ship, it is expected to explore identity, policy, and audit
+      concepts drawn only from public specifications — never from any private or
+      proprietary internal system.
+    </p>
+    <h2>Public specifications a future version may draw on</h2>
+    <ul>
+      {
+        publicSources.map((source) => (
+          <li>
+            <a href={source.url}>{source.title}</a> — {source.publisher}
+          </li>
+        ))
+      }
+    </ul>
+  </article>
+</BaseLayout>
+
+<style>
+  .governance-lab {
+    padding-block: 2.5rem 6rem;
+    max-width: var(--measure);
+  }
+
+  .governance-lab h2 {
+    margin-block-start: 2rem;
+    padding-block-start: 1.5rem;
+    border-block-start: var(--rule-hair) solid var(--rule-soft);
+    font-size: 1rem;
+  }
+
+  .governance-lab ul {
+    padding-inline-start: 1.25rem;
+  }
+
+  .governance-lab li {
+    margin-block-end: 0.5rem;
+  }
+</style>

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "five-decisions",
+  "id": "vector",
+  "title": "Vector",
+  "decision": "Vector's guiding question is not chosen yet.",
+  "learningOrigin": "2026-05",
+  "buildStarted": null,
+  "status": "planned",
+  "summary": "Held open on purpose — the specific question and its evidence appear here only once work on Vector begins.",
+  "capabilities": [],
+  "evidence": [],
+  "links": {
+    "repository": null,
+    "demo": null,
+    "methodology": null
+  }
+}

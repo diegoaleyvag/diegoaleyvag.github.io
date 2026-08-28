@@ -27,7 +27,6 @@ const syntheticBoundaries = [
   "packages/decisions/test",
   "packages/resume/test",
   "tests",
-  "tools/build-decisions/test",
   "tools/cv-sync/test",
 ] as const;
 

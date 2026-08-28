@@ -1,0 +1,38 @@
+# Academic archive: FridgeGuard, Nutritional Assistant, and Urban Threads
+# (content/source/cv.yaml's `projects` list), framed honestly as archived
+# coursework. None of the three has a live demo, a hosted deployment, or a
+# reconstructed screenshot — say so explicitly per entry, never imply
+# otherwise. Every number and claim below (team size, indexes, satisfaction
+# score, dashboard shape, grade) traces exactly to content/source/cv.yaml.
+en:
+  heading: "Academic archive"
+  intro: "Three earlier academic projects, kept here as a plain record of what was built and evaluated — not as a demo. The original code and deployments are gone; nothing below has been reconstructed."
+  projects:
+    - id: "fridgeguard"
+      name: "FridgeGuard"
+      description: "A cross-disciplinary team project — eight people — on sensor-driven mould-risk detection: pipelines for temperature, humidity, and VOC data feeding a six-screen prototype that explained its own anomaly calls in plain language, presented at the programme's final pitch."
+      status: "This is archived academic work. The original repository and prototype build no longer exist; there is no live demo or reconstructed screenshot here, only this description of what the team built."
+    - id: "nutritional-assistant"
+      name: "Nutritional Assistant"
+      description: "A retrieval-augmented nutrition assistant on a fine-tuned Azure OpenAI GPT-4 deployment, grounding answers in three separate Azure AI Search indexes over articles, nutrient data, and recipes, with text-to-speech added for accessibility. Pilot testers rated it 4.58 out of 5 on average."
+      status: "This is archived academic work. The Azure deployment and original codebase are gone; this page describes the system rather than running it."
+    - id: "urban-threads"
+      name: "Urban Threads"
+      description: "A retail analytics project: a star schema behind a three-page Qlik dashboard, with five filters and year-over-year KPIs. The course was led by KPMG Mexico's Head of Tax Technology, and the work was graded 9 out of 10."
+      status: "This is archived coursework. The original Qlik file is not hosted anywhere public; there is no live version to click through here."
+es:
+  heading: "Archivo académico"
+  intro: "Tres proyectos académicos anteriores, conservados aquí como constancia de lo que se construyó y se evaluó — no como una demo. El código y los despliegues originales ya no existen; nada de lo siguiente fue reconstruido."
+  projects:
+    - id: "fridgeguard"
+      name: "FridgeGuard"
+      description: "Un proyecto de equipo multidisciplinario — ocho personas — sobre detección de riesgo de moho a partir de sensores: pipelines de temperatura, humedad y compuestos orgánicos volátiles que alimentaban un prototipo de seis pantallas capaz de explicar en lenguaje simple sus propias alertas de anomalía, presentado en el pitch final del programa."
+      status: "Es trabajo académico archivado. El repositorio original y el prototipo ya no existen; aquí no hay demo en vivo ni captura reconstruida, solo esta descripción de lo que construyó el equipo."
+    - id: "nutritional-assistant"
+      name: "Nutritional Assistant"
+      description: "Un asistente de nutrición con recuperación aumentada, sobre un despliegue de GPT-4 afinado en Azure OpenAI, que fundamentaba sus respuestas en tres índices distintos de Azure AI Search —artículos, datos nutricionales y recetas— y sumaba texto a voz por accesibilidad. En las pruebas piloto obtuvo una satisfacción promedio de 4.58 sobre 5."
+      status: "Es trabajo académico archivado. El despliegue en Azure y el código original ya no existen; esta página lo describe en vez de ejecutarlo."
+    - id: "urban-threads"
+      name: "Urban Threads"
+      description: "Un proyecto de analítica de retail: un esquema en estrella detrás de un dashboard de Qlik de tres páginas, con cinco filtros y KPIs interanuales. El curso lo impartió la Head of Tax Technology de KPMG México, y el trabajo se calificó con 9 sobre 10."
+      status: "Es trabajo de curso archivado. El archivo original de Qlik no está alojado en ningún sitio público; aquí no hay una versión activa para explorar."

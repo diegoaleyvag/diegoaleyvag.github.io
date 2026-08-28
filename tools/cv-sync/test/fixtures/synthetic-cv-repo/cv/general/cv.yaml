@@ -1,0 +1,43 @@
+name: "Ada Fixture"
+headline: "Synthetic Test Persona"
+location: "Testville, ZZ"
+availability: "Not a real person"
+email: "ada.fixture@example.invalid"
+linkedin:
+  label: "linkedin.com/in/ada-fixture"
+  url: "https://linkedin.com/in/ada-fixture"
+github:
+  label: "github.com/ada-fixture"
+  url: "https://github.com/ada-fixture"
+
+summary: "A fully synthetic CV used only to test tools/cv-sync. No real person, employer, or fact is represented here."
+
+experience:
+  - organisation: "Fixture Labs (synthetic)"
+    role: "Synthetic Test Engineer"
+    programme: "Hermetic Test Fixture Programme"
+    dates: "Jan 2000 – Feb 2000"
+    location: "Testville, ZZ"
+    bullets:
+      - "Exists only so tools/cv-sync has something deterministic to copy."
+
+projects:
+  - name: "Fixture Project"
+    descriptor: "Synthetic Fixture"
+    dates: "Jan 2000"
+    bullets:
+      - "A placeholder project bullet for hermetic testing."
+
+education:
+  - institution: "Fixture Institute (synthetic)"
+    credential: "BSc Fixture Studies"
+    dates: "Jan 2000 – Feb 2000"
+    location: "Testville, ZZ"
+    detail: "Synthetic detail"
+
+skills:
+  - label: "Testing"
+    value: "Synthetic fixtures, hermetic tests"
+
+certifications:
+  - "Synthetic Fixture Certification (2000)"

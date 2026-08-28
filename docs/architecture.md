@@ -212,10 +212,10 @@ runtime behind a Fake/Replay/Live provider seam. All of that is superseded by
 [ADR 0014](adr/0014-portfolio-product-reset.md) as the site's flagship public
 surface. It is not a claim that agent governance was unsound — only that it
 no longer represents the site's primary identity. A coordinated retirement
-workstream re-verifies live consumers and removes the underlying code
+workstream re-verified live consumers and removed the underlying code
 (`packages/contracts`, `packages/replay`, `packages/testkit`, `policies/**`)
-separately; until that lands, this section is the map from the old shape to
-the new one. `/lab/replay/` keeps working as a permanent redirect to a
+separately, as planned; this section remains as the map from the old shape
+to the new one. `/lab/replay/` keeps working as a permanent redirect to a
 smaller Personal Governance Lab case (section 4) rather than becoming a dead
 link.
 

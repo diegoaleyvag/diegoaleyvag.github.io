@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "five-decisions",
+  "id": "prism",
+  "title": "Prism",
+  "decision": "When is a model good enough?",
+  "learningOrigin": "2026-05",
+  "buildStarted": "2026-08-13",
+  "status": "building",
+  "summary": "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship.",
+  "capabilities": [],
+  "evidence": [],
+  "links": {
+    "repository": null,
+    "demo": null,
+    "methodology": null
+  }
+}

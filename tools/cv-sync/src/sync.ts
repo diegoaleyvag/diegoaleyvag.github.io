@@ -4,9 +4,8 @@ import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-import { parseCvYaml } from "@portfolio/resume";
-
 import { pdftoppmRasterizer, type PdfRasterizer } from "./rasterize.ts";
+import { parseExternalCvYaml } from "./schema.ts";
 import type { CvSyncManifest } from "./types.ts";
 
 export const CV_SYNC_SCHEMA_VERSION = "1.0.0" as const;
@@ -91,11 +90,13 @@ export async function syncCv({
     readFile(pdfSourcePath),
   ]);
 
-  // Validated against the same closed schema as content/source/cv.yaml: the
-  // two repositories are expected to share one shape, and a real shape drift
-  // should fail loudly here rather than silently produce a malformed
-  // summary.
-  const cvDocument = parseCvYaml(cvYamlSource);
+  // Validated against tools/cv-sync's own, slightly more permissive schema
+  // (see schema.ts) rather than @portfolio/resume's strict portfolio schema:
+  // the two repositories are maintained independently and the external file
+  // is not guaranteed to carry every optional field the portfolio's own
+  // copy does (e.g. `programme`). A genuinely malformed source document
+  // still fails loudly; a legitimate, known shape difference does not.
+  const cvDocument = parseExternalCvYaml(cvYamlSource);
   const summaryBytes = new TextEncoder().encode(
     `${JSON.stringify(cvDocument, null, 2)}\n`,
   );

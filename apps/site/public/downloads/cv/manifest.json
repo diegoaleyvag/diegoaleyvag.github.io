@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceCommit": "a4285e5971cdc7a7ac8b73f0941c368f6a3568ee",
+  "syncedAt": "2026-08-28T23:52:25.170Z",
+  "files": [
+    {
+      "path": "apps/site/public/downloads/cv/diego-leyva-cv.pdf",
+      "sha256": "c342084e6b102b395f94aca4aedaed986182558cd810ef9ecfcf1ef8fa0d6a30"
+    },
+    {
+      "path": "apps/site/public/downloads/cv/summary.json",
+      "sha256": "4dfb43f9d80cd7be317ebe8b28271cf80cefe1e2384248dd4e930aec812bb484"
+    }
+  ],
+  "preview": {
+    "path": "apps/site/public/downloads/cv/preview.png",
+    "sha256": "789fe49e546de06f77c07d52297c803981e8abf1420b713bce6700b50bea9ae4",
+    "rasterizer": "pdftoppm"
+  },
+  "previewUnavailableReason": null
+}

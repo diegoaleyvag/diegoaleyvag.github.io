@@ -12,9 +12,9 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-import { parseCvYaml } from "@portfolio/resume";
 import { afterEach, describe, expect, it } from "vitest";
 
+import { parseExternalCvYaml } from "../src/schema.ts";
 import type { PdfRasterizer } from "../src/rasterize.ts";
 import { syncCv } from "../src/sync.ts";
 
@@ -27,6 +27,9 @@ const fixturePdfPath = path.join(
   "cv",
   "general",
   "diego-leyva-cv.pdf",
+);
+const noProgrammeFixtureRoot = fileURLToPath(
+  new URL("./fixtures/synthetic-cv-repo-no-programme/", import.meta.url),
 );
 const fixedNow = () => new Date("2026-08-13T12:00:00.000Z");
 
@@ -118,12 +121,31 @@ describe("syncCv", () => {
       now: fixedNow,
     });
 
-    const expected = parseCvYaml(await readFile(fixtureCvYamlPath, "utf8"));
+    const expected = parseExternalCvYaml(
+      await readFile(fixtureCvYamlPath, "utf8"),
+    );
     const summary = JSON.parse(
       await readFile(path.join(outputDirectory, "summary.json"), "utf8"),
     );
     expect(summary).toEqual(expected);
     expect(summary.name).toBe("Ada Fixture");
+  });
+
+  it("syncs successfully when the source cv.yaml omits the optional programme field (the real external repository's actual shape)", async () => {
+    const outputDirectory = await createOutputDirectory();
+    const manifest = await syncCv({
+      sourceDirectory: noProgrammeFixtureRoot,
+      outputDirectory,
+      rasterizer: unavailableFakeRasterizer,
+      now: fixedNow,
+    });
+
+    expect(manifest.files).toHaveLength(2);
+    const summary = JSON.parse(
+      await readFile(path.join(outputDirectory, "summary.json"), "utf8"),
+    );
+    expect(summary.experience[0].programme).toBeUndefined();
+    expect(summary.experience[0].organisation).toBe("Fixture Labs (synthetic)");
   });
 
   it("records a populated preview when the rasterizer succeeds", async () => {

@@ -33,6 +33,12 @@ importers:
       '@portfolio/resume':
         specifier: workspace:*
         version: link:packages/resume
+      ajv:
+        specifier: 'catalog:'
+        version: 8.20.0
+      ajv-formats:
+        specifier: 'catalog:'
+        version: 3.0.1(ajv@8.20.0)
       yaml:
         specifier: 'catalog:'
         version: 2.9.0

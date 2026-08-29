@@ -50,6 +50,8 @@ const routes = [
   "/es/archivo/",
   "/resume/",
   "/es/cv/",
+  "/ask/",
+  "/es/pregunta/",
   "/404.html",
 ];
 
@@ -84,7 +86,15 @@ test("collects zero console errors across every route", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-for (const route of ["/", "/es/", "/work/prism/", "/resume/"]) {
+for (const route of [
+  "/",
+  "/es/",
+  "/work/",
+  "/work/prism/",
+  "/resume/",
+  "/ask/",
+  "/es/pregunta/",
+]) {
   test(`has no serious or critical accessibility violations on ${route}`, async ({
     page,
     networkGuard,

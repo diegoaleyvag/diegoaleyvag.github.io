@@ -1,0 +1,185 @@
+---
+import type { DecisionManifest } from "@portfolio/decisions";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ROUTES, SECTION_COPY, workDecisionPath, type Lang } from "../lib/i18n";
+import { loadDecisionNarrative } from "../lib/site-content";
+
+import "../styles/sections.css";
+
+interface Props {
+  readonly lang: Lang;
+  readonly manifest: DecisionManifest;
+}
+
+const { lang, manifest } = Astro.props;
+const isEs = lang === "es";
+const section = SECTION_COPY[lang];
+const narrative = await loadDecisionNarrative(manifest.id, lang);
+
+const statusBadgeLabel =
+  manifest.status === "building"
+    ? isEs
+      ? "En construcción"
+      : "Building"
+    : manifest.status === "planned"
+      ? isEs
+        ? "Planeada"
+        : "Planned"
+      : manifest.status;
+
+const path = workDecisionPath(lang, manifest.id);
+const alternatePath = workDecisionPath(
+  lang === "en" ? "es" : "en",
+  manifest.id,
+);
+
+const learningOriginLabel = isEs
+  ? "Origen en el aprendizaje"
+  : "Learning origin";
+const buildStartedLabel = isEs ? "Construcción iniciada" : "Build started";
+const notStartedLabel = isEs ? "Todavía no iniciada" : "Not started yet";
+const capabilitiesHeading = isEs ? "Capacidades" : "Capabilities";
+const evidenceHeading = isEs ? "Evidencia" : "Evidence";
+const noCapabilitiesYet = isEs
+  ? "Todavía no hay capacidades publicadas para esta decisión."
+  : "No capabilities are published for this decision yet.";
+const noEvidenceYet = isEs
+  ? "Todavía no hay evidencia publicada para esta decisión."
+  : "No evidence is published for this decision yet.";
+const linksHeading = isEs ? "Enlaces" : "Links";
+const noLinkYet = isEs ? "Todavía no disponible." : "Not available yet.";
+const linkLabels: Record<"repository" | "demo" | "methodology", string> = isEs
+  ? { repository: "Repositorio", demo: "Demo", methodology: "Metodología" }
+  : { repository: "Repository", demo: "Demo", methodology: "Methodology" };
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${manifest.title} — ${isEs ? "Five Decisions" : "Five Decisions"}`}
+  description={narrative.summary}
+  path={path}
+  alternatePath={alternatePath}
+  activeHref={ROUTES.work[lang]}
+>
+  <article class="content-frame decision-page">
+    <header class="section-intro" style="padding-block-start: 2rem;">
+      <p class="eyebrow">{isEs ? "Five Decisions" : "Five Decisions"}</p>
+      <span
+        class={`badge ${manifest.status === "building" ? "badge--building" : "badge--planned"}`}
+      >
+        {statusBadgeLabel}
+      </span>
+      <h1>{manifest.title}</h1>
+      <p class="decision-page__question">{narrative.decision}</p>
+      <p>{narrative.summary}</p>
+    </header>
+
+    <section class="section">
+      <dl class="decision-page__meta">
+        <div>
+          <dt>{learningOriginLabel}</dt>
+          <dd>{manifest.learningOrigin}</dd>
+        </div>
+        <div>
+          <dt>{buildStartedLabel}</dt>
+          <dd>{manifest.buildStarted ?? notStartedLabel}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="section" aria-labelledby="capabilities-heading">
+      <h2 id="capabilities-heading">{capabilitiesHeading}</h2>
+      {
+        manifest.capabilities.length === 0 ? (
+          <p>{noCapabilitiesYet}</p>
+        ) : (
+          <ul>
+            {manifest.capabilities.map((capability) => (
+              <li>
+                <strong>{capability.label}</strong>
+                {capability.detail ? <>: {capability.detail}</> : null}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="section" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">{evidenceHeading}</h2>
+      {
+        manifest.evidence.length === 0 ? (
+          <p>{noEvidenceYet}</p>
+        ) : (
+          <ul>
+            {manifest.evidence.map((entry) => (
+              <li>
+                <strong>{entry.type}</strong>: {entry.description} (
+                <a href={entry.reference}>{entry.reference}</a>)
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="section" aria-labelledby="links-heading">
+      <h2 id="links-heading">{linksHeading}</h2>
+      <ul>
+        {
+          (["repository", "demo", "methodology"] as const).map((key) => (
+            <li>
+              <strong>{linkLabels[key]}:</strong>{" "}
+              {manifest.links[key] ? (
+                <a href={manifest.links[key] ?? undefined}>
+                  {manifest.links[key]}
+                </a>
+              ) : (
+                noLinkYet
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <p>
+      <a href={ROUTES.work[lang]}>← {section.workIndexCta}</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .decision-page__question {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 1vw + 1.4rem, 2.25rem);
+    margin: 0.75rem 0;
+  }
+
+  .decision-page__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 30rem) {
+    .decision-page__meta {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .decision-page__meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--graphite-muted);
+    margin: 0 0 0.2rem;
+  }
+
+  .decision-page__meta dd {
+    margin: 0;
+  }
+</style>

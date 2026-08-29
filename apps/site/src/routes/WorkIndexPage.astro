@@ -1,0 +1,113 @@
+---
+import { loadDecisionManifests } from "@portfolio/decisions";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ROUTES, SECTION_COPY, workDecisionPath, type Lang } from "../lib/i18n";
+import { loadArchive, loadDecisionNarratives } from "../lib/site-content";
+
+import "../styles/sections.css";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === "es";
+const section = SECTION_COPY[lang];
+
+const [manifests, narratives, archive] = await Promise.all([
+  loadDecisionManifests(),
+  loadDecisionNarratives(),
+  loadArchive(lang),
+]);
+
+const decisions = manifests.map(({ manifest }) => {
+  const narrative = narratives[manifest.id]?.[lang];
+  return {
+    id: manifest.id,
+    title: manifest.title,
+    status: manifest.status,
+    decision: narrative?.decision ?? manifest.decision,
+    summary: narrative?.summary ?? manifest.summary,
+    href: workDecisionPath(lang, manifest.id),
+  };
+});
+
+const statusBadgeLabel = (status: string): string => {
+  if (status === "building") {
+    return isEs ? "En construcción" : "Building";
+  }
+  if (status === "planned") {
+    return isEs ? "Planeada" : "Planned";
+  }
+  return status;
+};
+
+const heading = isEs ? "Trabajo" : "Work";
+const intro = isEs
+  ? "Five Decisions es la colección pública principal; el Personal Governance Lab es un caso secundario todavía sin publicar, y el archivo académico conserva tres proyectos universitarios anteriores."
+  : "Five Decisions is the main public collection; the Personal Governance Lab is a smaller secondary case that isn't published yet, and the academic archive keeps a plain record of three earlier university projects.";
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${heading} — Diego Leyva`}
+  description={intro}
+  path={ROUTES.work[lang]}
+  alternatePath={ROUTES.work[lang === "en" ? "es" : "en"]}
+  activeHref={ROUTES.work[lang]}
+>
+  <article class="content-frame work-index">
+    <header class="section-intro" style="padding-block-start: 2rem;">
+      <p class="eyebrow">{isEs ? "Portafolio" : "Portfolio"}</p>
+      <h1>{heading}</h1>
+      <p>{intro}</p>
+    </header>
+
+    <section class="section" aria-labelledby="five-decisions-heading">
+      <div class="section-intro">
+        <h2 id="five-decisions-heading">{section.decisionsHeading}</h2>
+        <p>{section.decisionsIntro}</p>
+      </div>
+      <div class="card-grid card-grid--decisions">
+        {
+          decisions.map((decision) => (
+            <a class="case-card" href={decision.href}>
+              <span
+                class={`badge ${decision.status === "building" ? "badge--building" : "badge--planned"}`}
+              >
+                {statusBadgeLabel(decision.status)}
+              </span>
+              <h3 class="case-card__title">{decision.title}</h3>
+              <p class="case-card__body">{decision.summary}</p>
+              <span class="case-card__meta">{section.viewCase} →</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="secondary-cases-heading">
+      <div class="section-intro">
+        <h2 id="secondary-cases-heading">
+          {isEs ? "Casos secundarios" : "Secondary cases"}
+        </h2>
+      </div>
+      <div class="card-grid">
+        <a class="case-card" href={ROUTES.governanceLab[lang]}>
+          <span class="badge badge--planned">
+            {isEs ? "No publicado" : "Not published"}
+          </span>
+          <h3 class="case-card__title">{section.governanceLabLabel}</h3>
+          <p class="case-card__body">{section.governanceLabNote}</p>
+          <span class="case-card__meta">{section.viewCase} →</span>
+        </a>
+        <a class="case-card" href={ROUTES.archive[lang]}>
+          <h3 class="case-card__title">{archive.heading}</h3>
+          <p class="case-card__body">{archive.intro}</p>
+          <span class="case-card__meta">{section.archiveCta} →</span>
+        </a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

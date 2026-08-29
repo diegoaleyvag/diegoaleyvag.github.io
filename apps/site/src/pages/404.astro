@@ -1,16 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { NOT_FOUND_COPY, SITE_SHELL_COPY } from "../components/copy";
+import { NOT_FOUND_COPY, primaryNav } from "../lib/i18n";
+
+import "../styles/sections.css";
+
+const en = NOT_FOUND_COPY.en;
+const es = NOT_FOUND_COPY.es;
+const enLinks = primaryNav("en");
+const esLinks = primaryNav("es");
 ---
 
-<BaseLayout title={NOT_FOUND_COPY.documentTitle} activePath={null}>
+<BaseLayout
+  lang="en"
+  title={en.documentTitle}
+  description={en.body}
+  path="/404.html"
+  alternatePath={null}
+  activeHref={null}
+>
   <div class="content-frame not-found">
     <p class="not-found__code" aria-hidden="true">404</p>
-    <h1>{NOT_FOUND_COPY.heading}</h1>
-    <p class="not-found__body">{NOT_FOUND_COPY.body}</p>
+    <h1>{en.heading}</h1>
+    <p>{en.body}</p>
     <ul class="not-found__links">
-      <li><a href="/">{SITE_SHELL_COPY.portfolioLink}</a></li>
-      <li><a href="/resume/">{SITE_SHELL_COPY.resumeLink}</a></li>
+      {
+        enLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <hr />
+
+    <h2 lang="es">{es.heading}</h2>
+    <p lang="es">{es.body}</p>
+    <ul class="not-found__links" lang="es">
+      {
+        esLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </BaseLayout>
@@ -23,20 +56,19 @@ import { NOT_FOUND_COPY, SITE_SHELL_COPY } from "../components/copy";
   .not-found__code {
     margin: 0;
     font-family: var(--font-display);
+    font-weight: 800;
     font-size: clamp(6rem, 22vw, 14rem);
     line-height: 0.85;
-    color: var(--signal-text);
+    color: var(--signal-ink);
   }
 
   .not-found h1 {
     margin-block-start: 0;
     padding-block-start: 1.5rem;
-    border-block-start: var(--rule-width) solid var(--ink);
   }
 
-  .not-found__body {
-    max-width: var(--measure);
-    font-size: 1.0625rem;
+  .not-found hr {
+    margin-block: 2.5rem;
   }
 
   .not-found__links {
@@ -44,24 +76,22 @@ import { NOT_FOUND_COPY, SITE_SHELL_COPY } from "../components/copy";
     flex-wrap: wrap;
     gap: 1rem 1.5rem;
     list-style: none;
-    margin: 2rem 0 0;
+    margin: 1.5rem 0 0;
     padding: 0;
   }
 
   .not-found__links a {
     display: inline-block;
-    color: var(--ink);
+    color: var(--graphite);
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9375rem;
     text-decoration: none;
-    border: var(--rule-width) solid var(--ink);
+    border: var(--rule-width) solid var(--graphite);
+    border-radius: var(--radius);
     padding: 0.65rem 1.15rem;
   }
 
   .not-found__links a:hover {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--graphite);
+    color: var(--field);
   }
 </style>

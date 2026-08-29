@@ -13,6 +13,11 @@ export default defineConfig({
   base: "/",
   output: "static",
   adapter: vercel(),
+  // Exactly two Preact islands are ever allowed to hydrate (AGENTS.md,
+  // frontend.mdc): the interactive capability map
+  // (apps/site/src/features/capability-map/**) and the Ask Diego guide
+  // (apps/site/src/features/ask-diego/**). No other route ships framework
+  // JavaScript.
   integrations: [preact()],
   build: {
     format: "directory",

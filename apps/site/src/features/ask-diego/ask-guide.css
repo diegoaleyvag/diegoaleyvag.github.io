@@ -1,0 +1,167 @@
+/*
+ * Scoped to the .ask-guide subtree only. Uses the shared design tokens by
+ * name (--ink, --paper, --signal, --rule*, --font-*) rather than hardcoded
+ * values, so this island automatically follows whatever the site-wide
+ * visual system defines them as (see DESIGN.md) without needing its own
+ * restyle later.
+ */
+
+.ask-guide {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.ask-guide__form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ask-guide__label {
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.ask-guide__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ask-guide__input {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0.65rem 0.85rem;
+  font: inherit;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper-raised, var(--paper));
+  border: var(--rule-width) solid var(--ink);
+  border-radius: var(--radius, 0);
+}
+
+.ask-guide__input:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.ask-guide__submit {
+  flex: 0 0 auto;
+  padding: 0.65rem 1.25rem;
+  font: inherit;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  background: var(--signal);
+  border: var(--rule-width) solid var(--ink);
+  border-radius: var(--radius, 0);
+  cursor: pointer;
+}
+
+.ask-guide__submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ask-guide__submit {
+    transition:
+      transform 120ms ease,
+      background-color 120ms ease;
+  }
+
+  .ask-guide__submit:not(:disabled):hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.ask-guide__submit:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.ask-guide__validation {
+  margin: 0;
+  color: var(--signal-text, var(--signal));
+  font-size: 0.875rem;
+}
+
+.ask-guide__hint {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+
+.ask-guide__result {
+  border-block-start: var(--rule-width) solid var(--ink);
+  padding-block-start: 1.25rem;
+  min-height: 1px;
+}
+
+.ask-guide__result:empty {
+  border: none;
+  padding: 0;
+}
+
+.ask-guide__loading {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.ask-guide__answer {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.ask-guide__asked {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+
+.ask-guide__note {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+.ask-guide__answer-text {
+  margin: 0;
+  font-size: 1.0625rem;
+}
+
+.ask-guide__citations {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.ask-guide__citation {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ask-guide__error {
+  margin: 0;
+  color: var(--signal-text, var(--signal));
+}
+
+.ask-guide__reset {
+  justify-self: start;
+  padding: 0.4rem 0.85rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  background: transparent;
+  border: var(--rule-hair) solid var(--ink);
+  border-radius: var(--radius, 0);
+  cursor: pointer;
+}
+
+.ask-guide__reset:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}

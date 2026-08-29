@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "faq-scope-disclaimer",
+  "category": "faq",
+  "citationId": "ask",
+  "en": {
+    "label": "What Ask Diego can and can't answer",
+    "question": "Can Ask Diego share Diego's opinions or unlisted experience?",
+    "answer": "No — Ask Diego only answers from Diego's published bio, Five Decisions, credentials, and résumé. It won't guess at his opinions, availability details, or any experience not documented here.",
+    "keywords": [
+      "opinion",
+      "opinions",
+      "think",
+      "believe",
+      "favorite",
+      "personal",
+      "unlisted",
+      "undocumented",
+      "guess",
+      "prefer"
+    ]
+  },
+  "es": {
+    "label": "Qué puede y no puede responder Ask Diego",
+    "question": "¿Ask Diego puede compartir las opiniones de Diego o experiencia no publicada?",
+    "answer": "No — Ask Diego solo responde con la biografía publicada de Diego, Five Decisions, sus credenciales y su currículum. No inventa opiniones, disponibilidad ni experiencia no documentada aquí.",
+    "keywords": [
+      "opinion",
+      "opiniones",
+      "piensa",
+      "cree",
+      "favorito",
+      "personal",
+      "no publicado",
+      "no documentado",
+      "inventar",
+      "prefiere"
+    ]
+  }
+}

@@ -26,16 +26,21 @@ const reservedAstroInternalRoutePattern = /^\^\/(_image|_server-islands)\b/;
 // otherwise directory-driven scan: which routes may ship any first-party JS
 // at all is a design decision, not something a directory walk can infer, so
 // a short explicit allow-list is safer here than trying to derive it. The
-// capability map island (ship-vertical-slice) is the first of the two
-// islands frontend.mdc allows; Ask Diego's island is the second, added by
-// its own sibling workstream. The map appears only on the homepage in each
-// language (DESIGN.md's brief scopes the interactive map to the home
-// route) — the work index and decision detail pages render the same
-// domains/decisions as plain server-rendered lists, not the island.
-const knownIslandRoutes = new Set<string>(["index.html", "es/index.html"]);
-if (knownIslandRoutes.size > 2) {
+// The capability map island (ship-vertical-slice) is the first of the two
+// islands frontend.mdc allows; it hydrates only the homepage in each
+// language (DESIGN.md scopes the interactive map to the home route — the
+// work index and decision detail pages render the same domains/decisions
+// as plain server-rendered lists). The Ask Diego guide is the second and
+// last island this rule ever allows, hydrating its own EN/ES routes.
+const knownIslandRoutes = new Set<string>([
+  "index.html",
+  "es/index.html",
+  "ask/index.html",
+  "es/pregunta/index.html",
+]);
+if (knownIslandRoutes.size > 4) {
   throw new Error(
-    "frontend.mdc caps hydration at two Preact islands — update the rule before this list",
+    "frontend.mdc caps hydration at two Preact islands (one route per language each) — update the rule before this list",
   );
 }
 // The measured, amortized cold-load budget for a page with one island is
@@ -55,7 +60,10 @@ const requiredStaticFiles = [
   "work/governance-lab/index.html",
   "archive/index.html",
   "es/archivo/index.html",
+  "ask/index.html",
+  "es/pregunta/index.html",
   "decisions/v1/manifest.json",
+  "corpus/v1/manifest.json",
   "fonts/big-shoulders-display-variable.woff2",
   "fonts/public-sans-variable.woff2",
   "fonts/public-sans-italic-variable.woff2",

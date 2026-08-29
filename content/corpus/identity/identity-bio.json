@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "identity-bio",
+  "category": "identity",
+  "citationId": "home",
+  "en": {
+    "label": "Who Diego is",
+    "question": "Who is Diego?",
+    "answer": "Diego is a final-year BSc Data Science student in Mexico City, interning in AI engineering at Infosys through the InStep Global Internship. He's focused on the point where a model or pipeline has to stop being a demo and become something a stranger can run and check.",
+    "keywords": [
+      "who",
+      "diego",
+      "bio",
+      "background",
+      "student",
+      "data science",
+      "infosys",
+      "intern",
+      "mexico city"
+    ]
+  },
+  "es": {
+    "label": "Quién es Diego",
+    "question": "¿Quién es Diego?",
+    "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hace una pasantía de ingeniería de IA en Infosys, dentro del programa InStep Global Internship. Le interesa el momento en que un modelo deja de ser demo y se vuelve algo verificable.",
+    "keywords": [
+      "quien",
+      "diego",
+      "biografia",
+      "estudiante",
+      "ciencia de datos",
+      "infosys",
+      "pasantia",
+      "practicas",
+      "ciudad de mexico"
+    ]
+  }
+}

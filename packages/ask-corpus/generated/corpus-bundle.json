@@ -1,0 +1,628 @@
+[
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "availability-status",
+    "category": "availability",
+    "citationId": "resume",
+    "en": {
+      "label": "Availability",
+      "question": "Is Diego available for a job or internship?",
+      "answer": "Diego is open to remote work and relocation, and is seeking junior AI/ML engineering roles. He's currently interning in AI engineering at Infosys while finishing his degree.",
+      "keywords": [
+        "available",
+        "availability",
+        "hire",
+        "hiring",
+        "job",
+        "internship",
+        "remote",
+        "relocation",
+        "open to work"
+      ]
+    },
+    "es": {
+      "label": "Disponibilidad",
+      "question": "¿Diego está disponible para un empleo o pasantía?",
+      "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos junior de ingeniería de IA/ML. Actualmente hace una pasantía de ingeniería de IA en Infosys mientras termina la carrera.",
+      "keywords": [
+        "disponible",
+        "disponibilidad",
+        "contratar",
+        "empleo",
+        "trabajo",
+        "pasantia",
+        "remoto",
+        "reubicacion"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "credential-claude-foundations",
+    "category": "credential",
+    "citationId": "resume#certifications-heading",
+    "en": {
+      "label": "Claude Certified Architect – Foundations",
+      "question": "Does Diego hold the Claude Certified Architect – Foundations credential?",
+      "answer": "Yes — Diego holds Claude Certified Architect – Foundations from Anthropic, issued 11 Aug 2026 and verified on Credly. No score is published for it, only issuer, level, and dates.",
+      "keywords": [
+        "claude certified architect",
+        "foundations",
+        "anthropic",
+        "credential",
+        "certification",
+        "credly"
+      ]
+    },
+    "es": {
+      "label": "Claude Certified Architect – Foundations",
+      "question": "¿Diego tiene la certificación Claude Certified Architect – Foundations?",
+      "answer": "Sí — Diego tiene Claude Certified Architect – Foundations de Anthropic, emitida el 11 de agosto de 2026 y verificada en Credly. No se publica puntuación, solo emisor, nivel y fechas.",
+      "keywords": [
+        "claude certified architect",
+        "foundations",
+        "anthropic",
+        "credencial",
+        "certificacion",
+        "credly"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "credential-claude-professional",
+    "category": "credential",
+    "citationId": "resume#certifications-heading",
+    "en": {
+      "label": "Claude Certified Architect – Professional",
+      "question": "Does Diego hold the Claude Certified Architect – Professional credential?",
+      "answer": "Yes — Diego holds Claude Certified Architect – Professional from Anthropic, issued 13 Aug 2026 and verified on Credly. No score is published for it, only issuer, level, and dates.",
+      "keywords": [
+        "claude certified architect",
+        "professional",
+        "anthropic",
+        "credential",
+        "certification",
+        "credly"
+      ]
+    },
+    "es": {
+      "label": "Claude Certified Architect – Professional",
+      "question": "¿Diego tiene la certificación Claude Certified Architect – Professional?",
+      "answer": "Sí — Diego tiene Claude Certified Architect – Professional de Anthropic, emitida el 13 de agosto de 2026 y verificada en Credly. No se publica puntuación, solo emisor, nivel y fechas.",
+      "keywords": [
+        "claude certified architect",
+        "professional",
+        "anthropic",
+        "credencial",
+        "certificacion",
+        "credly"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "credential-other-certifications",
+    "category": "credential",
+    "citationId": "resume#certifications-heading",
+    "en": {
+      "label": "Other certifications",
+      "question": "What other certifications does Diego have?",
+      "answer": "Diego also completed Koenig/Infosys training in AI-First Engineering, Python APIs & microservices, and web programming (2026), plus Google AI Essentials (2024) and Google Cloud Computing Foundations (2024).",
+      "keywords": [
+        "koenig",
+        "ai-first engineering",
+        "google ai essentials",
+        "google cloud",
+        "certifications",
+        "courses"
+      ]
+    },
+    "es": {
+      "label": "Otras certificaciones",
+      "question": "¿Qué otras certificaciones tiene Diego?",
+      "answer": "Diego también completó formación de Koenig/Infosys en AI-First Engineering, APIs de Python y microservicios, y programación web (2026), además de Google AI Essentials (2024) y Google Cloud Computing Foundations (2024).",
+      "keywords": [
+        "koenig",
+        "ai-first engineering",
+        "google ai essentials",
+        "google cloud",
+        "certificaciones",
+        "cursos"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "decision-axiom",
+    "category": "decision",
+    "citationId": "work/axiom",
+    "en": {
+      "label": "Axiom — Five Decisions",
+      "question": "What is Axiom?",
+      "answer": "Axiom is one of Diego's Five Decisions — a placeholder, not a preview. Its guiding question, approach, and evidence all wait for the day it actually starts building.",
+      "keywords": [
+        "axiom",
+        "planned",
+        "not started",
+        "five decisions",
+        "upcoming"
+      ]
+    },
+    "es": {
+      "label": "Axiom — Five Decisions",
+      "question": "¿Qué es Axiom?",
+      "answer": "Axiom es una de las Five Decisions de Diego — un marcador de lugar, no un adelanto. Su pregunta guía, enfoque y evidencia esperan al día en que realmente empiece a construirse.",
+      "keywords": [
+        "axiom",
+        "planificado",
+        "sin empezar",
+        "five decisions",
+        "proximamente"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "decision-limen",
+    "category": "decision",
+    "citationId": "work/limen",
+    "en": {
+      "label": "Limen — Five Decisions",
+      "question": "What is Limen?",
+      "answer": "Limen is one of Diego's Five Decisions. Nothing is decided yet — the real question and any supporting evidence go up the day it moves from planned to building.",
+      "keywords": [
+        "limen",
+        "planned",
+        "not started",
+        "five decisions",
+        "upcoming"
+      ]
+    },
+    "es": {
+      "label": "Limen — Five Decisions",
+      "question": "¿Qué es Limen?",
+      "answer": "Limen es una de las Five Decisions de Diego. Todavía no hay nada decidido — la pregunta real y su evidencia se publicarán el día que pase de planificada a en construcción.",
+      "keywords": [
+        "limen",
+        "planificado",
+        "sin empezar",
+        "five decisions",
+        "proximamente"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "decision-prism",
+    "category": "decision",
+    "citationId": "work/prism",
+    "en": {
+      "label": "Prism — Five Decisions",
+      "question": "What is Prism?",
+      "answer": "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship. Status: building — work started 13 Aug 2026.",
+      "keywords": [
+        "prism",
+        "model good enough",
+        "evaluation",
+        "shipping",
+        "evidence",
+        "building",
+        "five decisions"
+      ]
+    },
+    "es": {
+      "label": "Prism — Five Decisions",
+      "question": "¿Qué es Prism?",
+      "answer": "Prism pregunta cómo decidir, con evidencia y no por intuición, que la salida de un modelo ya es lo bastante buena para publicarse. Estado: en construcción — empezó el 13 de agosto de 2026.",
+      "keywords": [
+        "prism",
+        "modelo suficientemente bueno",
+        "evaluacion",
+        "publicar",
+        "evidencia",
+        "en construccion",
+        "five decisions"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "decision-relay",
+    "category": "decision",
+    "citationId": "work/relay",
+    "en": {
+      "label": "Relay — Five Decisions",
+      "question": "What is Relay?",
+      "answer": "Relay is one of Diego's Five Decisions, currently planned rather than started. Its guiding question hasn't been set yet — it publishes here the day work on Relay actually begins.",
+      "keywords": [
+        "relay",
+        "planned",
+        "not started",
+        "five decisions",
+        "upcoming"
+      ]
+    },
+    "es": {
+      "label": "Relay — Five Decisions",
+      "question": "¿Qué es Relay?",
+      "answer": "Relay es una de las Five Decisions de Diego, todavía planificada y sin empezar. Su pregunta guía aún no se ha definido — se publicará aquí el día que el trabajo realmente comience.",
+      "keywords": [
+        "relay",
+        "planificado",
+        "sin empezar",
+        "five decisions",
+        "proximamente"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "decision-vector",
+    "category": "decision",
+    "citationId": "work/vector",
+    "en": {
+      "label": "Vector — Five Decisions",
+      "question": "What is Vector?",
+      "answer": "Vector is one of Diego's Five Decisions, held open on purpose. The specific question and its evidence appear here only once work on Vector begins.",
+      "keywords": [
+        "vector",
+        "planned",
+        "not started",
+        "five decisions",
+        "upcoming"
+      ]
+    },
+    "es": {
+      "label": "Vector — Five Decisions",
+      "question": "¿Qué es Vector?",
+      "answer": "Vector es una de las Five Decisions de Diego, dejada abierta a propósito. La pregunta concreta y su evidencia aparecerán aquí solo cuando el trabajo en Vector realmente empiece.",
+      "keywords": [
+        "vector",
+        "planificado",
+        "sin empezar",
+        "five decisions",
+        "proximamente"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "education-escom",
+    "category": "education",
+    "citationId": "resume#education-heading",
+    "en": {
+      "label": "ESCOM – BSc Data Science",
+      "question": "Where does Diego study?",
+      "answer": "Diego is completing a BSc in Data Science at ESCOM – Instituto Politécnico Nacional in Mexico City (Aug 2022 – expected 2027), with a 9.29/10 GPA.",
+      "keywords": [
+        "escom",
+        "instituto politecnico nacional",
+        "degree",
+        "gpa",
+        "data science",
+        "university",
+        "study"
+      ]
+    },
+    "es": {
+      "label": "ESCOM – Licenciatura en Ciencia de Datos",
+      "question": "¿Dónde estudia Diego?",
+      "answer": "Diego cursa la licenciatura en Ciencia de Datos en ESCOM – Instituto Politécnico Nacional, en Ciudad de México (ago. 2022 – previsto 2027), con un promedio de 9.29/10.",
+      "keywords": [
+        "escom",
+        "instituto politecnico nacional",
+        "licenciatura",
+        "promedio",
+        "ciencia de datos",
+        "universidad",
+        "estudia"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "education-queen-mary",
+    "category": "education",
+    "citationId": "resume#education-heading",
+    "en": {
+      "label": "Queen Mary University of London exchange",
+      "question": "Did Diego study abroad?",
+      "answer": "Yes — Diego did an academic exchange at Queen Mary University of London (Sep 2025 – Jan 2026), taking Introduction to AI (grade A) and Multi-Platform Game Development (grade B).",
+      "keywords": [
+        "queen mary",
+        "london",
+        "exchange",
+        "study abroad",
+        "introduction to ai",
+        "game development"
+      ]
+    },
+    "es": {
+      "label": "Intercambio en Queen Mary University of London",
+      "question": "¿Diego hizo un intercambio en el extranjero?",
+      "answer": "Sí — Diego hizo un intercambio académico en Queen Mary University of London (sep. 2025 – ene. 2026), donde cursó Introduction to AI (A) y Multi-Platform Game Development (B).",
+      "keywords": [
+        "queen mary",
+        "londres",
+        "intercambio",
+        "estudiar en el extranjero",
+        "introduction to ai",
+        "game development"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "faq-contact",
+    "category": "faq",
+    "citationId": "resume",
+    "en": {
+      "label": "How to reach Diego",
+      "question": "How can I contact Diego?",
+      "answer": "By email, LinkedIn, or GitHub — every contact route listed on the site is real and current, not a placeholder.",
+      "keywords": [
+        "contact",
+        "email",
+        "linkedin",
+        "github",
+        "reach",
+        "get in touch"
+      ]
+    },
+    "es": {
+      "label": "Cómo contactar a Diego",
+      "question": "¿Cómo puedo contactar a Diego?",
+      "answer": "Por correo, LinkedIn o GitHub — todas las vías de contacto que aparecen en el sitio funcionan y están al día, no son un marcador de lugar.",
+      "keywords": [
+        "contacto",
+        "correo",
+        "linkedin",
+        "github",
+        "contactar",
+        "escribir"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "faq-decision-status-meaning",
+    "category": "faq",
+    "citationId": "work",
+    "en": {
+      "label": "What 'planned'/'building' means",
+      "question": "What does 'planned' or 'building' mean for a Five Decisions project?",
+      "answer": "'Planned' means work hasn't started; 'building' means it's actively in progress but not yet verified. Diego never labels a project 'verified' without recorded evidence behind it.",
+      "keywords": [
+        "planned",
+        "building",
+        "verified",
+        "status",
+        "meaning",
+        "project state"
+      ]
+    },
+    "es": {
+      "label": "Qué significa 'planned'/'building'",
+      "question": "¿Qué significa 'planned' o 'building' en un proyecto de Five Decisions?",
+      "answer": "'Planned' (planificado) significa que aún no empezó; 'building' (en construcción) significa que avanza pero no está verificado. Diego nunca marca un proyecto como 'verified' sin evidencia registrada.",
+      "keywords": [
+        "planned",
+        "building",
+        "verified",
+        "estado",
+        "significado",
+        "estado del proyecto"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "faq-scope-disclaimer",
+    "category": "faq",
+    "citationId": "ask",
+    "en": {
+      "label": "What Ask Diego can and can't answer",
+      "question": "Can Ask Diego share Diego's opinions or unlisted experience?",
+      "answer": "No — Ask Diego only answers from Diego's published bio, Five Decisions, credentials, and résumé. It won't guess at his opinions, availability details, or any experience not documented here.",
+      "keywords": [
+        "opinion",
+        "opinions",
+        "think",
+        "believe",
+        "favorite",
+        "personal",
+        "unlisted",
+        "undocumented",
+        "guess",
+        "prefer"
+      ]
+    },
+    "es": {
+      "label": "Qué puede y no puede responder Ask Diego",
+      "question": "¿Ask Diego puede compartir las opiniones de Diego o experiencia no publicada?",
+      "answer": "No — Ask Diego solo responde con la biografía publicada de Diego, Five Decisions, sus credenciales y su currículum. No inventa opiniones, disponibilidad ni experiencia no documentada aquí.",
+      "keywords": [
+        "opinion",
+        "opiniones",
+        "piensa",
+        "cree",
+        "favorito",
+        "personal",
+        "no publicado",
+        "no documentado",
+        "inventar",
+        "prefiere"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "faq-technologies",
+    "category": "faq",
+    "citationId": "resume#skills-heading",
+    "en": {
+      "label": "Technologies Diego uses",
+      "question": "What technologies does Diego use?",
+      "answer": "Python, SQL, and TypeScript; RAG, LangChain/LangGraph, and LLM fine-tuning; FastAPI, PostgreSQL, and W3C DIDs/VCs; Azure OpenAI, Docker, and OpenTelemetry. Full list on the résumé.",
+      "keywords": [
+        "technologies",
+        "tech stack",
+        "programming languages",
+        "python",
+        "langchain",
+        "rag",
+        "fastapi",
+        "azure",
+        "skills",
+        "tools"
+      ]
+    },
+    "es": {
+      "label": "Tecnologías que usa Diego",
+      "question": "¿Qué tecnologías usa Diego?",
+      "answer": "Python, SQL y TypeScript; RAG, LangChain/LangGraph y ajuste fino de LLM; FastAPI, PostgreSQL y W3C DIDs/VCs; Azure OpenAI, Docker y OpenTelemetry. Lista completa en el currículum.",
+      "keywords": [
+        "tecnologias",
+        "stack",
+        "lenguajes de programacion",
+        "python",
+        "langchain",
+        "rag",
+        "fastapi",
+        "azure",
+        "habilidades",
+        "herramientas"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "faq-what-is-five-decisions",
+    "category": "faq",
+    "citationId": "work",
+    "en": {
+      "label": "What is Five Decisions?",
+      "question": "What is Five Decisions?",
+      "answer": "Five Decisions — Prism, Relay, Limen, Axiom, and Vector — is Diego's public collection of hard, open questions he's turning into runnable, checkable systems, one at a time, from August 2026 onward.",
+      "keywords": [
+        "five decisions",
+        "prism",
+        "relay",
+        "limen",
+        "axiom",
+        "vector",
+        "collection",
+        "project",
+        "portfolio"
+      ]
+    },
+    "es": {
+      "label": "¿Qué es Five Decisions?",
+      "question": "¿Qué es Five Decisions?",
+      "answer": "Five Decisions —Prism, Relay, Limen, Axiom y Vector— es la colección pública de Diego: preguntas abiertas y difíciles que va convirtiendo, una por una, en sistemas ejecutables y revisables, desde agosto de 2026.",
+      "keywords": [
+        "five decisions",
+        "prism",
+        "relay",
+        "limen",
+        "axiom",
+        "vector",
+        "coleccion",
+        "proyecto",
+        "portafolio"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "identity-bio",
+    "category": "identity",
+    "citationId": "home",
+    "en": {
+      "label": "Who Diego is",
+      "question": "Who is Diego?",
+      "answer": "Diego is a final-year BSc Data Science student in Mexico City, interning in AI engineering at Infosys through the InStep Global Internship. He's focused on the point where a model or pipeline has to stop being a demo and become something a stranger can run and check.",
+      "keywords": [
+        "who",
+        "diego",
+        "bio",
+        "background",
+        "student",
+        "data science",
+        "infosys",
+        "intern",
+        "mexico city"
+      ]
+    },
+    "es": {
+      "label": "Quién es Diego",
+      "question": "¿Quién es Diego?",
+      "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hace una pasantía de ingeniería de IA en Infosys, dentro del programa InStep Global Internship. Le interesa el momento en que un modelo deja de ser demo y se vuelve algo verificable.",
+      "keywords": [
+        "quien",
+        "diego",
+        "biografia",
+        "estudiante",
+        "ciencia de datos",
+        "infosys",
+        "pasantia",
+        "practicas",
+        "ciudad de mexico"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "identity-positioning",
+    "category": "identity",
+    "citationId": "home",
+    "en": {
+      "label": "What Diego does",
+      "question": "What does Diego do?",
+      "answer": "Data Science student and AI systems builder. He turns difficult questions into useful, testable systems — Five Decisions (Prism, Relay, Limen, Axiom, Vector) is where that starts becoming code other people can run.",
+      "keywords": [
+        "what",
+        "does",
+        "focus",
+        "positioning",
+        "ai systems builder",
+        "five decisions",
+        "work",
+        "specialty"
+      ]
+    },
+    "es": {
+      "label": "A qué se dedica Diego",
+      "question": "¿A qué se dedica Diego?",
+      "answer": "Ciencia de Datos por formación, sistemas de IA por oficio. Cada pregunta difícil se convierte en un sistema que se puede usar y poner a prueba — ahí nace Five Decisions: Prism, Relay, Limen, Axiom y Vector.",
+      "keywords": [
+        "que hace",
+        "a que se dedica",
+        "enfoque",
+        "sistemas de ia",
+        "five decisions",
+        "trabajo",
+        "especialidad"
+      ]
+    }
+  }
+]

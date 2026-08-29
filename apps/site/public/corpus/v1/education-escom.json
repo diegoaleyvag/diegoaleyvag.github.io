@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "education-escom",
+  "category": "education",
+  "citationId": "resume#education-heading",
+  "en": {
+    "label": "ESCOM – BSc Data Science",
+    "question": "Where does Diego study?",
+    "answer": "Diego is completing a BSc in Data Science at ESCOM – Instituto Politécnico Nacional in Mexico City (Aug 2022 – expected 2027), with a 9.29/10 GPA.",
+    "keywords": [
+      "escom",
+      "instituto politecnico nacional",
+      "degree",
+      "gpa",
+      "data science",
+      "university",
+      "study"
+    ]
+  },
+  "es": {
+    "label": "ESCOM – Licenciatura en Ciencia de Datos",
+    "question": "¿Dónde estudia Diego?",
+    "answer": "Diego cursa la licenciatura en Ciencia de Datos en ESCOM – Instituto Politécnico Nacional, en Ciudad de México (ago. 2022 – previsto 2027), con un promedio de 9.29/10.",
+    "keywords": [
+      "escom",
+      "instituto politecnico nacional",
+      "licenciatura",
+      "promedio",
+      "ciencia de datos",
+      "universidad",
+      "estudia"
+    ]
+  }
+}

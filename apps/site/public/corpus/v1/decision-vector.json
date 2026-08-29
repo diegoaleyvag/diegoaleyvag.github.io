@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "decision-vector",
+  "category": "decision",
+  "citationId": "work/vector",
+  "en": {
+    "label": "Vector — Five Decisions",
+    "question": "What is Vector?",
+    "answer": "Vector is one of Diego's Five Decisions, held open on purpose. The specific question and its evidence appear here only once work on Vector begins.",
+    "keywords": [
+      "vector",
+      "planned",
+      "not started",
+      "five decisions",
+      "upcoming"
+    ]
+  },
+  "es": {
+    "label": "Vector — Five Decisions",
+    "question": "¿Qué es Vector?",
+    "answer": "Vector es una de las Five Decisions de Diego, dejada abierta a propósito. La pregunta concreta y su evidencia aparecerán aquí solo cuando el trabajo en Vector realmente empiece.",
+    "keywords": [
+      "vector",
+      "planificado",
+      "sin empezar",
+      "five decisions",
+      "proximamente"
+    ]
+  }
+}

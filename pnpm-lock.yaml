@@ -27,6 +27,9 @@ importers:
 
   .:
     dependencies:
+      '@portfolio/ask-corpus':
+        specifier: workspace:*
+        version: link:packages/ask-corpus
       '@portfolio/decisions':
         specifier: workspace:*
         version: link:packages/decisions
@@ -104,6 +107,15 @@ importers:
       '@astrojs/check':
         specifier: 0.9.10
         version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@5.9.3)
+
+  packages/ask-corpus:
+    dependencies:
+      ajv:
+        specifier: 'catalog:'
+        version: 8.20.0
+      ajv-formats:
+        specifier: 'catalog:'
+        version: 3.0.1(ajv@8.20.0)
 
   packages/decisions:
     dependencies:

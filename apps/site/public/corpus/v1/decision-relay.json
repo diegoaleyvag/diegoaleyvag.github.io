@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "decision-relay",
+  "category": "decision",
+  "citationId": "work/relay",
+  "en": {
+    "label": "Relay — Five Decisions",
+    "question": "What is Relay?",
+    "answer": "Relay is one of Diego's Five Decisions, currently planned rather than started. Its guiding question hasn't been set yet — it publishes here the day work on Relay actually begins.",
+    "keywords": [
+      "relay",
+      "planned",
+      "not started",
+      "five decisions",
+      "upcoming"
+    ]
+  },
+  "es": {
+    "label": "Relay — Five Decisions",
+    "question": "¿Qué es Relay?",
+    "answer": "Relay es una de las Five Decisions de Diego, todavía planificada y sin empezar. Su pregunta guía aún no se ha definido — se publicará aquí el día que el trabajo realmente comience.",
+    "keywords": [
+      "relay",
+      "planificado",
+      "sin empezar",
+      "five decisions",
+      "proximamente"
+    ]
+  }
+}

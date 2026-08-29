@@ -10,6 +10,7 @@ export default [
       "**/.astro/",
       "apps/site/.vercel/**",
       "apps/site/dist/**",
+      "apps/site/public/corpus/**",
       "apps/site/public/decisions/**",
       "apps/site/public/downloads/**",
       "coverage/**",

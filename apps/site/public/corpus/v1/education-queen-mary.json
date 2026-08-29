@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "education-queen-mary",
+  "category": "education",
+  "citationId": "resume#education-heading",
+  "en": {
+    "label": "Queen Mary University of London exchange",
+    "question": "Did Diego study abroad?",
+    "answer": "Yes — Diego did an academic exchange at Queen Mary University of London (Sep 2025 – Jan 2026), taking Introduction to AI (grade A) and Multi-Platform Game Development (grade B).",
+    "keywords": [
+      "queen mary",
+      "london",
+      "exchange",
+      "study abroad",
+      "introduction to ai",
+      "game development"
+    ]
+  },
+  "es": {
+    "label": "Intercambio en Queen Mary University of London",
+    "question": "¿Diego hizo un intercambio en el extranjero?",
+    "answer": "Sí — Diego hizo un intercambio académico en Queen Mary University of London (sep. 2025 – ene. 2026), donde cursó Introduction to AI (A) y Multi-Platform Game Development (B).",
+    "keywords": [
+      "queen mary",
+      "londres",
+      "intercambio",
+      "estudiar en el extranjero",
+      "introduction to ai",
+      "game development"
+    ]
+  }
+}

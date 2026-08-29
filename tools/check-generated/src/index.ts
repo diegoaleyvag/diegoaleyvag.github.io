@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { loadResume } from "@portfolio/resume";
 
 await import("../../build-decisions/src/check-generated.ts");
+await import("../../build-corpus/src/check-generated.ts");
 
 const generatedProvenancePath = fileURLToPath(
   new URL(

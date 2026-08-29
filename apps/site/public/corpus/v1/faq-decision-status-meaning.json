@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "faq-decision-status-meaning",
+  "category": "faq",
+  "citationId": "work",
+  "en": {
+    "label": "What 'planned'/'building' means",
+    "question": "What does 'planned' or 'building' mean for a Five Decisions project?",
+    "answer": "'Planned' means work hasn't started; 'building' means it's actively in progress but not yet verified. Diego never labels a project 'verified' without recorded evidence behind it.",
+    "keywords": [
+      "planned",
+      "building",
+      "verified",
+      "status",
+      "meaning",
+      "project state"
+    ]
+  },
+  "es": {
+    "label": "Qué significa 'planned'/'building'",
+    "question": "¿Qué significa 'planned' o 'building' en un proyecto de Five Decisions?",
+    "answer": "'Planned' (planificado) significa que aún no empezó; 'building' (en construcción) significa que avanza pero no está verificado. Diego nunca marca un proyecto como 'verified' sin evidencia registrada.",
+    "keywords": [
+      "planned",
+      "building",
+      "verified",
+      "estado",
+      "significado",
+      "estado del proyecto"
+    ]
+  }
+}

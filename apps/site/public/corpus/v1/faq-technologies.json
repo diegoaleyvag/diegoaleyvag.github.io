@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "faq-technologies",
+  "category": "faq",
+  "citationId": "resume#skills-heading",
+  "en": {
+    "label": "Technologies Diego uses",
+    "question": "What technologies does Diego use?",
+    "answer": "Python, SQL, and TypeScript; RAG, LangChain/LangGraph, and LLM fine-tuning; FastAPI, PostgreSQL, and W3C DIDs/VCs; Azure OpenAI, Docker, and OpenTelemetry. Full list on the résumé.",
+    "keywords": [
+      "technologies",
+      "tech stack",
+      "programming languages",
+      "python",
+      "langchain",
+      "rag",
+      "fastapi",
+      "azure",
+      "skills",
+      "tools"
+    ]
+  },
+  "es": {
+    "label": "Tecnologías que usa Diego",
+    "question": "¿Qué tecnologías usa Diego?",
+    "answer": "Python, SQL y TypeScript; RAG, LangChain/LangGraph y ajuste fino de LLM; FastAPI, PostgreSQL y W3C DIDs/VCs; Azure OpenAI, Docker y OpenTelemetry. Lista completa en el currículum.",
+    "keywords": [
+      "tecnologias",
+      "stack",
+      "lenguajes de programacion",
+      "python",
+      "langchain",
+      "rag",
+      "fastapi",
+      "azure",
+      "habilidades",
+      "herramientas"
+    ]
+  }
+}

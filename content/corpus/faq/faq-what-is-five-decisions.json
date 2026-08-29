@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "faq-what-is-five-decisions",
+  "category": "faq",
+  "citationId": "work",
+  "en": {
+    "label": "What is Five Decisions?",
+    "question": "What is Five Decisions?",
+    "answer": "Five Decisions — Prism, Relay, Limen, Axiom, and Vector — is Diego's public collection of hard, open questions he's turning into runnable, checkable systems, one at a time, from August 2026 onward.",
+    "keywords": [
+      "five decisions",
+      "prism",
+      "relay",
+      "limen",
+      "axiom",
+      "vector",
+      "collection",
+      "project",
+      "portfolio"
+    ]
+  },
+  "es": {
+    "label": "¿Qué es Five Decisions?",
+    "question": "¿Qué es Five Decisions?",
+    "answer": "Five Decisions —Prism, Relay, Limen, Axiom y Vector— es la colección pública de Diego: preguntas abiertas y difíciles que va convirtiendo, una por una, en sistemas ejecutables y revisables, desde agosto de 2026.",
+    "keywords": [
+      "five decisions",
+      "prism",
+      "relay",
+      "limen",
+      "axiom",
+      "vector",
+      "coleccion",
+      "proyecto",
+      "portafolio"
+    ]
+  }
+}

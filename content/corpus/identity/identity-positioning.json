@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "identity-positioning",
+  "category": "identity",
+  "citationId": "home",
+  "en": {
+    "label": "What Diego does",
+    "question": "What does Diego do?",
+    "answer": "Data Science student and AI systems builder. He turns difficult questions into useful, testable systems — Five Decisions (Prism, Relay, Limen, Axiom, Vector) is where that starts becoming code other people can run.",
+    "keywords": [
+      "what",
+      "does",
+      "focus",
+      "positioning",
+      "ai systems builder",
+      "five decisions",
+      "work",
+      "specialty"
+    ]
+  },
+  "es": {
+    "label": "A qué se dedica Diego",
+    "question": "¿A qué se dedica Diego?",
+    "answer": "Ciencia de Datos por formación, sistemas de IA por oficio. Cada pregunta difícil se convierte en un sistema que se puede usar y poner a prueba — ahí nace Five Decisions: Prism, Relay, Limen, Axiom y Vector.",
+    "keywords": [
+      "que hace",
+      "a que se dedica",
+      "enfoque",
+      "sistemas de ia",
+      "five decisions",
+      "trabajo",
+      "especialidad"
+    ]
+  }
+}

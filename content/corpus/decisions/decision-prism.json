@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "decision-prism",
+  "category": "decision",
+  "citationId": "work/prism",
+  "en": {
+    "label": "Prism — Five Decisions",
+    "question": "What is Prism?",
+    "answer": "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship. Status: building — work started 13 Aug 2026.",
+    "keywords": [
+      "prism",
+      "model good enough",
+      "evaluation",
+      "shipping",
+      "evidence",
+      "building",
+      "five decisions"
+    ]
+  },
+  "es": {
+    "label": "Prism — Five Decisions",
+    "question": "¿Qué es Prism?",
+    "answer": "Prism pregunta cómo decidir, con evidencia y no por intuición, que la salida de un modelo ya es lo bastante buena para publicarse. Estado: en construcción — empezó el 13 de agosto de 2026.",
+    "keywords": [
+      "prism",
+      "modelo suficientemente bueno",
+      "evaluacion",
+      "publicar",
+      "evidencia",
+      "en construccion",
+      "five decisions"
+    ]
+  }
+}

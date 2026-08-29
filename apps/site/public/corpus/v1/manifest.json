@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "entries": [
+    {
+      "id": "availability-status",
+      "path": "/corpus/v1/availability-status.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1133,
+      "sha256": "9ecee784b17341b0205679654be63e9de9ac1d4198336460030cd7dc5932320a"
+    },
+    {
+      "id": "credential-claude-foundations",
+      "path": "/corpus/v1/credential-claude-foundations.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1238,
+      "sha256": "bc147a0cce99b274491c0c0d56be19ce6d91a3f1b6ce02d0c8328bc8918f23fc"
+    },
+    {
+      "id": "credential-claude-professional",
+      "path": "/corpus/v1/credential-claude-professional.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1247,
+      "sha256": "03e4ae4e604d4b9dbae13e7987499193ad56dc053e264f35e63b0b1c9650dd1c"
+    },
+    {
+      "id": "credential-other-certifications",
+      "path": "/corpus/v1/credential-other-certifications.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1198,
+      "sha256": "e2fd66eae32d1fe635a46a2513ba342908f799e3351a76a066f94976d644f873"
+    },
+    {
+      "id": "decision-axiom",
+      "path": "/corpus/v1/decision-axiom.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 952,
+      "sha256": "a6d3316211d0b90ed564efd0b7df501d945c3edac8e86e6c07d2481269d1f305"
+    },
+    {
+      "id": "decision-limen",
+      "path": "/corpus/v1/decision-limen.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 943,
+      "sha256": "b37b0d4663a6df83f5c24a35064273b51378e1645023eb1128b0f173c3552774"
+    },
+    {
+      "id": "decision-prism",
+      "path": "/corpus/v1/decision-prism.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1069,
+      "sha256": "9c6278b6244a14bcdc0349aab104c0a4dcb95b29ea1875358d9667b28952577d"
+    },
+    {
+      "id": "decision-relay",
+      "path": "/corpus/v1/decision-relay.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 973,
+      "sha256": "7aa7940453de72d7a58090b171609b46db6dcb7820a3f43d220c53b5021124ed"
+    },
+    {
+      "id": "decision-vector",
+      "path": "/corpus/v1/decision-vector.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 939,
+      "sha256": "ede6c2806164f29659e2316a47116994ea9faf2b9fcb717b58b0f5f1e1d873c4"
+    },
+    {
+      "id": "education-escom",
+      "path": "/corpus/v1/education-escom.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1083,
+      "sha256": "27ec3a49540af6a2597caa3f698617ffb2ccc64ffd230eb044b395c10bc772e6"
+    },
+    {
+      "id": "education-queen-mary",
+      "path": "/corpus/v1/education-queen-mary.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1143,
+      "sha256": "8b1146f5c5df54f209e3a354a460f41993c80dc8f9e2903ce5170cd943e8f39c"
+    },
+    {
+      "id": "faq-contact",
+      "path": "/corpus/v1/faq-contact.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 877,
+      "sha256": "c36796f39c7f5ad1fde9d41153dd8e32ee63128dedf55e5039d7b4ecd82c924b"
+    },
+    {
+      "id": "faq-decision-status-meaning",
+      "path": "/corpus/v1/faq-decision-status-meaning.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1147,
+      "sha256": "148eb508dc76f37b5123e84efe85c888ab23cb257c4991f87445cdd2f84d5bd9"
+    },
+    {
+      "id": "faq-scope-disclaimer",
+      "path": "/corpus/v1/faq-scope-disclaimer.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1281,
+      "sha256": "3c0e27b4a0e28e61237c3079d1f4be009ea2c69c1e8d7eb6580e547f7df3770e"
+    },
+    {
+      "id": "faq-technologies",
+      "path": "/corpus/v1/faq-technologies.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1189,
+      "sha256": "9ee936f3faef0d369aaae607aaf05d00d13fd117843674e0224164ea9893a7f4"
+    },
+    {
+      "id": "faq-what-is-five-decisions",
+      "path": "/corpus/v1/faq-what-is-five-decisions.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1158,
+      "sha256": "cf3a202a1b3c3c3564c1b2dc0e7ec69619ebd1dd1bdde8a3fa5f6cc97fe211dd"
+    },
+    {
+      "id": "identity-bio",
+      "path": "/corpus/v1/identity-bio.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1249,
+      "sha256": "1df2ad61dad51ca8061b3827b46ce833ee234fa20759843126394ab8fb65645e"
+    },
+    {
+      "id": "identity-positioning",
+      "path": "/corpus/v1/identity-positioning.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1133,
+      "sha256": "5e13e5d2c7883b15339e793d1eeb014c68657a1afade2761954a9846ac8a52f5"
+    }
+  ]
+}

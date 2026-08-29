@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "faq-contact",
+  "category": "faq",
+  "citationId": "resume",
+  "en": {
+    "label": "How to reach Diego",
+    "question": "How can I contact Diego?",
+    "answer": "By email, LinkedIn, or GitHub — every contact route listed on the site is real and current, not a placeholder.",
+    "keywords": [
+      "contact",
+      "email",
+      "linkedin",
+      "github",
+      "reach",
+      "get in touch"
+    ]
+  },
+  "es": {
+    "label": "Cómo contactar a Diego",
+    "question": "¿Cómo puedo contactar a Diego?",
+    "answer": "Por correo, LinkedIn o GitHub — todas las vías de contacto que aparecen en el sitio funcionan y están al día, no son un marcador de lugar.",
+    "keywords": [
+      "contacto",
+      "correo",
+      "linkedin",
+      "github",
+      "contactar",
+      "escribir"
+    ]
+  }
+}

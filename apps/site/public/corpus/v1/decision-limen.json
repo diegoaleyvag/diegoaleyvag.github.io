@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "decision-limen",
+  "category": "decision",
+  "citationId": "work/limen",
+  "en": {
+    "label": "Limen — Five Decisions",
+    "question": "What is Limen?",
+    "answer": "Limen is one of Diego's Five Decisions. Nothing is decided yet — the real question and any supporting evidence go up the day it moves from planned to building.",
+    "keywords": [
+      "limen",
+      "planned",
+      "not started",
+      "five decisions",
+      "upcoming"
+    ]
+  },
+  "es": {
+    "label": "Limen — Five Decisions",
+    "question": "¿Qué es Limen?",
+    "answer": "Limen es una de las Five Decisions de Diego. Todavía no hay nada decidido — la pregunta real y su evidencia se publicarán el día que pase de planificada a en construcción.",
+    "keywords": [
+      "limen",
+      "planificado",
+      "sin empezar",
+      "five decisions",
+      "proximamente"
+    ]
+  }
+}

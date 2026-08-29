@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "collection": "ask-corpus",
+  "id": "availability-status",
+  "category": "availability",
+  "citationId": "resume",
+  "en": {
+    "label": "Availability",
+    "question": "Is Diego available for a job or internship?",
+    "answer": "Diego is open to remote work and relocation, and is seeking junior AI/ML engineering roles. He's currently interning in AI engineering at Infosys while finishing his degree.",
+    "keywords": [
+      "available",
+      "availability",
+      "hire",
+      "hiring",
+      "job",
+      "internship",
+      "remote",
+      "relocation",
+      "open to work"
+    ]
+  },
+  "es": {
+    "label": "Disponibilidad",
+    "question": "¿Diego está disponible para un empleo o pasantía?",
+    "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos junior de ingeniería de IA/ML. Actualmente hace una pasantía de ingeniería de IA en Infosys mientras termina la carrera.",
+    "keywords": [
+      "disponible",
+      "disponibilidad",
+      "contratar",
+      "empleo",
+      "trabajo",
+      "pasantia",
+      "remoto",
+      "reubicacion"
+    ]
+  }
+}

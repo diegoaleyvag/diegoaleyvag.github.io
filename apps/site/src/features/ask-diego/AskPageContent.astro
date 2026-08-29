@@ -2,17 +2,19 @@
 import { loadCorpusEntries } from "@portfolio/ask-corpus";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ROUTES } from "../../lib/i18n.ts";
 import type { AskLocale } from "./api.ts";
 import AskGuide from "./AskGuide.tsx";
 import { ASK_GUIDE_COPY } from "./copy.ts";
 
 interface Props {
   locale: AskLocale;
-  activePath: "/ask/" | "/es/pregunta/";
 }
 
-const { locale, activePath } = Astro.props;
+const { locale } = Astro.props;
 const copy = ASK_GUIDE_COPY[locale];
+const path = ROUTES.ask[locale];
+const alternatePath = ROUTES.ask[locale === "en" ? "es" : "en"];
 
 // Build-time only (this route prerenders): reads content/corpus/** fresh on
 // every build, same as @portfolio/resume's loadResume() elsewhere on the
@@ -24,10 +26,12 @@ const faqEntries = loaded.map(({ entry }) => entry);
 ---
 
 <BaseLayout
+  lang={locale}
   title={copy.documentTitle}
   description={copy.intro}
-  activePath={activePath}
-  lang={locale}
+  path={path}
+  alternatePath={alternatePath}
+  activeHref={ROUTES.ask[locale]}
 >
   <article class="content-frame ask-page">
     <header class="ask-page__header">

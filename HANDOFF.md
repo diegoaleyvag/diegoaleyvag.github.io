@@ -316,9 +316,14 @@ framing — all explicitly out of scope for this session (AGENTS.md: no
 Vercel project/domain configuration, no fabricated photography, Governance
 Lab assets require an approved intake location that doesn't exist yet):
 
-1. **A real photograph** to replace the honest typographic placeholder
-   (`apps/site/src/components/AboutPortrait.astro`) — no photo may ever be
-   AI-generated, per `AGENTS.md`.
+1. ~~**A real photograph** to replace the honest typographic
+   placeholder~~ — **resolved**: Diego supplied a real photo directly in
+   this session (`apps/site/src/assets/diego-portrait.jpg`).
+   `AboutPortrait.astro` now renders it via Astro's built-in image
+   pipeline (AVIF + WebP + JPEG fallback, explicit dimensions, no
+   third-party request); `sharp` was added as a direct `apps/site`
+   dependency (already security-pinned in `pnpm-workspace.yaml`) since
+   Astro's image service needs it resolvable from that package specifically.
 2. **The two Credly URLs** — already provided and in use. Confirmed in
    `content/site/credentials.yaml`:
    `https://www.credly.com/badges/844c78b3-1d88-4d41-9d33-c85d3656270d`

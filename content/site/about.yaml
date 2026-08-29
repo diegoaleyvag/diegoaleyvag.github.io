@@ -1,10 +1,10 @@
 # About section: bio paragraph + work principles, text only.
 #
-# Photo placeholder: this section renders next to a deliberate, honest
-# placeholder where a portrait would go (AGENTS.md "No fabricated
-# photography"). No photo of Diego is generated or referenced anywhere in
-# this file, or anywhere else on the site — a real photo may replace the
-# placeholder later, but nothing here depends on one existing yet.
+# Photo: this section renders next to a real photograph Diego supplied
+# directly (apps/site/src/assets/diego-portrait.jpg, rendered by
+# AboutPortrait.astro). AGENTS.md's "No fabricated photography" rule forbids
+# an AI-*generated* portrait, never a real one Diego provides himself — no
+# image is referenced or generated in this file either way.
 #
 # Every fact in `bio` traces to content/source/cv.yaml (final-year BSc Data
 # Science student; AI Engineering Intern at Infosys Limited via the InStep

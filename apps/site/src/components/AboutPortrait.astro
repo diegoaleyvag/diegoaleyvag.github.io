@@ -1,49 +1,45 @@
 ---
-// A deliberate, honest placeholder — never an AI-generated photo of Diego
-// (AGENTS.md "No fabricated photography"). A typographic monogram in the
-// visual system's own display face, on a dashed neutral border matching
-// DESIGN.md's Learning role treatment (the one role with no hue), so the
-// device itself signals "not a real photo" rather than trying to pass as
-// one. `altText` must always state plainly that this is a placeholder.
+// A real photograph, provided directly by Diego (owner-supplied, never
+// AI-generated — AGENTS.md "No fabricated photography" only ever forbade a
+// *generated* portrait; a real one supersedes the placeholder it replaces).
+// Self-hosted and build-time optimized via Astro's own image pipeline
+// (astro:assets → sharp), emitting AVIF with a WebP fallback and explicit
+// width/height so no third-party request or layout shift is introduced.
+import { Picture } from "astro:assets";
+
+import portraitSource from "../assets/diego-portrait.jpg";
+
 interface Props {
   readonly altText: string;
 }
 
 const { altText } = Astro.props;
+const DISPLAY_SIZE = 480;
 ---
 
-<figure class="about-portrait" role="img" aria-label={altText}>
-  <span class="about-portrait__mark" aria-hidden="true">DL</span>
-  <figcaption class="about-portrait__caption">{altText}</figcaption>
+<figure class="about-portrait">
+  <Picture
+    src={portraitSource}
+    alt={altText}
+    formats={["avif", "webp"]}
+    width={DISPLAY_SIZE}
+    height={DISPLAY_SIZE}
+    loading="lazy"
+    decoding="async"
+    class="about-portrait__image"
+  />
 </figure>
 
 <style>
   .about-portrait {
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
   }
 
-  .about-portrait__mark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
+  .about-portrait__image {
+    display: block;
     width: min(100%, 14rem);
-    border: 2px dashed var(--line-dashed);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: var(--radius);
-    background: var(--field-raised);
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(3.5rem, 5vw + 2rem, 5.5rem);
-    letter-spacing: -0.02em;
-    color: var(--graphite-muted);
-  }
-
-  .about-portrait__caption {
-    max-width: 20ch;
-    font-size: 0.75rem;
-    color: var(--graphite-muted);
   }
 </style>

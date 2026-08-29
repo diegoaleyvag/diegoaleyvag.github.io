@@ -133,8 +133,7 @@ export const SECTION_COPY: Record<
     governanceLabNote:
       "A secondary case — not published yet, an honest placeholder.",
     archiveCta: "Academic archive",
-    aboutPhotoAlt:
-      "Placeholder monogram standing in for a portrait — no photo of Diego exists on this site yet.",
+    aboutPhotoAlt: "Diego Leyva",
     contactEmailLabel: "Email",
     contactLinkedinLabel: "LinkedIn",
     contactGithubLabel: "GitHub",
@@ -155,8 +154,7 @@ export const SECTION_COPY: Record<
     governanceLabNote:
       "Un caso secundario — todavía no publicado, un placeholder honesto.",
     archiveCta: "Archivo académico",
-    aboutPhotoAlt:
-      "Monograma de marcador en lugar de un retrato — todavía no existe ninguna foto de Diego en este sitio.",
+    aboutPhotoAlt: "Diego Leyva",
     contactEmailLabel: "Correo",
     contactLinkedinLabel: "LinkedIn",
     contactGithubLabel: "GitHub",

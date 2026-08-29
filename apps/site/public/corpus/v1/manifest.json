@@ -6,8 +6,8 @@
       "id": "availability-status",
       "path": "/corpus/v1/availability-status.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1133,
-      "sha256": "9ecee784b17341b0205679654be63e9de9ac1d4198336460030cd7dc5932320a"
+      "byteLength": 1155,
+      "sha256": "061d276c817f554303a53ae9b51c88c0f2e35b83721482257ab6e14a5c313a34"
     },
     {
       "id": "credential-claude-foundations",
@@ -78,6 +78,13 @@
       "schemaVersion": "1.0.0",
       "byteLength": 1143,
       "sha256": "8b1146f5c5df54f209e3a354a460f41993c80dc8f9e2903ce5170cd943e8f39c"
+    },
+    {
+      "id": "education-san-buenaventura",
+      "path": "/corpus/v1/education-san-buenaventura.json",
+      "schemaVersion": "1.0.0",
+      "byteLength": 1224,
+      "sha256": "b08e63a8de2f07bc9f9a68827c954f2ec82e85cf228a59c5ac838019d54b6694"
     },
     {
       "id": "faq-contact",

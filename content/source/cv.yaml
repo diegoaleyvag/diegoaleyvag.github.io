@@ -10,21 +10,20 @@ github:
   label: "github.com/diegoaleyvag"
   url: "https://github.com/diegoaleyvag"
 
-summary: "Final-year BSc Data Science student with AI engineering experience building enterprise agent governance, RAG and agentic systems. Seeking junior AI/ML engineering roles."
+summary: "Final-year BSc Data Science student with AI engineering experience building enterprise agent governance, RAG and agentic systems. Seeking AI/ML engineering and data science roles."
 
 experience:
   - organisation: "Infosys Limited"
     role: "AI Engineering Intern"
     programme: "InStep Global Internship"
-    dates: "Feb 2026 – Present"
+    dates: "Feb 2026 – Aug 2026"
     location: "Bangalore, India"
     bullets:
       - "Engineered the Identity Module and DID/Credential service for an Agent Governance Framework, implementing W3C did:web and did:key identities, Ed25519 signing and credential issuance and validation"
       - "Architected Pydantic v2 models and async PostgreSQL persistence with SQLAlchemy and Alembic for multi-tenant agent registration, identity resolution and lifecycle controls"
       - "Co-developed the trust layer with 3 engineers, integrating OPA/Rego policy gates, Merkle-tree audit evidence and OpenTelemetry observability across the agent execution flow"
-      - "Placed 3rd among 6 finalists at Infosys InStep Project Fest 2026; presented the framework in 3 technical reviews, including a session with Infosys founder N. R. Narayana Murthy"
-      - "Built a Multimodal RAG Research Assistant using document and image embeddings with vector search during certified AI-First Engineering training"
-      - "Developed a Data Analyst Agent that executed sandboxed pandas code from natural-language queries and generated automated visualisations"
+      - "Led the presentations through 3 review stages, including a session with Infosys founder N. R. Narayana Murthy and CTO Rafee Tarafdar; placed 3rd among 6 finalists from ~30 teams at InStep Project Fest 2026"
+      - "Built a Multimodal RAG Research Assistant with document/image embeddings and a Data Analyst Agent executing sandboxed pandas code from natural-language queries, during AI-First Engineering training"
 
 projects:
   - name: "FridgeGuard"
@@ -51,6 +50,11 @@ education:
     dates: "Aug 2022 – Expected 2027"
     location: "Mexico City, MX"
     detail: "GPA: 9.29/10"
+  - institution: "Universidad de San Buenaventura"
+    credential: "Academic Exchange"
+    dates: "Aug 2026 – Dec 2026"
+    location: "Bogotá, Colombia"
+    detail: "Coursework in Systems Engineering and Business Administration"
   - institution: "Queen Mary University of London"
     credential: "Academic Exchange"
     dates: "Sep 2025 – Jan 2026"
@@ -59,11 +63,11 @@ education:
 
 skills:
   - label: "Programming"
-    value: "Python, SQL, JavaScript/TypeScript, C#, Java"
+    value: "Python, SQL, C#"
   - label: "AI/ML"
-    value: "LangChain, LangGraph, RAG, LLM fine-tuning, agentic AI, scikit-learn, pandas, NumPy"
+    value: "LangChain, LangGraph, RAG, LLM fine-tuning, Multi-Agent Orchestration, Claude Agent SDK, scikit-learn, pandas, NumPy"
   - label: "Governance & Backend"
-    value: "W3C DIDs/VCs, OPA/Rego, Pydantic, FastAPI, SQLAlchemy/Alembic, PostgreSQL"
+    value: "AI Governance, W3C DIDs/VCs, OPA/Rego, Pydantic, FastAPI, SQLAlchemy/Alembic, PostgreSQL"
   - label: "Cloud & Tools"
     value: "Azure OpenAI, AI Search, Blob Storage, GCP foundations, Docker, Git, Linux, OpenTelemetry"
   - label: "Languages"

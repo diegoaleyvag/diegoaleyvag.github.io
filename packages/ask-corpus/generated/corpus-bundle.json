@@ -8,7 +8,7 @@
     "en": {
       "label": "Availability",
       "question": "Is Diego available for a job or internship?",
-      "answer": "Diego is open to remote work and relocation, and is seeking junior AI/ML engineering roles. He's currently interning in AI engineering at Infosys while finishing his degree.",
+      "answer": "Diego is open to remote work and relocation, and is seeking AI/ML engineering and data science roles. He's currently interning in AI engineering at Infosys while finishing his degree.",
       "keywords": [
         "available",
         "availability",
@@ -24,7 +24,7 @@
     "es": {
       "label": "Disponibilidad",
       "question": "¿Diego está disponible para un empleo o pasantía?",
-      "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos junior de ingeniería de IA/ML. Actualmente hace una pasantía de ingeniería de IA en Infosys mientras termina la carrera.",
+      "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos de ingeniería de IA/ML y ciencia de datos. Actualmente hace una pasantía de ingeniería de IA en Infosys mientras termina la carrera.",
       "keywords": [
         "disponible",
         "disponibilidad",
@@ -360,6 +360,41 @@
         "estudiar en el extranjero",
         "introduction to ai",
         "game development"
+      ]
+    }
+  },
+  {
+    "schemaVersion": "1.0.0",
+    "collection": "ask-corpus",
+    "id": "education-san-buenaventura",
+    "category": "education",
+    "citationId": "resume#education-heading",
+    "en": {
+      "label": "Universidad de San Buenaventura exchange",
+      "question": "Did Diego study in Colombia?",
+      "answer": "Yes — Diego did an academic exchange at Universidad de San Buenaventura in Bogotá (Aug 2026 – Dec 2026), taking coursework in Systems Engineering and Business Administration.",
+      "keywords": [
+        "san buenaventura",
+        "bogota",
+        "colombia",
+        "exchange",
+        "study abroad",
+        "systems engineering",
+        "business administration"
+      ]
+    },
+    "es": {
+      "label": "Intercambio en la Universidad de San Buenaventura",
+      "question": "¿Diego estudió en Colombia?",
+      "answer": "Sí — Diego hizo un intercambio académico en la Universidad de San Buenaventura, en Bogotá (ago. 2026 – dic. 2026), cursando materias de Ingeniería de Sistemas y Administración de Empresas.",
+      "keywords": [
+        "san buenaventura",
+        "bogota",
+        "colombia",
+        "intercambio",
+        "estudiar en el extranjero",
+        "ingenieria de sistemas",
+        "administracion de empresas"
       ]
     }
   },

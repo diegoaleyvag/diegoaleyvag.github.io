@@ -61,6 +61,11 @@ export const RESUME_ES_TRANSLATIONS: Readonly<Record<string, string>> = {
   "BSc Data Science": "Licenciatura en Ciencia de Datos",
   "Aug 2022 – Expected 2027": "Ago 2022 – 2027 (estimado)",
   "GPA: 9.29/10": "Promedio: 9.29/10",
+  "Universidad de San Buenaventura": "Universidad de San Buenaventura",
+  "Aug 2026 – Dec 2026": "Ago 2026 – Dic 2026",
+  "Bogotá, Colombia": "Bogotá, Colombia",
+  "Coursework in Systems Engineering and Business Administration":
+    "Materias de Ingeniería de Sistemas y Administración de Empresas",
   "Academic Exchange": "Intercambio académico",
   "Sep 2025 – Jan 2026": "Sep 2025 – Ene 2026",
   "London, UK": "Londres, Reino Unido",

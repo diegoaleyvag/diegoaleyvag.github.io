@@ -25,33 +25,50 @@ const reservedAstroInternalRoutePattern = /^\^\/(_image|_server-islands)\b/;
 // enforcement point for that cap, and the only hand-maintained piece of an
 // otherwise directory-driven scan: which routes may ship any first-party JS
 // at all is a design decision, not something a directory walk can infer, so
-// a short explicit allow-list is safer here than trying to derive it. No
-// island ships yet (the retired Replay lab's carve-out is gone with it,
-// ADR 0014); a later workstream adds an entry here when the map or Ask Diego
-// island actually lands.
-const knownIslandRoutes = new Set<string>([]);
+// a short explicit allow-list is safer here than trying to derive it. The
+// capability map island (ship-vertical-slice) is the first of the two
+// islands frontend.mdc allows; Ask Diego's island is the second, added by
+// its own sibling workstream. The map appears only on the homepage in each
+// language (DESIGN.md's brief scopes the interactive map to the home
+// route) — the work index and decision detail pages render the same
+// domains/decisions as plain server-rendered lists, not the island.
+const knownIslandRoutes = new Set<string>(["index.html", "es/index.html"]);
 if (knownIslandRoutes.size > 2) {
   throw new Error(
     "frontend.mdc caps hydration at two Preact islands — update the rule before this list",
   );
 }
-// Headroom reserved for a future Preact island; no route ships one today, so
-// nothing currently exercises this budget.
+// The measured, amortized cold-load budget for a page with one island is
+// ~7.7 KB gzip (DESIGN.md); uncompressed inline/shared-chunk JS on a single
+// route comfortably fits well under this generous ceiling, which exists to
+// catch a regression, not to be brushed against routinely.
 const maxIslandRouteScriptBytes = 320 * 1024;
 
 const requiredStaticFiles = [
   "404.html",
   "index.html",
+  "es/index.html",
   "resume/index.html",
+  "es/cv/index.html",
+  "work/index.html",
+  "es/trabajo/index.html",
   "work/governance-lab/index.html",
+  "archive/index.html",
+  "es/archivo/index.html",
   "decisions/v1/manifest.json",
-  "fonts/archivo-variable.woff2",
-  "fonts/archivo-black.woff2",
+  "fonts/big-shoulders-display-variable.woff2",
+  "fonts/public-sans-variable.woff2",
+  "fonts/public-sans-italic-variable.woff2",
+  "fonts/martian-mono-variable.woff2",
+  "sitemap.xml",
+  "robots.txt",
 ] as const;
 
 const selfHostedFonts = [
-  "fonts/archivo-variable.woff2",
-  "fonts/archivo-black.woff2",
+  "fonts/big-shoulders-display-variable.woff2",
+  "fonts/public-sans-variable.woff2",
+  "fonts/public-sans-italic-variable.woff2",
+  "fonts/martian-mono-variable.woff2",
 ] as const;
 
 const allowedStaticExtensions = new Set([
@@ -64,10 +81,13 @@ const allowedStaticExtensions = new Set([
   ".jpg",
   ".js",
   ".json",
+  ".pdf",
   ".png",
   ".svg",
+  ".txt",
   ".webp",
   ".woff2",
+  ".xml",
 ]);
 
 const staticTextExtensions = new Set([".css", ".html", ".js", ".json", ".svg"]);
@@ -348,13 +368,14 @@ async function checkStaticOutput(): Promise<{
     }
   }
   if (
-    !/--font-display\s*:[^;}]*Archivo Black[^;}]*Archivo[^;}]*sans-serif/i.test(
+    !/--font-display\s*:[^;}]*Big Shoulders Display[^;}]*sans-serif/i.test(
       combinedStyles,
     ) ||
-    !/--font-body\s*:[^;}]*Archivo[^;}]*sans-serif/i.test(combinedStyles)
+    !/--font-body\s*:[^;}]*Public Sans[^;}]*sans-serif/i.test(combinedStyles) ||
+    !/--font-mono\s*:[^;}]*Martian Mono[^;}]*monospace/i.test(combinedStyles)
   ) {
     throw new Error(
-      "Built --font-display/--font-body do not preserve the self-hosted Archivo stack with a sans-serif fallback",
+      "Built --font-display/--font-body/--font-mono do not preserve the self-hosted DESIGN.md typeface stack with a generic fallback",
     );
   }
 
@@ -368,7 +389,16 @@ async function checkStaticOutput(): Promise<{
       )
       .map(([tag]) => readAttribute(tag, "href")),
   );
-  for (const fontPath of selfHostedFonts) {
+  // Only the two typefaces that render above-the-fold hero text on first
+  // paint (the display headline and the body/UI default) are worth the
+  // preload budget; Martian Mono and Public Sans's italic cut are small,
+  // secondary accents (DESIGN.md: labels/status tags and one italic role
+  // line) that `font-display: swap` already covers without a preload.
+  const criticallyPreloadedFonts = [
+    "fonts/big-shoulders-display-variable.woff2",
+    "fonts/public-sans-variable.woff2",
+  ] as const;
+  for (const fontPath of criticallyPreloadedFonts) {
     if (!preloadedFontHrefs.has(`/${fontPath}`)) {
       throw new Error(
         `Home output does not preload the self-hosted /${fontPath}`,
@@ -516,5 +546,5 @@ const { functionCount, functionNames } = await checkFunctionBundle();
 await checkRoutingConfig(functionNames);
 
 console.log(
-  `Vercel build output is valid (${routeFiles.length} prerendered routes; ${functionCount} server function scoped to ${dynamicRoute}; self-hosted Archivo fonts present; no external subresources)`,
+  `Vercel build output is valid (${routeFiles.length} prerendered routes; ${functionCount} server function scoped to ${dynamicRoute}; self-hosted Big Shoulders Display/Public Sans/Martian Mono fonts present; no external subresources)`,
 );

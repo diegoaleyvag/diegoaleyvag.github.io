@@ -139,10 +139,18 @@ canonical JSON + SHA-256 lock file `tools/build-decisions` writes under
 `apps/site/public/decisions/v1/`, consumed by the Five Decisions pages and
 the map once they land.
 
-**Forthcoming, intended shape only:** a small `packages/ask-corpus` package
-will own the closed bilingual corpus, citation IDs, and deterministic
-retrieval consumed by `/api/ask` and the Ask Diego island. Its concrete API
-is not fixed by this document — that is defined when the work lands.
+**Landed:** the small `packages/ask-corpus` package owns the closed
+bilingual corpus's versioned JSON Schema, a strict loader/validator, a
+deterministic TF-IDF token-overlap search (no ML dependency, no network),
+and the canonical JSON + SHA-256 lock file `tools/build-corpus` writes
+under `apps/site/public/corpus/v1/**`, plus a statically-imported
+`generated/corpus-bundle.json` snapshot so the deployed `/api/ask` function
+needs no filesystem access at request time. `apps/site/src/lib/ask-diego/**`
+owns the request/response contract, the injectable in-memory rate limiter,
+and the provider-optional Vercel-AI-Gateway-compatible transport; the
+`/api/ask` route itself stays a thin wrapper over both. See
+`packages/ask-corpus/README.md` and `.cursor/rules/ai-guide.mdc` for the
+concrete API and binding product rules.
 
 ## 4. Static site and route model
 

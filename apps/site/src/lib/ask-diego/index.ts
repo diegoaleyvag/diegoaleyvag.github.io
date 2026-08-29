@@ -1,3 +1,5 @@
+export { MAX_REQUEST_BODY_BYTES, readBoundedJsonBody } from "./http.ts";
+export type { ReadJsonBodyResult } from "./http.ts";
 export {
   MAX_HISTORY_TURNS,
   MAX_HISTORY_TURN_LENGTH,

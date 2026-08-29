@@ -65,9 +65,10 @@ physical file except exactly one, `apps/site/src/pages/api/ask.ts`, which
 sets `prerender = false` and runs through a Vercel adapter. No other route
 becomes dynamic without a superseding ADR. Preact hydrates at most two
 islands — an interactive map and the Ask Diego guide; everything else ships
-no client framework JavaScript. No visual direction is chosen yet — follow
-`DESIGN.md`'s fixed constraints until a best-of-N exploration and ADR 0015
-finalize typography, color, and the hero/map composition.
+no client framework JavaScript. The computational-editorial visual system is
+decided by `DESIGN.md` and ADR 0015: Big Shoulders Display, Public Sans, and
+Martian Mono; the Field, Graphite, Survey, and Signal roles; and the woven
+capability map are frozen unless a superseding ADR changes them.
 
 ## Ask Diego: provider-optional, closed, degradable
 

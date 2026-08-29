@@ -13,8 +13,8 @@ product from a single agent-governance replay lab to the bilingual Five
 Decisions portfolio described above. The accepted architecture is Astro
 static output plus a Vercel adapter, TypeScript, pnpm, and at most two Preact
 islands (an interactive map and Ask Diego) — with exactly one dynamic route,
-`/api/ask`. The concrete visual system is still pending a best-of-N
-exploration; see `DESIGN.md`.
+`/api/ask`. The concrete computational-editorial visual system is decided in
+`DESIGN.md` and ADR 0015.
 
 Earlier tournament records (the original proposals, blind judgements, and
 the ADRs ADR 0014 supersedes) remain in `docs/adr/` and git history as
@@ -24,7 +24,7 @@ historical inputs; they are no longer active implementation instructions.
 
 - `AGENTS.md` — global invariants and implementation conventions.
 - `PRODUCT.md` — brand register: audience, positioning, and voice.
-- `DESIGN.md` — fixed visual/accessibility constraints, pending direction.
+- `DESIGN.md` — decided visual system and accessibility constraints.
 - `docs/architecture.md` — binding stack, boundaries, and route model.
 - `docs/threat-model.md` — assets, boundaries, threats, and controls.
 - `docs/acceptance-criteria.md` — testable release gates for the reset.

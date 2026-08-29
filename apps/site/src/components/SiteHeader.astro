@@ -2,7 +2,7 @@
 import { SITE_SHELL_COPY } from "./copy";
 
 interface Props {
-  activePath: "/" | "/resume/" | null;
+  activePath: "/" | "/resume/" | "/ask/" | "/es/pregunta/" | null;
   brandName: string;
 }
 
@@ -11,6 +11,7 @@ const { activePath, brandName } = Astro.props;
 const links = [
   { href: "/", label: SITE_SHELL_COPY.portfolioLink },
   { href: "/resume/", label: SITE_SHELL_COPY.resumeLink },
+  { href: "/ask/", label: SITE_SHELL_COPY.askLink },
 ] as const;
 ---
 

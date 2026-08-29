@@ -1,7 +1,12 @@
-import type { APIContext } from "astro";
 import { describe, expect, it } from "vitest";
 
 import { POST } from "../../apps/site/src/pages/api/ask.ts";
+
+// Derived structurally from `POST`'s own parameter type rather than a
+// direct `import type { APIContext } from "astro"` — "astro" resolves fine
+// from within `apps/site` (a real dependency there), but not from this
+// root-level test file under pnpm's strict per-package `node_modules`.
+type PostContext = Parameters<typeof POST>[0];
 
 function postRequest(
   body: unknown,
@@ -18,8 +23,8 @@ function postRequest(
   });
 }
 
-function context(request: Request): APIContext {
-  return { request } as unknown as APIContext;
+function context(request: Request): PostContext {
+  return { request } as unknown as PostContext;
 }
 
 // This suite runs against the real, deployed-shape module with no

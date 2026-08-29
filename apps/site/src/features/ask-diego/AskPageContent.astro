@@ -1,0 +1,134 @@
+---
+import { loadCorpusEntries } from "@portfolio/ask-corpus";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { AskLocale } from "./api.ts";
+import AskGuide from "./AskGuide.tsx";
+import { ASK_GUIDE_COPY } from "./copy.ts";
+
+interface Props {
+  locale: AskLocale;
+  activePath: "/ask/" | "/es/pregunta/";
+}
+
+const { locale, activePath } = Astro.props;
+const copy = ASK_GUIDE_COPY[locale];
+
+// Build-time only (this route prerenders): reads content/corpus/** fresh on
+// every build, same as @portfolio/resume's loadResume() elsewhere on the
+// site. The deployed /api/ask function uses the separately-generated,
+// statically-imported CORPUS_ENTRIES bundle instead — see
+// packages/ask-corpus/README.md for why the two differ.
+const loaded = await loadCorpusEntries();
+const faqEntries = loaded.map(({ entry }) => entry);
+---
+
+<BaseLayout
+  title={copy.documentTitle}
+  description={copy.intro}
+  activePath={activePath}
+  lang={locale}
+>
+  <article class="content-frame ask-page">
+    <header class="ask-page__header">
+      <h1>{copy.heading}</h1>
+      <p class="ask-page__intro">{copy.intro}</p>
+    </header>
+
+    <section
+      aria-labelledby="ask-faq-heading"
+      class="ask-page__section rule-top"
+    >
+      <h2 id="ask-faq-heading">{copy.faqHeading}</h2>
+      <div class="ask-page__faq">
+        {
+          faqEntries.map((entry) => (
+            <details class="ask-page__faq-item">
+              <summary>{entry[locale].question}</summary>
+              <p>{entry[locale].answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="ask-form-heading"
+      class="ask-page__section rule-top"
+    >
+      <h2 id="ask-form-heading">{copy.formHeading}</h2>
+      <p class="ask-page__form-intro">{copy.formIntro}</p>
+      <noscript>
+        <p class="ask-page__noscript">{copy.noScriptMessage}</p>
+      </noscript>
+      <AskGuide client:load locale={locale} />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .ask-page {
+    padding-block: 2rem 5rem;
+    display: grid;
+    gap: 0;
+  }
+
+  .ask-page__header {
+    padding-block-end: 1.75rem;
+    border-block-end: var(--rule-width) solid var(--ink);
+  }
+
+  .ask-page__header h1 {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .ask-page__intro {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 1.0625rem;
+  }
+
+  .ask-page__section {
+    padding-block: 2.25rem;
+  }
+
+  .ask-page__form-intro {
+    max-width: 60ch;
+  }
+
+  .ask-page__faq {
+    display: grid;
+    gap: 0;
+  }
+
+  .ask-page__faq-item {
+    border-block-end: var(--rule-hair) solid var(--rule-soft);
+    padding-block: 0.9rem;
+  }
+
+  .ask-page__faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .ask-page__faq-item summary:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: 2px;
+  }
+
+  .ask-page__faq-item p {
+    margin: 0.6rem 0 0;
+    color: var(--ink-muted);
+  }
+
+  .ask-page__noscript {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    border: var(--rule-hair) dashed var(--rule-soft);
+    padding: 0.85rem 1rem;
+  }
+</style>

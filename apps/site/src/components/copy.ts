@@ -11,6 +11,7 @@ export const SITE_SHELL_COPY = {
   homeLinkLabel: "Home",
   portfolioLink: "Portfolio",
   resumeLink: "Résumé",
+  askLink: "Ask Diego",
   footerNote: "Static build, prerendered end to end.",
 } as const;
 

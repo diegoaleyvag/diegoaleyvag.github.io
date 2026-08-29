@@ -12,16 +12,17 @@ import { loadResume } from "@portfolio/resume";
 interface Props {
   title: string;
   description?: string;
-  activePath: "/" | "/resume/" | null;
+  activePath: "/" | "/resume/" | "/ask/" | "/es/pregunta/" | null;
+  lang?: "en" | "es";
 }
 
-const { title, description, activePath } = Astro.props;
+const { title, description, activePath, lang = "en" } = Astro.props;
 const resume = await loadResume();
 const brandName = resume.view.identity.name.value;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

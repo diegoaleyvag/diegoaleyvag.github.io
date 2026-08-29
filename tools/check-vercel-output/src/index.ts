@@ -25,18 +25,22 @@ const reservedAstroInternalRoutePattern = /^\^\/(_image|_server-islands)\b/;
 // enforcement point for that cap, and the only hand-maintained piece of an
 // otherwise directory-driven scan: which routes may ship any first-party JS
 // at all is a design decision, not something a directory walk can infer, so
-// a short explicit allow-list is safer here than trying to derive it. No
-// island ships yet (the retired Replay lab's carve-out is gone with it,
-// ADR 0014); a later workstream adds an entry here when the map or Ask Diego
-// island actually lands.
-const knownIslandRoutes = new Set<string>([]);
+// a short explicit allow-list is safer here than trying to derive it. The
+// Ask Diego guide is the first of the two allowed islands (both its EN and
+// ES routes hydrate the same component); a later workstream adds the map's
+// route here as the second and last entry this rule ever allows.
+const knownIslandRoutes = new Set<string>([
+  "ask/index.html",
+  "es/pregunta/index.html",
+]);
 if (knownIslandRoutes.size > 2) {
   throw new Error(
     "frontend.mdc caps hydration at two Preact islands — update the rule before this list",
   );
 }
-// Headroom reserved for a future Preact island; no route ships one today, so
-// nothing currently exercises this budget.
+// Generous headroom for the shared Preact + hooks runtime chunk plus one
+// island's own component code (see DESIGN.md's measured-cost reference
+// point: ~7.7 KB gzip combined, well under this uncompressed ceiling).
 const maxIslandRouteScriptBytes = 320 * 1024;
 
 const requiredStaticFiles = [
@@ -44,7 +48,10 @@ const requiredStaticFiles = [
   "index.html",
   "resume/index.html",
   "work/governance-lab/index.html",
+  "ask/index.html",
+  "es/pregunta/index.html",
   "decisions/v1/manifest.json",
+  "corpus/v1/manifest.json",
   "fonts/archivo-variable.woff2",
   "fonts/archivo-black.woff2",
 ] as const;
@@ -64,6 +71,7 @@ const allowedStaticExtensions = new Set([
   ".jpg",
   ".js",
   ".json",
+  ".pdf",
   ".png",
   ".svg",
   ".webp",

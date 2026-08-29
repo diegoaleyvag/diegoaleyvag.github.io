@@ -30,6 +30,13 @@ one section's content, in both languages, in one diff.
 - `credentials.yaml` — structured credential records (see its own header
   comment); not translated, since certification names/issuers are proper
   nouns and dates/URLs, not prose.
+- `decisions.yaml` — a bilingual narrative wrapper, keyed by decision id,
+  around each `content/decisions/<id>/portfolio.project.json` manifest's own
+  `decision` and `summary` strings. The manifest schema itself stays
+  single-language (its versioned JSON Schema is the closed source-of-fact
+  contract, not a translation surface); this file is the one place that
+  translation happens, so `/work/<id>/` and `/es/trabajo/<id>/` can render
+  the same fact in both languages without duplicating it into the manifest.
 
 ## Rules this content follows (see `AGENTS.md`, `.cursor/rules/content.mdc`)
 

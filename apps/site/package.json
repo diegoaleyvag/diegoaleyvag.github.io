@@ -10,9 +10,11 @@
   "dependencies": {
     "@astrojs/preact": "6.0.2",
     "@astrojs/vercel": "10.0.8",
+    "@portfolio/decisions": "workspace:*",
     "@portfolio/resume": "workspace:*",
     "astro": "6.4.8",
-    "preact": "10.29.8"
+    "preact": "10.29.8",
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10"

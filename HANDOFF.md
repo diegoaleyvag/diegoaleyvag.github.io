@@ -94,25 +94,36 @@ Product and architecture decisions are recorded, not re-explained here:
 
 ## Risks
 
-- **The résumé and the rest of the site describe two different vintages of
-  Diego's CV, and both are real.** `/resume/`/`/es/cv/` render
-  `apps/site/public/downloads/cv/summary.json`, produced by `pnpm cv:sync`
-  from the _separate, newer_ external CV repository: **three** universities
-  (adds Universidad de San Buenaventura, Bogotá, Aug–Dec 2026), the InStep
-  bullet naming "CTO Rafee Tarafdar" and "~30 teams," and an Infosys end
-  date of "Feb 2026 – Aug 2026." The homepage (`loadResume()` →
-  `content/source/cv.yaml`) and the Ask Diego corpus
-  (`content/corpus/education/**`, `availability-status.json`) still reflect
-  the **older**, two-university `cv.yaml`. Every fact on both sides is real
-  and owner-sourced — this is not fabrication — but the site currently
-  disagrees with itself, which cuts against its own "checkable" premise
-  (e.g. Ask Diego would answer "Queen Mary only" while the résumé lists
-  three schools). `content/source/cv.yaml` is read-only to every agent by
-  design (`AGENTS.md`), so closing this gap requires **Diego's own edit** —
-  either refresh `cv.yaml` to match the newer CV and regenerate
-  `content/corpus/**`, or consciously accept the lag and say so on the site.
-  Left open deliberately rather than an agent guessing which fact set should
-  win.
+- **Resolved: the résumé and the rest of the site now describe the same CV
+  vintage.** Diego explicitly authorized this one-time sync (a normal
+  exception to `cv.yaml` being read-only to agents, per `AGENTS.md`), so
+  `content/source/cv.yaml` was brought in line with the same newer external
+  CV that `apps/site/public/downloads/cv/summary.json` already reflected:
+  three universities (adds Universidad de San Buenaventura, Bogotá,
+  Aug–Dec 2026), the InStep bullet naming "CTO Rafee Tarafdar" and "~30
+  teams," an Infosys end date of "Feb 2026 – Aug 2026," and the updated
+  skills list. `packages/resume/generated/resume-provenance.json` was
+  regenerated, `content/corpus/education/**` gained a bilingual
+  San Buenaventura entry, `availability-status.json`'s "junior AI/ML"
+  phrasing was updated to match the new summary wording, and
+  `apps/site/src/lib/resume-es.ts` gained translations for the new
+  education strings — `pnpm corpus:build`, `pnpm check`, and `pnpm build` +
+  `pnpm static:check` all re-ran clean afterward. One deliberate exception:
+  `cv.yaml`'s `experience[0].programme` field ("InStep Global Internship")
+  was kept even though the newer external CV drops it as prose — the fact
+  hasn't changed, only the newer document's wording condensed it out, and
+  `programme` is a required, deeply-typed field through
+  `packages/resume/src/schema.ts`/`types.ts` that several other files
+  (`content/site/about.yaml`, `content/corpus/identity/identity-bio.json`)
+  independently corroborate. `cv.yaml`'s three-item `certifications` list
+  was also left as-is rather than folded to five: the two Claude credentials
+  the newer CV merges in are already recorded in this repo in a richer,
+  owner-verified `verified` shape (issuer/level/Credly URL/dates) in
+  `content/site/credentials.yaml`, deliberately separate from the plain
+  `terse` strings `cv.yaml` sources — duplicating them into `cv.yaml` would
+  have meant either redundant entries or unraveling that verified/terse
+  split for a fact that hasn't changed, so the same "don't cascade an
+  architecture change for an unretracted fact" reasoning applied here too.
 - **Node engine mismatch (local only).** This machine runs Node 25.9.0;
   `package.json` pins `>=24.18.1 <25.0.0`. Every command in this session ran
   with a `[WARN] Unsupported engine` line but succeeded — the Vercel adapter

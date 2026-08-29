@@ -1,4 +1,4 @@
-import type { AskLocale } from "../../lib/ask-diego/types.ts";
+import type { AskLocale } from "./api.ts";
 
 /**
  * UI-only interface copy for the Ask Diego surface — never a factual claim

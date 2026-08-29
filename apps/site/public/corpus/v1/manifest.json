@@ -6,8 +6,8 @@
       "id": "availability-status",
       "path": "/corpus/v1/availability-status.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1155,
-      "sha256": "061d276c817f554303a53ae9b51c88c0f2e35b83721482257ab6e14a5c313a34"
+      "byteLength": 1192,
+      "sha256": "db7eaf2691f2ff3534e25c86300fda52a4f7e69401202355711889d2b495feba"
     },
     {
       "id": "credential-claude-foundations",

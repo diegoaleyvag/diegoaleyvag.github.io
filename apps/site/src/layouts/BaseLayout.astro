@@ -6,51 +6,83 @@ import "../styles/ledger.css";
 import "../styles/shell.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
-import { SITE_SHELL_COPY } from "../components/copy";
-import { loadResume } from "@portfolio/resume";
+import type { Lang } from "../lib/i18n";
 
 interface Props {
-  title: string;
-  description?: string;
-  activePath: "/" | "/resume/" | null;
+  readonly lang: Lang;
+  readonly title: string;
+  readonly description: string;
+  readonly path: string;
+  readonly alternatePath: string | null;
+  readonly activeHref: string | null;
+  readonly ogImage?: string;
 }
 
-const { title, description, activePath } = Astro.props;
-const resume = await loadResume();
-const brandName = resume.view.identity.name.value;
+const { lang, title, description, path, alternatePath, activeHref, ogImage } =
+  Astro.props;
+
+const canonicalUrl = new URL(path, Astro.site);
+const enUrl = new URL(
+  lang === "en" ? path : (alternatePath ?? path),
+  Astro.site,
+);
+const esUrl =
+  alternatePath === null
+    ? null
+    : new URL(lang === "es" ? path : alternatePath, Astro.site);
+const ogImageUrl = ogImage
+  ? new URL(ogImage, Astro.site).toString()
+  : undefined;
+const ogLocale = lang === "es" ? "es_MX" : "en_US";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="data:," />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    {esUrl ? <link rel="alternate" hreflang="es" href={esUrl} /> : null}
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
     <link
       rel="preload"
-      href="/fonts/archivo-variable.woff2"
+      href="/fonts/big-shoulders-display-variable.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/archivo-black.woff2"
+      href="/fonts/public-sans-variable.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <title>{title}</title>
-    {description ? <meta name="description" content={description} /> : null}
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content="Diego Leyva" />
+    {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">
-      {SITE_SHELL_COPY.skipToContent}
+      {lang === "es" ? "Saltar al contenido principal" : "Skip to main content"}
     </a>
-    <SiteHeader activePath={activePath} brandName={brandName} />
+    <SiteHeader
+      lang={lang}
+      activeHref={activeHref}
+      alternatePath={alternatePath}
+    />
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter lang={lang} />
   </body>
 </html>

@@ -1,39 +1,59 @@
 ---
-import { SITE_SHELL_COPY } from "./copy";
+import { loadResume } from "@portfolio/resume";
+import { SHELL_COPY, primaryNav, type Lang } from "../lib/i18n";
 
 interface Props {
-  activePath: "/" | "/resume/" | null;
-  brandName: string;
+  readonly lang: Lang;
+  readonly activeHref: string | null;
+  readonly alternatePath: string | null;
 }
 
-const { activePath, brandName } = Astro.props;
-
-const links = [
-  { href: "/", label: SITE_SHELL_COPY.portfolioLink },
-  { href: "/resume/", label: SITE_SHELL_COPY.resumeLink },
-] as const;
+const { lang, activeHref, alternatePath } = Astro.props;
+const shellCopy = SHELL_COPY[lang];
+const links = primaryNav(lang);
+const resume = await loadResume();
+const brandName = resume.view.identity.name.value;
+const homeHref = lang === "en" ? "/" : "/es/";
 ---
 
 <header class="site-header">
   <div class="site-header__inner content-frame">
-    <a class="site-brand" href="/" aria-label={SITE_SHELL_COPY.homeLinkLabel}>
+    <a class="site-brand" href={homeHref} aria-label={shellCopy.homeLinkLabel}>
       {brandName}
     </a>
-    <nav class="site-nav" aria-label={SITE_SHELL_COPY.primaryNavigationLabel}>
-      <ul>
-        {
-          links.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                aria-current={link.href === activePath ? "page" : undefined}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <div class="site-header__nav-group">
+      <nav class="site-nav" aria-label={shellCopy.primaryNavigationLabel}>
+        <ul>
+          {
+            links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  aria-current={link.href === activeHref ? "page" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav class="lang-switcher" aria-label={shellCopy.langSwitcherLabel}>
+        <a
+          href={lang === "en" ? Astro.url.pathname : (alternatePath ?? "/")}
+          aria-current={lang === "en" ? "true" : undefined}
+          lang="en"
+        >
+          {shellCopy.langNames.en}
+        </a>
+        <a
+          href={lang === "es" ? Astro.url.pathname : (alternatePath ?? "/es/")}
+          aria-current={lang === "es" ? "true" : undefined}
+          lang="es"
+        >
+          {shellCopy.langNames.es}
+        </a>
+      </nav>
+    </div>
   </div>
 </header>

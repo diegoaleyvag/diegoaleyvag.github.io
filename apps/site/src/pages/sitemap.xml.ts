@@ -21,6 +21,9 @@ export const GET: APIRoute = async ({ site }) => {
     ROUTES.archive.en,
     ROUTES.archive.es,
     ROUTES.governanceLab.en,
+    ROUTES.governanceLab.es,
+    ROUTES.ask.en,
+    ROUTES.ask.es,
   ];
 
   const decisionPaths = manifests.flatMap(({ manifest }) => [

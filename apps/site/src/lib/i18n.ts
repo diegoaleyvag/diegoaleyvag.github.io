@@ -16,7 +16,10 @@ export const ROUTES = {
   work: { en: "/work/", es: "/es/trabajo/" },
   resume: { en: "/resume/", es: "/es/cv/" },
   archive: { en: "/archive/", es: "/es/archivo/" },
-  governanceLab: { en: "/work/governance-lab/", es: "/work/governance-lab/" },
+  governanceLab: {
+    en: "/work/governance-lab/",
+    es: "/es/trabajo/governance-lab/",
+  },
   // Ask Diego is a sibling workstream building in a different worktree
   // (apps/site/src/pages/api/ask.ts, /ask/, /es/pregunta/). These are
   // forward references only: the nav/CTA links below point at the routes

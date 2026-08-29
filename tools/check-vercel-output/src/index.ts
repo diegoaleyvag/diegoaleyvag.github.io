@@ -58,6 +58,7 @@ const requiredStaticFiles = [
   "work/index.html",
   "es/trabajo/index.html",
   "work/governance-lab/index.html",
+  "es/trabajo/governance-lab/index.html",
   "archive/index.html",
   "es/archivo/index.html",
   "ask/index.html",

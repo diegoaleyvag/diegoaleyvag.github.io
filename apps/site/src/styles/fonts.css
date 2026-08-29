@@ -1,26 +1,49 @@
 /*
- * Self-hosted display + body faces for the Brutalist Editorial identity
- * (docs/redesign/BRIEF.md — supersedes the earlier Fraunces amendment).
+ * Self-hosted typefaces for the computational-editorial visual system
+ * (DESIGN.md, ADR 0015). Latin subset — covers Spanish diacritics, since
+ * every accented character the site needs sits at or below U+00FF. No font
+ * CDN or third-party request ships in production; see
+ * apps/site/public/fonts/NOTICE.md for license provenance (all three: SIL
+ * Open Font License 1.1, verified before vendoring).
  *
- * Archivo (variable, latin subset, ~34 KB) carries body copy, UI labels, and
- * every heading level below the masthead. Archivo Black (static, latin
- * subset, ~18 KB) is reserved for the oversized masthead and top-level
- * section openers. Both are self-hosted from `/fonts/` (SIL OFL 1.1); no
- * font CDN or third-party request ships in production.
+ * - Big Shoulders Display: condensed civic/engineering-signage lettering.
+ *   Carries the hero name/identity lockup and top-level section headings
+ *   only — never body copy.
+ * - Public Sans: USWDS's workhorse humanist sans. Carries body copy, UI
+ *   labels, nav, and every heading below the top level.
+ * - Martian Mono: reserved strictly for short instructional/status labels
+ *   (map node status tags, an eyebrow label) — never body copy, never a
+ *   blanket "technical" voice for the whole page.
  */
 
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-variable.woff2") format("woff2");
+  font-family: "Big Shoulders Display";
+  src: url("/fonts/big-shoulders-display-variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Archivo Black";
-  src: url("/fonts/archivo-black.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Public Sans";
+  src: url("/fonts/public-sans-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("/fonts/public-sans-italic-variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Martian Mono";
+  src: url("/fonts/martian-mono-variable.woff2") format("woff2");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }

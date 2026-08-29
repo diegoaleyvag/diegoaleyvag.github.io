@@ -1,7 +1,8 @@
 /*
- * Global shell: skip link, primary navigation, and footer.
- * Shared by every route rendered through BaseLayout.astro.
- * Brutalist Editorial: thick 2px rules, square corners, uppercase nav.
+ * Global shell: skip link, primary navigation (with the bilingual language
+ * switcher), and footer. Shared by every route rendered through
+ * BaseLayout.astro. Computational editorial (DESIGN.md): thin hairline
+ * rules, Big Shoulders Display brand mark, Public Sans nav.
  */
 
 .skip-link {
@@ -10,14 +11,13 @@
   inset-block-start: 0.75rem;
   inset-inline-start: 0.75rem;
   padding: 0.7rem 1.1rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--graphite);
+  color: var(--field);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   border-radius: var(--radius);
   transform: translateY(-200%);
-  transition: transform 0.15s ease;
+  transition: transform 160ms var(--ease);
 }
 
 .skip-link:focus {
@@ -25,8 +25,8 @@
 }
 
 .site-header {
-  background: var(--paper);
-  border-block-end: var(--rule-width) solid var(--ink);
+  background: var(--field);
+  border-block-end: var(--rule-width) solid var(--line);
 }
 
 .site-header__inner {
@@ -39,17 +39,23 @@
 }
 
 .site-brand {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: var(--ink);
+  color: var(--graphite);
   text-decoration: none;
 }
 
 .site-brand:hover {
-  color: var(--signal-text);
+  color: var(--survey-ink);
+}
+
+.site-header__nav-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
 }
 
 .site-nav ul {
@@ -63,48 +69,71 @@
 
 .site-nav a {
   display: inline-block;
-  color: var(--ink);
+  color: var(--graphite);
   font-weight: 700;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.875rem;
   text-decoration: none;
   padding-block: 0.2rem;
-  border-block-end: 3px solid transparent;
+  border-block-end: 2px solid transparent;
 }
 
 .site-nav a:hover {
-  border-block-end-color: var(--rule-soft);
+  border-block-end-color: var(--line);
 }
 
 .site-nav a[aria-current="page"] {
-  color: var(--signal-text);
-  border-block-end-color: var(--signal);
+  color: var(--survey-ink);
+  border-block-end-color: var(--survey);
+}
+
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.lang-switcher a {
+  display: inline-block;
+  color: var(--graphite);
+  text-decoration: none;
+  padding: 0.3rem 0.55rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.lang-switcher a:hover {
+  border-color: var(--graphite);
+}
+
+.lang-switcher a[aria-current="true"] {
+  background: var(--graphite);
+  color: var(--field);
+  border-color: var(--graphite);
 }
 
 .site-footer {
-  background: var(--ink);
-  color: var(--paper);
-  border-block-start: var(--rule-width) solid var(--ink);
+  background: var(--graphite);
+  color: var(--field);
   margin-block-start: 4rem;
 }
 
 .site-footer__inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-  padding-block: 1.75rem 2.75rem;
+  gap: 1rem 1.5rem;
+  padding-block: 2rem 2.75rem;
   font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
 }
 
 .site-footer p {
   margin: 0;
-  color: #c8c4b8;
-  max-width: none;
+  color: oklch(85% 0.01 165);
+  max-width: 34ch;
 }
 
 .site-footer nav ul {
@@ -117,7 +146,7 @@
 }
 
 .site-footer a {
-  color: var(--paper);
+  color: var(--field);
   font-weight: 700;
   text-decoration: none;
 }

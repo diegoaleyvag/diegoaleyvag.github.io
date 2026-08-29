@@ -1,0 +1,331 @@
+/*
+ * Shared section primitives for the homepage, work routes, résumé, and
+ * archive: hero lockup, buttons, status badges, and card grids. Computational
+ * editorial (DESIGN.md) — ported from candidate B's "asymmetric typographic
+ * composition" preview into the shipping token vocabulary.
+ */
+
+.section {
+  padding-block: clamp(2.5rem, 6vh, 4.5rem);
+  border-block-start: var(--rule-width) solid var(--line);
+}
+
+.section:first-of-type {
+  border-block-start: none;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--signal-ink);
+}
+
+.section-intro {
+  max-width: 56ch;
+  margin-block-end: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.section-intro h2 {
+  margin: 0 0 0.75rem;
+}
+
+.section-intro p {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: var(--graphite-muted);
+}
+
+/* -------------------------------------------------------------- hero */
+
+.hero {
+  padding-block: clamp(3rem, 10vh, 6rem) clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 2.25rem);
+}
+
+@media (min-width: 48rem) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: clamp(1.5rem, 6vw, 4.5rem);
+    row-gap: 0;
+  }
+
+  .hero__role {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    margin-block-start: clamp(0.5rem, 4vw, 3rem);
+  }
+
+  .hero__name {
+    grid-column: 1;
+    grid-row: 1 / 4;
+  }
+
+  .hero__tagline {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    margin-block-end: clamp(1rem, 3vw, 2rem);
+  }
+
+  .hero__ctas {
+    grid-column: 2;
+    grid-row: 3;
+    align-self: start;
+  }
+}
+
+.hero__kicker {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--graphite-muted);
+}
+
+.hero__role {
+  margin: 0;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(0.9375rem, 0.6vw + 0.8rem, 1.1875rem);
+  line-height: 1.4;
+  color: var(--survey-ink);
+  max-width: 24ch;
+}
+
+.hero__name {
+  margin: 0;
+  font-family: var(--font-display);
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+}
+
+.hero__name-line {
+  display: block;
+}
+
+.hero__name-line--heavy {
+  font-weight: 800;
+  font-size: clamp(4rem, 2.6rem + 9.5vw, 10.5rem);
+  color: var(--graphite);
+}
+
+.hero__name-line--light {
+  font-weight: 300;
+  font-size: clamp(3rem, 2rem + 7vw, 8.25rem);
+  color: var(--graphite);
+  margin-inline-start: clamp(0.5rem, 5vw, 3.5rem);
+}
+
+.hero__tagline {
+  margin: 0;
+  font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.375rem);
+  line-height: 1.5;
+  max-width: 32ch;
+  color: var(--graphite);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease),
+    background-color 160ms var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover {
+    transform: none;
+  }
+}
+
+.btn--primary {
+  background: var(--graphite);
+  color: var(--field);
+  border-color: var(--graphite);
+}
+
+.btn--primary:hover {
+  background: var(--survey-ink);
+  border-color: var(--survey-ink);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--graphite);
+  border-color: var(--graphite);
+}
+
+.btn--ghost:hover {
+  background: var(--field-raised);
+}
+
+/* ------------------------------------------------------------- badges */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line-dashed);
+}
+
+.badge--building {
+  color: var(--signal-ink);
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+
+.badge--planned {
+  color: var(--graphite-muted);
+  border-style: dashed;
+  background: var(--field-raised);
+}
+
+/* -------------------------------------------------------- card grids */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 70rem) {
+  .card-grid--decisions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--field-raised);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--graphite);
+  transition: border-color 160ms var(--ease);
+}
+
+.case-card:hover {
+  border-color: var(--graphite);
+}
+
+.case-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.case-card__body {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--graphite-muted);
+}
+
+.case-card__meta {
+  margin-block-start: auto;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--survey-ink);
+}
+
+/* ------------------------------------------------------------- about */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+}
+
+@media (min-width: 48rem) {
+  .about-layout {
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.about-principles {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.about-principles li {
+  padding-inline-start: 1rem;
+  border-inline-start: 2px solid var(--survey);
+}
+
+/* ----------------------------------------------------------- contact */
+
+.contact-links {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.contact-links li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.contact-links a {
+  font-weight: 700;
+}
+
+.contact-links__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--graphite-muted);
+}

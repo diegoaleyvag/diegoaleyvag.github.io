@@ -1,0 +1,29 @@
+# Self-hosted font notices
+
+All three families below are self-hosted as static WOFF2 files in this
+directory, verified genuinely open before vendoring (AGENTS.md: no font CDN,
+same self-hosted-only discipline as the retired Archivo system). `OFL.txt` in
+this directory is the shared SIL Open Font License 1.1 text; the copyright
+lines below are each family's own notice under that license.
+
+- **Big Shoulders Display** (`big-shoulders-display-variable.woff2`) —
+  Copyright 2019 The Big Shoulders Project Authors
+  (https://github.com/xotypeco/big_shoulders). SIL Open Font License 1.1.
+  Source: https://fonts.google.com/specimen/Big+Shoulders+Display.
+
+- **Public Sans** (`public-sans-variable.woff2`,
+  `public-sans-italic-variable.woff2`) — originally published by the U.S.
+  General Services Administration / USWDS as public-domain (CC0) font
+  software; Google Fonts additionally distributes it under the SIL Open Font
+  License 1.1. Either license permits self-hosting and bundling with this
+  project. Source: https://fonts.google.com/specimen/Public+Sans and
+  https://public-sans.digital.gov/.
+
+- **Martian Mono** (`martian-mono-variable.woff2`) — Copyright 2021 The
+  Martian Mono Project Authors (https://github.com/evilmartians/mono). SIL
+  Open Font License 1.1. Source:
+  https://fonts.google.com/specimen/Martian+Mono.
+
+No font in this directory is loaded from a third-party CDN at runtime; every
+`@font-face` in `apps/site/src/styles/fonts.css` points at a `/fonts/*.woff2`
+file shipped in this same static output.

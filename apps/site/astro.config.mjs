@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import preact from "@astrojs/preact";
 import vercel from "@astrojs/vercel";
 
 // The public domain is not finalized (pending Diego's Vercel project
@@ -12,6 +13,7 @@ export default defineConfig({
   base: "/",
   output: "static",
   adapter: vercel(),
+  integrations: [preact()],
   build: {
     format: "directory",
   },

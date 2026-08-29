@@ -1,0 +1,321 @@
+---
+import { loadDecisionManifests } from "@portfolio/decisions";
+import { loadPublicationConsent, loadResume } from "@portfolio/resume";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutPortrait from "../components/AboutPortrait.astro";
+import CapabilityMapSection from "../features/capability-map/CapabilityMapSection.astro";
+import {
+  HERO_CTA_COPY,
+  ROUTES,
+  SECTION_COPY,
+  workDecisionPath,
+  type Lang,
+} from "../lib/i18n";
+import {
+  loadAbout,
+  loadArchive,
+  loadContact,
+  loadCredentials,
+  loadDecisionNarratives,
+  loadEducationSection,
+  loadHero,
+} from "../lib/site-content";
+
+import "../styles/sections.css";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === "es";
+
+const [
+  resume,
+  hero,
+  about,
+  contact,
+  educationSection,
+  credentials,
+  archive,
+  consent,
+  manifests,
+  narratives,
+] = await Promise.all([
+  loadResume(),
+  loadHero(lang),
+  loadAbout(lang),
+  loadContact(lang),
+  loadEducationSection(lang),
+  loadCredentials(),
+  loadArchive(lang),
+  loadPublicationConsent(),
+  loadDecisionManifests(),
+  loadDecisionNarratives(),
+]);
+
+const { identity } = resume.view;
+const heroCta = HERO_CTA_COPY[lang];
+const section = SECTION_COPY[lang];
+const contactApproved = consent.contact_fields === "approved";
+
+const decisionSummaries = manifests.map(({ manifest }) => {
+  const narrative = narratives[manifest.id]?.[lang];
+  return {
+    id: manifest.id,
+    title: manifest.title,
+    status: manifest.status,
+    decision: narrative?.decision ?? manifest.decision,
+    summary: narrative?.summary ?? manifest.summary,
+    href: workDecisionPath(lang, manifest.id),
+  };
+});
+
+const statusBadgeLabel = (status: string): string => {
+  if (status === "building") {
+    return isEs ? "En construcción" : "Building";
+  }
+  if (status === "planned") {
+    return isEs ? "Planeada" : "Planned";
+  }
+  return status;
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${identity.name.value} — ${hero.tagline}`}
+  description={hero.subtitle}
+  path={ROUTES.home[lang]}
+  alternatePath={ROUTES.home[lang === "en" ? "es" : "en"]}
+  activeHref={ROUTES.home[lang]}
+>
+  <article class="content-frame home">
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="hero__grid">
+        <p class="hero__kicker">{hero.kicker}</p>
+        <p class="hero__role" data-source-path={identity.headline.path}>
+          {hero.tagline}
+        </p>
+
+        <h1 class="hero__name" id="hero-name">
+          <span
+            class="hero__name-line hero__name-line--heavy"
+            data-source-path={identity.name.path}
+          >
+            {identity.name.value.split(" ")[0]}
+          </span>
+          <span class="hero__name-line hero__name-line--light">
+            {identity.name.value.split(" ").slice(1).join(" ")}
+          </span>
+        </h1>
+
+        <p class="hero__tagline">{hero.subtitle}</p>
+
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href={ROUTES.work[lang]}>
+            {heroCta.primary}
+          </a>
+          <a class="btn btn--ghost" href={ROUTES.ask[lang]}>
+            {heroCta.secondary}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="capability-map-heading">
+      <CapabilityMapSection lang={lang} />
+    </section>
+
+    <section class="section" aria-labelledby="decisions-heading">
+      <div class="section-intro">
+        <p class="eyebrow">{hero.collectionLabel}</p>
+        <h2 id="decisions-heading">{section.decisionsHeading}</h2>
+        <p>{section.decisionsIntro}</p>
+      </div>
+      <div class="card-grid card-grid--decisions">
+        {
+          decisionSummaries.map((decision) => (
+            <a class="case-card" href={decision.href}>
+              <span
+                class={`badge ${decision.status === "building" ? "badge--building" : "badge--planned"}`}
+              >
+                {statusBadgeLabel(decision.status)}
+              </span>
+              <h3 class="case-card__title">{decision.title}</h3>
+              <p class="case-card__body">{decision.decision}</p>
+              <span class="case-card__meta">{section.viewCase} →</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="selected-work-heading">
+      <div class="section-intro">
+        <h2 id="selected-work-heading">{section.selectedWorkHeading}</h2>
+        <p>{section.selectedWorkIntro}</p>
+      </div>
+      <div class="card-grid">
+        <a class="case-card" href={ROUTES.work[lang]}>
+          <h3 class="case-card__title">{hero.collectionLabel}</h3>
+          <p class="case-card__body">{section.decisionsIntro}</p>
+          <span class="case-card__meta">{section.workIndexCta} →</span>
+        </a>
+        <a class="case-card" href={ROUTES.governanceLab[lang]}>
+          <span class="badge badge--planned">
+            {isEs ? "No publicado" : "Not published"}
+          </span>
+          <h3 class="case-card__title">{section.governanceLabLabel}</h3>
+          <p class="case-card__body">{section.governanceLabNote}</p>
+          <span class="case-card__meta">{section.viewCase} →</span>
+        </a>
+        <a class="case-card" href={ROUTES.archive[lang]}>
+          <h3 class="case-card__title">{archive.heading}</h3>
+          <p class="case-card__body">{archive.intro}</p>
+          <span class="case-card__meta">{section.archiveCta} →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="education-heading">
+      <div class="section-intro">
+        <h2 id="education-heading">{educationSection.heading}</h2>
+        <p>{educationSection.intro}</p>
+      </div>
+      <ol class="ledger">
+        {
+          resume.view.education.map((entry, index) => (
+            <li class="ledger-row">
+              <span class="ledger-index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div class="ledger-heading">
+                <h3 data-source-path={entry.institution.path}>
+                  {entry.institution.value}
+                </h3>
+                <p
+                  class="ledger-subheading"
+                  data-source-path={entry.credential.path}
+                >
+                  {entry.credential.value}
+                </p>
+              </div>
+              <div class="ledger-rail">
+                <p>
+                  <span data-source-path={entry.dates.path}>
+                    {entry.dates.value}
+                  </span>
+                  <span aria-hidden="true"> · </span>
+                  <span data-source-path={entry.location.path}>
+                    {entry.location.value}
+                  </span>
+                </p>
+              </div>
+              <div class="ledger-body">
+                <p data-source-path={entry.detail.path}>{entry.detail.value}</p>
+              </div>
+            </li>
+          ))
+        }
+        <li class="ledger-row">
+          <span class="ledger-index" aria-hidden="true">
+            {String(resume.view.education.length + 1).padStart(2, "0")}
+          </span>
+          <div class="ledger-heading">
+            <h3>{isEs ? "Credenciales" : "Credentials"}</h3>
+          </div>
+          <div class="ledger-body">
+            <ul>
+              {
+                credentials.verified.map((credential) => (
+                  <li>
+                    <a href={credential.url}>{credential.name}</a> —{" "}
+                    {credential.issuer} · {credential.level}
+                  </li>
+                ))
+              }
+              {
+                credentials.terse.map((credential) => (
+                  <li data-source-path={credential.sourcePath}>
+                    {credential.label}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="about-heading">
+      <div class="about-layout">
+        <AboutPortrait altText={section.aboutPhotoAlt} />
+        <div>
+          <h2 id="about-heading">{about.heading}</h2>
+          <p>{about.bio}</p>
+          <ul class="about-principles">
+            {about.principles.map((principle) => <li>{principle}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">{contact.heading}</h2>
+      <p>{contact.intro}</p>
+      {
+        contactApproved ? (
+          <ul class="contact-links">
+            <li>
+              <span class="contact-links__label">
+                {section.contactEmailLabel}
+              </span>
+              <a
+                href={`mailto:${identity.email.value}`}
+                data-source-path={identity.email.path}
+              >
+                {identity.email.value}
+              </a>
+            </li>
+            <li>
+              <span class="contact-links__label">
+                {section.contactLinkedinLabel}
+              </span>
+              <a
+                href={identity.linkedin.url.value}
+                data-source-paths={`${identity.linkedin.label.path} ${identity.linkedin.url.path}`}
+              >
+                {identity.linkedin.label.value}
+              </a>
+            </li>
+            <li>
+              <span class="contact-links__label">
+                {section.contactGithubLabel}
+              </span>
+              <a
+                href={identity.github.url.value}
+                data-source-paths={`${identity.github.label.path} ${identity.github.url.path}`}
+              >
+                {identity.github.label.value}
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <p>
+            {isEs
+              ? "Los datos de contacto están pendientes de aprobación y todavía no se publican."
+              : "Contact details are pending owner approval and are not published yet."}
+          </p>
+        )
+      }
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .home {
+    padding-block: 0 4rem;
+  }
+</style>

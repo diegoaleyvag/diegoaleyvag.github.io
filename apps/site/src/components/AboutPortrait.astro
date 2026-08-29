@@ -1,0 +1,49 @@
+---
+// A deliberate, honest placeholder — never an AI-generated photo of Diego
+// (AGENTS.md "No fabricated photography"). A typographic monogram in the
+// visual system's own display face, on a dashed neutral border matching
+// DESIGN.md's Learning role treatment (the one role with no hue), so the
+// device itself signals "not a real photo" rather than trying to pass as
+// one. `altText` must always state plainly that this is a placeholder.
+interface Props {
+  readonly altText: string;
+}
+
+const { altText } = Astro.props;
+---
+
+<figure class="about-portrait" role="img" aria-label={altText}>
+  <span class="about-portrait__mark" aria-hidden="true">DL</span>
+  <figcaption class="about-portrait__caption">{altText}</figcaption>
+</figure>
+
+<style>
+  .about-portrait {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .about-portrait__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    width: min(100%, 14rem);
+    border: 2px dashed var(--line-dashed);
+    border-radius: var(--radius);
+    background: var(--field-raised);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 5vw + 2rem, 5.5rem);
+    letter-spacing: -0.02em;
+    color: var(--graphite-muted);
+  }
+
+  .about-portrait__caption {
+    max-width: 20ch;
+    font-size: 0.75rem;
+    color: var(--graphite-muted);
+  }
+</style>

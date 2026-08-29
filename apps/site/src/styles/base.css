@@ -1,7 +1,8 @@
 /*
- * Base reset and typography built on the Brutalist Editorial tokens.
- * Warm paper, near-black ink, square corners, thick rules — see
- * docs/redesign/BRIEF.md and docs/adr/0013-brutalist-editorial.md.
+ * Base reset and typography for the computational-editorial visual system
+ * (DESIGN.md, ADR 0015). Big Shoulders Display carries the hero identity
+ * lockup and top-level section headings; Public Sans carries everything
+ * else, including every heading below the top level.
  */
 
 *,
@@ -11,8 +12,8 @@
 }
 
 html {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--field);
+  color: var(--graphite);
   font-family: var(--font-body);
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
@@ -27,35 +28,35 @@ body {
 
 h1,
 h2,
-h3 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 0.95;
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.1;
   text-wrap: balance;
+  color: var(--graphite);
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 2.1rem + 4vw, 5.5rem);
+  line-height: 0.92;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
 }
 
 h2 {
-  font-family: var(--font-body);
-  font-size: clamp(1.5rem, 3.4vw, 2.35rem);
-  font-weight: 800;
-  letter-spacing: -0.005em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 3rem);
   line-height: 1;
-  text-transform: uppercase;
 }
 
 h3 {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.005em;
-  line-height: 1.25;
-  text-transform: none;
 }
 
 p,
@@ -65,8 +66,9 @@ dd {
 }
 
 a {
-  color: var(--signal-text);
+  color: var(--survey-ink);
   font-weight: 600;
+  text-decoration-thickness: from-font;
 }
 
 a:not(:hover) {
@@ -88,7 +90,7 @@ pre {
 
 hr {
   border: none;
-  border-block-start: var(--rule-width) solid var(--rule);
+  border-block-start: var(--rule-width) solid var(--line);
   margin: 0;
 }
 
@@ -98,14 +100,14 @@ svg {
 }
 
 :focus-visible {
-  outline: 3px solid var(--signal);
+  outline: 3px solid var(--graphite);
   outline-offset: 3px;
-  border-radius: var(--radius);
+  border-radius: 2px;
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--ink);
+  background: var(--signal-soft);
+  color: var(--graphite);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -121,7 +123,8 @@ svg {
 
 @media print {
   :root {
-    --rule: #000;
+    --line: #000;
+    --graphite-muted: #333;
   }
 
   html {

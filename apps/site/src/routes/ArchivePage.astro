@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ROUTES, type Lang } from "../lib/i18n";
+import { loadArchive } from "../lib/site-content";
+
+import "../styles/sections.css";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+const archive = await loadArchive(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${archive.heading} — Diego Leyva`}
+  description={archive.intro}
+  path={ROUTES.archive[lang]}
+  alternatePath={ROUTES.archive[lang === "en" ? "es" : "en"]}
+  activeHref={null}
+>
+  <article class="content-frame archive-page">
+    <header class="section-intro" style="padding-block-start: 2rem;">
+      <h1>{archive.heading}</h1>
+      <p>{archive.intro}</p>
+    </header>
+
+    <ol class="ledger">
+      {
+        archive.projects.map((project, index) => (
+          <li class="ledger-row">
+            <span class="ledger-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div class="ledger-heading">
+              <h3>{project.name}</h3>
+            </div>
+            <div class="ledger-body">
+              <p>{project.description}</p>
+              <p>
+                <em>{project.status}</em>
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p>
+      <a href={ROUTES.work[lang]}>← {lang === "es" ? "Trabajo" : "Work"}</a>
+    </p>
+  </article>
+</BaseLayout>

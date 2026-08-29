@@ -1,0 +1,49 @@
+# Bilingual narrative wrapper for the Five Decisions manifests under
+# content/decisions/ (schemaVersion 1.0.0 there is intentionally
+# single-language/English — the manifest schema is the versioned, closed
+# source-of-fact contract, not a translation surface). This file holds only
+# a faithful Spanish rendering of each manifest's own `decision` and
+# `summary` strings; the `en` block is that same English text, copied
+# verbatim from the manifest, so the two languages are checked against each
+# other and against the manifest at the same time (see
+# tests/integration/site-content.test.ts).
+#
+# Nothing here adds a fact the manifest doesn't already state. A
+# `planned`-status entry's Spanish rendering stays exactly as unfinished and
+# unset as its English original — never implying a guiding question exists
+# where the manifest says it doesn't yet.
+prism:
+  en:
+    decision: "When is a model good enough?"
+    summary: "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship."
+  es:
+    decision: "¿Cuándo es un modelo suficientemente bueno?"
+    summary: "Prism pregunta cómo se decide, con evidencia y no con intuición, que la salida de un modelo ya es lo bastante buena para publicarse."
+axiom:
+  en:
+    decision: "Axiom's question is still unwritten."
+    summary: "A placeholder, not a preview: the guiding question, approach, and evidence all wait for the day this actually starts building."
+  es:
+    decision: "La pregunta de Axiom todavía no se ha escrito."
+    summary: "Es un marcador, no un adelanto: la pregunta guía, el enfoque y la evidencia esperan todos el día en que esto realmente empiece a construirse."
+relay:
+  en:
+    decision: "Relay's guiding question has not been set yet."
+    summary: "This one is still queued: the specific question Relay will answer, and the evidence behind it, gets published once the build actually starts."
+  es:
+    decision: "La pregunta guía de Relay aún no se ha definido."
+    summary: "Este todavía está en cola: la pregunta específica que Relay va a responder, junto con la evidencia detrás de ella, se publica en cuanto la construcción realmente empiece."
+limen:
+  en:
+    decision: "Limen doesn't have a guiding question yet."
+    summary: "Nothing is decided here yet — the real question and any supporting evidence go up the day this moves from planned to building."
+  es:
+    decision: "Limen todavía no tiene una pregunta guía."
+    summary: "Aquí no hay nada decidido todavía: la pregunta real y cualquier evidencia que la respalde se publican el día en que esto pase de planeado a en construcción."
+vector:
+  en:
+    decision: "Vector's guiding question is not chosen yet."
+    summary: "Held open on purpose — the specific question and its evidence appear here only once work on Vector begins."
+  es:
+    decision: "La pregunta guía de Vector todavía no se ha elegido."
+    summary: "Se deja abierta a propósito: la pregunta específica y su evidencia aparecen aquí solo cuando el trabajo en Vector comience."

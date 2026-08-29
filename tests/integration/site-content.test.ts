@@ -55,7 +55,7 @@ describe("bilingual site content", () => {
     ).filter((entry) => entry.isFile() && entry.name.endsWith(".yaml"));
 
     expect(entries.map((entry) => entry.name).sort()).toEqual(
-      [...bilingualFiles, "credentials.yaml"].sort(),
+      [...bilingualFiles, "credentials.yaml", "decisions.yaml"].sort(),
     );
   });
 
@@ -131,6 +131,55 @@ describe("bilingual site content", () => {
           /archiv|no.*(demo|live)|archived/,
         );
       }
+    }
+  });
+});
+
+describe("decisions.yaml", () => {
+  async function readDecisionNarratives(): Promise<
+    Record<
+      string,
+      {
+        en: { decision: string; summary: string };
+        es: { decision: string; summary: string };
+      }
+    >
+  > {
+    const source = await readFile(
+      new URL("decisions.yaml", contentSiteUrl),
+      "utf8",
+    );
+    return parse(source);
+  }
+
+  it("carries a bilingual narrative for every real decision manifest, matching its English fact", async () => {
+    const narratives = await readDecisionNarratives();
+    const decisionsDirectory = new URL(
+      "../../content/decisions/",
+      import.meta.url,
+    );
+    const ids = (await readdir(decisionsDirectory, { withFileTypes: true }))
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort();
+
+    expect(Object.keys(narratives).sort()).toEqual(ids);
+
+    for (const id of ids) {
+      const manifestSource = await readFile(
+        new URL(`${id}/portfolio.project.json`, decisionsDirectory),
+        "utf8",
+      );
+      const manifest = JSON.parse(manifestSource) as {
+        decision: string;
+        summary: string;
+      };
+      const narrative = narratives[id];
+      expect(narrative).toBeDefined();
+      expect(narrative?.en.decision).toBe(manifest.decision);
+      expect(narrative?.en.summary).toBe(manifest.summary);
+      expect(narrative?.es.decision).not.toBe(manifest.decision);
+      expect(narrative?.es.summary).not.toBe(manifest.summary);
     }
   });
 });

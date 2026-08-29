@@ -1,0 +1,348 @@
+/*
+ * The capability map: a woven, differentiated bipartite diagram (DESIGN.md).
+ * Ported from candidate B's "asymmetric typographic composition" preview
+ * (design/candidate-preview-asymmetric) into the shipping token vocabulary;
+ * layout math lives in `../data.ts`, driven by real
+ * `content/site/map.yaml` domains and the five real decision manifests.
+ */
+
+.capability-map__intro {
+  max-width: 42rem;
+  margin-block-end: clamp(2rem, 5vw, 3rem);
+}
+
+.capability-map__eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--signal-ink);
+}
+
+.capability-map__intro h2 {
+  margin: 0 0 0.85rem;
+}
+
+.capability-map__lede {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  max-width: 56ch;
+}
+
+.capability-map__instructions {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--graphite-muted);
+  max-width: 56ch;
+}
+
+.capability-map__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 2.5rem);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .capability-map__layout {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+}
+
+.capability-map__stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.capability-map__edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.capability-map__edge {
+  fill: none;
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  opacity: 0.4;
+  transition:
+    opacity 200ms var(--ease),
+    stroke-width 200ms var(--ease);
+}
+
+.capability-map__edge--survey {
+  stroke: var(--survey);
+}
+
+.capability-map__edge--signal {
+  stroke: var(--signal);
+}
+
+.capability-map__edge--neutral {
+  stroke: var(--graphite-muted);
+  stroke-dasharray: 2 1.5;
+}
+
+.capability-map__edge.is-active {
+  opacity: 1;
+  stroke-width: 1;
+}
+
+.capability-map__edge.is-dimmed {
+  opacity: 0.1;
+}
+
+.capability-map__nodes {
+  position: absolute;
+  inset: 0;
+}
+
+.capability-map__node {
+  position: absolute;
+  left: var(--map-x);
+  top: var(--map-y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.3rem;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  color: var(--graphite);
+  cursor: pointer;
+  transition: opacity 200ms var(--ease);
+}
+
+.capability-map__node-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 2px solid var(--graphite-muted);
+  background: var(--field);
+  transition:
+    transform 200ms var(--ease),
+    background-color 160ms var(--ease);
+}
+
+.capability-map__node--domain.capability-map__node--survey
+  .capability-map__node-dot {
+  border-color: var(--survey);
+  background: var(--survey-soft);
+}
+
+.capability-map__node--domain.capability-map__node--signal
+  .capability-map__node-dot {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+
+.capability-map__node--domain.capability-map__node--neutral
+  .capability-map__node-dot {
+  border-color: var(--graphite-muted);
+  background: var(--field-raised);
+  border-style: dashed;
+}
+
+.capability-map__node--decision .capability-map__node-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.capability-map__node--building .capability-map__node-dot {
+  background: var(--signal);
+  border-color: var(--signal);
+}
+
+.capability-map__node--planned .capability-map__node-dot {
+  background: var(--field);
+  border-color: var(--graphite-muted);
+  border-style: dashed;
+}
+
+.capability-map__node:hover .capability-map__node-dot {
+  border-width: 3px;
+}
+
+.capability-map__node-label {
+  max-width: 5.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  white-space: normal;
+}
+
+.capability-map__node--decision .capability-map__node-label {
+  font-weight: 600;
+}
+
+.capability-map__node-status {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--graphite-muted);
+}
+
+.capability-map__node.is-selected .capability-map__node-dot {
+  transform: scale(1.3);
+}
+
+.capability-map__node.is-selected .capability-map__node-label {
+  color: var(--graphite);
+}
+
+.capability-map__node.is-dimmed {
+  opacity: 0.32;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-map__node.is-selected .capability-map__node-dot {
+    transform: none;
+    outline: 2px solid var(--graphite);
+    outline-offset: 2px;
+  }
+
+  .capability-map__node.is-selected .capability-map__node-label {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.capability-map__node:focus-visible {
+  outline: 3px solid var(--graphite);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.capability-map__side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.capability-map__panel {
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--field-raised);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  min-height: 11rem;
+}
+
+.capability-map__panel-kicker {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--graphite-muted);
+}
+
+.capability-map__panel-heading {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.5rem, 1vw + 1.4rem, 2rem);
+}
+
+.capability-map__panel-body {
+  margin: 0 0 1rem;
+  max-width: 34ch;
+}
+
+.capability-map__panel-connections {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.capability-map__chip {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--graphite);
+  background: var(--field);
+  color: var(--graphite);
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+
+.capability-map__chip:hover {
+  background: var(--graphite);
+  color: var(--field);
+}
+
+.capability-map__live-region {
+  margin: 0;
+  min-height: 1.25em;
+  font-size: 0.8125rem;
+  color: var(--graphite-muted);
+}
+
+.capability-map__noscript-note {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--graphite-muted);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  max-width: 42rem;
+}
+
+.capability-map__fallback {
+  margin-block-start: clamp(2rem, 5vw, 3rem);
+  border-block-start: var(--rule-width) solid var(--line);
+  padding-block-start: 1.5rem;
+}
+
+.capability-map__fallback summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.capability-map__fallback summary::marker {
+  color: var(--survey-ink);
+}
+
+.capability-map__fallback dl {
+  margin: 1rem 0 0;
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
+  gap: 0.6rem 1.5rem;
+}
+
+.capability-map__fallback dt {
+  font-weight: 700;
+}
+
+.capability-map__fallback dd {
+  margin: 0;
+  color: var(--graphite-muted);
+  max-width: 60ch;
+}
+
+@media (max-width: 30rem) {
+  .capability-map__fallback dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .capability-map__fallback dd {
+    margin-block-end: 0.35rem;
+  }
+}

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { ROUTES } from "../../../lib/i18n";
 
 // Minimal, honest placeholder — no approved Governance Lab assets exist yet
 // (AGENTS.md "Honest project states"). A later visual workstream restyles
@@ -26,9 +27,12 @@ const publicSources = [
 ---
 
 <BaseLayout
+  lang="en"
   title="Personal Governance Lab — not yet published"
   description="This case is not published yet: an honest placeholder, not a demo."
-  activePath={null}
+  path={ROUTES.governanceLab.en}
+  alternatePath={null}
+  activeHref={null}
 >
   <article class="content-frame governance-lab">
     <h1>Personal Governance Lab</h1>

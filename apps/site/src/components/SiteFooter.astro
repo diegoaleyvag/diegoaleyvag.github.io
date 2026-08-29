@@ -1,14 +1,27 @@
 ---
-import { SITE_SHELL_COPY } from "./copy";
+import { SHELL_COPY, primaryNav, type Lang } from "../lib/i18n";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+const shellCopy = SHELL_COPY[lang];
+const links = primaryNav(lang);
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner content-frame">
-    <p>{SITE_SHELL_COPY.footerNote}</p>
-    <nav aria-label={SITE_SHELL_COPY.footerNavigationLabel}>
+    <p>{shellCopy.footerNote}</p>
+    <nav aria-label={shellCopy.footerNavigationLabel}>
       <ul>
-        <li><a href="/">{SITE_SHELL_COPY.portfolioLink}</a></li>
-        <li><a href="/resume/">{SITE_SHELL_COPY.resumeLink}</a></li>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
   </div>

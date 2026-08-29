@@ -1,37 +1,54 @@
 /*
- * Brutalist Editorial — foundation tokens (docs/redesign/BRIEF.md).
+ * Computational editorial — foundation tokens (DESIGN.md, ADR 0015).
  *
- * Supersedes the earlier restrained "Editorial Evidence Ledger" palette
- * (docs/adr/0013-brutalist-editorial.md records the change). One warm paper
- * base, near-black ink, and exactly one loud coral-red signal. Tokens exist
- * for consistency and accessibility, not for alternate theme switching.
+ * Ports candidate B ("asymmetric typographic composition") into the
+ * shipping site's token vocabulary. Four named color roles, referencing the
+ * USGS topographic-quadrangle convention of one hue family per map-feature
+ * category: Field (ground/background), Graphite (ink/structure), Survey
+ * (Data + Systems), Signal (Applied AI + Product, "building" status).
+ * Learning deliberately carries no hue role — see --line-dashed below and
+ * DESIGN.md's "Color" section — that omission is itself the palette
+ * encoding the learning/build-journey distinction, not a missing color.
+ *
+ * All neutrals are OKLCH, tinted; nothing is bare #000/#fff. Every pairing
+ * used as text is verified >= 4.5:1 against --field/--field-raised; every
+ * pairing used as a non-text graphic (rules, node strokes) is >= 3:1.
  */
 
 :root {
-  --paper: #f2efe6;
-  --paper-raised: #fbf9f3;
-  --ink: #16150f;
-  --ink-muted: #6b675b;
-  --rule: var(--ink);
-  --rule-soft: #cdc7b8;
-  /* Bright fill for backgrounds/rules (AA-safe as a 3:1 non-text UI color
-     against --paper; pair with --ink or --paper text on top of it). */
-  --signal: #e8442a;
-  /* Deepened variant for signal used as TEXT directly on --paper/--paper-raised
-     (links, decision marks): verified >= 4.5:1 against both. */
-  --signal-text: #c1391f;
-  --signal-ink: #ffffff;
-  --signal-soft: #fbe3dc;
+  --field: oklch(97.4% 0.012 165);
+  --field-raised: oklch(99% 0.006 165);
+  --graphite: oklch(19% 0.014 256);
+  --graphite-muted: oklch(46% 0.02 256);
+  --line: oklch(88% 0.02 165);
+  --line-dashed: var(--graphite-muted);
 
+  --survey: oklch(52% 0.135 246);
+  --survey-ink: oklch(37% 0.12 248);
+  --survey-soft: oklch(93% 0.03 246);
+
+  --signal: oklch(61.5% 0.16 68);
+  --signal-ink: oklch(40% 0.135 55);
+  --signal-soft: oklch(94% 0.045 75);
+
+  --font-display: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
   --font-body:
-    "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  --font-display:
-    "Archivo Black", "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
 
   --measure: 66ch;
-  --radius: 0;
-  --rule-width: 2px;
+  --radius: 4px;
+  --rule-width: 1.5px;
   --rule-hair: 1px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Back-compatible aliases for shared shell/ledger primitives. */
+  --paper: var(--field);
+  --paper-raised: var(--field-raised);
+  --ink: var(--graphite);
+  --ink-muted: var(--graphite-muted);
+  --rule: var(--graphite);
+  --rule-soft: var(--line);
+  --signal-text: var(--signal-ink);
 }

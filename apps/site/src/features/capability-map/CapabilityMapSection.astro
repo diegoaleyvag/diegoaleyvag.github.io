@@ -1,0 +1,98 @@
+---
+import { loadDecisionManifests } from "@portfolio/decisions";
+
+import {
+  buildDecisionNodes,
+  buildDomainNodes,
+  domainDecisions,
+  decisionDomains,
+} from "./data";
+import { mapCopyFor, statusLabel } from "./copy";
+import { loadDecisionNarratives, loadMapContent } from "../../lib/site-content";
+import type { Lang } from "../../lib/i18n";
+import { MapIsland } from "./components/MapIsland";
+
+import "./capability-map.css";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const [mapContent, manifests, narratives] = await Promise.all([
+  loadMapContent(lang),
+  loadDecisionManifests(),
+  loadDecisionNarratives(),
+]);
+
+const domains = buildDomainNodes(mapContent);
+const decisionEntries = manifests.map(({ manifest }) => {
+  const narrative = narratives[manifest.id]?.[lang];
+  return {
+    id: manifest.id,
+    title: manifest.title,
+    status: manifest.status,
+    decision: narrative?.decision ?? manifest.decision,
+  };
+});
+const decisions = buildDecisionNodes(decisionEntries);
+const copy = mapCopyFor(lang);
+---
+
+<div class="capability-map__intro">
+  <p class="capability-map__eyebrow">{copy.eyebrow}</p>
+  <h2 id="capability-map-heading">{mapContent.heading}</h2>
+  <p class="capability-map__lede">{mapContent.intro}</p>
+  <p class="capability-map__instructions">{copy.instructions}</p>
+</div>
+
+<div id="capability-map-app">
+  <MapIsland client:load lang={lang} domains={domains} decisions={decisions} />
+</div>
+
+<noscript>
+  <p class="capability-map__noscript-note">
+    {copy.instructions}
+  </p>
+</noscript>
+
+<details class="capability-map__fallback">
+  <summary>{copy.fallbackSummary}</summary>
+  <dl>
+    {
+      domains.map((domain) => {
+        const linked = domainDecisions(decisions, domain.id);
+        const names = linked.map((decision) => decision.label);
+        return (
+          <>
+            <dt>{domain.label}</dt>
+            <dd>
+              {domain.description}{" "}
+              {names.length > 0
+                ? `${copy.connectsToLabel} ${names.join(lang === "es" ? " y " : " and ")}.`
+                : copy.noConnectionsYetLabel}
+            </dd>
+          </>
+        );
+      })
+    }
+    {
+      decisions.map((decision) => {
+        const linked = decisionDomains(domains, decision);
+        const names = linked.map((domain) => domain.label);
+        return (
+          <>
+            <dt>
+              {decision.label} · {statusLabel(copy, decision.status)}
+            </dt>
+            <dd>
+              {decision.decision} {copy.connectsToLabel}{" "}
+              {names.join(lang === "es" ? " y " : " and ")}.
+            </dd>
+          </>
+        );
+      })
+    }
+  </dl>
+</details>

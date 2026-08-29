@@ -1,0 +1,414 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ROUTES, SECTION_COPY, type Lang } from "../lib/i18n";
+import {
+  CV_DOWNLOAD_PDF_PATH,
+  CV_PREVIEW_IMAGE_PATH,
+  loadCvSync,
+} from "../lib/cv-sync";
+import { translateResumeText } from "../lib/resume-es";
+
+import "../styles/sections.css";
+
+interface Props {
+  readonly lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === "es";
+const section = SECTION_COPY[lang];
+const cvSync = await loadCvSync();
+
+function t(text: string): { value: string; translated: boolean } {
+  if (!isEs) {
+    return { value: text, translated: true };
+  }
+  return translateResumeText(text);
+}
+
+const heading = isEs ? "Currículum" : "Résumé";
+const notSyncedHeading = isEs ? "Todavía no sincronizado" : "Not yet synced";
+const notSyncedBody = isEs
+  ? "Todavía no existe una copia sincronizada del CV en este build. Este es un estado honesto, no un currículum reconstruido de memoria."
+  : "No synced copy of the résumé exists in this build yet. This is an honest state, not a résumé reconstructed from memory.";
+const summaryHeading = isEs ? "Resumen" : "Summary";
+const experienceHeading = isEs ? "Experiencia" : "Experience";
+const projectsHeading = isEs ? "Proyectos" : "Projects";
+const educationHeading = isEs ? "Educación" : "Education";
+const skillsHeading = isEs ? "Habilidades" : "Skills";
+const certificationsHeading = isEs ? "Certificaciones" : "Certifications";
+const sourceHeading = isEs ? "Procedencia" : "Source provenance";
+const untranslatedNote = isEs ? "(sin traducir)" : "";
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${heading} — Diego Leyva`}
+  description={cvSync.available
+    ? t(cvSync.summary.headline).value
+    : notSyncedBody}
+  path={ROUTES.resume[lang]}
+  alternatePath={ROUTES.resume[lang === "en" ? "es" : "en"]}
+  activeHref={ROUTES.resume[lang]}
+>
+  <article class="content-frame resume-page">
+    {
+      !cvSync.available ? (
+        <div class="section-intro" style="padding-block-start: 2rem;">
+          <h1>{notSyncedHeading}</h1>
+          <p>{notSyncedBody}</p>
+        </div>
+      ) : (
+        <>
+          <header class="resume-header">
+            <h1>{cvSync.summary.name}</h1>
+            <p class="resume-header__headline">
+              {t(cvSync.summary.headline).value}
+            </p>
+            <div class="resume-header__meta">
+              <p>
+                {t(cvSync.summary.location).value}
+                <span aria-hidden="true"> · </span>
+                {t(cvSync.summary.availability).value}
+              </p>
+              <address>
+                <a href={`mailto:${cvSync.summary.email}`}>
+                  {cvSync.summary.email}
+                </a>
+                <a href={cvSync.summary.linkedin.url}>
+                  {cvSync.summary.linkedin.label}
+                </a>
+                <a href={cvSync.summary.github.url}>
+                  {cvSync.summary.github.label}
+                </a>
+              </address>
+            </div>
+            <p class="resume-header__summary">
+              {t(cvSync.summary.summary).value}
+            </p>
+
+            <div class="resume-header__actions">
+              <img
+                class="resume-header__preview"
+                src={CV_PREVIEW_IMAGE_PATH}
+                width="240"
+                height="339"
+                alt={
+                  isEs
+                    ? "Vista previa de la primera página del PDF del currículum"
+                    : "Preview of the résumé PDF's first page"
+                }
+                loading="lazy"
+              />
+              <a class="btn btn--primary" href={CV_DOWNLOAD_PDF_PATH} download>
+                {section.downloadPdf}
+              </a>
+            </div>
+          </header>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="summary-heading"
+          >
+            <h2 id="summary-heading">{summaryHeading}</h2>
+            <p>{t(cvSync.summary.summary).value}</p>
+          </section>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="experience-heading"
+          >
+            <h2 id="experience-heading">{experienceHeading}</h2>
+            <ol class="ledger">
+              {cvSync.summary.experience.map((entry, index) => {
+                const role = t(entry.role);
+                const dates = t(entry.dates);
+                const location = t(entry.location);
+                return (
+                  <li class="ledger-row">
+                    <span class="ledger-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div class="ledger-heading">
+                      <h3>
+                        {role.value}
+                        {!role.translated && untranslatedNote}
+                      </h3>
+                      <p class="ledger-subheading">{entry.organisation}</p>
+                    </div>
+                    <div class="ledger-rail">
+                      <p>
+                        {dates.value}
+                        <span aria-hidden="true"> · </span>
+                        {location.value}
+                      </p>
+                    </div>
+                    <div class="ledger-body">
+                      <ul>
+                        {entry.bullets.map((bullet) => {
+                          const translated = t(bullet);
+                          return (
+                            <li>
+                              {translated.value}
+                              {!translated.translated && ` ${untranslatedNote}`}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="projects-heading"
+          >
+            <h2 id="projects-heading">{projectsHeading}</h2>
+            <ol class="ledger">
+              {cvSync.summary.projects.map((entry, index) => {
+                const descriptor = t(entry.descriptor);
+                const dates = t(entry.dates);
+                return (
+                  <li class="ledger-row">
+                    <span class="ledger-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div class="ledger-heading">
+                      <h3>{entry.name}</h3>
+                      <p class="ledger-subheading">
+                        {descriptor.value}
+                        {!descriptor.translated && untranslatedNote}
+                      </p>
+                    </div>
+                    <div class="ledger-rail">
+                      <p>{dates.value}</p>
+                    </div>
+                    <div class="ledger-body">
+                      <ul>
+                        {entry.bullets.map((bullet) => {
+                          const translated = t(bullet);
+                          return (
+                            <li>
+                              {translated.value}
+                              {!translated.translated && ` ${untranslatedNote}`}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="education-heading"
+          >
+            <h2 id="education-heading">{educationHeading}</h2>
+            <ol class="ledger">
+              {cvSync.summary.education.map((entry, index) => {
+                const credential = t(entry.credential);
+                const dates = t(entry.dates);
+                const location = t(entry.location);
+                const detail = t(entry.detail);
+                return (
+                  <li class="ledger-row">
+                    <span class="ledger-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div class="ledger-heading">
+                      <h3>{entry.institution}</h3>
+                      <p class="ledger-subheading">
+                        {credential.value}
+                        {!credential.translated && untranslatedNote}
+                      </p>
+                    </div>
+                    <div class="ledger-rail">
+                      <p>
+                        {dates.value}
+                        <span aria-hidden="true"> · </span>
+                        {location.value}
+                      </p>
+                    </div>
+                    <div class="ledger-body">
+                      <p>
+                        {detail.value}
+                        {!detail.translated && ` ${untranslatedNote}`}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="skills-heading"
+          >
+            <h2 id="skills-heading">{skillsHeading}</h2>
+            <dl class="resume-skills">
+              {cvSync.summary.skills.map((entry) => {
+                const label = t(entry.label);
+                return (
+                  <>
+                    <dt>
+                      {label.value}
+                      {!label.translated && untranslatedNote}
+                    </dt>
+                    <dd>{entry.value}</dd>
+                  </>
+                );
+              })}
+            </dl>
+          </section>
+
+          <section
+            class="resume-section rule-top"
+            aria-labelledby="certifications-heading"
+          >
+            <h2 id="certifications-heading">{certificationsHeading}</h2>
+            <ul class="resume-certifications">
+              {cvSync.summary.certifications.map((entry) => (
+                <li>{entry}</li>
+              ))}
+            </ul>
+          </section>
+
+          <footer class="resume-provenance rule-top">
+            <h2>{sourceHeading}</h2>
+            <p>
+              {isEs ? "Archivo fuente" : "Source file"}:{" "}
+              <code>apps/site/public/downloads/cv/summary.json</code>
+            </p>
+            <p>
+              {isEs ? "Confirmación de origen" : "Source commit"}:{" "}
+              <code>{cvSync.manifest.sourceCommit}</code>
+            </p>
+            <p>
+              {isEs ? "Sincronizado el" : "Synced at"}:{" "}
+              <code>{cvSync.manifest.syncedAt}</code>
+            </p>
+          </footer>
+        </>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .resume-header {
+    padding-block-end: 2rem;
+    border-block-end: var(--rule-width) solid var(--graphite);
+  }
+
+  .resume-header h1 {
+    margin: 0;
+    font-family: var(--font-display);
+  }
+
+  .resume-header__headline {
+    margin: 0.4rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--graphite-muted);
+  }
+
+  .resume-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-block: 1.25rem;
+    padding-block: 1rem;
+    border-block: var(--rule-hair) solid var(--line);
+    font-size: 0.8125rem;
+  }
+
+  address {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-style: normal;
+    margin: 0;
+  }
+
+  .resume-header__summary {
+    max-width: 60ch;
+    font-size: 1.0625rem;
+  }
+
+  .resume-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-block-start: 1.5rem;
+  }
+
+  .resume-header__preview {
+    border: var(--rule-width) solid var(--line);
+    border-radius: var(--radius);
+    height: auto;
+  }
+
+  .resume-section,
+  .resume-provenance {
+    padding-block: 2.25rem;
+  }
+
+  .resume-skills {
+    display: grid;
+    grid-template-columns: minmax(10rem, auto) minmax(0, 1fr);
+    gap: 0;
+    margin: 0;
+  }
+
+  .resume-skills dt,
+  .resume-skills dd {
+    padding-block: 0.85rem;
+    border-block-end: var(--rule-hair) solid var(--line);
+  }
+
+  .resume-skills dt {
+    font-weight: 800;
+    font-size: 0.875rem;
+    padding-inline-end: 1.5rem;
+  }
+
+  .resume-skills dd {
+    margin: 0;
+  }
+
+  .resume-certifications {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resume-certifications li {
+    padding-block: 0.85rem;
+    border-block-end: var(--rule-hair) solid var(--line);
+    max-width: none;
+  }
+
+  .resume-provenance {
+    color: var(--graphite-muted);
+    font-size: 0.875rem;
+  }
+
+  .resume-provenance code {
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 40rem) {
+    .resume-header__meta {
+      flex-direction: row;
+    }
+  }
+</style>

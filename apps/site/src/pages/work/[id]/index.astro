@@ -1,0 +1,16 @@
+---
+import { loadDecisionManifests } from "@portfolio/decisions";
+import DecisionPage from "../../../routes/DecisionPage.astro";
+
+export async function getStaticPaths() {
+  const manifests = await loadDecisionManifests();
+  return manifests.map(({ manifest }) => ({
+    params: { id: manifest.id },
+    props: { manifest },
+  }));
+}
+
+const { manifest } = Astro.props;
+---
+
+<DecisionPage lang="en" manifest={manifest} />

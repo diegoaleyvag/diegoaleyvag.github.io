@@ -37,33 +37,27 @@ describe("Five Decisions manifest loader", () => {
     }
   });
 
-  it("marks Prism as building with a real start date, and the rest as planned", async () => {
+  it("keeps the synchronized build dates and final statuses truthful", async () => {
     const loaded = await loadDecisionManifests();
     const byId = new Map(loaded.map((entry) => [entry.id, entry.manifest]));
 
-    const prism = byId.get("prism");
-    expect(prism?.status).toBe("building");
-    expect(prism?.buildStarted).toBe("2026-08-13");
-    expect(prism?.decision).toBe("When is a model good enough?");
-
-    for (const id of ["relay", "limen", "axiom", "vector"]) {
+    for (const id of ["prism", "relay", "limen", "vector"]) {
       const manifest = byId.get(id);
-      expect(manifest?.status).toBe("planned");
-      expect(manifest?.buildStarted).toBeNull();
+      expect(manifest?.status).toBe("released");
+      expect(manifest?.buildStarted).toBe("2026-08-13");
     }
+    expect(byId.get("axiom")?.status).toBe("verified");
+    expect(byId.get("axiom")?.buildStarted).toBe("2026-08-13");
   });
 
-  it("never ships invented evidence or links for an unstarted or just-started decision", async () => {
+  it("retains validated evidence and final hosted-demo boundaries", async () => {
     const loaded = await loadDecisionManifests();
 
     for (const { manifest } of loaded) {
-      expect(manifest.capabilities).toEqual([]);
-      expect(manifest.evidence).toEqual([]);
-      expect(manifest.links).toEqual({
-        repository: null,
-        demo: null,
-        methodology: null,
-      });
+      expect(manifest.capabilities.length).toBeGreaterThan(0);
+      expect(manifest.evidence.length).toBeGreaterThan(0);
+      expect(manifest.links.repository).not.toBeNull();
+      expect(manifest.links.demo === null).toBe(manifest.id === "axiom");
     }
   });
 

@@ -3,16 +3,50 @@
   "collection": "five-decisions",
   "id": "relay",
   "title": "Relay",
-  "decision": "Relay's guiding question has not been set yet.",
-  "learningOrigin": "2026-05",
-  "buildStarted": null,
-  "status": "planned",
-  "summary": "This one is still queued: the specific question Relay will answer, and the evidence behind it, gets published once the build actually starts.",
-  "capabilities": [],
-  "evidence": [],
+  "decision": "What should survive a failure?",
+  "learningOrigin": "2026-07",
+  "buildStarted": "2026-08-13",
+  "status": "released",
+  "summary": "A reliability lab for checkpointed, observable agent workflows.",
+  "capabilities": [
+    {
+      "label": "Durable checkpoints",
+      "detail": "Local run state survives a process restart."
+    },
+    {
+      "label": "Deterministic fault injection",
+      "detail": "Six prescribed failure scenarios make recovery behavior inspectable."
+    },
+    {
+      "label": "Human escalation",
+      "detail": "A local operator can resolve an explicit review state."
+    }
+  ],
+  "evidence": [
+    {
+      "type": "test",
+      "description": "All six injected failure scenarios pass deterministically end-to-end (real SQLite store, MCP server, corpus).",
+      "reference": "internal/engine/integration_test.go"
+    },
+    {
+      "type": "test",
+      "description": "A real subprocess killed after a side effect resumes to exactly one finding per source.",
+      "reference": "internal/engine/restart_test.go"
+    },
+    {
+      "type": "documentation",
+      "description": "Failure-semantics table, Mermaid state/sequence diagrams, threat model and ADRs.",
+      "reference": "docs/"
+    },
+    {
+      "type": "production deployment",
+      "description": "Static production deployment verified through hosted smoke tests; the Go/SQLite runtime is not deployed.",
+      "reference": "https://five-decisions-relay-fby9xa47j-atomiczdaemons-projects.vercel.app"
+    }
+  ],
   "links": {
-    "repository": null,
-    "demo": null,
-    "methodology": null
+    "repository": "https://github.com/diegoaleyvag/relay",
+    "demo": "https://five-decisions-relay.vercel.app",
+    "methodology": "https://github.com/diegoaleyvag/relay/blob/main/docs/failure-semantics.md"
   }
 }

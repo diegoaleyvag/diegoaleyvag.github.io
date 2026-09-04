@@ -69,5 +69,5 @@ that could describe a thousand other landing pages without changing.
 
 The `register: brand` frontmatter field lets tooling distinguish this brand
 copy from binding technical decisions (`docs/architecture.md`) and from the
-pending visual-system stub (`DESIGN.md`). Nothing in this file overrides
+decided visual system (`DESIGN.md`, ADR 0015). Nothing in this file overrides
 `AGENTS.md`'s fact/narrative boundary or its authority order.

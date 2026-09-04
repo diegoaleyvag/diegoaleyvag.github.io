@@ -6,9 +6,42 @@
   "decision": "When is a model good enough?",
   "learningOrigin": "2026-05",
   "buildStarted": "2026-08-13",
-  "status": "building",
-  "summary": "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship.",
-  "capabilities": [],
-  "evidence": [],
-  "links": { "repository": null, "demo": null, "methodology": null }
+  "status": "released",
+  "summary": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer.",
+  "capabilities": [
+    {
+      "label": "Synthetic evaluations",
+      "detail": "Runs fixed, owner-reviewed synthetic cases through deterministic fixture profiles; no live provider is available."
+    },
+    {
+      "label": "Reproducible metrics",
+      "detail": "Uses content-addressed records, deterministic aggregation, and explicit small-sample uncertainty guardrails."
+    },
+    {
+      "label": "Static result explorer",
+      "detail": "Exports eight redacted artifacts into a prerendered explorer with route-level access to aggregate and case evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "type": "reproducibility",
+      "description": "The documented offline fixture run validates, executes, verifies, computes metrics, and exports the static evidence set.",
+      "reference": "README.md#five-minute-local-run"
+    },
+    {
+      "type": "integrity safeguards",
+      "description": "The threat model records simulated-only, name-guard, redaction, digest, and uncertainty protections.",
+      "reference": "docs/THREAT_MODEL.md"
+    },
+    {
+      "type": "production deployment",
+      "description": "Git-sourced production deployment verified through hosted smoke tests.",
+      "reference": "https://five-decisions-prism-8opv796js-atomiczdaemons-projects.vercel.app"
+    }
+  ],
+  "links": {
+    "repository": "https://github.com/diegoaleyvag/prism",
+    "demo": "https://five-decisions-prism.vercel.app",
+    "methodology": null
+  }
 }

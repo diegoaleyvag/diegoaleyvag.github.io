@@ -40,6 +40,12 @@ const statusBadgeLabel = (status: string): string => {
   if (status === "planned") {
     return isEs ? "Planeada" : "Planned";
   }
+  if (status === "verified") {
+    return isEs ? "Verificado" : "Verified";
+  }
+  if (status === "released") {
+    return isEs ? "Publicado" : "Released";
+  }
   return status;
 };
 
@@ -74,7 +80,13 @@ const intro = isEs
           decisions.map((decision) => (
             <a class="case-card" href={decision.href}>
               <span
-                class={`badge ${decision.status === "building" ? "badge--building" : "badge--planned"}`}
+                class={`badge ${
+                  decision.status === "building"
+                    ? "badge--building"
+                    : decision.status === "planned"
+                      ? "badge--planned"
+                      : "badge--verified"
+                }`}
               >
                 {statusBadgeLabel(decision.status)}
               </span>

@@ -79,6 +79,12 @@ const statusBadgeLabel = (status: string): string => {
   if (status === "planned") {
     return isEs ? "Planeada" : "Planned";
   }
+  if (status === "verified") {
+    return isEs ? "Verificado" : "Verified";
+  }
+  if (status === "released") {
+    return isEs ? "Publicado" : "Released";
+  }
   return status;
 };
 ---
@@ -139,7 +145,13 @@ const statusBadgeLabel = (status: string): string => {
           decisionSummaries.map((decision) => (
             <a class="case-card" href={decision.href}>
               <span
-                class={`badge ${decision.status === "building" ? "badge--building" : "badge--planned"}`}
+                class={`badge ${
+                  decision.status === "building"
+                    ? "badge--building"
+                    : decision.status === "planned"
+                      ? "badge--planned"
+                      : "badge--verified"
+                }`}
               >
                 {statusBadgeLabel(decision.status)}
               </span>
@@ -317,5 +329,9 @@ const statusBadgeLabel = (status: string): string => {
 <style>
   .home {
     padding-block: 0 4rem;
+  }
+
+  .home .contact-links a {
+    overflow-wrap: anywhere;
   }
 </style>

@@ -16,6 +16,7 @@
     "corpus:build": "tsx tools/build-corpus/src/cli.ts",
     "cv:sync": "tsx tools/cv-sync/src/cli.ts",
     "decisions:build": "tsx tools/build-decisions/src/cli.ts",
+    "decisions:sync": "tsx tools/sync-decisions/src/cli.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generated:build": "pnpm decisions:build && pnpm corpus:build",

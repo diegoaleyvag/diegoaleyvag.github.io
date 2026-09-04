@@ -29,9 +29,11 @@ flagship surface anymore.
 - No database, queue, CMS, analytics service, or general-purpose task
   runner. Only the integration owner edits package manifests and the
   lockfile.
-- The visual system is **not yet chosen** — see `DESIGN.md` for the fixed
-  constraints and the pending best-of-N exploration recorded by a
-  forthcoming ADR 0015.
+- The computational-editorial visual system is decided by `DESIGN.md` and
+  [ADR 0015](adr/0015-computational-editorial-visual-system.md): Big
+  Shoulders Display, Public Sans, and Martian Mono; Field, Graphite, Survey,
+  and Signal color roles; and a woven, differentiated bipartite capability
+  map.
 - No product name is selected.
 
 **Superseded by [ADR 0014](adr/0014-portfolio-product-reset.md):** the

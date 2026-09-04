@@ -7,8 +7,9 @@
   "en": {
     "label": "Prism — Five Decisions",
     "question": "What is Prism?",
-    "answer": "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship. Status: building — work started 13 Aug 2026.",
+    "answer": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer. Status: released.",
     "keywords": [
+      "prism",
       "prism",
       "model good enough",
       "evaluation",
@@ -21,8 +22,9 @@
   "es": {
     "label": "Prism — Five Decisions",
     "question": "¿Qué es Prism?",
-    "answer": "Prism pregunta cómo decidir, con evidencia y no por intuición, que la salida de un modelo ya es lo bastante buena para publicarse. Estado: en construcción — empezó el 13 de agosto de 2026.",
+    "answer": "Prism: Un banco de trabajo determinista y simulado para evaluar compensaciones específicas de cada tarea con métricas inspectables y un explorador estático de evidencia. Estado: publicado.",
     "keywords": [
+      "prism",
       "prism",
       "modelo suficientemente bueno",
       "evaluacion",

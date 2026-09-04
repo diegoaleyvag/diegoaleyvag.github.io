@@ -42,16 +42,10 @@ const DOMAIN_ROLE_BY_ID: Readonly<Record<DomainId, DomainRole>> = {
  * - "applied-ai" names only Prism specifically ("Prism ... lives here most
  *   directly") — so only Prism gets it.
  * - "systems" describes a decision that has already "stopped being an idea
- *   and becomes something that runs on its own." Prism is the only decision
- *   whose manifest records `status: "building"` / a set `buildStarted`
- *   date; the other four are still `status: "planned"` with no
- *   `buildStarted` date, i.e. still ideas by the manifest's own honest
- *   status field — so only Prism gets "systems" today.
+ *   and becomes something that runs on its own." All five have a set
+ *   `buildStarted` date, so all five connect to Systems.
  * - "product" describes passing a bar ("usable and checkable by someone
- *   else") no decision's manifest status has reached yet (none is
- *   `verified`/`released`) — so it connects to no decision yet. A domain
- *   node with zero current connections is itself an honest statement, not
- *   a placeholder pairing.
+ *   else"). Relay is the reviewed connection for Product.
  *
  * This map is intentionally not auto-derived from decision status at
  * runtime (a "planned" decision could ship any month); it is a fixed,
@@ -60,10 +54,10 @@ const DOMAIN_ROLE_BY_ID: Readonly<Record<DomainId, DomainRole>> = {
  */
 const DECISION_DOMAIN_IDS: Readonly<Record<string, readonly DomainId[]>> = {
   prism: ["data", "applied-ai", "systems", "learning"],
-  axiom: ["data", "learning"],
-  relay: ["data", "learning"],
-  limen: ["data", "learning"],
-  vector: ["data", "learning"],
+  axiom: ["data", "systems", "learning"],
+  relay: ["data", "systems", "product", "learning"],
+  limen: ["data", "systems", "learning"],
+  vector: ["data", "systems", "learning"],
 };
 
 export interface DomainNode {

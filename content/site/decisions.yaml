@@ -1,49 +1,52 @@
-# Bilingual narrative wrapper for the Five Decisions manifests under
-# content/decisions/ (schemaVersion 1.0.0 there is intentionally
-# single-language/English — the manifest schema is the versioned, closed
-# source-of-fact contract, not a translation surface). This file holds only
-# a faithful Spanish rendering of each manifest's own `decision` and
-# `summary` strings; the `en` block is that same English text, copied
-# verbatim from the manifest, so the two languages are checked against each
-# other and against the manifest at the same time (see
-# tests/integration/site-content.test.ts).
-#
-# Nothing here adds a fact the manifest doesn't already state. A
-# `planned`-status entry's Spanish rendering stays exactly as unfinished and
-# unset as its English original — never implying a guiding question exists
-# where the manifest says it doesn't yet.
+# Bilingual narrative wrapper for validated Five Decisions manifests.
+# English mirrors the canonical manifest; Spanish is a faithful translation.
+
 prism:
   en:
-    decision: "When is a model good enough?"
-    summary: "Prism asks how you decide, with evidence rather than a gut feeling, that a model's output is actually good enough to ship."
+    decision: When is a model good enough?
+    summary: A deterministic, simulated workbench for evaluating task-specific
+      tradeoffs with inspectable metrics and a static evidence explorer.
   es:
-    decision: "¿Cuándo es un modelo suficientemente bueno?"
-    summary: "Prism pregunta cómo se decide, con evidencia y no con intuición, que la salida de un modelo ya es lo bastante buena para publicarse."
+    decision: ¿Cuándo es un modelo suficientemente bueno?
+    summary:
+      Un banco de trabajo determinista y simulado para evaluar compensaciones
+      específicas de cada tarea con métricas inspectables y un explorador
+      estático de evidencia.
 axiom:
   en:
-    decision: "Axiom's question is still unwritten."
-    summary: "A placeholder, not a preview: the guiding question, approach, and evidence all wait for the day this actually starts building."
+    decision: Can an AI output keep its contract?
+    summary: A CI-ready contract checker for structured AI outputs, with offline
+      evaluation and value-free reports.
   es:
-    decision: "La pregunta de Axiom todavía no se ha escrito."
-    summary: "Es un marcador, no un adelanto: la pregunta guía, el enfoque y la evidencia esperan todos el día en que esto realmente empiece a construirse."
+    decision: ¿Puede una salida de IA mantener su contrato?
+    summary: Un comprobador de contratos preparado para CI para salidas de IA
+      estructuradas, con evaluación sin conexión e informes sin valores.
 relay:
   en:
-    decision: "Relay's guiding question has not been set yet."
-    summary: "This one is still queued: the specific question Relay will answer, and the evidence behind it, gets published once the build actually starts."
+    decision: What should survive a failure?
+    summary: A reliability lab for checkpointed, observable agent workflows.
   es:
-    decision: "La pregunta guía de Relay aún no se ha definido."
-    summary: "Este todavía está en cola: la pregunta específica que Relay va a responder, junto con la evidencia detrás de ella, se publica en cuanto la construcción realmente empiece."
+    decision: ¿Qué debería sobrevivir a un fallo?
+    summary: Un laboratorio de fiabilidad para flujos de trabajo de agentes
+      observables y con puntos de control.
 limen:
   en:
-    decision: "Limen doesn't have a guiding question yet."
-    summary: "Nothing is decided here yet — the real question and any supporting evidence go up the day this moves from planned to building."
+    decision: What belongs in context?
+    summary:
+      A deterministic lab for comparing context-selection strategies under
+      fixed budgets.
   es:
-    decision: "Limen todavía no tiene una pregunta guía."
-    summary: "Aquí no hay nada decidido todavía: la pregunta real y cualquier evidencia que la respalde se publican el día en que esto pase de planeado a en construcción."
+    decision: ¿Qué pertenece al contexto?
+    summary:
+      Un laboratorio determinista para comparar estrategias de selección de
+      contexto con presupuestos fijos.
 vector:
   en:
-    decision: "Vector's guiding question is not chosen yet."
-    summary: "Held open on purpose — the specific question and its evidence appear here only once work on Vector begins."
+    decision: Which architecture fits the constraints?
+    summary: A transparent studio for comparing AI architecture patterns under
+      explicit constraints.
   es:
-    decision: "La pregunta guía de Vector todavía no se ha elegido."
-    summary: "Se deja abierta a propósito: la pregunta específica y su evidencia aparecen aquí solo cuando el trabajo en Vector comience."
+    decision: ¿Qué arquitectura se ajusta a las restricciones?
+    summary:
+      Un estudio transparente para comparar patrones de arquitectura de IA
+      bajo restricciones explícitas.

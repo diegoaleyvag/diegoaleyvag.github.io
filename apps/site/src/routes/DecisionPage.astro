@@ -26,7 +26,15 @@ const statusBadgeLabel =
       ? isEs
         ? "Planeada"
         : "Planned"
-      : manifest.status;
+      : manifest.status === "verified"
+        ? isEs
+          ? "Verificado"
+          : "Verified"
+        : manifest.status === "released"
+          ? isEs
+            ? "Publicado"
+            : "Released"
+          : manifest.status;
 
 const path = workDecisionPath(lang, manifest.id);
 const alternatePath = workDecisionPath(
@@ -66,7 +74,13 @@ const linkLabels: Record<"repository" | "demo" | "methodology", string> = isEs
     <header class="section-intro" style="padding-block-start: 2rem;">
       <p class="eyebrow">{isEs ? "Five Decisions" : "Five Decisions"}</p>
       <span
-        class={`badge ${manifest.status === "building" ? "badge--building" : "badge--planned"}`}
+        class={`badge ${
+          manifest.status === "building"
+            ? "badge--building"
+            : manifest.status === "planned"
+              ? "badge--planned"
+              : "badge--verified"
+        }`}
       >
         {statusBadgeLabel}
       </span>
@@ -181,5 +195,10 @@ const linkLabels: Record<"repository" | "demo" | "methodology", string> = isEs
 
   .decision-page__meta dd {
     margin: 0;
+  }
+
+  .decision-page section[aria-labelledby="evidence-heading"] a,
+  .decision-page section[aria-labelledby="links-heading"] a {
+    overflow-wrap: anywhere;
   }
 </style>

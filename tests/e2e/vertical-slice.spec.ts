@@ -3,6 +3,10 @@ import { expect, test as base, type Page, type Route } from "@playwright/test";
 
 const staticOrigin = "http://127.0.0.1:4173";
 
+function githubUrl(path: string): string {
+  return ["https:", "", "github.com", path].join("/");
+}
+
 interface NetworkGuard {
   readonly localPaths: string[];
   readonly unexpectedRequests: string[];
@@ -256,3 +260,153 @@ test("every English route has a working Spanish counterpart via the language swi
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
   }
 });
+
+for (const { route, methodologyUrl, evidenceUrl } of [
+  {
+    route: "/work/axiom/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/axiom/blob/477b8660a0e7546257fe509bfe5795a65d99fed4/HANDOFF.md#five-decisions-methodology",
+    ),
+    evidenceUrl: "packages/core/src/domain/portfolio-manifest.test.ts",
+  },
+  {
+    route: "/es/trabajo/axiom/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/axiom/blob/477b8660a0e7546257fe509bfe5795a65d99fed4/HANDOFF.md#five-decisions-methodology",
+    ),
+    evidenceUrl: "packages/core/src/domain/portfolio-manifest.test.ts",
+  },
+  {
+    route: "/work/relay/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/relay/blob/main/docs/failure-semantics.md",
+    ),
+    evidenceUrl: "internal/engine/integration_test.go",
+  },
+  {
+    route: "/es/trabajo/relay/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/relay/blob/main/docs/failure-semantics.md",
+    ),
+    evidenceUrl: "internal/engine/integration_test.go",
+  },
+] as const) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps evidence and methodology links reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      for (const href of [evidenceUrl, methodologyUrl]) {
+        const link = page.locator(`a[href="${href}"]`);
+        await expect(link).toBeVisible();
+        await expect(link).toHaveAttribute("href", href);
+        await link.focus();
+        await expect(link).toBeFocused();
+      }
+
+      const widths = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }));
+      expect(widths.scrollWidth).toBe(widths.clientWidth);
+    });
+  }
+}
+
+for (const route of ["/resume/", "/es/cv/"]) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps all résumé content reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const download = page.getByRole("link", { name: /PDF|PDF del CV/ });
+      await expect(download).toBeVisible();
+      await expect(download).toHaveAttribute(
+        "href",
+        "/downloads/cv/diego-leyva-cv.pdf",
+      );
+      await download.focus();
+      await expect(download).toBeFocused();
+      const skills = page.locator(".resume-skills dd");
+      expect(await skills.count()).toBeGreaterThan(0);
+      expect(
+        await skills.evaluateAll((nodes) =>
+          nodes.every((node) => {
+            const rect = node.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+          }),
+        ),
+      ).toBe(true);
+
+      const overflow = await page
+        .locator(".resume-page *")
+        .evaluateAll((nodes) =>
+          nodes
+            .filter((node) => node.scrollWidth > node.clientWidth)
+            .map((node) => ({
+              selector: `${node.tagName.toLowerCase()}.${node.className}`,
+              scrollWidth: node.scrollWidth,
+              clientWidth: node.clientWidth,
+            })),
+        );
+      expect(overflow).toEqual([]);
+
+      const widths = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }));
+      expect(widths.scrollWidth).toBe(widths.clientWidth);
+    });
+  }
+}
+
+for (const route of ["/", "/es/"]) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps all home content reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const contactLinks = page.locator(".home .contact-links a");
+      expect(await contactLinks.count()).toBeGreaterThan(0);
+      for (let index = 0; index < (await contactLinks.count()); index += 1) {
+        const link = contactLinks.nth(index);
+        await expect(link).toBeVisible();
+        await link.focus();
+        await expect(link).toBeFocused();
+      }
+
+      const email = page.locator('.home .contact-links a[href^="mailto:"]');
+      await expect(email).toHaveCount(1);
+      expect(await email.getAttribute("href")).toBe(
+        `mailto:${(await email.textContent())?.trim()}`,
+      );
+
+      const overflow = await page
+        .locator(".home *")
+        .evaluateAll((nodes) =>
+          nodes
+            .filter((node) => node.scrollWidth > node.clientWidth)
+            .map((node) => node.tagName),
+        );
+      expect(overflow).toEqual([]);
+
+      const mapButton = page.getByRole("button", { name: /Prism/ });
+      await mapButton.focus();
+      await page.keyboard.press("Enter");
+      await expect(mapButton).toHaveAttribute("aria-pressed", "true");
+      expect(
+        await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth ===
+            document.documentElement.clientWidth,
+        ),
+      ).toBe(true);
+    });
+  }
+}

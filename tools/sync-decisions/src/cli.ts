@@ -21,7 +21,7 @@ const sources = {
     status: "verified",
   },
   relay: {
-    commit: "156070f1733a7e77855bd28642eedbe36e1852d3",
+    commit: "651a153169d6459c5b0d30869f30ac2cabfc7779",
     repository: "https://github.com/diegoaleyvag/relay",
     status: "verified",
   },

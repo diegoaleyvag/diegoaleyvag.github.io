@@ -6,7 +6,7 @@ const workspaceUrl = new URL("../../", import.meta.url);
 
 const expectedSources = {
   prism: "9d1efc794c1fe5f0ae481ad4bc12711012872810",
-  relay: "156070f1733a7e77855bd28642eedbe36e1852d3",
+  relay: "651a153169d6459c5b0d30869f30ac2cabfc7779",
   limen: "e695b7886274199aedd6b7dc3c0f22a97816e7f3",
   vector: "eee18d9fc9ea828924a3d81e2c0ea79a6e91ffb5",
   axiom: "e333f8ca80212bd5805e14eaf92f226673dad41b",

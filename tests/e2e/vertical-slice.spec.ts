@@ -314,3 +314,52 @@ for (const { route, methodologyUrl, evidenceUrl } of [
     });
   }
 }
+
+for (const route of ["/resume/", "/es/cv/"]) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps all résumé content reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const download = page.getByRole("link", { name: /PDF|PDF del CV/ });
+      await expect(download).toBeVisible();
+      await expect(download).toHaveAttribute(
+        "href",
+        "/downloads/cv/diego-leyva-cv.pdf",
+      );
+      await download.focus();
+      await expect(download).toBeFocused();
+      const skills = page.locator(".resume-skills dd");
+      expect(await skills.count()).toBeGreaterThan(0);
+      expect(
+        await skills.evaluateAll((nodes) =>
+          nodes.every((node) => {
+            const rect = node.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+          }),
+        ),
+      ).toBe(true);
+
+      const overflow = await page
+        .locator(".resume-page *")
+        .evaluateAll((nodes) =>
+          nodes
+            .filter((node) => node.scrollWidth > node.clientWidth)
+            .map((node) => ({
+              selector: `${node.tagName.toLowerCase()}.${node.className}`,
+              scrollWidth: node.scrollWidth,
+              clientWidth: node.clientWidth,
+            })),
+        );
+      expect(overflow).toEqual([]);
+
+      const widths = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }));
+      expect(widths.scrollWidth).toBe(widths.clientWidth);
+    });
+  }
+}

@@ -13,15 +13,15 @@
       "id": "limen",
       "path": "/decisions/v1/limen.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1978,
-      "sha256": "a39a9260656510bdd70bab724c30cc429103c36f48648b767bcae8f7c08c2d3a"
+      "byteLength": 2078,
+      "sha256": "41da23e62c548207e17d9efc0ff4baf34f0dc1dde933714b5e80741156fb5868"
     },
     {
       "id": "prism",
       "path": "/decisions/v1/prism.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1841,
-      "sha256": "edc6ea6136ae244d779cafec808ec8f6126a8b7ddcc926be9e4431dc80ecb64b"
+      "byteLength": 1942,
+      "sha256": "d0941530e72269c89e432e2f8e322dacc815ac294e59dd42152eb68d7bb0406d"
     },
     {
       "id": "relay",
@@ -34,8 +34,8 @@
       "id": "vector",
       "path": "/decisions/v1/vector.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1742,
-      "sha256": "ec1110a6aec3f9297440d9d92337d58f32229f7c4de55b2aaba60fc1c965a1ff"
+      "byteLength": 1848,
+      "sha256": "729e71599bd9c47f0d54c787f3820d4a147ca1fcb15442faaa14b6eb2ccadf12"
     }
   ]
 }

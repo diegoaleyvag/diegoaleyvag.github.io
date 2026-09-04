@@ -364,6 +364,188 @@ for (const route of ["/resume/", "/es/cv/"]) {
   }
 }
 
+for (const { route, notPublishedLabel } of [
+  { route: "/work/", notPublishedLabel: "Not published" },
+  { route: "/es/trabajo/", notPublishedLabel: "No publicado" },
+] as const) {
+  test(`${route} does not show the Personal Governance Lab on the home page but keeps it here`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    const card = page.locator('a.case-card[href$="governance-lab/"]');
+    await expect(card).toBeVisible();
+    await expect(
+      card.getByText(notPublishedLabel, { exact: true }),
+    ).toBeVisible();
+  });
+}
+
+for (const route of ["/", "/es/"]) {
+  test(`${route} no longer promotes the Personal Governance Lab card on the home page`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    await expect(
+      page.locator('a.case-card[href$="governance-lab/"]'),
+    ).toHaveCount(0);
+    await expect(page.getByText("Personal Governance Lab")).toHaveCount(0);
+  });
+}
+
+for (const { route, methodologyUrl } of [
+  {
+    route: "/work/prism/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/prism/blob/faac6b68bc2305ba8849b4cf15dc1a0dab423fce/docs/METHODOLOGY.md",
+    ),
+  },
+  {
+    route: "/es/trabajo/prism/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/prism/blob/faac6b68bc2305ba8849b4cf15dc1a0dab423fce/docs/METHODOLOGY.md",
+    ),
+  },
+  {
+    route: "/work/limen/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/limen/blob/5dc60e4b5a95b3f51fa1d08529d403b0a31da5c1/docs/STRATEGIES.md",
+    ),
+  },
+  {
+    route: "/es/trabajo/limen/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/limen/blob/5dc60e4b5a95b3f51fa1d08529d403b0a31da5c1/docs/STRATEGIES.md",
+    ),
+  },
+  {
+    route: "/work/vector/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/vector/blob/384dd00294ffec38f215b989bb9335404793a0d8/docs/decision-method.md",
+    ),
+  },
+  {
+    route: "/es/trabajo/vector/",
+    methodologyUrl: githubUrl(
+      "diegoaleyvag/vector/blob/384dd00294ffec38f215b989bb9335404793a0d8/docs/decision-method.md",
+    ),
+  },
+] as const) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps its methodology link exact, visible, and reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const link = page.locator(`a[href="${methodologyUrl}"]`);
+      await expect(link).toBeVisible();
+      await expect(link).toHaveAttribute("href", methodologyUrl);
+      await link.focus();
+      await expect(link).toBeFocused();
+
+      const widths = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }));
+      expect(widths.scrollWidth).toBe(widths.clientWidth);
+    });
+  }
+}
+
+for (const route of ["/", "/es/"]) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps the about portrait square, contained, and layout-shift-safe at ${width}px`, async ({
+      page,
+    }) => {
+      // Installed before any script runs so it captures every layout-shift
+      // entry the page produces, including ones from lazy image decode.
+      await page.addInitScript(() => {
+        (window as unknown as { __clsValue: number }).__clsValue = 0;
+        try {
+          const observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+              const shift = entry as PerformanceEntry & {
+                value: number;
+                hadRecentInput: boolean;
+              };
+              if (!shift.hadRecentInput) {
+                (window as unknown as { __clsValue: number }).__clsValue +=
+                  shift.value;
+              }
+            }
+          });
+          observer.observe({ type: "layout-shift", buffered: true });
+        } catch {
+          // layout-shift isn't observable in every environment; the CLS
+          // assertion below tolerates that by only checking an upper bound.
+        }
+      });
+
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const image = page.locator(".about-portrait img");
+      // The image is lazy-loaded and sits well below the fold; scroll it
+      // into view first so the browser actually decodes it before we
+      // assert on its natural size.
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toBeVisible();
+      await page.waitForFunction(
+        () =>
+          (document.querySelector(".about-portrait img") as HTMLImageElement)
+            ?.complete === true,
+      );
+
+      // Intrinsic sizing attributes stay on the element (no layout shift
+      // from a missing width/height pair).
+      await expect(image).toHaveAttribute("width", "480");
+      await expect(image).toHaveAttribute("height", "480");
+
+      const naturalSize = await image.evaluate((element) => {
+        const img = element as HTMLImageElement;
+        return { complete: img.complete, naturalWidth: img.naturalWidth };
+      });
+      expect(naturalSize.complete).toBe(true);
+      expect(naturalSize.naturalWidth).toBeGreaterThan(0);
+
+      const box = await image.boundingBox();
+      expect(box).not.toBeNull();
+      // Squareness within 1px tolerates subpixel rounding the browser
+      // itself introduces; it isn't a claim of exactness we can't verify.
+      expect(
+        Math.abs((box?.width ?? 0) - (box?.height ?? 0)),
+      ).toBeLessThanOrEqual(1);
+      // The image never exceeds the min(100%, 14rem) contract.
+      expect(box?.width ?? 0).toBeGreaterThan(0);
+      expect(box?.width ?? 0).toBeLessThanOrEqual(224 + 1);
+
+      const computed = await image.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return {
+          aspectRatio: style.aspectRatio,
+          objectFit: style.objectFit,
+        };
+      });
+      expect(["1 / 1", "1"]).toContain(computed.aspectRatio);
+      expect(computed.objectFit).toBe("cover");
+
+      // Scroll past the portrait and back to force any lazy-load reflow,
+      // then read the conservative, browser-reported cumulative shift.
+      await page.mouse.wheel(0, 1200);
+      await page.mouse.wheel(0, -1200);
+      await page.waitForTimeout(200);
+
+      const cls = await page.evaluate(
+        () => (window as unknown as { __clsValue: number }).__clsValue,
+      );
+      // A conservative upper bound: the portrait's own reserved box should
+      // not itself register a meaningful shift once width/height + aspect
+      // ratio are set. This isn't a claim of zero shift network-wide.
+      expect(cls).toBeLessThan(0.1);
+    });
+  }
+}
+
 for (const route of ["/", "/es/"]) {
   for (const width of [320, 375, 768, 1440]) {
     test(`${route} keeps all home content reflow-safe at ${width}px`, async ({

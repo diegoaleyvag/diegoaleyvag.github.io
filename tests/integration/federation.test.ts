@@ -9,10 +9,10 @@ import {
 } from "../../apps/site/src/features/capability-map/copy.ts";
 
 const expected = {
-  prism: { status: "released", hasDemo: true, hasMethodology: false },
+  prism: { status: "released", hasDemo: true, hasMethodology: true },
   relay: { status: "released", hasDemo: true, hasMethodology: true },
-  limen: { status: "released", hasDemo: true, hasMethodology: false },
-  vector: { status: "released", hasDemo: true, hasMethodology: false },
+  limen: { status: "released", hasDemo: true, hasMethodology: true },
+  vector: { status: "released", hasDemo: true, hasMethodology: true },
   axiom: { status: "verified", hasDemo: false, hasMethodology: true },
 } as const;
 

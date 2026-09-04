@@ -7,8 +7,9 @@
   "en": {
     "label": "Vector — Five Decisions",
     "question": "What is Vector?",
-    "answer": "Vector is one of Diego's Five Decisions, held open on purpose. The specific question and its evidence appear here only once work on Vector begins.",
+    "answer": "A transparent studio for comparing AI architecture patterns under explicit constraints. Status: building.",
     "keywords": [
+      "vector",
       "vector",
       "planned",
       "not started",
@@ -19,8 +20,9 @@
   "es": {
     "label": "Vector — Five Decisions",
     "question": "¿Qué es Vector?",
-    "answer": "Vector es una de las Five Decisions de Diego, dejada abierta a propósito. La pregunta concreta y su evidencia aparecerán aquí solo cuando el trabajo en Vector realmente empiece.",
+    "answer": "Vector: Un estudio transparente para comparar patrones de arquitectura de IA bajo restricciones explícitas. Estado: en construcción.",
     "keywords": [
+      "vector",
       "vector",
       "planificado",
       "sin empezar",

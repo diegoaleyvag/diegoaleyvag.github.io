@@ -3,12 +3,40 @@
   "collection": "five-decisions",
   "id": "vector",
   "title": "Vector",
-  "decision": "Vector's guiding question is not chosen yet.",
-  "learningOrigin": "2026-05",
-  "buildStarted": null,
-  "status": "planned",
-  "summary": "Held open on purpose — the specific question and its evidence appear here only once work on Vector begins.",
-  "capabilities": [],
-  "evidence": [],
-  "links": { "repository": null, "demo": null, "methodology": null }
+  "decision": "Which architecture fits the constraints?",
+  "learningOrigin": "2026-07",
+  "buildStarted": "2026-08-13",
+  "status": "building",
+  "summary": "A transparent studio for comparing AI architecture patterns under explicit constraints.",
+  "capabilities": [
+    {
+      "label": "Constraint modeling",
+      "detail": "Set eight named constraints as levels, weighted preferences, or hard requirements."
+    },
+    {
+      "label": "Trade-off comparison",
+      "detail": "Compare four bounded architecture patterns with visible scores, conflicts, and contributions."
+    },
+    {
+      "label": "ADR export",
+      "detail": "Download a traceable Markdown decision record with the profile, digest, and rationale prompts."
+    }
+  ],
+  "evidence": [
+    {
+      "type": "automated-tests",
+      "description": "Engine, data, and Blazor component tests cover deterministic scoring, sharing, export, accessibility, and non-claims language.",
+      "reference": "tests/Vector.App.Tests"
+    },
+    {
+      "type": "static-build",
+      "description": "The Blazor WebAssembly app publishes as static output without a backend, database, model, or API key.",
+      "reference": "docs/adr/0001-static-wasm-architecture.md"
+    }
+  ],
+  "links": {
+    "repository": "https://github.com/diegoaleyvag/vector",
+    "demo": null,
+    "methodology": null
+  }
 }

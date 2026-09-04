@@ -34,36 +34,36 @@
       "id": "decision-axiom",
       "path": "/corpus/v1/decision-axiom.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 952,
-      "sha256": "a6d3316211d0b90ed564efd0b7df501d945c3edac8e86e6c07d2481269d1f305"
+      "byteLength": 921,
+      "sha256": "80e7e2af5877a261f6d66e3da399f91fc752b60e592d603e4bb2f68f3774b1a4"
     },
     {
       "id": "decision-limen",
       "path": "/corpus/v1/decision-limen.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 943,
-      "sha256": "b37b0d4663a6df83f5c24a35064273b51378e1645023eb1128b0f173c3552774"
+      "byteLength": 872,
+      "sha256": "5912363734df313f58eeb28d1b12292de42d84a5f3fb5702f45878d4f0cbc3fe"
     },
     {
       "id": "decision-prism",
       "path": "/corpus/v1/decision-prism.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1069,
-      "sha256": "9c6278b6244a14bcdc0349aab104c0a4dcb95b29ea1875358d9667b28952577d"
+      "byteLength": 1084,
+      "sha256": "40a99009c558596cfc0a14942baad41eae6f21f015b67aa9ca3ed94b22c08aa2"
     },
     {
       "id": "decision-relay",
       "path": "/corpus/v1/decision-relay.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 973,
-      "sha256": "7aa7940453de72d7a58090b171609b46db6dcb7820a3f43d220c53b5021124ed"
+      "byteLength": 842,
+      "sha256": "0ce2fc0c080f5238bc109cf89d0d2824681ff8e7d2e24c91686d783a7cca76d2"
     },
     {
       "id": "decision-vector",
       "path": "/corpus/v1/decision-vector.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 939,
-      "sha256": "ede6c2806164f29659e2316a47116994ea9faf2b9fcb717b58b0f5f1e1d873c4"
+      "byteLength": 884,
+      "sha256": "1f1600820218f953c38108d8eff7c2be8e26f78db68360bb26658857153d4755"
     },
     {
       "id": "education-escom",

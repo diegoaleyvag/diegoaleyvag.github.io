@@ -7,8 +7,9 @@
   "en": {
     "label": "Axiom — Five Decisions",
     "question": "What is Axiom?",
-    "answer": "Axiom is one of Diego's Five Decisions — a placeholder, not a preview. Its guiding question, approach, and evidence all wait for the day it actually starts building.",
+    "answer": "A CI-ready contract checker for structured AI outputs, with offline evaluation and value-free reports. Status: building.",
     "keywords": [
+      "axiom",
       "axiom",
       "planned",
       "not started",
@@ -19,8 +20,9 @@
   "es": {
     "label": "Axiom — Five Decisions",
     "question": "¿Qué es Axiom?",
-    "answer": "Axiom es una de las Five Decisions de Diego — un marcador de lugar, no un adelanto. Su pregunta guía, enfoque y evidencia esperan al día en que realmente empiece a construirse.",
+    "answer": "Axiom: Un comprobador de contratos preparado para CI para salidas de IA estructuradas, con evaluación sin conexión e informes sin valores. Estado: en construcción.",
     "keywords": [
+      "axiom",
       "axiom",
       "planificado",
       "sin empezar",

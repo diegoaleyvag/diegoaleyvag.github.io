@@ -7,8 +7,9 @@
   "en": {
     "label": "Limen — Five Decisions",
     "question": "What is Limen?",
-    "answer": "Limen is one of Diego's Five Decisions. Nothing is decided yet — the real question and any supporting evidence go up the day it moves from planned to building.",
+    "answer": "A deterministic lab for comparing context-selection strategies under fixed budgets. Status: building.",
     "keywords": [
+      "limen",
       "limen",
       "planned",
       "not started",
@@ -19,8 +20,9 @@
   "es": {
     "label": "Limen — Five Decisions",
     "question": "¿Qué es Limen?",
-    "answer": "Limen es una de las Five Decisions de Diego. Todavía no hay nada decidido — la pregunta real y su evidencia se publicarán el día que pase de planificada a en construcción.",
+    "answer": "Limen: Un laboratorio determinista para comparar estrategias de selección de contexto con presupuestos fijos. Estado: en construcción.",
     "keywords": [
+      "limen",
       "limen",
       "planificado",
       "sin empezar",

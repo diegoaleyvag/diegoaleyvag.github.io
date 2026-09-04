@@ -40,6 +40,9 @@ const statusBadgeLabel = (status: string): string => {
   if (status === "planned") {
     return isEs ? "Planeada" : "Planned";
   }
+  if (status === "verified") {
+    return isEs ? "Verificado" : "Verified";
+  }
   return status;
 };
 

@@ -6,36 +6,36 @@
       "id": "axiom",
       "path": "/decisions/v1/axiom.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 501,
-      "sha256": "973f34f6ccf077ed45c04e9037d52a096098999d8abe458d0567d205a4414821"
+      "byteLength": 2004,
+      "sha256": "b2341c2bb0b4168a93fae747d01f5a3a78bd4da3406c8c49a9f763bbcae1a983"
     },
     {
       "id": "limen",
       "path": "/decisions/v1/limen.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 509,
-      "sha256": "7e81804768bb149c43aeb96d9644e1c4f6417392e3bf1b4a7c1a87b135d02a36"
+      "byteLength": 1699,
+      "sha256": "4016e250d0b61d16755007a33a7d63ab61caedf4bb62dbc3f0f30ea5050ec624"
     },
     {
       "id": "prism",
       "path": "/decisions/v1/prism.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 498,
-      "sha256": "b78233f03e10e118cb14294398199a1a7339f58962ba73d776b73300cdcce57d"
+      "byteLength": 1562,
+      "sha256": "81b256bf832309f3aee2a7f1ae29ccce7b3c8d5b39bbe823ba4ebfb08acab463"
     },
     {
       "id": "relay",
       "path": "/decisions/v1/relay.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 526,
-      "sha256": "1f18518c62213697a54d17555bdf2fe6179f6eaad69c906072c8733e633a4474"
+      "byteLength": 1535,
+      "sha256": "5492d837e02c3a2d28f9c351dc0e0e90edfea5374866f6c62fc8e7acf729efa0"
     },
     {
       "id": "vector",
       "path": "/decisions/v1/vector.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 493,
-      "sha256": "1cb72529f6af1d9483f6a55eff6f8f7b1b5a06dd288b8d98e13f5bb57754aa98"
+      "byteLength": 1461,
+      "sha256": "d5c2c0ca2a4f75369ac42c0a98425fc06265ff8e36b9084742d23e0018f7614c"
     }
   ]
 }

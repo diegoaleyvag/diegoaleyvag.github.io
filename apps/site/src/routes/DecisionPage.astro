@@ -26,7 +26,11 @@ const statusBadgeLabel =
       ? isEs
         ? "Planeada"
         : "Planned"
-      : manifest.status;
+      : manifest.status === "verified"
+        ? isEs
+          ? "Verificado"
+          : "Verified"
+        : manifest.status;
 
 const path = workDecisionPath(lang, manifest.id);
 const alternatePath = workDecisionPath(

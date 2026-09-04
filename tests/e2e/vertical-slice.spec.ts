@@ -363,3 +363,50 @@ for (const route of ["/resume/", "/es/cv/"]) {
     });
   }
 }
+
+for (const route of ["/", "/es/"]) {
+  for (const width of [320, 375, 768, 1440]) {
+    test(`${route} keeps all home content reflow-safe at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+
+      const contactLinks = page.locator(".home .contact-links a");
+      expect(await contactLinks.count()).toBeGreaterThan(0);
+      for (let index = 0; index < (await contactLinks.count()); index += 1) {
+        const link = contactLinks.nth(index);
+        await expect(link).toBeVisible();
+        await link.focus();
+        await expect(link).toBeFocused();
+      }
+
+      const email = page.locator('.home .contact-links a[href^="mailto:"]');
+      await expect(email).toHaveCount(1);
+      expect(await email.getAttribute("href")).toBe(
+        `mailto:${(await email.textContent())?.trim()}`,
+      );
+
+      const overflow = await page
+        .locator(".home *")
+        .evaluateAll((nodes) =>
+          nodes
+            .filter((node) => node.scrollWidth > node.clientWidth)
+            .map((node) => node.tagName),
+        );
+      expect(overflow).toEqual([]);
+
+      const mapButton = page.getByRole("button", { name: /Prism/ });
+      await mapButton.focus();
+      await page.keyboard.press("Enter");
+      await expect(mapButton).toHaveAttribute("aria-pressed", "true");
+      expect(
+        await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth ===
+            document.documentElement.clientWidth,
+        ),
+      ).toBe(true);
+    });
+  }
+}

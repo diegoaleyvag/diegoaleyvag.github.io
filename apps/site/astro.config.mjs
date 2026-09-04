@@ -6,7 +6,8 @@ import vercel from "@astrojs/vercel";
 // confirmation), so `site` is sourced from the environment with a safe local
 // fallback rather than a hardcoded guess. Set SITE_URL in the real Vercel
 // project once the domain is confirmed.
-const siteUrl = process.env["SITE_URL"] ?? "https://diegoaleyvag.vercel.app";
+const siteUrl =
+  process.env["SITE_URL"] ?? "https://diegoaleyvag-portfolio.vercel.app";
 
 export default defineConfig({
   site: siteUrl,

@@ -127,7 +127,7 @@ export const SECTION_COPY: Record<
       "Four decisions are released; Axiom is verified. Status here always comes from each decision's own manifest.",
     selectedWorkHeading: "Selected work",
     selectedWorkIntro:
-      "The full collection, a smaller secondary case, and the earlier academic record it grew out of.",
+      "The full collection, and the earlier academic record it grew out of.",
     workIndexCta: "See all of Work",
     governanceLabLabel: "Personal Governance Lab",
     governanceLabNote:
@@ -148,7 +148,7 @@ export const SECTION_COPY: Record<
       "Cuatro decisiones están publicadas; Axiom está verificado. El estado aquí siempre viene del propio manifiesto de cada decisión.",
     selectedWorkHeading: "Trabajo seleccionado",
     selectedWorkIntro:
-      "La colección completa, un caso secundario más pequeño, y el registro académico anterior del que surgió.",
+      "La colección completa, y el registro académico anterior del que surgió.",
     workIndexCta: "Ver todo el trabajo",
     governanceLabLabel: "Personal Governance Lab",
     governanceLabNote:

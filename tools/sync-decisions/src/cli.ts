@@ -16,7 +16,7 @@ const execFile = promisify(execFileCallback);
 
 const sources = {
   prism: {
-    commit: "faac6b68bc2305ba8849b4cf15dc1a0dab423fce",
+    commit: "0d7a6d07aa32199df148971eb565b40ecf798b5f",
     repository: "https://github.com/diegoaleyvag/prism",
     status: "released",
     demo: "https://five-decisions-prism.vercel.app",
@@ -28,13 +28,13 @@ const sources = {
     demo: "https://five-decisions-relay.vercel.app",
   },
   limen: {
-    commit: "5dc60e4b5a95b3f51fa1d08529d403b0a31da5c1",
+    commit: "31a6e8b34b4e9ba69a669773589ca00929a22002",
     repository: "https://github.com/diegoaleyvag/limen",
     status: "released",
     demo: "https://five-decisions-limen.vercel.app",
   },
   vector: {
-    commit: "384dd00294ffec38f215b989bb9335404793a0d8",
+    commit: "cbc2b1d79441d044c2b96341c5dcb00109005f29",
     repository: "https://github.com/diegoaleyvag/vector",
     status: "released",
     demo: "https://five-decisions-vector.vercel.app",

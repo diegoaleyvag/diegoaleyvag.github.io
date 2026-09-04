@@ -175,14 +175,6 @@ const statusBadgeLabel = (status: string): string => {
           <p class="case-card__body">{section.decisionsIntro}</p>
           <span class="case-card__meta">{section.workIndexCta} →</span>
         </a>
-        <a class="case-card" href={ROUTES.governanceLab[lang]}>
-          <span class="badge badge--planned">
-            {isEs ? "No publicado" : "Not published"}
-          </span>
-          <h3 class="case-card__title">{section.governanceLabLabel}</h3>
-          <p class="case-card__body">{section.governanceLabNote}</p>
-          <span class="case-card__meta">{section.viewCase} →</span>
-        </a>
         <a class="case-card" href={ROUTES.archive[lang]}>
           <h3 class="case-card__title">{archive.heading}</h3>
           <p class="case-card__body">{archive.intro}</p>

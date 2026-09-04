@@ -147,7 +147,7 @@
     "en": {
       "label": "Axiom — Five Decisions",
       "question": "What is Axiom?",
-      "answer": "A CI-ready contract checker for structured AI outputs, with offline evaluation and value-free reports. Status: building.",
+      "answer": "A CI-ready contract checker for structured AI outputs, with offline evaluation and value-free reports. Status: verified.",
       "keywords": [
         "axiom",
         "axiom",
@@ -160,7 +160,7 @@
     "es": {
       "label": "Axiom — Five Decisions",
       "question": "¿Qué es Axiom?",
-      "answer": "Axiom: Un comprobador de contratos preparado para CI para salidas de IA estructuradas, con evaluación sin conexión e informes sin valores. Estado: en construcción.",
+      "answer": "Axiom: Un comprobador de contratos preparado para CI para salidas de IA estructuradas, con evaluación sin conexión e informes sin valores. Estado: verificado.",
       "keywords": [
         "axiom",
         "axiom",
@@ -180,7 +180,7 @@
     "en": {
       "label": "Limen — Five Decisions",
       "question": "What is Limen?",
-      "answer": "A deterministic lab for comparing context-selection strategies under fixed budgets. Status: building.",
+      "answer": "A deterministic lab for comparing context-selection strategies under fixed budgets. Status: verified.",
       "keywords": [
         "limen",
         "limen",
@@ -193,7 +193,7 @@
     "es": {
       "label": "Limen — Five Decisions",
       "question": "¿Qué es Limen?",
-      "answer": "Limen: Un laboratorio determinista para comparar estrategias de selección de contexto con presupuestos fijos. Estado: en construcción.",
+      "answer": "Limen: Un laboratorio determinista para comparar estrategias de selección de contexto con presupuestos fijos. Estado: verificado.",
       "keywords": [
         "limen",
         "limen",
@@ -213,7 +213,7 @@
     "en": {
       "label": "Prism — Five Decisions",
       "question": "What is Prism?",
-      "answer": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer. Status: building.",
+      "answer": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer. Status: verified.",
       "keywords": [
         "prism",
         "prism",
@@ -228,7 +228,7 @@
     "es": {
       "label": "Prism — Five Decisions",
       "question": "¿Qué es Prism?",
-      "answer": "Prism: Un banco de trabajo determinista y simulado para evaluar compensaciones específicas de cada tarea con métricas inspectables y un explorador estático de evidencia. Estado: en construcción.",
+      "answer": "Prism: Un banco de trabajo determinista y simulado para evaluar compensaciones específicas de cada tarea con métricas inspectables y un explorador estático de evidencia. Estado: verificado.",
       "keywords": [
         "prism",
         "prism",
@@ -283,7 +283,7 @@
     "en": {
       "label": "Vector — Five Decisions",
       "question": "What is Vector?",
-      "answer": "A transparent studio for comparing AI architecture patterns under explicit constraints. Status: building.",
+      "answer": "A transparent studio for comparing AI architecture patterns under explicit constraints. Status: verified.",
       "keywords": [
         "vector",
         "vector",
@@ -296,7 +296,7 @@
     "es": {
       "label": "Vector — Five Decisions",
       "question": "¿Qué es Vector?",
-      "answer": "Vector: Un estudio transparente para comparar patrones de arquitectura de IA bajo restricciones explícitas. Estado: en construcción.",
+      "answer": "Vector: Un estudio transparente para comparar patrones de arquitectura de IA bajo restricciones explícitas. Estado: verificado.",
       "keywords": [
         "vector",
         "vector",

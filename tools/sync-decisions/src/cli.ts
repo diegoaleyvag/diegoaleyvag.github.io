@@ -13,13 +13,12 @@ import {
 } from "@portfolio/decisions";
 
 const execFile = promisify(execFileCallback);
-const SOURCE_BRANCH = "feat/five-decisions-integration";
 
 const sources = {
   prism: {
-    commit: "859b2ddc31c91f12d0ada003023b4c9d1c5f1643",
+    commit: "9d1efc794c1fe5f0ae481ad4bc12711012872810",
     repository: "https://github.com/diegoaleyvag/prism",
-    status: "building",
+    status: "verified",
   },
   relay: {
     commit: "156070f1733a7e77855bd28642eedbe36e1852d3",
@@ -27,19 +26,19 @@ const sources = {
     status: "verified",
   },
   limen: {
-    commit: "7a52df6357d0cc8cf9f1fa63f30d3f3354ae478c",
+    commit: "e695b7886274199aedd6b7dc3c0f22a97816e7f3",
     repository: "https://github.com/diegoaleyvag/limen",
-    status: "building",
+    status: "verified",
   },
   vector: {
-    commit: "139ad4c8d83a9b31ab27ca7a4afc8dcb1ef16f50",
+    commit: "eee18d9fc9ea828924a3d81e2c0ea79a6e91ffb5",
     repository: "https://github.com/diegoaleyvag/vector",
-    status: "building",
+    status: "verified",
   },
   axiom: {
-    commitPrefix: "477b866",
+    commit: "e333f8ca80212bd5805e14eaf92f226673dad41b",
     repository: "https://github.com/diegoaleyvag/axiom",
-    status: "building",
+    status: "verified",
   },
 } as const;
 
@@ -133,14 +132,8 @@ async function loadSource(
   if ((await git(directory, "status", "--porcelain")) !== "") {
     throw new Error(`Source checkout is dirty: ${id}`);
   }
-  if ((await git(directory, "branch", "--show-current")) !== SOURCE_BRANCH) {
-    throw new Error(`Source branch is not ${SOURCE_BRANCH}: ${id}`);
-  }
   const commit = await git(directory, "rev-parse", "HEAD");
-  if ("commit" in expected && commit !== expected.commit) {
-    throw new Error(`Source commit mismatch for ${id}: ${commit}`);
-  }
-  if ("commitPrefix" in expected && !commit.startsWith(expected.commitPrefix)) {
+  if (commit !== expected.commit) {
     throw new Error(`Source commit mismatch for ${id}: ${commit}`);
   }
 

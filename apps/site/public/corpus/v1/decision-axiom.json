@@ -7,7 +7,7 @@
   "en": {
     "label": "Axiom — Five Decisions",
     "question": "What is Axiom?",
-    "answer": "A CI-ready contract checker for structured AI outputs, with offline evaluation and value-free reports. Status: building.",
+    "answer": "A CI-ready contract checker for structured AI outputs, with offline evaluation and value-free reports. Status: verified.",
     "keywords": [
       "axiom",
       "axiom",
@@ -20,7 +20,7 @@
   "es": {
     "label": "Axiom — Five Decisions",
     "question": "¿Qué es Axiom?",
-    "answer": "Axiom: Un comprobador de contratos preparado para CI para salidas de IA estructuradas, con evaluación sin conexión e informes sin valores. Estado: en construcción.",
+    "answer": "Axiom: Un comprobador de contratos preparado para CI para salidas de IA estructuradas, con evaluación sin conexión e informes sin valores. Estado: verificado.",
     "keywords": [
       "axiom",
       "axiom",

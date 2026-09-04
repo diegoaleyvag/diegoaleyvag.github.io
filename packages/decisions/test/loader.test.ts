@@ -37,13 +37,13 @@ describe("Five Decisions manifest loader", () => {
     }
   });
 
-  it("keeps the synchronized build dates and verified status truthful", async () => {
+  it("keeps the synchronized build dates and verified statuses truthful", async () => {
     const loaded = await loadDecisionManifests();
     const byId = new Map(loaded.map((entry) => [entry.id, entry.manifest]));
 
     for (const id of ["prism", "limen", "axiom", "vector"]) {
       const manifest = byId.get(id);
-      expect(manifest?.status).toBe("building");
+      expect(manifest?.status).toBe("verified");
       expect(manifest?.buildStarted).toBe("2026-08-13");
     }
     expect(byId.get("relay")?.status).toBe("verified");

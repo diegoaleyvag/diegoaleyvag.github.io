@@ -6,7 +6,7 @@
   "decision": "When is a model good enough?",
   "learningOrigin": "2026-05",
   "buildStarted": "2026-08-13",
-  "status": "building",
+  "status": "verified",
   "summary": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer.",
   "capabilities": [
     {

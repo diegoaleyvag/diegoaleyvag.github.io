@@ -5,11 +5,11 @@ import { describe, expect, it } from "vitest";
 import { loadDecisionManifests } from "@portfolio/decisions";
 
 const expected = {
-  prism: { status: "building", hasMethodology: false },
+  prism: { status: "verified", hasMethodology: false },
   relay: { status: "verified", hasMethodology: true },
-  limen: { status: "building", hasMethodology: false },
-  vector: { status: "building", hasMethodology: false },
-  axiom: { status: "building", hasMethodology: true },
+  limen: { status: "verified", hasMethodology: false },
+  vector: { status: "verified", hasMethodology: false },
+  axiom: { status: "verified", hasMethodology: true },
 } as const;
 
 describe("Five Decisions federation", () => {

@@ -70,7 +70,13 @@ const linkLabels: Record<"repository" | "demo" | "methodology", string> = isEs
     <header class="section-intro" style="padding-block-start: 2rem;">
       <p class="eyebrow">{isEs ? "Five Decisions" : "Five Decisions"}</p>
       <span
-        class={`badge ${manifest.status === "building" ? "badge--building" : "badge--planned"}`}
+        class={`badge ${
+          manifest.status === "building"
+            ? "badge--building"
+            : manifest.status === "planned"
+              ? "badge--planned"
+              : "badge--verified"
+        }`}
       >
         {statusBadgeLabel}
       </span>

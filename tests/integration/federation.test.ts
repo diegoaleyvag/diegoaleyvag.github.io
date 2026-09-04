@@ -3,6 +3,10 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 
 import { loadDecisionManifests } from "@portfolio/decisions";
+import {
+  mapCopyFor,
+  statusLabel,
+} from "../../apps/site/src/features/capability-map/copy.ts";
 
 const expected = {
   prism: { status: "verified", hasMethodology: false },
@@ -48,5 +52,10 @@ describe("Five Decisions federation", () => {
       expect(entry.en.answer).toContain(`Status: ${expectation.status}.`);
       expect(entry.es.answer).toMatch(/Estado: (en construcción|verificado)\./);
     }
+  });
+
+  it("localizes the verified status for the capability map", () => {
+    expect(statusLabel(mapCopyFor("en"), "verified")).toBe("Verified");
+    expect(statusLabel(mapCopyFor("es"), "verified")).toBe("Verificado");
   });
 });

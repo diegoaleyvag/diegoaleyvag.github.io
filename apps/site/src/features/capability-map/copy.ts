@@ -13,6 +13,7 @@ export interface MapCopy {
   readonly noConnectionsYetLabel: string;
   readonly buildingLabel: string;
   readonly plannedLabel: string;
+  readonly verifiedLabel: string;
   readonly selectionClearedAnnouncement: string;
 }
 
@@ -31,6 +32,7 @@ const MAP_COPY: Record<Lang, MapCopy> = {
     noConnectionsYetLabel: "No decision connects here yet.",
     buildingLabel: "Building",
     plannedLabel: "Planned",
+    verifiedLabel: "Verified",
     selectionClearedAnnouncement: "Selection cleared.",
   },
   es: {
@@ -47,6 +49,7 @@ const MAP_COPY: Record<Lang, MapCopy> = {
     noConnectionsYetLabel: "Todavía ninguna decisión se conecta aquí.",
     buildingLabel: "En construcción",
     plannedLabel: "Planeada",
+    verifiedLabel: "Verificado",
     selectionClearedAnnouncement: "Selección borrada.",
   },
 };
@@ -61,6 +64,9 @@ export function statusLabel(copy: MapCopy, status: DecisionStatus): string {
   }
   if (status === "planned") {
     return copy.plannedLabel;
+  }
+  if (status === "verified") {
+    return copy.verifiedLabel;
   }
   return status;
 }

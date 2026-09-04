@@ -6,7 +6,7 @@
   "decision": "When is a model good enough?",
   "learningOrigin": "2026-05",
   "buildStarted": "2026-08-13",
-  "status": "verified",
+  "status": "released",
   "summary": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer.",
   "capabilities": [
     {
@@ -32,11 +32,16 @@
       "type": "integrity safeguards",
       "description": "The threat model records simulated-only, name-guard, redaction, digest, and uncertainty protections.",
       "reference": "docs/THREAT_MODEL.md"
+    },
+    {
+      "type": "production deployment",
+      "description": "Git-sourced production deployment verified through hosted smoke tests.",
+      "reference": "https://five-decisions-prism-8opv796js-atomiczdaemons-projects.vercel.app"
     }
   ],
   "links": {
     "repository": "https://github.com/diegoaleyvag/prism",
-    "demo": null,
+    "demo": "https://five-decisions-prism.vercel.app",
     "methodology": null
   }
 }

@@ -13,29 +13,29 @@
       "id": "limen",
       "path": "/decisions/v1/limen.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1699,
-      "sha256": "3d090f3e3708aa38d1d7b9a70df6a7eb27a6422f089c4c5ea6d9eb301fc32714"
+      "byteLength": 1978,
+      "sha256": "a39a9260656510bdd70bab724c30cc429103c36f48648b767bcae8f7c08c2d3a"
     },
     {
       "id": "prism",
       "path": "/decisions/v1/prism.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1562,
-      "sha256": "1b3ac8453077be8d6fe9edf5bf881af07efa71903edbf238a23b406a701a2b81"
+      "byteLength": 1841,
+      "sha256": "edc6ea6136ae244d779cafec808ec8f6126a8b7ddcc926be9e4431dc80ecb64b"
     },
     {
       "id": "relay",
       "path": "/decisions/v1/relay.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1535,
-      "sha256": "5492d837e02c3a2d28f9c351dc0e0e90edfea5374866f6c62fc8e7acf729efa0"
+      "byteLength": 1848,
+      "sha256": "55bf86bac49bc8cda1fbd39ca727477cff56468a6cb542e7f8e6bfe64e8c23be"
     },
     {
       "id": "vector",
       "path": "/decisions/v1/vector.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1461,
-      "sha256": "b9f2aaeca8d4c8aea4bf4a9cc0123c88a1f4edaea408187904c155abf6fda934"
+      "byteLength": 1742,
+      "sha256": "ec1110a6aec3f9297440d9d92337d58f32229f7c4de55b2aaba60fc1c965a1ff"
     }
   ]
 }

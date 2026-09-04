@@ -42,12 +42,10 @@ const DOMAIN_ROLE_BY_ID: Readonly<Record<DomainId, DomainRole>> = {
  * - "applied-ai" names only Prism specifically ("Prism ... lives here most
  *   directly") — so only Prism gets it.
  * - "systems" describes a decision that has already "stopped being an idea
- *   and becomes something that runs on its own." Prism, Limen, Axiom, and
- *   Vector are `building` with a set `buildStarted` date; Relay is
- *   `verified`, so all five connect to Systems.
+ *   and becomes something that runs on its own." All five have a set
+ *   `buildStarted` date, so all five connect to Systems.
  * - "product" describes passing a bar ("usable and checkable by someone
- *   else"). Relay is the only `verified` decision, so it alone connects to
- *   Product. No decision is `released`.
+ *   else"). Relay is the reviewed connection for Product.
  *
  * This map is intentionally not auto-derived from decision status at
  * runtime (a "planned" decision could ship any month); it is a fixed,

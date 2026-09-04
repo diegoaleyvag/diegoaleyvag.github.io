@@ -37,27 +37,27 @@ describe("Five Decisions manifest loader", () => {
     }
   });
 
-  it("keeps the synchronized build dates and verified statuses truthful", async () => {
+  it("keeps the synchronized build dates and final statuses truthful", async () => {
     const loaded = await loadDecisionManifests();
     const byId = new Map(loaded.map((entry) => [entry.id, entry.manifest]));
 
-    for (const id of ["prism", "limen", "axiom", "vector"]) {
+    for (const id of ["prism", "relay", "limen", "vector"]) {
       const manifest = byId.get(id);
-      expect(manifest?.status).toBe("verified");
+      expect(manifest?.status).toBe("released");
       expect(manifest?.buildStarted).toBe("2026-08-13");
     }
-    expect(byId.get("relay")?.status).toBe("verified");
-    expect(byId.get("relay")?.buildStarted).toBe("2026-08-13");
+    expect(byId.get("axiom")?.status).toBe("verified");
+    expect(byId.get("axiom")?.buildStarted).toBe("2026-08-13");
   });
 
-  it("retains validated evidence and no hosted demo URLs", async () => {
+  it("retains validated evidence and final hosted-demo boundaries", async () => {
     const loaded = await loadDecisionManifests();
 
     for (const { manifest } of loaded) {
       expect(manifest.capabilities.length).toBeGreaterThan(0);
       expect(manifest.evidence.length).toBeGreaterThan(0);
       expect(manifest.links.repository).not.toBeNull();
-      expect(manifest.links.demo).toBeNull();
+      expect(manifest.links.demo === null).toBe(manifest.id === "axiom");
     }
   });
 

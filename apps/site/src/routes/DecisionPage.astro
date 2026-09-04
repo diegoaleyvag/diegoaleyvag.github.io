@@ -30,7 +30,11 @@ const statusBadgeLabel =
         ? isEs
           ? "Verificado"
           : "Verified"
-        : manifest.status;
+        : manifest.status === "released"
+          ? isEs
+            ? "Publicado"
+            : "Released"
+          : manifest.status;
 
 const path = workDecisionPath(lang, manifest.id);
 const alternatePath = workDecisionPath(

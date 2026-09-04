@@ -7,7 +7,7 @@
   "en": {
     "label": "Relay — Five Decisions",
     "question": "What is Relay?",
-    "answer": "A reliability lab for checkpointed, observable agent workflows. Status: verified.",
+    "answer": "A reliability lab for checkpointed, observable agent workflows. Status: released.",
     "keywords": [
       "relay",
       "relay",
@@ -20,7 +20,7 @@
   "es": {
     "label": "Relay — Five Decisions",
     "question": "¿Qué es Relay?",
-    "answer": "Relay: Un laboratorio de fiabilidad para flujos de trabajo de agentes observables y con puntos de control. Estado: verificado.",
+    "answer": "Relay: Un laboratorio de fiabilidad para flujos de trabajo de agentes observables y con puntos de control. Estado: publicado.",
     "keywords": [
       "relay",
       "relay",

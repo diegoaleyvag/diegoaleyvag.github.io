@@ -41,29 +41,29 @@
       "id": "decision-limen",
       "path": "/corpus/v1/decision-limen.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 866,
-      "sha256": "5f781141c53d26d23dd7c8430daf95c91ea84baf5769e75680188ecc2c509e74"
+      "byteLength": 865,
+      "sha256": "c5028a5a36cf775752096b43cf78ca8a7aa49af09403bb06c58b7f4b9e65b0d7"
     },
     {
       "id": "decision-prism",
       "path": "/corpus/v1/decision-prism.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1078,
-      "sha256": "480546deff85e9a0ccc49a61252d57bfaf0c2e29e1abf1e07f120373e047a26e"
+      "byteLength": 1077,
+      "sha256": "abe1e6db3f3602e3fd13e1858e86b161afd9f14b952617d3cbca35e0b1f1403d"
     },
     {
       "id": "decision-relay",
       "path": "/corpus/v1/decision-relay.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 842,
-      "sha256": "0ce2fc0c080f5238bc109cf89d0d2824681ff8e7d2e24c91686d783a7cca76d2"
+      "byteLength": 841,
+      "sha256": "cd797444ca562784619dc123c7df369e5ae064ceeff539183414ad2e6245644f"
     },
     {
       "id": "decision-vector",
       "path": "/corpus/v1/decision-vector.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 878,
-      "sha256": "2ddb118fe4fdcd9b5e03e8c343a6d9878cada4f34cd03ab7872e3aa5298fccc4"
+      "byteLength": 877,
+      "sha256": "906f674c87a7322e49474c7fdd15a3eaa7f18b1d1c04749c3d7a2b8f28f61dc2"
     },
     {
       "id": "education-escom",

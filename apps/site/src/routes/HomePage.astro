@@ -82,6 +82,9 @@ const statusBadgeLabel = (status: string): string => {
   if (status === "verified") {
     return isEs ? "Verificado" : "Verified";
   }
+  if (status === "released") {
+    return isEs ? "Publicado" : "Released";
+  }
   return status;
 };
 ---

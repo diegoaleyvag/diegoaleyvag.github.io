@@ -16,29 +16,34 @@ const execFile = promisify(execFileCallback);
 
 const sources = {
   prism: {
-    commit: "9d1efc794c1fe5f0ae481ad4bc12711012872810",
+    commit: "faac6b68bc2305ba8849b4cf15dc1a0dab423fce",
     repository: "https://github.com/diegoaleyvag/prism",
-    status: "verified",
+    status: "released",
+    demo: "https://five-decisions-prism.vercel.app",
   },
   relay: {
-    commit: "651a153169d6459c5b0d30869f30ac2cabfc7779",
+    commit: "40d3063824a00f5d29b740c78de981b210871fe6",
     repository: "https://github.com/diegoaleyvag/relay",
-    status: "verified",
+    status: "released",
+    demo: "https://five-decisions-relay.vercel.app",
   },
   limen: {
-    commit: "e695b7886274199aedd6b7dc3c0f22a97816e7f3",
+    commit: "5dc60e4b5a95b3f51fa1d08529d403b0a31da5c1",
     repository: "https://github.com/diegoaleyvag/limen",
-    status: "verified",
+    status: "released",
+    demo: "https://five-decisions-limen.vercel.app",
   },
   vector: {
-    commit: "eee18d9fc9ea828924a3d81e2c0ea79a6e91ffb5",
+    commit: "384dd00294ffec38f215b989bb9335404793a0d8",
     repository: "https://github.com/diegoaleyvag/vector",
-    status: "verified",
+    status: "released",
+    demo: "https://five-decisions-vector.vercel.app",
   },
   axiom: {
-    commit: "e333f8ca80212bd5805e14eaf92f226673dad41b",
+    commit: "adcfd97de3d233faefec8336273d548948ef18b4",
     repository: "https://github.com/diegoaleyvag/axiom",
     status: "verified",
+    demo: null,
   },
 } as const;
 
@@ -79,6 +84,55 @@ function sha256(source: string): string {
   return createHash("sha256").update(source).digest("hex");
 }
 
+function isImmutableHttpsUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return (
+      url.protocol === "https:" &&
+      url.hostname.endsWith(".vercel.app") &&
+      url.hostname.includes("-") &&
+      !/^five-decisions-(prism|relay|limen|vector)\.vercel\.app$/.test(
+        url.hostname,
+      )
+    );
+  } catch {
+    return false;
+  }
+}
+
+function assertProductionEvidence(
+  id: DecisionId,
+  manifest: DecisionManifest,
+): void {
+  const productionEvidence = manifest.evidence.filter(
+    (entry) => entry.type === "production deployment",
+  );
+
+  if (id === "axiom") {
+    if (productionEvidence.length !== 0) {
+      throw new Error("Axiom must not claim a production deployment");
+    }
+    return;
+  }
+
+  if (productionEvidence.length !== 1) {
+    throw new Error(
+      `${id} must have exactly one production deployment evidence`,
+    );
+  }
+
+  const [entry] = productionEvidence;
+  if (
+    entry === undefined ||
+    !isImmutableHttpsUrl(entry.reference) ||
+    /dpl_|[0-9a-f]{7,}/i.test(entry.description)
+  ) {
+    throw new Error(
+      `${id} production evidence must use an immutable HTTPS URL and human-only description`,
+    );
+  }
+}
+
 function repositoryRoot(): string {
   return path.resolve(import.meta.dirname, "../../..");
 }
@@ -96,27 +150,14 @@ function assertSourceManifest(
   if (
     manifest.id !== id ||
     manifest.status !== expected.status ||
-    manifest.links.repository !== expected.repository
+    manifest.links.repository !== expected.repository ||
+    manifest.links.demo !== expected.demo
   ) {
     throw new Error(
-      `Source manifest does not match the approved C3 record: ${id}`,
+      `Source manifest does not match the approved C8 record: ${id}`,
     );
   }
-  if (id === "relay") {
-    if (
-      manifest.links.demo !== null ||
-      manifest.links.methodology !==
-        "https://github.com/diegoaleyvag/relay/blob/main/docs/failure-semantics.md"
-    ) {
-      throw new Error(
-        "Relay must retain a null demo and its approved methodology URL",
-      );
-    }
-    return;
-  }
-  if (manifest.links.demo !== null) {
-    throw new Error(`${id} must retain a null demo link`);
-  }
+  assertProductionEvidence(id, manifest);
 }
 
 async function loadSource(

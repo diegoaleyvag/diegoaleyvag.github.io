@@ -124,7 +124,7 @@ export const SECTION_COPY: Record<
   en: {
     decisionsHeading: "Five Decisions",
     decisionsIntro:
-      "All five decisions are verified. Status here always comes from each decision's own manifest.",
+      "Four decisions are released; Axiom is verified. Status here always comes from each decision's own manifest.",
     selectedWorkHeading: "Selected work",
     selectedWorkIntro:
       "The full collection, a smaller secondary case, and the earlier academic record it grew out of.",
@@ -145,7 +145,7 @@ export const SECTION_COPY: Record<
   es: {
     decisionsHeading: "Five Decisions",
     decisionsIntro:
-      "Las cinco decisiones están verificadas. El estado aquí siempre viene del propio manifiesto de cada decisión.",
+      "Cuatro decisiones están publicadas; Axiom está verificado. El estado aquí siempre viene del propio manifiesto de cada decisión.",
     selectedWorkHeading: "Trabajo seleccionado",
     selectedWorkIntro:
       "La colección completa, un caso secundario más pequeño, y el registro académico anterior del que surgió.",

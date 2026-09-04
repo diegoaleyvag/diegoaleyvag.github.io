@@ -7,7 +7,7 @@
   "en": {
     "label": "Prism — Five Decisions",
     "question": "What is Prism?",
-    "answer": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer. Status: verified.",
+    "answer": "A deterministic, simulated workbench for evaluating task-specific tradeoffs with inspectable metrics and a static evidence explorer. Status: released.",
     "keywords": [
       "prism",
       "prism",
@@ -22,7 +22,7 @@
   "es": {
     "label": "Prism — Five Decisions",
     "question": "¿Qué es Prism?",
-    "answer": "Prism: Un banco de trabajo determinista y simulado para evaluar compensaciones específicas de cada tarea con métricas inspectables y un explorador estático de evidencia. Estado: verificado.",
+    "answer": "Prism: Un banco de trabajo determinista y simulado para evaluar compensaciones específicas de cada tarea con métricas inspectables y un explorador estático de evidencia. Estado: publicado.",
     "keywords": [
       "prism",
       "prism",

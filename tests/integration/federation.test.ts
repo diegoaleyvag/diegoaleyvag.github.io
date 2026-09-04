@@ -9,15 +9,15 @@ import {
 } from "../../apps/site/src/features/capability-map/copy.ts";
 
 const expected = {
-  prism: { status: "verified", hasMethodology: false },
-  relay: { status: "verified", hasMethodology: true },
-  limen: { status: "verified", hasMethodology: false },
-  vector: { status: "verified", hasMethodology: false },
-  axiom: { status: "verified", hasMethodology: true },
+  prism: { status: "released", hasDemo: true, hasMethodology: false },
+  relay: { status: "released", hasDemo: true, hasMethodology: true },
+  limen: { status: "released", hasDemo: true, hasMethodology: false },
+  vector: { status: "released", hasDemo: true, hasMethodology: false },
+  axiom: { status: "verified", hasDemo: false, hasMethodology: true },
 } as const;
 
 describe("Five Decisions federation", () => {
-  it("keeps the C3 public repositories and validated statuses", async () => {
+  it("keeps the C8 public repositories, statuses, and links", async () => {
     const manifests = await loadDecisionManifests();
 
     expect(manifests.map(({ id }) => id)).toEqual(Object.keys(expected).sort());
@@ -27,7 +27,10 @@ describe("Five Decisions federation", () => {
       const repository = new URL(manifest.links.repository ?? "");
       expect(repository.protocol).toBe("https:");
       expect(repository.pathname).toMatch(new RegExp(`/${id}$`));
-      expect(manifest.links.demo).toBeNull();
+      expect(manifest.links.demo !== null).toBe(expectation.hasDemo);
+      if (manifest.links.demo) {
+        expect(new URL(manifest.links.demo).protocol).toBe("https:");
+      }
       expect(manifest.links.methodology !== null).toBe(
         expectation.hasMethodology,
       );
@@ -50,11 +53,15 @@ describe("Five Decisions federation", () => {
       };
 
       expect(entry.en.answer).toContain(`Status: ${expectation.status}.`);
-      expect(entry.es.answer).toMatch(/Estado: (en construcción|verificado)\./);
+      expect(entry.es.answer).toContain(
+        `Estado: ${expectation.status === "released" ? "publicado" : "verificado"}.`,
+      );
     }
   });
 
-  it("localizes the verified status for the capability map", () => {
+  it("localizes released and verified statuses for the capability map", () => {
+    expect(statusLabel(mapCopyFor("en"), "released")).toBe("Released");
+    expect(statusLabel(mapCopyFor("es"), "released")).toBe("Publicado");
     expect(statusLabel(mapCopyFor("en"), "verified")).toBe("Verified");
     expect(statusLabel(mapCopyFor("es"), "verified")).toBe("Verificado");
   });

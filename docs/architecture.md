@@ -63,7 +63,7 @@ content/source/cv.yaml (read-only)
   -> static portfolio, Five Decisions collection, and résumé companion
 
 portfolio.project.json manifests (per decision, validated + locked)
-  -> decisions-registry loader
+  -> packages/decisions loader
   -> Five Decisions pages + interactive map
 
 closed bilingual corpus (bio, projects, credentials, education, FAQ)
@@ -81,7 +81,7 @@ decommissioning.
 ### Static/dynamic ownership
 
 The static output owns all portfolio, résumé-companion, and Five Decisions
-HTML/CSS, the decisions-registry manifests and lock file, the closed Ask
+HTML/CSS, the `packages/decisions` manifests and lock file, the closed Ask
 Diego corpus content, and every browser-safe script for the two Preact
 islands. `/api/ask` alone owns the optional provider key, the live request to
 that provider, and rate-limiting/fallback logic. Its unavailability affects
@@ -182,10 +182,15 @@ and Spanish:
 
 `packages/resume` keeps strict `cv.yaml` validation, a typed view model, and
 source-path provenance coverage. What changes under ADR 0014: it is no longer
-the _only_ permitted rendering path. A new manual `pnpm cv:sync --source
-"<path>"` operation reads the separate CV repository read-only, copies the
-PDF, produces a preview and public JSON, and writes a manifest recording the
-source commit and SHA-256 digest. `/resume/` becomes an **editorial résumé
+the _only_ permitted rendering path. A new `pnpm cv:sync --source "<path>"`
+operation reads the separate CV repository read-only, copies the PDF,
+produces a preview and public JSON, and writes a manifest recording the
+source commit and SHA-256 digest. This repository's own CI never calls it;
+the separate private CV repository's own C9B workflow does call it
+non-interactively against a fresh checkout of this repository, then opens a
+human-reviewed pull request here with only the four allowlisted download
+artifacts — see `tools/cv-sync/README.md` for the exact boundary.
+`/resume/` becomes an **editorial résumé
 companion** fed by that manifest — selection, sequencing, and genuinely
 creative framing are allowed, exact-string mirroring is not required — while
 zero fabrication remains enforced by the fact/narrative boundary in

@@ -9,7 +9,7 @@ import { ROUTES, workDecisionPath } from "../lib/i18n";
 // already-built page; nothing here is invented.
 export const GET: APIRoute = async ({ site }) => {
   const manifests = await loadDecisionManifests();
-  const base = site ?? new URL("https://diegoaleyvag.vercel.app/");
+  const base = site ?? new URL("https://diegoaleyvag-portfolio.vercel.app/");
 
   const staticPaths = [
     ROUTES.home.en,

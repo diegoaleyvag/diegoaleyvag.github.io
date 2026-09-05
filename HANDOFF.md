@@ -1,5 +1,22 @@
 # HANDOFF — Five Decisions portfolio reset
 
+**Status boundary (2026-09-05):** this document is a point-in-time snapshot
+of the `feat/five-decisions-reset` session. Everything below this line
+describes that branch's own state at the time it was written — it has since
+been merged to `main` (the reset itself shipped), and later work (C8/C9
+federation, canonical-host alignment, Groq Ask Diego activation) supersedes
+several specific claims here, in particular: the CV-vintage sync described
+under Risks is one historical instance, not the current CV-sync contract
+(see `tools/cv-sync/README.md` and `docs/architecture.md` for the current,
+Portfolio-CI-vs-private-repo boundary); `SITE_URL`'s fallback is now the
+confirmed canonical Vercel project host,
+`https://diegoaleyvag-portfolio.vercel.app`, not the placeholder named
+under Open questions #4; and the Groq/Ask Diego provider is active on
+Preview and Production, not "no live provider," per `docs/architecture.md`
+§7. Kept verbatim below as historical record, not rewritten.
+
+---
+
 Branch: `feat/five-decisions-reset`. Not merged, not pushed, no PR opened, no
 deploy performed — all explicitly out of scope for this session per
 `AGENTS.md`. This document is the `verify-and-handoff` todo's output: gate

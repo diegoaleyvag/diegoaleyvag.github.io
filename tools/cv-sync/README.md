@@ -1,7 +1,17 @@
-# CV sync (manual, read-only)
+# CV sync (manual, read-only within this repository's own CI)
 
-`corepack pnpm cv:sync --source "<path to the separate CV repository>"` is a
-manual operation, never a build or CI step. It:
+`corepack pnpm cv:sync --source "<path to the separate CV repository>"` is
+never invoked by this repository's own build or CI steps (`pnpm check`,
+`pnpm ci:gate`, `.github/workflows/**` here never call it). That boundary is
+about _this_ repository's pipeline, not a claim that no automation anywhere
+ever runs this command: the separate, private CV repository's own C9B
+GitHub Actions workflow
+(`.github/workflows/publish-general-cv.yml` in that repository) does run
+exactly this command, non-interactively, against a fresh checkout of this
+repository, then opens a human-reviewed pull request here with only the
+four allowlisted artifacts below — it never pushes to `main` directly and
+never touches `content/source/cv.yaml`. Run manually by a human with the
+source repo path, it:
 
 1. Reads exactly two files under `--source`, read-only:
    `cv/general/cv.yaml` and `cv/general/diego-leyva-cv.pdf` — that

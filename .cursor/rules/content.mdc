@@ -1,6 +1,6 @@
 ---
 description: Bilingual content, manifests, CV-sync, and provenance conventions
-globs: ["content/**/*", "packages/resume/**/*", "packages/decisions-registry/**/*", "apps/site/src/pages/resume/**/*", "apps/site/src/pages/es/cv/**/*", "tools/cv-sync/**/*", "PRODUCT.md"]
+globs: ["content/**/*", "packages/resume/**/*", "packages/decisions/**/*", "apps/site/src/pages/resume/**/*", "apps/site/src/pages/es/cv/**/*", "tools/cv-sync/**/*", "PRODUCT.md"]
 alwaysApply: false
 ---
 

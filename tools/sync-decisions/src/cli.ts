@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { execFile as execFileCallback } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
 import prettier from "prettier";
@@ -199,15 +200,30 @@ function spanishStatus(status: DecisionManifest["status"]): string {
   }[status];
 }
 
-async function main(): Promise<void> {
-  const workspaceIndex = process.argv.indexOf("--workspace");
+export const WORKSPACE_USAGE =
+  "Usage: pnpm decisions:sync --workspace <repositories-directory>";
+
+/**
+ * Extracts the `--workspace <repositories-directory>` argument from an
+ * argv-shaped array. This is the tool's one, explicit, required input for
+ * locating the sibling product checkouts (Prism, Relay, Limen, Vector,
+ * Axiom) — there is no default and no environment-variable fallback, so
+ * this never silently assumes a specific machine's local absolute path
+ * (e.g. a developer's home directory layout). A caller on any machine
+ * must pass its own real path.
+ */
+export function parseWorkspaceArg(argv: readonly string[]): string {
+  const workspaceIndex = argv.indexOf("--workspace");
   const workspace =
-    workspaceIndex === -1 ? undefined : process.argv[workspaceIndex + 1];
+    workspaceIndex === -1 ? undefined : argv[workspaceIndex + 1];
   if (workspace === undefined) {
-    throw new Error(
-      "Usage: pnpm decisions:sync --workspace <repositories-directory>",
-    );
+    throw new Error(WORKSPACE_USAGE);
   }
+  return workspace;
+}
+
+async function main(): Promise<void> {
+  const workspace = parseWorkspaceArg(process.argv);
 
   const root = repositoryRoot();
   const synced = await Promise.all(
@@ -297,4 +313,13 @@ async function main(): Promise<void> {
   }
 }
 
-await main();
+// Only run when executed directly (`tsx tools/sync-decisions/src/cli.ts` /
+// `pnpm decisions:sync`), never on import — this keeps `parseWorkspaceArg`
+// and the other exports above safely importable from tests without
+// triggering a real, filesystem-writing sync.
+const isDirectlyExecuted =
+  process.argv[1] !== undefined &&
+  import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectlyExecuted) {
+  await main();
+}

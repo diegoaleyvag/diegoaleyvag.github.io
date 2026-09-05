@@ -173,9 +173,12 @@ branch, not oversights of this session:
   (ADR 0014, "Ask Diego: provider-optional, closed, degradable"). Confirmed
   the built function read these from `process.env` at request time only —
   nothing was inlined into the bundle at build time. **Superseded by C9A:**
-  that seam is now `GROQ_MODEL`/`GROQ_API_KEY`, gated in code to Vercel
-  Preview deployments only — see `docs/architecture.md` §7 and
-  `.cursor/rules/ai-guide.mdc` for the current mechanism.
+  that seam is now `GROQ_MODEL`/`GROQ_API_KEY`, gated in code to real
+  Vercel Preview and Production deployments only (Production activation
+  was an explicit, separate authorization granted 2026-09-05 only after a
+  passing Preview verification, with no change to model, limits, ZDR, or
+  corpus) — see `docs/architecture.md` §7 and `.cursor/rules/ai-guide.mdc`
+  for the current mechanism.
 - **No real Vercel project, domain, WAF, or budget is configured** — the
   plan scoped this out explicitly ("No configurar proyecto Vercel, dominio,
   WAF, presupuesto ni Git integration en esta sesión").
@@ -343,13 +346,14 @@ Lab assets require an approved intake location that doesn't exist yet):
    custom domain, WAF rule, or spend budget existed yet at the time of this
    session. **Provider credential superseded by C9A:** `AI_GUIDE_MODEL`/
    `AI_GUIDE_API_KEY` no longer exist in the codebase; the current seam is
-   `GROQ_MODEL`/`GROQ_API_KEY`, active only on Vercel Preview deployments,
-   and the account owner has since completed that specific checkpoint
-   (Groq account/model/rate-limit and Preview-scoped Vercel variables)
-   outside this repository — see `docs/architecture.md` §7. Ask Diego still
-   answers only from the closed corpus/fallback FAQ in Production, by
-   design; the wider Vercel project domain/WAF/spend-budget items remain
-   open independent of C9A.
+   `GROQ_MODEL`/`GROQ_API_KEY`, active on Vercel Preview and Production
+   deployments, and the account owner has since completed that specific
+   checkpoint (Groq account/model/rate-limit and both Preview- and
+   Production-scoped Vercel variables) outside this repository — see
+   `docs/architecture.md` §7. Production activation was an explicit,
+   separate authorization granted only after a passing Preview
+   verification; the wider Vercel project domain/WAF/spend-budget items
+   remain open independent of C9A.
 
 ## Cross-review findings (Opus)
 

@@ -28,7 +28,7 @@ function context(request: Request): PostContext {
 }
 
 // This suite runs against the real, deployed-shape module with no
-// GROQ_MODEL/GROQ_API_KEY set, and outside VERCEL_ENV=preview
+// GROQ_MODEL/GROQ_API_KEY set, and outside VERCEL_ENV=preview|production
 // (`.cursor/rules/testing.mdc`: normal tests never call a live model
 // provider) — it only exercises the
 // Astro-level HTTP plumbing (content-type/body-size handling, status

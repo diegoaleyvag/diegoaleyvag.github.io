@@ -266,41 +266,47 @@ export function createGroqTransport(
 }
 
 /**
- * Provider activation is gated to Vercel's Preview environment only (C9A
- * #3): `VERCEL_ENV` is a system variable Vercel itself sets on every
- * deployment (`"production" | "preview" | "development"`), never something
- * this repo defines or a visitor can influence. Checking it here — inside
- * the one composition root — means a `GROQ_API_KEY`/`GROQ_MODEL` pair
- * accidentally also saved against the Production environment in the
- * Vercel dashboard still can't activate the provider in Production; only
- * an actual Preview deployment can. Locally (no `VERCEL_ENV` at all) the
- * provider is likewise off, matching "off by default" in every test run
- * (AGENTS.md).
+ * Provider activation is gated to Vercel's real, deployed environments —
+ * Preview and, since this explicit post-Preview authorization (C9A),
+ * Production — never Development or an unset `VERCEL_ENV` (e.g. local).
+ * `VERCEL_ENV` is a system variable Vercel itself sets on every deployment
+ * (`"production" | "preview" | "development"`), never something this repo
+ * defines or a visitor can influence. Checking it here — inside the one
+ * composition root — means a `GROQ_API_KEY`/`GROQ_MODEL` pair accidentally
+ * also saved against Development in the Vercel dashboard still can't
+ * activate the provider there; only an actual Preview or Production
+ * deployment can. Locally (no `VERCEL_ENV` at all) the provider is
+ * likewise off, matching "off by default" in every test run (AGENTS.md).
  */
-const REQUIRED_VERCEL_ENV = "preview";
+const ALLOWED_VERCEL_ENVS: ReadonlySet<string> = new Set([
+  "preview",
+  "production",
+]);
 
 /**
  * The single server-side composition root for provider selection
  * (AGENTS.md). Reads exactly two env vars, both optional and undocumented
  * beyond `.env.example`'s placeholders; returns `null` (disabled) unless
- * the deployment is a Vercel Preview AND both the model and API key are
- * set, so "off by default" is the literal absence of configuration (or the
- * wrong environment), not a feature flag to remember to disable. Every
- * other module only ever sees the resulting `ProviderTransport | null` —
- * never these env var names.
+ * the deployment is a real Vercel Preview or Production deployment AND
+ * both the model and API key are set, so "off by default" is the literal
+ * absence of configuration (or the wrong environment), not a feature flag
+ * to remember to disable. Every other module only ever sees the resulting
+ * `ProviderTransport | null` — never these env var names.
  *
- * `GROQ_MODEL` has no default value on purpose: Groq's free-tier model
- * lineup and per-model quotas are account-specific and change over time
+ * `GROQ_MODEL` has no default value on purpose: Groq's model lineup and
+ * per-model quotas are account-specific and change over time
  * (`https://console.groq.com/docs/rate-limits`, consulted 2026-09-04), so
  * hardcoding one here would risk silently pointing at a model the
  * operator's account can't actually serve. The exact value is a manual,
- * account-verified checkpoint, set only in Vercel's Preview-scoped
- * environment variables.
+ * account-verified checkpoint, set separately in Vercel's Preview- and
+ * Production-scoped environment variables (each environment's copy is its
+ * own secret; this function never assumes they're the same value).
  */
 export function createProviderFromEnv(
   env: Readonly<Record<string, string | undefined>>,
 ): ProviderTransport | null {
-  if (env["VERCEL_ENV"] !== REQUIRED_VERCEL_ENV) {
+  const vercelEnv = env["VERCEL_ENV"];
+  if (vercelEnv === undefined || !ALLOWED_VERCEL_ENVS.has(vercelEnv)) {
     return null;
   }
   const model = env["GROQ_MODEL"];

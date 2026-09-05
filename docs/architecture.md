@@ -149,9 +149,11 @@ under `apps/site/public/corpus/v1/**`, plus a statically-imported
 `generated/corpus-bundle.json` snapshot so the deployed `/api/ask` function
 needs no filesystem access at request time. `apps/site/src/lib/ask-diego/**`
 owns the request/response contract, the injectable in-memory rate limiter,
-and the provider-optional, Preview-only Groq transport (Groq's official
+and the provider-optional Groq transport (Groq's official
 OpenAI-Chat-Completions-compatible endpoint, called directly — no
-third-party gateway); the `/api/ask` route itself stays a thin wrapper over
+third-party gateway), active on Vercel Preview and Production deployments
+only (Production authorized 2026-09-05 after a passing Preview
+verification); the `/api/ask` route itself stays a thin wrapper over
 both. See
 `packages/ask-corpus/README.md` and `.cursor/rules/ai-guide.mdc` for the
 concrete API and binding product rules.
@@ -206,8 +208,10 @@ Five Decisions build existed before that window opens.
 `ask-corpus`, sends only the question, up to four prior messages, and the
 retrieved fragments to an optional provider chosen once at the composition
 root (configured through `GROQ_MODEL`/`GROQ_API_KEY`, and only ever active
-on a Vercel Preview deployment), and returns a short, cited answer. With no
-provider configured, on a non-Preview deployment, or on a
+on a Vercel Preview or Production deployment — Production authorized
+2026-09-05 after a passing Preview verification, with no change to model,
+limits, ZDR, or corpus), and returns a short, cited answer. With no
+provider configured, on a Development/local deployment, or on a
 `401`/`403`/`429`/`503`/timeout response, it returns `status: "fallback"`
 and the site's static FAQ serves the visitor instead — the endpoint
 degrades, it never blocks the rest of the

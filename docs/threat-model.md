@@ -20,7 +20,9 @@ This model covers:
   function, `/api/ask`;
 - the untrusted browser running the map and Ask Diego Preact islands;
 - the optional Ask Diego provider boundary, selected through
-  `GROQ_MODEL`/`GROQ_API_KEY` and gated to Vercel Preview deployments only;
+  `GROQ_MODEL`/`GROQ_API_KEY` and gated to real Vercel Preview and
+  Production deployments only (Production authorized 2026-09-05 after a
+  passing Preview verification);
 - the closed, synthetic-or-approved-source Ask Diego corpus.
 
 The first release may ship with no Ask Diego provider configured at all.
@@ -130,10 +132,13 @@ CORS alone.
 
 Controls:
 
-- default-off provider execution, further gated to Vercel Preview
-  deployments only (C9A) — a key/model pair accidentally also saved
-  against Production cannot activate the provider there; the site is
-  complete without it;
+- default-off provider execution, further gated to real Vercel Preview
+  and Production deployments only (C9A) — a key/model pair accidentally
+  also saved against Development cannot activate the provider there;
+  Production activation itself was a separate, explicit authorization
+  granted only after a passing Preview verification, and changed no
+  model, limit, ZDR setting, or other control; the site is complete
+  without the provider entirely;
 - strict body size, output length, and timeout bounds on every request;
 - platform (Vercel Firewall) rate-limiting where a rule is configured, plus
   an injectable per-session limiter for tests — documented in code
@@ -166,8 +171,9 @@ always collects usage metadata (request counts, latency) regardless of
 ZDR — ZDR controls retention of request/response content, not the fact
 that Groq observes a call happened. Enabling ZDR is an operational
 prerequisite the account owner completes in the Groq console's Data
-Controls settings before Preview activation; this repository cannot
-enforce a third party's data-retention setting in code.
+Controls settings before enabling the provider in any environment
+(Preview or Production); this repository cannot enforce a third party's
+data-retention setting in code.
 
 Controls:
 

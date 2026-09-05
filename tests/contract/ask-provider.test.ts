@@ -205,6 +205,7 @@ describe("createGroqTransport (fake transport only — no real network call)", (
 });
 
 const PREVIEW_ENV = { VERCEL_ENV: "preview" } as const;
+const PRODUCTION_ENV = { VERCEL_ENV: "production" } as const;
 
 describe("createProviderFromEnv (the single composition root)", () => {
   it("is disabled (null) when no env vars are set at all", () => {
@@ -214,16 +215,6 @@ describe("createProviderFromEnv (the single composition root)", () => {
   it("is disabled when GROQ_MODEL/GROQ_API_KEY are set but VERCEL_ENV is missing (local/build time)", () => {
     expect(
       createProviderFromEnv({
-        GROQ_MODEL: "test/model",
-        GROQ_API_KEY: "sk-test",
-      }),
-    ).toBeNull();
-  });
-
-  it("is disabled on Production even when both vars are configured (accidental misconfiguration)", () => {
-    expect(
-      createProviderFromEnv({
-        VERCEL_ENV: "production",
         GROQ_MODEL: "test/model",
         GROQ_API_KEY: "sk-test",
       }),
@@ -255,12 +246,40 @@ describe("createProviderFromEnv (the single composition root)", () => {
     ).toBeNull();
   });
 
-  it("is enabled only once VERCEL_ENV=preview AND both the model and API key are set", () => {
+  it("is enabled once VERCEL_ENV=preview AND both the model and API key are set", () => {
     const provider = createProviderFromEnv({
       ...PREVIEW_ENV,
       GROQ_MODEL: "test/model",
       GROQ_API_KEY: "sk-test",
     });
     expect(provider).not.toBeNull();
+  });
+
+  // Production activation was explicitly authorized only after a passing
+  // Preview verification (C9A follow-up, 2026-09-05) — same composition
+  // root, same two env vars, each scoped independently per Vercel
+  // environment.
+  it("is enabled once VERCEL_ENV=production AND both the model and API key are set", () => {
+    const provider = createProviderFromEnv({
+      ...PRODUCTION_ENV,
+      GROQ_MODEL: "test/model",
+      GROQ_API_KEY: "sk-test",
+    });
+    expect(provider).not.toBeNull();
+  });
+
+  it("is disabled on Production when only the model is set", () => {
+    expect(
+      createProviderFromEnv({
+        ...PRODUCTION_ENV,
+        GROQ_MODEL: "test/model",
+      }),
+    ).toBeNull();
+  });
+
+  it("is disabled on Production when only the API key is set", () => {
+    expect(
+      createProviderFromEnv({ ...PRODUCTION_ENV, GROQ_API_KEY: "sk-test" }),
+    ).toBeNull();
   });
 });

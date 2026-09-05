@@ -15,9 +15,9 @@ export {
   validateProviderCitations,
 } from "./response.ts";
 export {
-  createAiGatewayTransport,
+  createGroqTransport,
   createProviderFromEnv,
-  DEFAULT_AI_GATEWAY_BASE_URL,
+  GROQ_API_BASE_URL,
 } from "./provider.ts";
 export type {
   ProviderAnswer,

@@ -103,10 +103,14 @@ const staticTextExtensions = new Set([".css", ".html", ".js", ".json", ".svg"]);
 const functionTextExtensions = new Set([".cjs", ".js", ".json", ".mjs"]);
 
 // Secret-shape checks that apply everywhere (static output and the function
-// bundle's own source). Kept deliberately provider-agnostic: the retired
-// Groq-named checks (GROQ_API_KEY, LIVE_EXECUTION_ENABLED, LLM_PROVIDER) are
-// gone with that seam (AGENTS.md); the Ask-Diego provider's real key name is
-// chosen by a later workstream, so this stays generic rather than guessing.
+// bundle's own source). Deliberately value-shape-based, not name-based: the
+// Ask-Diego provider's real env var names (`GROQ_API_KEY`, `GROQ_MODEL`,
+// C9A) necessarily appear as bare identifiers in the function bundle's own
+// source (e.g. `env["GROQ_API_KEY"]`) — that is expected and fine, since a
+// variable *name* is not a secret. These patterns only ever flag a
+// secret-*shaped value* (a bearer, `sk-`-, or `gsk_`-style credential
+// actually present in the output), never a variable name, so a name check
+// here would be both unnecessary and wrong.
 const secretShapePatterns: readonly [label: string, pattern: RegExp][] = [
   [
     "client-exposed secret variable",
@@ -114,6 +118,10 @@ const secretShapePatterns: readonly [label: string, pattern: RegExp][] = [
   ],
   ["authorization header", /\bauthorization\s*[:=]\s*["']?bearer\b/i],
   ["credential-shaped API key", /\bsk-[A-Za-z0-9_-]{20,}\b/],
+  // Groq's own bearer-key format (`gsk_...`, C9A) — separate from the
+  // generic `sk-` pattern above since Groq keys use an underscore, not a
+  // hyphen, right after the prefix.
+  ["credential-shaped Groq API key", /\bgsk_[A-Za-z0-9]{20,}\b/],
 ];
 
 // Only meaningful for code that is supposed to ship to the browser: the

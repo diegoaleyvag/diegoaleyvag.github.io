@@ -28,8 +28,9 @@ function context(request: Request): PostContext {
 }
 
 // This suite runs against the real, deployed-shape module with no
-// AI_GUIDE_MODEL/AI_GUIDE_API_KEY set (`.cursor/rules/testing.mdc`: normal
-// tests never call a live model provider) — it only exercises the
+// GROQ_MODEL/GROQ_API_KEY set, and outside VERCEL_ENV=preview
+// (`.cursor/rules/testing.mdc`: normal tests never call a live model
+// provider) — it only exercises the
 // Astro-level HTTP plumbing (content-type/body-size handling, status
 // codes, JSON shape). `tests/contract/ask-respond.test.ts` covers the
 // corpus/provider/rate-limit logic itself with injected fakes.

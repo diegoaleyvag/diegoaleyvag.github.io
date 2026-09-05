@@ -57,11 +57,47 @@ export interface ProviderConfig {
  */
 export const GROQ_API_BASE_URL = "https://api.groq.com/openai/v1";
 
-// Short output, tight timeout, zero retries (C9A #6): Groq's inference is
-// LPU-fast, so a generous OpenAI-style multi-second budget isn't needed,
-// and a short answer is the product requirement independent of latency.
+// Tight timeout, zero retries (C9A #6): Groq's inference is LPU-fast, so a
+// generous OpenAI-style multi-second budget isn't needed.
 const DEFAULT_TIMEOUT_MS = 4_000;
-const MAX_OUTPUT_TOKENS = 160;
+
+/**
+ * A *generation budget*, not the visible answer length (C9A follow-up,
+ * 2026-09-05): a real Preview request against `openai/gpt-oss-20b` hit the
+ * previous, tighter 160-token budget exactly and left the JSON object
+ * truncated mid-string — syntactically invalid, so `parseProviderAnswer`
+ * correctly rejected it, but the request itself was otherwise healthy
+ * (200, well-formed 352-input-token prompt). 512 leaves enough headroom
+ * for the model to always finish a complete `{"answer":...,"citations":
+ * [...]}` object. The user-visible length limit is enforced separately —
+ * the prompt's own character rule below and `truncateAnswer` in
+ * `response.ts` — raising this generation budget does not raise that
+ * visible ceiling.
+ */
+const MAX_COMPLETION_TOKENS = 512;
+
+/**
+ * Groq Structured Outputs, strict mode
+ * (`https://console.groq.com/docs/structured-outputs`, consulted
+ * 2026-09-05): constrains generation at the token level so the response
+ * can only ever be `{ answer: string, citations: string[] }` —
+ * `strict: true` requires every property `required` and
+ * `additionalProperties: false`. `openai/gpt-oss-20b` (the model observed
+ * live in Preview) is on Groq's strict-mode-supported list. This is in
+ * addition to, not instead of, the existing runtime `parseProviderAnswer`
+ * validation below and the later citation whitelist in `respond.ts` — a
+ * provider is untrusted input regardless of what it was asked to
+ * guarantee.
+ */
+const PROVIDER_ANSWER_JSON_SCHEMA = {
+  type: "object",
+  properties: {
+    answer: { type: "string" },
+    citations: { type: "array", items: { type: "string" } },
+  },
+  required: ["answer", "citations"],
+  additionalProperties: false,
+} as const;
 
 function buildSystemPrompt(
   locale: AskLocale,
@@ -173,7 +209,20 @@ export function createGroqTransport(
               model: config.model,
               messages: buildMessages(input),
               temperature: 0,
-              max_tokens: MAX_OUTPUT_TOKENS,
+              max_completion_tokens: MAX_COMPLETION_TOKENS,
+              // gpt-oss reasoning tokens would otherwise eat into the
+              // completion budget above and add latency for no visitor-
+              // facing benefit on this strictly extractive task.
+              include_reasoning: false,
+              reasoning_effort: "low",
+              response_format: {
+                type: "json_schema",
+                json_schema: {
+                  name: "ask_diego_answer",
+                  strict: true,
+                  schema: PROVIDER_ANSWER_JSON_SCHEMA,
+                },
+              },
               stream: false,
             }),
             signal: controller.signal,

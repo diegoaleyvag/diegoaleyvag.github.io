@@ -59,12 +59,56 @@ describe("createGroqTransport (fake transport only — no real network call)", (
     expect((init.headers as Record<string, string>)["authorization"]).toBe(
       "Bearer sk-test",
     );
-    const sentBody = JSON.parse(init.body as string) as {
-      model: string;
-      temperature: number;
-    };
+    const sentBody = JSON.parse(init.body as string) as Record<string, unknown>;
     expect(sentBody.model).toBe("test/model");
     expect(sentBody.temperature).toBe(0);
+  });
+
+  it("sends the exact structured-output/reasoning/token-budget payload, with no deprecated max_tokens field", async () => {
+    const fakeFetch = vi
+      .fn()
+      .mockResolvedValue(
+        jsonResponse(
+          200,
+          groqCompletion(
+            JSON.stringify({ answer: "Prism.", citations: ["work/prism"] }),
+          ),
+        ),
+      );
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
+      fakeFetch as unknown as typeof fetch,
+    );
+
+    await transport.call(baseInput);
+
+    expect(fakeFetch).toHaveBeenCalledTimes(1);
+    const [, init] = fakeFetch.mock.calls[0] as [string, RequestInit];
+    const sentBody = JSON.parse(init.body as string) as Record<string, unknown>;
+
+    // Deprecated field must be gone — this is exactly what regressed a
+    // real Preview request (truncated JSON at the old max_tokens budget).
+    expect(sentBody).not.toHaveProperty("max_tokens");
+    expect(sentBody.max_completion_tokens).toBe(512);
+    expect(sentBody.include_reasoning).toBe(false);
+    expect(sentBody.reasoning_effort).toBe("low");
+    expect(sentBody.temperature).toBe(0);
+
+    const responseFormat = sentBody.response_format as {
+      type: string;
+      json_schema: { strict: boolean; schema: Record<string, unknown> };
+    };
+    expect(responseFormat.type).toBe("json_schema");
+    expect(responseFormat.json_schema.strict).toBe(true);
+    expect(responseFormat.json_schema.schema).toEqual({
+      type: "object",
+      properties: {
+        answer: { type: "string" },
+        citations: { type: "array", items: { type: "string" } },
+      },
+      required: ["answer", "citations"],
+      additionalProperties: false,
+    });
   });
 
   it.each([401, 402, 403, 404, 429, 503])(

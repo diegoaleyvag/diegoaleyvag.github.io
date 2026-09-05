@@ -198,7 +198,17 @@ export async function handleAskRequest(
     });
 
     if (!providerResult.ok) {
-      return fallbackToBestWeakMatch("upstream_error");
+      // Distinguish a malformed/truncated provider response (schema-
+      // invalid or non-JSON content, even on a 200) from an actual
+      // HTTP/network/timeout failure — both degrade to the corpus
+      // fallback either way, but the recorded `reason` should say which
+      // one happened rather than collapsing every provider failure into
+      // "upstream_error" (C9A follow-up, 2026-09-05).
+      return fallbackToBestWeakMatch(
+        providerResult.reason === "invalid_response"
+          ? "invalid_provider_response"
+          : "upstream_error",
+      );
     }
 
     const citations = validateProviderCitations(

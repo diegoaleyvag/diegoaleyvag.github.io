@@ -1,8 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
-  createAiGatewayTransport,
+  createGroqTransport,
   createProviderFromEnv,
+  GROQ_API_BASE_URL,
 } from "../../apps/site/src/lib/ask-diego/provider.ts";
 import type { ProviderCallInput } from "../../apps/site/src/lib/ask-diego/provider.ts";
 
@@ -20,16 +21,16 @@ function jsonResponse(status: number, body: unknown): Response {
   });
 }
 
-function gatewayCompletion(content: string): unknown {
+function groqCompletion(content: string): unknown {
   return { choices: [{ message: { content } }] };
 }
 
-describe("createAiGatewayTransport (fake transport only — no real network call)", () => {
-  it("returns an answer with citation ids on a well-formed response", async () => {
+describe("createGroqTransport (fake transport only — no real network call)", () => {
+  it("calls Groq's fixed official OpenAI-compatible endpoint, never a configurable one", async () => {
     const fakeFetch = vi.fn().mockResolvedValue(
       jsonResponse(
         200,
-        gatewayCompletion(
+        groqCompletion(
           JSON.stringify({
             answer: "Prism is about model evaluation.",
             citations: ["work/prism"],
@@ -37,12 +38,8 @@ describe("createAiGatewayTransport (fake transport only — no real network call
         ),
       ),
     );
-    const transport = createAiGatewayTransport(
-      {
-        model: "test/model",
-        apiKey: "sk-test",
-        baseUrl: "https://example.invalid/v1",
-      },
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
       fakeFetch as unknown as typeof fetch,
     );
 
@@ -57,51 +54,94 @@ describe("createAiGatewayTransport (fake transport only — no real network call
     });
     expect(fakeFetch).toHaveBeenCalledTimes(1);
     const [url, init] = fakeFetch.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://example.invalid/v1/chat/completions");
+    expect(url).toBe(`${GROQ_API_BASE_URL}/chat/completions`);
     expect(init.method).toBe("POST");
     expect((init.headers as Record<string, string>)["authorization"]).toBe(
       "Bearer sk-test",
     );
-    const sentBody = JSON.parse(init.body as string) as { model: string };
+    const sentBody = JSON.parse(init.body as string) as Record<string, unknown>;
     expect(sentBody.model).toBe("test/model");
+    expect(sentBody.temperature).toBe(0);
   });
 
-  it.each([402, 429, 503])(
-    "degrades to upstream_error on a %s response, never throwing",
+  it("sends the exact structured-output/reasoning/token-budget payload, with no deprecated max_tokens field", async () => {
+    const fakeFetch = vi
+      .fn()
+      .mockResolvedValue(
+        jsonResponse(
+          200,
+          groqCompletion(
+            JSON.stringify({ answer: "Prism.", citations: ["work/prism"] }),
+          ),
+        ),
+      );
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
+      fakeFetch as unknown as typeof fetch,
+    );
+
+    await transport.call(baseInput);
+
+    expect(fakeFetch).toHaveBeenCalledTimes(1);
+    const [, init] = fakeFetch.mock.calls[0] as [string, RequestInit];
+    const sentBody = JSON.parse(init.body as string) as Record<string, unknown>;
+
+    // Deprecated field must be gone — this is exactly what regressed a
+    // real Preview request (truncated JSON at the old max_tokens budget).
+    expect(sentBody).not.toHaveProperty("max_tokens");
+    expect(sentBody.max_completion_tokens).toBe(512);
+    expect(sentBody.include_reasoning).toBe(false);
+    expect(sentBody.reasoning_effort).toBe("low");
+    expect(sentBody.temperature).toBe(0);
+
+    const responseFormat = sentBody.response_format as {
+      type: string;
+      json_schema: { strict: boolean; schema: Record<string, unknown> };
+    };
+    expect(responseFormat.type).toBe("json_schema");
+    expect(responseFormat.json_schema.strict).toBe(true);
+    expect(responseFormat.json_schema.schema).toEqual({
+      type: "object",
+      properties: {
+        answer: { type: "string" },
+        citations: { type: "array", items: { type: "string" } },
+      },
+      required: ["answer", "citations"],
+      additionalProperties: false,
+    });
+  });
+
+  it.each([401, 402, 403, 404, 429, 503])(
+    "degrades to upstream_error on a %s response (incl. revoked key / exhausted quota), never throwing",
     async (status) => {
       const fakeFetch = vi
         .fn()
         .mockResolvedValue(jsonResponse(status, { error: "nope" }));
-      const transport = createAiGatewayTransport(
-        {
-          model: "test/model",
-          apiKey: "sk-test",
-          baseUrl: "https://example.invalid/v1",
-        },
+      const transport = createGroqTransport(
+        { model: "test/model", apiKey: "sk-test" },
         fakeFetch as unknown as typeof fetch,
       );
 
       const result = await transport.call(baseInput);
       expect(result).toEqual({ ok: false, reason: "upstream_error" });
+      // Exactly one attempt: no implicit retry/backoff on any failure mode.
+      expect(fakeFetch).toHaveBeenCalledTimes(1);
     },
   );
 
-  it("degrades to upstream_error on a network failure", async () => {
+  it("degrades to upstream_error on a network failure, with a single attempt", async () => {
     const fakeFetch = vi.fn().mockRejectedValue(new Error("network down"));
-    const transport = createAiGatewayTransport(
-      {
-        model: "test/model",
-        apiKey: "sk-test",
-        baseUrl: "https://example.invalid/v1",
-      },
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
       fakeFetch as unknown as typeof fetch,
     );
 
     const result = await transport.call(baseInput);
     expect(result).toEqual({ ok: false, reason: "upstream_error" });
+    expect(fakeFetch).toHaveBeenCalledTimes(1);
   });
 
-  it("degrades to upstream_error on a timeout (abort)", async () => {
+  it("degrades to upstream_error on a timeout (abort) within the configured budget, with a single attempt", async () => {
     const fakeFetch = vi.fn().mockImplementation(
       (_url: string, init: RequestInit) =>
         new Promise((_resolve, reject) => {
@@ -110,32 +150,22 @@ describe("createAiGatewayTransport (fake transport only — no real network call
           });
         }),
     );
-    const transport = createAiGatewayTransport(
-      {
-        model: "test/model",
-        apiKey: "sk-test",
-        baseUrl: "https://example.invalid/v1",
-        timeoutMs: 5,
-      },
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test", timeoutMs: 5 },
       fakeFetch as unknown as typeof fetch,
     );
 
     const result = await transport.call(baseInput);
     expect(result).toEqual({ ok: false, reason: "upstream_error" });
+    expect(fakeFetch).toHaveBeenCalledTimes(1);
   });
 
   it("degrades to invalid_response when the model content isn't JSON", async () => {
     const fakeFetch = vi
       .fn()
-      .mockResolvedValue(
-        jsonResponse(200, gatewayCompletion("not json at all")),
-      );
-    const transport = createAiGatewayTransport(
-      {
-        model: "test/model",
-        apiKey: "sk-test",
-        baseUrl: "https://example.invalid/v1",
-      },
+      .mockResolvedValue(jsonResponse(200, groqCompletion("not json at all")));
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
       fakeFetch as unknown as typeof fetch,
     );
 
@@ -149,43 +179,107 @@ describe("createAiGatewayTransport (fake transport only — no real network call
       .mockResolvedValue(
         jsonResponse(
           200,
-          gatewayCompletion(JSON.stringify({ answer: 42, citations: "no" })),
+          groqCompletion(JSON.stringify({ answer: 42, citations: "no" })),
         ),
       );
-    const transport = createAiGatewayTransport(
-      {
-        model: "test/model",
-        apiKey: "sk-test",
-        baseUrl: "https://example.invalid/v1",
-      },
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey: "sk-test" },
       fakeFetch as unknown as typeof fetch,
     );
 
     const result = await transport.call(baseInput);
     expect(result).toEqual({ ok: false, reason: "invalid_response" });
   });
+
+  it("never leaks the API key into a returned result, even on failure", async () => {
+    const apiKey = "sk-super-secret-value";
+    const fakeFetch = vi.fn().mockResolvedValue(jsonResponse(500, {}));
+    const transport = createGroqTransport(
+      { model: "test/model", apiKey },
+      fakeFetch as unknown as typeof fetch,
+    );
+
+    const result = await transport.call(baseInput);
+    expect(JSON.stringify(result)).not.toContain(apiKey);
+  });
 });
 
+const PREVIEW_ENV = { VERCEL_ENV: "preview" } as const;
+const PRODUCTION_ENV = { VERCEL_ENV: "production" } as const;
+
 describe("createProviderFromEnv (the single composition root)", () => {
-  it("is disabled (null) when no env vars are set", () => {
+  it("is disabled (null) when no env vars are set at all", () => {
     expect(createProviderFromEnv({})).toBeNull();
   });
 
-  it("is disabled when only the model is set", () => {
+  it("is disabled when GROQ_MODEL/GROQ_API_KEY are set but VERCEL_ENV is missing (local/build time)", () => {
     expect(
-      createProviderFromEnv({ AI_GUIDE_MODEL: "anthropic/claude" }),
+      createProviderFromEnv({
+        GROQ_MODEL: "test/model",
+        GROQ_API_KEY: "sk-test",
+      }),
     ).toBeNull();
   });
 
-  it("is disabled when only the API key is set", () => {
-    expect(createProviderFromEnv({ AI_GUIDE_API_KEY: "sk-test" })).toBeNull();
+  it("is disabled on a Development deployment even when both vars are configured", () => {
+    expect(
+      createProviderFromEnv({
+        VERCEL_ENV: "development",
+        GROQ_MODEL: "test/model",
+        GROQ_API_KEY: "sk-test",
+      }),
+    ).toBeNull();
   });
 
-  it("is enabled once both the model and API key are set", () => {
+  it("is disabled on Preview when only the model is set", () => {
+    expect(
+      createProviderFromEnv({
+        ...PREVIEW_ENV,
+        GROQ_MODEL: "test/model",
+      }),
+    ).toBeNull();
+  });
+
+  it("is disabled on Preview when only the API key is set", () => {
+    expect(
+      createProviderFromEnv({ ...PREVIEW_ENV, GROQ_API_KEY: "sk-test" }),
+    ).toBeNull();
+  });
+
+  it("is enabled once VERCEL_ENV=preview AND both the model and API key are set", () => {
     const provider = createProviderFromEnv({
-      AI_GUIDE_MODEL: "anthropic/claude",
-      AI_GUIDE_API_KEY: "sk-test",
+      ...PREVIEW_ENV,
+      GROQ_MODEL: "test/model",
+      GROQ_API_KEY: "sk-test",
     });
     expect(provider).not.toBeNull();
+  });
+
+  // Production activation was explicitly authorized only after a passing
+  // Preview verification (C9A follow-up, 2026-09-05) — same composition
+  // root, same two env vars, each scoped independently per Vercel
+  // environment.
+  it("is enabled once VERCEL_ENV=production AND both the model and API key are set", () => {
+    const provider = createProviderFromEnv({
+      ...PRODUCTION_ENV,
+      GROQ_MODEL: "test/model",
+      GROQ_API_KEY: "sk-test",
+    });
+    expect(provider).not.toBeNull();
+  });
+
+  it("is disabled on Production when only the model is set", () => {
+    expect(
+      createProviderFromEnv({
+        ...PRODUCTION_ENV,
+        GROQ_MODEL: "test/model",
+      }),
+    ).toBeNull();
+  });
+
+  it("is disabled on Production when only the API key is set", () => {
+    expect(
+      createProviderFromEnv({ ...PRODUCTION_ENV, GROQ_API_KEY: "sk-test" }),
+    ).toBeNull();
   });
 });

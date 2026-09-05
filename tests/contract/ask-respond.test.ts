@@ -243,6 +243,23 @@ describe("handleAskRequest — provider integration (fake transport only)", () =
     },
   );
 
+  it('preserves "invalid_response" as reason "invalid_provider_response", never collapsing it into "upstream_error" (C9A follow-up: a malformed/truncated provider response is not an HTTP/network failure)', async () => {
+    const provider = fakeProvider(() => ({
+      ok: false,
+      reason: "invalid_response",
+    }));
+
+    const result = await ask(
+      { question: AMBIGUOUS_QUESTION, locale: "en" },
+      { provider },
+    );
+
+    expect(result.httpStatus).toBe(200);
+    expect(result.body.status).toBe("fallback");
+    if (result.body.status !== "fallback") throw new Error("expected fallback");
+    expect(result.body.reason).toBe("invalid_provider_response");
+  });
+
   it("truncates an overlong provider answer instead of shipping it verbatim", async () => {
     const longAnswer = `Prism is Diego's decision about model evaluation. ${"x".repeat(400)}`;
     const provider = fakeProvider((input) => ({

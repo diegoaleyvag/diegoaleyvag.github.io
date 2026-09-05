@@ -20,7 +20,9 @@ This model covers:
   function, `/api/ask`;
 - the untrusted browser running the map and Ask Diego Preact islands;
 - the optional Ask Diego provider boundary, selected through
-  `AI_GUIDE_MODEL`;
+  `GROQ_MODEL`/`GROQ_API_KEY` and gated to real Vercel Preview and
+  Production deployments only (Production authorized 2026-09-05 after a
+  passing Preview verification);
 - the closed, synthetic-or-approved-source Ask Diego corpus.
 
 The first release may ship with no Ask Diego provider configured at all.
@@ -130,12 +132,25 @@ CORS alone.
 
 Controls:
 
-- default-off provider execution; the site is complete without it;
+- default-off provider execution, further gated to real Vercel Preview
+  and Production deployments only (C9A) — a key/model pair accidentally
+  also saved against Development cannot activate the provider there;
+  Production activation itself was a separate, explicit authorization
+  granted only after a passing Preview verification, and changed no
+  model, limit, ZDR setting, or other control; the site is complete
+  without the provider entirely;
 - strict body size, output length, and timeout bounds on every request;
 - platform (Vercel Firewall) rate-limiting where a rule is configured, plus
-  an injectable limiter for tests;
-- any configured spend budget is documented as a soft cap with possible
-  small overshoot, never described as a hard guarantee;
+  an injectable per-session limiter for tests — documented in code
+  (`rate-limiter.ts`) as a per-instance mitigation only, never presented as
+  a global ceiling across every warm instance;
+- the actual hard ceiling against runaway usage is the rate limit the
+  operator configures directly on the Groq project
+  (`console.groq.com/settings/limits`), kept below the account's currently
+  observed free-tier quota; this repository never hardcodes that
+  account-specific number, and does not rely on a payment-based spend cap
+  (the Free tier the account uses has no billing method attached to cap
+  spend against in the first place);
 - fast rejection (oversized body, wrong content type, unknown field) before
   any provider call;
 - no persistence or run-history amplification;
@@ -143,7 +158,30 @@ Controls:
   retrying against the provider.
 
 Residual cost-abuse risk remains against any public endpoint. Operational
-monitoring and the spend cap are still required.
+monitoring and the Groq project's own configured rate limit remain
+required.
+
+### Provider data retention (Groq)
+
+The Groq API may temporarily retain inference request/response content for
+up to 30 days for system reliability and abuse monitoring unless Zero Data
+Retention (ZDR) is enabled on the account
+(`https://console.groq.com/docs/your-data`, consulted 2026-09-04). Groq
+always collects usage metadata (request counts, latency) regardless of
+ZDR — ZDR controls retention of request/response content, not the fact
+that Groq observes a call happened. Enabling ZDR is an operational
+prerequisite the account owner completes in the Groq console's Data
+Controls settings before enabling the provider in any environment
+(Preview or Production); this repository cannot enforce a third party's
+data-retention setting in code.
+
+Controls:
+
+- this application logs no prompt, answer, IP address, or request header —
+  only the bounded, allowlisted metric fields in `AskMetricEvent`
+  (`.cursor/rules/ai-guide.mdc`);
+- the call to Groq is server-to-server from `/api/ask`; Groq's API observes
+  this application's server IP, never the visitor's browser IP.
 
 ### Prompt injection against the Ask Diego corpus
 

@@ -23,13 +23,19 @@ describe("static-plus-Vercel-adapter deployment configuration", () => {
     expect(config).not.toContain("diegoaleyvag.github.io");
   });
 
-  it("documents SITE_URL and no retired provider-seam variables in .env.example", async () => {
+  it("documents SITE_URL, the Groq provider seam, and no other retired variables in .env.example", async () => {
     const envExample = await readWorkspaceFile(".env.example");
 
     expect(envExample).toContain("SITE_URL");
+    // GROQ_API_KEY/GROQ_MODEL are the current, intentional Ask Diego
+    // provider seam (C9A) — reused here, not retired. Only the older,
+    // unrelated demo/tournament-era variables stay banned.
+    expect(envExample).toContain("GROQ_MODEL");
+    expect(envExample).toContain("GROQ_API_KEY");
     for (const retiredVariable of [
-      "GROQ_API_KEY",
-      "GROQ_MODEL",
+      "AI_GUIDE_MODEL",
+      "AI_GUIDE_API_KEY",
+      "AI_GUIDE_BASE_URL",
       "LLM_PROVIDER",
       "LIVE_EXECUTION_ENABLED",
       "DEMO_MODE",

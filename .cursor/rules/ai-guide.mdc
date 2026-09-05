@@ -17,10 +17,18 @@ alwaysApply: false
   themselves do not count against that guideline.
 - Send at most four prior messages of conversation context plus the current
   question and retrieved fragments — no unbounded history.
-- The provider is optional, selected via `AI_GUIDE_MODEL`, and off by
-  default. With no provider configured, or on a
-  `402`/`429`/`503`/timeout response, return `status: "fallback"` and point
-  to the static FAQ; the rest of the site stays fully usable.
+- The provider is optional, selected via `GROQ_MODEL`/`GROQ_API_KEY`, and
+  off by default, including on Development or a local/unset `VERCEL_ENV`
+  (only `VERCEL_ENV === "preview"` or `"production"` can activate it, and
+  only once both vars are also set for that environment). Production
+  activation was an explicit, separate authorization made only after a
+  passing Preview verification (C9A, 2026-09-05) — it changed no model,
+  limit, ZDR setting, corpus, or other control. With no provider
+  configured, or on a `401`/`403`/`429`/`503`/timeout response, return
+  `status: "fallback"` and point to the static FAQ; the rest of the site
+  stays fully usable. The transport calls Groq's official OpenAI-compatible
+  endpoint directly (`https://api.groq.com/openai/v1`), never a
+  third-party gateway, and never retries a failed call.
 - No tool call, function call, or side-effecting action is available to the
   model. It answers from retrieved text only.
 - Never log a full prompt or a full model response. Log only bounded,

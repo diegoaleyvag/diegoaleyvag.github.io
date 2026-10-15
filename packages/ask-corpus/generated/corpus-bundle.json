@@ -8,7 +8,7 @@
     "en": {
       "label": "Availability",
       "question": "Is Diego available for a job or internship?",
-      "answer": "Diego is open to remote work and relocation, and is seeking AI/ML engineering and data science roles. He's currently interning in AI engineering at Infosys while finishing his degree.",
+      "answer": "Diego is open to remote work and relocation, and is seeking AI/ML engineering and data science roles. He interned in AI engineering at Infosys (February–August 2026) and is finishing his degree.",
       "keywords": [
         "available",
         "availability",
@@ -26,7 +26,7 @@
     "es": {
       "label": "Disponibilidad",
       "question": "¿Diego está disponible para un empleo o pasantía?",
-      "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos de ingeniería de IA/ML y ciencia de datos. Actualmente hace una pasantía de ingeniería de IA en Infosys mientras termina la carrera.",
+      "answer": "Diego está abierto a trabajo remoto y a reubicarse, y busca puestos de ingeniería de IA/ML y ciencia de datos. Hizo una pasantía de ingeniería de IA en Infosys (febrero–agosto de 2026) y está terminando la carrera.",
       "keywords": [
         "disponible",
         "disponibilidad",
@@ -526,7 +526,7 @@
     "en": {
       "label": "Technologies Diego uses",
       "question": "What technologies does Diego use?",
-      "answer": "Python, SQL, and TypeScript; RAG, LangChain/LangGraph, and LLM fine-tuning; FastAPI, PostgreSQL, and W3C DIDs/VCs; Azure OpenAI, Docker, and OpenTelemetry. Full list on the résumé.",
+      "answer": "Python, SQL, and C#; RAG, LangChain/LangGraph, and LLM fine-tuning; FastAPI, PostgreSQL, and AI governance; Azure OpenAI and Docker. Full list on the résumé.",
       "keywords": [
         "technologies",
         "tech stack",
@@ -543,7 +543,7 @@
     "es": {
       "label": "Tecnologías que usa Diego",
       "question": "¿Qué tecnologías usa Diego?",
-      "answer": "Python, SQL y TypeScript; RAG, LangChain/LangGraph y ajuste fino de LLM; FastAPI, PostgreSQL y W3C DIDs/VCs; Azure OpenAI, Docker y OpenTelemetry. Lista completa en el currículum.",
+      "answer": "Python, SQL y C#; RAG, LangChain/LangGraph y ajuste fino de LLM; FastAPI, PostgreSQL y gobernanza de IA; Azure OpenAI y Docker. Lista completa en el currículum.",
       "keywords": [
         "tecnologias",
         "stack",
@@ -606,7 +606,7 @@
     "en": {
       "label": "Who Diego is",
       "question": "Who is Diego?",
-      "answer": "Diego is a final-year BSc Data Science student in Mexico City, interning in AI engineering at Infosys through the InStep Global Internship. He's focused on the point where a model or pipeline has to stop being a demo and become something a stranger can run and check.",
+      "answer": "Diego is a final-year BSc Data Science student in Mexico City, interned in AI engineering at Infosys (February–August 2026) through the InStep Global Internship. He focuses on turning models and pipelines from demos into things a stranger can run and check.",
       "keywords": [
         "who",
         "diego",
@@ -622,7 +622,7 @@
     "es": {
       "label": "Quién es Diego",
       "question": "¿Quién es Diego?",
-      "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hace una pasantía de ingeniería de IA en Infosys, dentro del programa InStep Global Internship. Le interesa el momento en que un modelo deja de ser demo y se vuelve algo verificable.",
+      "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hizo una pasantía de ingeniería de IA en Infosys (febrero–agosto de 2026), dentro del programa InStep Global Internship. Le interesa convertir modelos y pipelines de demos en algo verificable.",
       "keywords": [
         "quien",
         "diego",

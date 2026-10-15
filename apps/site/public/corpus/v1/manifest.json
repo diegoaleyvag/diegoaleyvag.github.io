@@ -6,8 +6,8 @@
       "id": "availability-status",
       "path": "/corpus/v1/availability-status.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1192,
-      "sha256": "db7eaf2691f2ff3534e25c86300fda52a4f7e69401202355711889d2b495feba"
+      "byteLength": 1222,
+      "sha256": "379f043bbe1f31082f52a52a62fdd89c8f14ee354cbfdda20b623ed5129e0117"
     },
     {
       "id": "credential-claude-foundations",
@@ -111,8 +111,8 @@
       "id": "faq-technologies",
       "path": "/corpus/v1/faq-technologies.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1189,
-      "sha256": "9ee936f3faef0d369aaae607aaf05d00d13fd117843674e0224164ea9893a7f4"
+      "byteLength": 1147,
+      "sha256": "eba99dc47d540df1b0ef92437220e8bcf470878fd37added08eb091d12dfb7ba"
     },
     {
       "id": "faq-what-is-five-decisions",
@@ -125,8 +125,8 @@
       "id": "identity-bio",
       "path": "/corpus/v1/identity-bio.json",
       "schemaVersion": "1.0.0",
-      "byteLength": 1249,
-      "sha256": "1df2ad61dad51ca8061b3827b46ce833ee234fa20759843126394ab8fb65645e"
+      "byteLength": 1253,
+      "sha256": "b88bfc77564c82d468a549b6c5c606646998d47af42e2d512eee6ff90d3cf961"
     },
     {
       "id": "identity-positioning",

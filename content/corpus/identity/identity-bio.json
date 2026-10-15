@@ -7,7 +7,7 @@
   "en": {
     "label": "Who Diego is",
     "question": "Who is Diego?",
-    "answer": "Diego is a final-year BSc Data Science student in Mexico City, interning in AI engineering at Infosys through the InStep Global Internship. He's focused on the point where a model or pipeline has to stop being a demo and become something a stranger can run and check.",
+    "answer": "Diego is a final-year BSc Data Science student in Mexico City, interned in AI engineering at Infosys (February–August 2026) through the InStep Global Internship. He focuses on turning models and pipelines from demos into things a stranger can run and check.",
     "keywords": [
       "who",
       "diego",
@@ -23,7 +23,7 @@
   "es": {
     "label": "Quién es Diego",
     "question": "¿Quién es Diego?",
-    "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hace una pasantía de ingeniería de IA en Infosys, dentro del programa InStep Global Internship. Le interesa el momento en que un modelo deja de ser demo y se vuelve algo verificable.",
+    "answer": "Diego cursa el último año de la licenciatura en Ciencia de Datos en Ciudad de México y hizo una pasantía de ingeniería de IA en Infosys (febrero–agosto de 2026), dentro del programa InStep Global Internship. Le interesa convertir modelos y pipelines de demos en algo verificable.",
     "keywords": [
       "quien",
       "diego",
